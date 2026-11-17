@@ -51,6 +51,10 @@ h1{font-size:clamp(1.7rem,4.4vw,2.6rem)} h2{font-size:1.35rem} h3{font-size:1.05
 .nav a:hover{color:var(--fg)}
 .nav a.on{color:var(--teal-muda)}
 .mode{font-size:.85rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+.lang{display:inline-flex;border:1px solid var(--line-kuat);border-radius:99px;overflow:hidden;background:rgba(3,9,31,.45)}
+.lang button{font:700 .76rem var(--mono);letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:6px 13px;cursor:pointer}
+.lang button:hover{color:var(--fg)}
+.lang button.on{background:linear-gradient(135deg,var(--biru),var(--teal));color:#04142e}
 .foot{color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);margin-top:8px}
 
 .stack{display:grid;gap:24px}

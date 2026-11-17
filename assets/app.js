@@ -5,6 +5,153 @@
 (function () {
 'use strict';
 
+/* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
+const EN = {
+"Peta & Janji": "Map & Pledge",
+"Gerbang Prasyarat": "Prerequisite Gate",
+"Penguatan Prasyarat": "Prerequisite Reinforcement",
+"Remediasi Prasyarat": "Prerequisite Remediation",
+"Pemantik & Prakonsepsi": "Hook & Preconceptions",
+"Penyajian Konsep Awal": "First Concept Exposure",
+"Pembahasan Prakonsepsi": "Preconception Debrief",
+"Inti Terbimbing": "Guided Core",
+"Praktik Terstruktur": "Structured Practice",
+"Gerbang Formatif Kelas": "Class Formative Gate",
+"Diferensiasi T1–T4": "Differentiation T1–T4",
+"Konsolidasi & Jangkar": "Consolidation & Anchor",
+"Latihan Bertingkat": "Tiered Practice",
+"Tugas Kinerja": "Performance Task",
+"Gerbang Ketuntasan TP": "LO Mastery Gate",
+"Pengulangan Berjarak": "Spaced Retrieval",
+"Dibuka": "Opened",
+"≥80% lanjut · 60–79% → S2b · <60% → S2c": "≥80% proceed · 60–79% → S2b · <60% → S2c",
+"Ulang S2 satu kali": "Retake S2 once",
+"Ulang S2": "Retake S2",
+"Terkirim (tidak dinilai)": "Submitted (ungraded)",
+"Cek sisipan terjawab": "Embedded checks answered",
+"Dipimpin guru": "Teacher-led",
+"Lembar kerja terisi": "Worksheet completed",
+"≥80% benar": "≥80% correct",
+"Sesuai cabang S8": "Per the S8 branch",
+"Jangkar terkirim": "Anchor submitted",
+"Benar 3 dari 4 (≥75%) · H+0–H+2": "3 of 4 correct (≥75%) · D+0–D+2",
+"Minimal T3 (dinilai guru) · H+1–H+5": "At least T3 (teacher-graded) · D+1–D+5",
+"Butir baru, sekali jalan · H+2–H+7": "Fresh items, one attempt · D+2–D+7",
+"H+14, +30, +60 · gagal → turun": "D+14, +30, +60 · fail → drop",
+"Kuis Blok": "Block Quiz",
+"Setiap 2–4 TP": "Every 2–4 LOs",
+"Muara Topik": "Topic Synthesis",
+"Setelah TP terakhir": "After the final LO",
+"Tes Topik": "Topic Test",
+"Akhir topik": "End of topic",
+"Tantangan Mata Pelajaran": "Subject Challenge",
+"Berkala, lintas topik": "Periodic, across topics",
+"Fase 0 · Pra-KBM": "Phase 0 · Pre-class",
+"Fase 1 · KBM": "Phase 1 · In class",
+"Fase 2 · Pasca-KBM": "Phase 2 · Post-class",
+"Belum Mulai": "Not Started",
+"Siap": "Ready",
+"Mencoba": "Attempting",
+"Akrab": "Familiar",
+"Mahir": "Proficient",
+"Tuntas": "Mastered",
+" Stabil": " Stable",
+"Kurikulum Nasional · persiapan TKA": "Indonesian national curriculum · TKA preparation",
+"Kelas 9–10 · jalur internasional": "Grades 9–10 · international track",
+"Kelas 11–12 · jalur internasional": "Grades 11–12 · international track",
+"Fase E–F · jalur nasional": "Phases E–F · national track",
+"Hanya untuk skor S2 60–79%": "Only for an S2 score of 60–79%",
+"Hanya untuk skor S2 di bawah 60%": "Only for an S2 score below 60%",
+"Lulus Gerbang Prasyarat (S2 ≥ 80%) dulu": "Pass the Prerequisite Gate (S2 ≥ 80%) first",
+"Kirim prakonsepsi S3 sebelum tatap muka": "Submit the S3 preconceptions before the lesson",
+"Kerjakan Gerbang Formatif S8 di kelas": "Sit the S8 Class Formative Gate in class",
+"Kerjakan Latihan Bertingkat S11 dulu": "Do the S11 Tiered Practice first",
+"Kerjakan S11 dulu": "Do S11 first",
+"Tugas Kinerja S12 harus dinilai minimal T3": "The S12 Performance Task must be graded at least T3",
+"Kuis tertunda dibuka %s (H+2 setelah S11)": "The delayed quiz opens %s (D+2 after S11)",
+"Sudah dikerjakan (sekali jalan). Gagal? Ulangi S11 dulu": "Already attempted (one attempt only). Failed? Redo S11 first",
+"Terbuka setelah status Tuntas": "Opens once the status is Mastered",
+"Tiga interval lulus: Tuntas Stabil": "Three intervals passed: Mastered & Stable",
+"Interval %s jatuh tempo %s": "Interval %s is due %s",
+"Belajar Fisika sampai tuntas": "Learning physics to mastery",
+"Tiga jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.": "Three tracks, one way of working: every learning objective is walked through stage by stage, from pre-class to post-class, and counts as mastered only once its final gate is passed.",
+"Pilih jalur": "Choose a track",
+"Lanjutkan belajar": "Continue learning",
+"Mulai": "Start",
+"Topik lain": "Other topics",
+"Segera hadir": "Coming soon",
+"%s topik · %s TP": "%s topics · %s LOs",
+"1 topik · %s TP": "1 topic · %s LOs",
+"1 TP": "1 LO",
+"1 TP Tuntas": "1 LO mastered",
+"%s TP Tuntas": "%s LOs mastered",
+"%s dari %s TP Tuntas": "%s of %s LOs mastered",
+"%s TP": "%s LOs",
+"Fase ": "Phase ",
+"Topik": "Topics",
+"Materi jalur ini sedang disiapkan. Jalur yang sudah terbuka bisa dilihat di <a href=\"#\">beranda</a>.": "Materials for this track are being prepared. The tracks already open are listed on the <a href=\"#\">home page</a>.",
+"Guru: tambahkan folder topik di <span class=\"mono\">konten/</span> dengan <span class=\"mono\">\"jalur\": \"%s\"</span> pada <span class=\"mono\">topik.json</span>.": "Teacher: add a topic folder under <span class=\"mono\">konten/</span> with <span class=\"mono\">\"jalur\": \"%s\"</span> in its <span class=\"mono\">topik.json</span>.",
+"Tujuan Pembelajaran": "Learning Objectives",
+"Lapis topik": "Topic layers",
+"Belum ada TP.": "No learning objectives yet.",
+"Belum diunggah": "Not uploaded yet",
+"Belum diunggah.": "Not uploaded yet.",
+"Beranda": "Home",
+"Status turun ke Mahir: pengulangan berjarak gagal. Jadwal diulang dari H+14.": "Status dropped to Proficient: a spaced retrieval was failed. The schedule restarts at D+14.",
+"Tier T%s: perlu pendampingan pada konteks baru, bukan tambahan latihan soal.": "Tier T%s: needs coaching on unfamiliar contexts, not more practice questions.",
+"Kelengkapan: tahapan rangka belum diunggah — %s.": "Completeness: core stages not yet uploaded — %s.",
+"Jadwal pengulangan berjarak (S14)": "Spaced retrieval schedule (S14)",
+"Interval": "Interval",
+"Hari": "Day",
+"Jatuh tempo": "Due",
+"Hasil": "Result",
+"Interval %s": "Interval %s",
+"berikutnya": "next",
+"lulus": "passed",
+"gagal": "failed",
+"Tahapan %s belum diunggah.": "Stage %s has not been uploaded.",
+"Lulus apabila: %s": "Passes when: %s",
+"Mode guru: tahapan ini masih terkunci untuk siswa (%s).": "Teacher mode: this stage is still locked for students (%s).",
+"Tandai bukti terkirim": "Mark evidence submitted",
+"Tier diisi guru (rubrik T1–T4).": "The tier is set by the teacher (T1–T4 rubric).",
+"Skor (%)": "Score (%)",
+"Simpan skor": "Save score",
+"Terisi otomatis bila halaman kuis mengirim skor.": "Filled in automatically when the quiz page reports a score.",
+"Tandai selesai": "Mark done",
+"Panel guru · %s": "Teacher panel · %s",
+"Tier dari rubrik S9/S12": "Tier from the S9/S12 rubric",
+"Hapus progres TP ini": "Clear progress for this LO",
+"Selisih S11 − S13: %s · Riwayat status: %s": "S11 − S13 gap: %s · Status history: %s",
+"%s poin": "%s points",
+"belum ada data": "no data yet",
+"Papan guru": "Teacher board",
+"Kelengkapan & posisi": "Completeness & standing",
+"Kelengkapan tahapan": "Stage completeness",
+"✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.": "✕ = a core stage (S1, S2, S3, S5, S8, S10, S12, S13, S14) has not been uploaded. An LO with any ✕ is not ready to publish.",
+"Papan posisi": "Standing board",
+"Warna = status, angka = tier. Versi statis hanya membaca progres di perangkat ini. Papan seluruh kelas butuh login dan database (Tahap 6 panduan).": "Colour = status, number = tier. This static version only reads progress stored on this device. A whole-class board needs sign-in and a database (Stage 6 of the guide).",
+"Simulasi waktu": "Time simulation",
+"Untuk uji alur kuis tertunda (H+2) dan pengulangan (H+14). Sekarang digeser %s hari.": "For testing the delayed-quiz (D+2) and spaced-retrieval (D+14) flows. Currently shifted by %s days.",
+"+2 hari": "+2 days",
+"+14 hari": "+14 days",
+"Kembali ke hari ini": "Back to today",
+"Siswa": "Student",
+"Perangkat ini": "This device",
+"Terbit": "Publish",
+"Belum": "Not yet",
+"TP": "LO",
+"Belajar": "Learn",
+"Papan Guru": "Teacher Board",
+"Mode guru": "Teacher mode",
+"Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.": "Mastery Learning Content Flow · CMS FIMS · Fitrah Islamic World Academy. Progress is stored on this device.",
+"Memuat katalog…": "Loading the catalogue…",
+"katalog.json belum ada. Jalankan <span class=\"mono\">node build.js</span> (Cloudflare menjalankannya otomatis).": "katalog.json is missing. Run <span class=\"mono\">node build.js</span> (Cloudflare runs it automatically).",
+"Fisika FIWA — beranda": "Fisika FIWA — home"
+};
+let BHS = 'id';
+const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
+const trf = (x, ...v) => { let i = 0; return tr(x).replace(/%s/g, () => v[i++]); };
+
 const TAHAPAN = [
   { id:'S1',  f:0, nama:'Peta & Janji',            lulus:'Dibuka',                         rangka:1 },
   { id:'S2',  f:0, nama:'Gerbang Prasyarat',       lulus:'≥80% lanjut · 60–79% → S2b · <60% → S2c', gate:1, skor:1, rangka:1 },
@@ -47,6 +194,7 @@ const KEY = 'va-fims-v1';
 let db = {};
 try { db = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { db = {}; }
 db.tp = db.tp || {}; db.opsi = db.opsi || {};
+BHS = db.opsi.bahasa === 'en' ? 'en' : 'id';
 const simpan = () => { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) {} };
 const prog = slug => (db.tp[slug] = db.tp[slug] || { ev: {}, tier: null, s14: [], riwayat: [] });
 const now = () => Date.now() + (db.opsi.geser || 0) * HARI;   // "geser hari" = simulasi waktu untuk uji coba
@@ -78,26 +226,26 @@ function hitung(tp) {
 function kunci(tp, id, h) {
   const e = h.e, sk = x => e[x] && e[x].skor;
   if (['S1', 'S2'].includes(id)) return null;
-  if (id === 'S2b') return (sk('S2') != null && sk('S2') >= 60 && sk('S2') < 80) ? null : 'Hanya untuk skor S2 60–79%';
-  if (id === 'S2c') return (sk('S2') != null && sk('S2') < 60) ? null : 'Hanya untuk skor S2 di bawah 60%';
-  if (h.s < 1) return 'Lulus Gerbang Prasyarat (S2 ≥ 80%) dulu';
+  if (id === 'S2b') return (sk('S2') != null && sk('S2') >= 60 && sk('S2') < 80) ? null : tr('Hanya untuk skor S2 60–79%');
+  if (id === 'S2c') return (sk('S2') != null && sk('S2') < 60) ? null : tr('Hanya untuk skor S2 di bawah 60%');
+  if (h.s < 1) return tr('Lulus Gerbang Prasyarat (S2 ≥ 80%) dulu');
   if (['S3', 'S4'].includes(id)) return null;
-  if (['S5', 'S6', 'S7', 'S8', 'S9', 'S10'].includes(id)) return e.S3 ? null : 'Kirim prakonsepsi S3 sebelum tatap muka';
-  if (id === 'S11') return e.S8 ? null : 'Kerjakan Gerbang Formatif S8 di kelas';
-  if (id === 'S12') return e.S11 ? null : 'Kerjakan Latihan Bertingkat S11 dulu';
+  if (['S5', 'S6', 'S7', 'S8', 'S9', 'S10'].includes(id)) return e.S3 ? null : tr('Kirim prakonsepsi S3 sebelum tatap muka');
+  if (id === 'S11') return e.S8 ? null : tr('Kerjakan Gerbang Formatif S8 di kelas');
+  if (id === 'S12') return e.S11 ? null : tr('Kerjakan Latihan Bertingkat S11 dulu');
   if (id === 'S13') {
-    if (!e.S11) return 'Kerjakan S11 dulu';
-    if ((h.tier || 0) < 3) return 'Tugas Kinerja S12 harus dinilai minimal T3';
+    if (!e.S11) return tr('Kerjakan S11 dulu');
+    if ((h.tier || 0) < 3) return tr('Tugas Kinerja S12 harus dinilai minimal T3');
     const buka = e.S11.waktu + 2 * HARI;
-    if (now() < buka) return 'Kuis tertunda dibuka ' + tgl(buka) + ' (H+2 setelah S11)';
-    if (e.S13 && e.S13.waktu > e.S11.waktu) return 'Sudah dikerjakan (sekali jalan). Gagal? Ulangi S11 dulu';
+    if (now() < buka) return trf('Kuis tertunda dibuka %s (H+2 setelah S11)', tgl(buka));
+    if (e.S13 && e.S13.waktu > e.S11.waktu) return tr('Sudah dikerjakan (sekali jalan). Gagal? Ulangi S11 dulu');
     return null;
   }
   if (id === 'S14') {
-    if (!(e.S13 && e.S13.skor >= h.amb && h.s >= 4)) return 'Terbuka setelah status Tuntas';
+    if (!(e.S13 && e.S13.skor >= h.amb && h.s >= 4)) return tr('Terbuka setelah status Tuntas');
     const j = jadwalS14(h).find(x => x.berikut);
-    if (!j) return 'Tiga interval lulus: Tuntas Stabil';
-    if (now() < j.jatuh) return 'Interval ' + j.ke + ' jatuh tempo ' + tgl(j.jatuh);
+    if (!j) return tr('Tiga interval lulus: Tuntas Stabil');
+    if (now() < j.jatuh) return trf('Interval %s jatuh tempo %s', j.ke, tgl(j.jatuh));
     return null;
   }
   return null;
@@ -149,8 +297,8 @@ function langkah(tp) {
 /* ---------- utilitas tampilan ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const tgl = t => new Date(t).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
-const chip = (s, stabil) => `<span class="chip st${s}"><span class="dot"></span>${STATUS[s]}${stabil ? ' Stabil' : ''}</span>`;
+const tgl = w => new Date(w).toLocaleDateString(BHS === 'en' ? 'en-GB' : 'id-ID', { day: 'numeric', month: 'short' });
+const chip = (s, stabil) => `<span class="chip st${s}"><span class="dot"></span>${tr(STATUS[s])}${stabil ? tr(' Stabil') : ''}</span>`;
 const tierTag = t => t ? `<span class="tier">T${t}</span>` : '<span class="tier muted">T–</span>';
 let K = { topik: [] };
 const semuaTP = () => K.topik.flatMap(t => t.tp.map(tp => Object.assign({ _t: t }, tp)));
@@ -162,12 +310,12 @@ const topikJalur = j => K.topik.filter(t => j.cocok.test(String(t.jalur || '').t
 const jalurTopik = t => JALUR.find(j => j.cocok.test(String(t.jalur || '').trim())) || null;
 const topikLepas = () => K.topik.filter(t => !jalurTopik(t));
 const remah = t => { const j = t && jalurTopik(t);
-  return `<a href="#">Beranda</a> / ${j ? `<a href="#jalur-${j.slug}">${esc(j.kode)}</a> / ` : ''}`; };
+  return `<a href="#">${tr('Beranda')}</a> / ${j ? `<a href="#jalur-${j.slug}">${esc(j.kode)}</a> / ` : ''}`; };
 const kartuTopik = t => { const n = t.tp.length, tuntas = t.tp.filter(tp => hitung(tp).s === 5).length;
-  return `<a class="card" href="#topik-${t.slug}"><div class="eyebrow">${esc(t.mapel)}${t.fase ? ' · Fase ' + esc(t.fase) : ''}</div>
-    <h3>${esc(t.nama)}</h3><div class="mono muted">${esc(t.kode)} · ${n} TP</div>
+  return `<a class="card" href="#topik-${t.slug}"><div class="eyebrow">${esc(t.mapel)}${t.fase ? ' · ' + tr('Fase ') + esc(t.fase) : ''}</div>
+    <h3>${esc(t.nama)}</h3><div class="mono muted">${esc(t.kode)} · ${n === 1 ? tr('1 TP') : trf('%s TP', n)}</div>
     <div class="meter"><i style="width:${n ? Math.round(tuntas / n * 100) : 0}%"></i></div>
-    <div class="muted" style="font-size:.85rem">${tuntas} dari ${n} TP Tuntas</div></a>`; };
+    <div class="muted" style="font-size:.85rem">${trf('%s dari %s TP Tuntas', tuntas, n)}</div></a>`; };
 
 /* ---------- tampilan: beranda ---------- */
 function kotakJalur() {
@@ -176,13 +324,13 @@ function kotakJalur() {
     const tps = ts.flatMap(t => t.tp);
     const tuntas = tps.filter(tp => hitung(tp).s === 5).length;
     const isi = n
-      ? `<span class="jm">${n} topik · ${tps.length} TP</span>`
-      : `<span class="jm segera">Segera hadir</span>`;
+      ? `<span class="jm">${n === 1 ? trf('1 topik · %s TP', tps.length) : trf('%s topik · %s TP', n, tps.length)}</span>`
+      : `<span class="jm segera">${tr('Segera hadir')}</span>`;
     return `<a class="jalur j-${j.slug}" href="#jalur-${j.slug}">
       <span class="jk">${esc(j.kode)}</span>
       <span class="jn">${j.nama}</span>
-      <span class="jt">${j.teks}</span>
-      <span class="jb">${isi}${tps.length ? `<span class="jm">${tuntas} TP Tuntas</span>` : ''}</span>
+      <span class="jt">${tr(j.teks)}</span>
+      <span class="jb">${isi}${tps.length ? `<span class="jm">${tuntas === 1 ? tr('1 TP Tuntas') : trf('%s TP Tuntas', tuntas)}</span>` : ''}</span>
     </a>`;
   }).join('');
 }
@@ -194,20 +342,20 @@ function beranda() {
   const mulai = Object.keys(db.tp || {}).some(k => Object.keys((db.tp[k] || {}).ev || {}).length);
   const lanjut = (mulai && next)
     ? `<a class="next" href="#tp-${next.tp.slug}-${next.id.toLowerCase()}"><span class="what">
-         <span class="eyebrow">Lanjutkan belajar</span>
-         <b>${esc(T(next.id).nama)}</b>
+         <span class="eyebrow">${tr('Lanjutkan belajar')}</span>
+         <b>${esc(tr(T(next.id).nama))}</b>
          <span class="muted"><span class="mono">${esc(next.tp.kode)} · ${next.id}</span> — ${esc(next.tp.judul)}</span></span>
-       <span class="btn">Mulai</span></a>`
+       <span class="btn">${tr('Mulai')}</span></a>`
     : '';
   const lepas = topikLepas();
   const lain = lepas.length
-    ? `<section class="stack"><h2>Topik lain</h2><div class="grid-topik">${lepas.map(kartuTopik).join('')}</div></section>`
+    ? `<section class="stack"><h2>${tr('Topik lain')}</h2><div class="grid-topik">${lepas.map(kartuTopik).join('')}</div></section>`
     : '';
   return `<div class="stack">
     <section class="hero"><p class="eyebrow">Fitrah Islamic World Academy</p>
-      <h1>Belajar Fisika sampai tuntas</h1>
-      <p class="lede">Tiga jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.</p></section>
-    <section class="stack"><h2 class="sr-tajuk">Pilih jalur</h2><div class="grid-jalur">${kotakJalur()}</div></section>
+      <h1>${tr('Belajar Fisika sampai tuntas')}</h1>
+      <p class="lede">${tr('Tiga jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.')}</p></section>
+    <section class="stack"><h2 class="sr-tajuk">${tr('Pilih jalur')}</h2><div class="grid-jalur">${kotakJalur()}</div></section>
     ${lanjut}${lain}</div>`;
 }
 
@@ -215,11 +363,11 @@ function beranda() {
 function halJalur(j) {
   const ts = topikJalur(j);
   const kartu = ts.map(kartuTopik).join('');
-  return `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / ${esc(j.kode)}</div>
-    <section class="hero mini j-${j.slug}"><p class="eyebrow">${j.sub}</p><h1>${j.nama}</h1><p class="lede">${j.teks}</p></section>
-    <section class="stack"><h2>Topik</h2>
+  return `<div class="stack"><div class="crumbs"><a href="#">${tr('Beranda')}</a> / ${esc(j.kode)}</div>
+    <section class="hero mini j-${j.slug}"><p class="eyebrow">${tr(j.sub)}</p><h1>${j.nama}</h1><p class="lede">${tr(j.teks)}</p></section>
+    <section class="stack"><h2>${tr('Topik')}</h2>
       ${kartu ? `<div class="grid-topik">${kartu}</div>`
-              : `<div class="note">Materi jalur ini sedang disiapkan. Jalur yang sudah terbuka bisa dilihat di <a href="#">beranda</a>.${guru() ? ` <span class="muted">Guru: tambahkan folder topik di <span class="mono">konten/</span> dengan <span class="mono">"jalur": "${esc(j.kode)}"</span> pada <span class="mono">topik.json</span>.</span>` : ''}</div>`}
+              : `<div class="note">${tr('Materi jalur ini sedang disiapkan. Jalur yang sudah terbuka bisa dilihat di <a href="#">beranda</a>.')}${guru() ? ` <span class="muted">${trf('Guru: tambahkan folder topik di <span class="mono">konten/</span> dengan <span class="mono">"jalur": "%s"</span> pada <span class="mono">topik.json</span>.', esc(j.kode))}</span>` : ''}</div>`}
     </section></div>`;
 }
 
@@ -230,18 +378,18 @@ function halTopik(t) {
       <span class="t"><b>${esc(tp.judul)}</b>${tp.teks ? `<br><span class="muted">${esc(tp.teks)}</span>` : ''}</span>
       <span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span></a>`; }).join('');
   const lapis = LAPIS.map(l => { const ada = t.tahapan[l.id];
-    return ada ? `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(l.nama)}<small>${esc(l.kapan)}</small></span><span></span></a>`
-               : `<div class="tile miss"><span class="sid">${l.id}</span><span class="nm">${esc(l.nama)}<small>Belum diunggah</small></span><span></span></div>`; }).join('');
+    return ada ? `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(l.nama))}<small>${esc(tr(l.kapan))}</small></span><span></span></a>`
+               : `<div class="tile miss"><span class="sid">${l.id}</span><span class="nm">${esc(tr(l.nama))}<small>${tr('Belum diunggah')}</small></span><span></span></div>`; }).join('');
   return `<div class="stack"><div class="crumbs">${remah(t)}${esc(t.kode)}</div>
     <div><div class="eyebrow">${esc(t.mapel)}${t.jalur ? ' · ' + esc(t.jalur) : ''}</div><h1>${esc(t.nama)}</h1></div>
-    <section class="stack"><h2>Tujuan Pembelajaran</h2><div class="list">${tps || '<p class="muted">Belum ada TP.</p>'}</div></section>
-    <section class="stack"><h2>Lapis topik</h2><div class="layer">${lapis}</div></section></div>`;
+    <section class="stack"><h2>${tr('Tujuan Pembelajaran')}</h2><div class="list">${tps || `<p class="muted">${tr('Belum ada TP.')}</p>`}</div></section>
+    <section class="stack"><h2>${tr('Lapis topik')}</h2><div class="layer">${lapis}</div></section></div>`;
 }
 
 /* ---------- tampilan: TP ---------- */
 function halTP(tp, aktif) {
   const h = hitung(tp), t = tp._t;
-  const ladder = STATUS.map((n, i) => `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${n}</div>`).join('');
+  const ladder = STATUS.map((n, i) => `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${tr(n)}</div>`).join('');
   const lanes = [0, 1, 2].map(f => {
     const tiles = TAHAPAN.filter(s => s.f === f).map(s => {
       const ada = tp.tahapan[s.id], k = kunci(tp, s.id, h), ev = h.e[s.id];
@@ -251,11 +399,11 @@ function halTP(tp, aktif) {
       else if (s.id === 'S14') mark = h.p.s14.length ? h.p.s14.length + '× ' : '';
       else if (ev) mark = ev.skor != null ? ev.skor + '%' : '✓';
       const cls = ['tile', s.gate ? 'gate' : '', s.cabang ? 'branch' : '', !ada ? 'miss' : '', ada && k ? 'lock' : '', aktif === s.id ? 'cur' : ''].join(' ');
-      const sub = !ada ? 'Belum diunggah' : (k ? '🔒 ' + k : s.lulus);
-      const inner = `<span class="sid">${s.id}${s.gate ? ' ▲' : ''}</span><span class="nm">${esc(s.nama)}<small>${esc(sub)}</small></span><span class="mark${ev ? ' ok' : ''}">${esc(mark)}</span>`;
+      const sub = !ada ? tr('Belum diunggah') : (k ? '🔒 ' + k : tr(s.lulus));
+      const inner = `<span class="sid">${s.id}${s.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(s.nama))}<small>${esc(sub)}</small></span><span class="mark${ev ? ' ok' : ''}">${esc(mark)}</span>`;
       return ada && (!k || guru()) ? `<a class="${cls}" href="#tp-${tp.slug}-${s.id.toLowerCase()}">${inner}</a>` : `<div class="${cls}">${inner}</div>`;
     }).join('');
-    return `<div class="phase"><h3>${FASE[f]}</h3>${tiles}</div>`;
+    return `<div class="phase"><h3>${tr(FASE[f])}</h3>${tiles}</div>`;
   }).join('');
   const lengkap = TAHAPAN.filter(s => s.rangka && !tp.tahapan[s.id]).map(s => s.id);
   return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${esc(tp.kode)}</div>
@@ -263,9 +411,9 @@ function halTP(tp, aktif) {
       <h1>${esc(tp.judul)}</h1>${tp.teks ? `<p class="muted" style="margin:.4em 0 0;max-width:65ch">${esc(tp.teks)}</p>` : ''}</div>
       <div class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</div></div>
     <div class="ladder">${ladder}</div>
-    ${h.s === 4 && h.p.s14.length && h.p.s14[h.p.s14.length - 1].hasil === 'gagal' ? '<div class="note">Status turun ke Mahir: pengulangan berjarak gagal. Jadwal diulang dari H+14.</div>' : ''}
-    ${(h.tier && h.tier < 3) ? '<div class="note">Tier T' + h.tier + ': perlu pendampingan pada konteks baru, bukan tambahan latihan soal.</div>' : ''}
-    ${guru() && lengkap.length ? `<div class="note">Kelengkapan: tahapan rangka belum diunggah — ${lengkap.join(', ')}.</div>` : ''}
+    ${h.s === 4 && h.p.s14.length && h.p.s14[h.p.s14.length - 1].hasil === 'gagal' ? `<div class="note">${tr('Status turun ke Mahir: pengulangan berjarak gagal. Jadwal diulang dari H+14.')}</div>` : ''}
+    ${(h.tier && h.tier < 3) ? `<div class="note">${trf('Tier T%s: perlu pendampingan pada konteks baru, bukan tambahan latihan soal.', h.tier)}</div>` : ''}
+    ${guru() && lengkap.length ? `<div class="note">${trf('Kelengkapan: tahapan rangka belum diunggah — %s.', lengkap.join(', '))}</div>` : ''}
     <div class="phases">${lanes}</div>
     ${aktif ? viewer(tp, aktif, h) : ''}
     ${h.e.S13 && h.e.S13.skor >= h.amb && h.s >= 4 ? s14Panel(h) : ''}
@@ -273,38 +421,40 @@ function halTP(tp, aktif) {
 }
 
 function s14Panel(h) {
-  const rows = jadwalS14(h).map(j => `<tr><td>Interval ${j.ke}</td><td>H+${j.hari}</td><td>${tgl(j.jatuh)}</td><td class="${j.hasil === 'lulus' ? 'y' : j.hasil === 'gagal' ? 'n' : 'o'}">${j.hasil || (j.berikut ? 'berikutnya' : '—')}</td></tr>`).join('');
-  return `<section class="panel stack"><h3>Jadwal pengulangan berjarak (S14)</h3><div class="scroll"><table><tr><th>Interval</th><th>Hari</th><th>Jatuh tempo</th><th>Hasil</th></tr>${rows}</table></div></section>`;
+  const rows = jadwalS14(h).map(j => `<tr><td>${trf('Interval %s', j.ke)}</td><td>${BHS === 'en' ? 'D' : 'H'}+${j.hari}</td><td>${tgl(j.jatuh)}</td><td class="${j.hasil === 'lulus' ? 'y' : j.hasil === 'gagal' ? 'n' : 'o'}">${j.hasil ? tr(j.hasil) : (j.berikut ? tr('berikutnya') : '—')}</td></tr>`).join('');
+  return `<section class="panel stack"><h3>${tr('Jadwal pengulangan berjarak (S14)')}</h3><div class="scroll"><table><tr><th>${tr('Interval')}</th><th>${tr('Hari')}</th><th>${tr('Jatuh tempo')}</th><th>${tr('Hasil')}</th></tr>${rows}</table></div></section>`;
 }
 
 function viewer(tp, id, h) {
   const s = T(id), f = tp.tahapan[id];
-  if (!f) return `<div class="panel">Tahapan ${id} belum diunggah.</div>`;
+  if (!f) return `<div class="panel">${trf('Tahapan %s belum diunggah.', id)}</div>`;
   const k = kunci(tp, id, h);
   if (k && !guru()) return `<div class="note">🔒 ${esc(k)}</div>`;
   let aksi;
-  if (s.tier) aksi = `<div class="row"><button class="btn" data-aksi="selesai">Tandai bukti terkirim</button><span class="muted">Tier diisi guru (rubrik T1–T4).</span></div>`;
-  else if (s.skor || id === 'S14') aksi = `<div class="row"><label for="skorIn">Skor (%)</label><input type="number" id="skorIn" min="0" max="100" style="width:90px"><button class="btn" data-aksi="skor">Simpan skor</button><span class="muted">Terisi otomatis bila halaman kuis mengirim skor.</span></div>`;
-  else aksi = `<div class="row"><button class="btn" data-aksi="selesai">Tandai selesai</button></div>`;
-  return `<section class="viewer" id="viewer"><div class="row" style="justify-content:space-between"><h2>${id} · ${esc(s.nama)}</h2><span class="muted">Lulus apabila: ${esc(s.lulus)}</span></div>
-    ${k ? `<div class="note">Mode guru: tahapan ini masih terkunci untuk siswa (${esc(k)}).</div>` : ''}
-    <iframe class="frame" src="${esc(f.berkas)}" title="${esc(s.nama)}"></iframe>${aksi}</section>`;
+  if (s.tier) aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai bukti terkirim')}</button><span class="muted">${tr('Tier diisi guru (rubrik T1–T4).')}</span></div>`;
+  else if (s.skor || id === 'S14') aksi = `<div class="row"><label for="skorIn">${tr('Skor (%)')}</label><input type="number" id="skorIn" min="0" max="100" style="width:90px"><button class="btn" data-aksi="skor">${tr('Simpan skor')}</button><span class="muted">${tr('Terisi otomatis bila halaman kuis mengirim skor.')}</span></div>`;
+  else aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai selesai')}</button></div>`;
+  return `<section class="viewer" id="viewer"><div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
+    ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
+    <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>${aksi}</section>`;
 }
 
 function panelGuruTP(tp, h) {
   const opsi = [0, 1, 2, 3, 4].map(n => `<option value="${n}"${(h.tier || 0) === n ? ' selected' : ''}>${n ? 'T' + n : '—'}</option>`).join('');
-  return `<section class="panel stack"><h3>Panel guru · ${esc(tp.kode)}</h3>
-    <div class="row"><label for="tierIn">Tier dari rubrik S9/S12</label><select id="tierIn">${opsi}</select>
-    <button class="btn ghost" data-aksi="reset">Hapus progres TP ini</button></div>
-    <div class="muted" style="font-size:.85rem">Selisih S11 − S13: ${h.e.S11 && h.e.S13 && h.e.S11.skor != null && h.e.S13.skor != null ? (h.e.S11.skor - h.e.S13.skor) + ' poin' : 'belum ada data'} · Riwayat status: ${h.p.riwayat.map(r => STATUS[r.ke]).join(' → ') || '—'}</div></section>`;
+  const selisih = h.e.S11 && h.e.S13 && h.e.S11.skor != null && h.e.S13.skor != null
+    ? trf('%s poin', h.e.S11.skor - h.e.S13.skor) : tr('belum ada data');
+  return `<section class="panel stack"><h3>${trf('Panel guru · %s', esc(tp.kode))}</h3>
+    <div class="row"><label for="tierIn">${tr('Tier dari rubrik S9/S12')}</label><select id="tierIn">${opsi}</select>
+    <button class="btn ghost" data-aksi="reset">${tr('Hapus progres TP ini')}</button></div>
+    <div class="muted" style="font-size:.85rem">${trf('Selisih S11 − S13: %s · Riwayat status: %s', selisih, h.p.riwayat.map(r => tr(STATUS[r.ke])).join(' → ') || '—')}</div></section>`;
 }
 
 /* ---------- tampilan: lapis topik ---------- */
 function halLapis(t, id) {
   const l = LAPIS.find(x => x.id === id), f = t.tahapan[id];
   return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
-    <h1>${id} · ${esc(l.nama)}</h1><p class="muted">${esc(l.kapan)}</p>
-    ${f ? `<iframe class="frame" src="${esc(f.berkas)}" title="${esc(l.nama)}"></iframe>` : '<p>Belum diunggah.</p>'}</div>`;
+    <h1>${id} · ${esc(tr(l.nama))}</h1><p class="muted">${esc(tr(l.kapan))}</p>
+    ${f ? `<iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(l.nama))}"></iframe>` : `<p>${tr('Belum diunggah.')}</p>`}</div>`;
 }
 
 /* ---------- tampilan: papan guru ---------- */
@@ -314,24 +464,39 @@ function halGuru() {
     const rows = t.tp.map(tp => `<tr><td class="l mono">${esc(tp.kode)}</td>${ids.map(id => {
       const s = T(id), ada = !!tp.tahapan[id];
       return `<td class="${ada ? 'y' : s.rangka ? 'n' : 'o'}">${ada ? '✓' : s.rangka ? '✕' : '·'}</td>`; }).join('')}
-      <td class="${TAHAPAN.some(s => s.rangka && !tp.tahapan[s.id]) ? 'n' : 'y'}">${TAHAPAN.some(s => s.rangka && !tp.tahapan[s.id]) ? 'Belum' : 'Siap'}</td></tr>`).join('');
-    return `<h3>${esc(t.kode)} · ${esc(t.nama)}</h3><div class="scroll"><table><tr><th class="l">TP</th>${ids.map(i => `<th>${i}</th>`).join('')}<th>Terbit</th></tr>${rows}</table></div>`;
+      <td class="${TAHAPAN.some(s => s.rangka && !tp.tahapan[s.id]) ? 'n' : 'y'}">${TAHAPAN.some(s => s.rangka && !tp.tahapan[s.id]) ? tr('Belum') : tr('Siap')}</td></tr>`).join('');
+    return `<h3>${esc(t.kode)} · ${esc(t.nama)}</h3><div class="scroll"><table><tr><th class="l">${tr('TP')}</th>${ids.map(i => `<th>${i}</th>`).join('')}<th>${tr('Terbit')}</th></tr>${rows}</table></div>`;
   }).join('');
   const tps = semuaTP();
-  const papan = `<div class="scroll"><table><tr><th class="l">Siswa</th>${tps.map(tp => `<th class="mono">${esc(tp.kode)}</th>`).join('')}</tr>
-    <tr><td class="l">Perangkat ini</td>${tps.map(tp => { const h = hitung(tp); return `<td class="cell st${h.s}" title="${STATUS[h.s]}">${h.tier ? 'T' + h.tier : ''}</td>`; }).join('')}</tr></table></div>
+  const papan = `<div class="scroll"><table><tr><th class="l">${tr('Siswa')}</th>${tps.map(tp => `<th class="mono">${esc(tp.kode)}</th>`).join('')}</tr>
+    <tr><td class="l">${tr('Perangkat ini')}</td>${tps.map(tp => { const h = hitung(tp); return `<td class="cell st${h.s}" title="${tr(STATUS[h.s])}">${h.tier ? 'T' + h.tier : ''}</td>`; }).join('')}</tr></table></div>
     <div class="row" style="font-size:.8rem">${STATUS.map((n, i) => chip(i)).join('')}</div>`;
   const geser = db.opsi.geser || 0;
-  return `<div class="stack"><div><div class="eyebrow">Papan guru</div><h1>Kelengkapan & posisi</h1></div>
-    <section class="panel stack"><h2>Kelengkapan tahapan</h2><p class="muted" style="margin:0">✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.</p>${kel}</section>
-    <section class="panel stack"><h2>Papan posisi</h2><p class="muted" style="margin:0">Warna = status, angka = tier. Versi statis hanya membaca progres di perangkat ini. Papan seluruh kelas butuh login dan database (Tahap 6 panduan).</p>${papan}</section>
-    <section class="panel stack"><h2>Simulasi waktu</h2><p class="muted" style="margin:0">Untuk uji alur kuis tertunda (H+2) dan pengulangan (H+14). Sekarang digeser ${geser} hari.</p>
-      <div class="row"><button class="btn ghost" data-geser="2">+2 hari</button><button class="btn ghost" data-geser="14">+14 hari</button><button class="btn ghost" data-geser="0">Kembali ke hari ini</button></div></section></div>`;
+  return `<div class="stack"><div><div class="eyebrow">${tr('Papan guru')}</div><h1>${tr('Kelengkapan & posisi')}</h1></div>
+    <section class="panel stack"><h2>${tr('Kelengkapan tahapan')}</h2><p class="muted" style="margin:0">${tr('✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}</section>
+    <section class="panel stack"><h2>${tr('Papan posisi')}</h2><p class="muted" style="margin:0">${tr('Warna = status, angka = tier. Versi statis hanya membaca progres di perangkat ini. Papan seluruh kelas butuh login dan database (Tahap 6 panduan).')}</p>${papan}</section>
+    <section class="panel stack"><h2>${tr('Simulasi waktu')}</h2><p class="muted" style="margin:0">${trf('Untuk uji alur kuis tertunda (H+2) dan pengulangan (H+14). Sekarang digeser %s hari.', geser)}</p>
+      <div class="row"><button class="btn ghost" data-geser="2">${tr('+2 hari')}</button><button class="btn ghost" data-geser="14">${tr('+14 hari')}</button><button class="btn ghost" data-geser="0">${tr('Kembali ke hari ini')}</button></div></section></div>`;
 }
 
 /* ---------- router ---------- */
 let cur = null;
+function rangka() {
+  document.documentElement.lang = BHS;
+  const pasang = (sel, teks) => { const el = document.querySelector(sel); if (el) el.textContent = teks; };
+  pasang('#nav-belajar', tr('Belajar'));
+  pasang('#nav-guru', tr('Papan Guru'));
+  pasang('#lbl-guru', tr('Mode guru'));
+  pasang('#kaki', tr('Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.'));
+  const merek = document.querySelector('.brand'); if (merek) merek.setAttribute('aria-label', tr('Fisika FIWA — beranda'));
+  document.querySelectorAll('[data-bhs]').forEach(b => {
+    const on = b.dataset.bhs === BHS;
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+
 function render() {
+  rangka();
   const h = decodeURIComponent(location.hash.slice(1));
   let html, m; cur = null;
   $('#nav-guru').classList.toggle('on', h === 'guru');
@@ -351,6 +516,9 @@ function render() {
 function tpDariHash() { const m = location.hash.match(/^#tp-(.+?)(-s\d+[bc]?)?$/); return m ? cariTP(m[1]) : null; }
 
 document.addEventListener('click', ev => {
+  const lb = ev.target.closest('[data-bhs]');
+  if (lb) { const v = lb.dataset.bhs === 'en' ? 'en' : 'id';
+    if (v !== BHS) { BHS = v; db.opsi.bahasa = v; simpan(); render(); } return; }
   const b = ev.target.closest('[data-aksi],[data-geser]'); if (!b) return;
   if (b.dataset.geser != null) { db.opsi.geser = +b.dataset.geser ? (db.opsi.geser || 0) + +b.dataset.geser : 0; simpan(); return render(); }
   const a = b.dataset.aksi, tp = tpDariHash(); if (!tp) return;
@@ -376,5 +544,5 @@ window.addEventListener('hashchange', render);
 
 fetch('katalog.json').then(r => r.json()).then(k => {
   K = k; $('#modeGuru').checked = guru(); render();
-}).catch(() => { $('#app').innerHTML = '<div class="note">katalog.json belum ada. Jalankan <span class="mono">node build.js</span> (Cloudflare menjalankannya otomatis).</div>'; });
+}).catch(() => { rangka(); $('#app').innerHTML = `<div class="note">${tr('katalog.json belum ada. Jalankan <span class="mono">node build.js</span> (Cloudflare menjalankannya otomatis).')}</div>`; });
 })();

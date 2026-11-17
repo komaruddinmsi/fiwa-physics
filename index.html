@@ -21,12 +21,15 @@
     <nav class="nav">
       <a href="#" id="nav-belajar">Belajar</a>
       <a href="#guru" id="nav-guru">Papan Guru</a>
-      <label class="mode" for="modeGuru"><input type="checkbox" id="modeGuru"> Mode guru</label>
+      <label class="mode" for="modeGuru"><input type="checkbox" id="modeGuru"> <span id="lbl-guru">Mode guru</span></label>
+      <div class="lang" role="group" aria-label="Bahasa / Language">
+        <button type="button" data-bhs="id" aria-pressed="true">ID</button><button type="button" data-bhs="en" aria-pressed="false">EN</button>
+      </div>
     </nav>
   </div>
 </header>
 <main id="app" class="wrap"><p class="muted">Memuat katalog…</p></main>
-<footer class="foot wrap">Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.</footer>
+<footer class="foot wrap" id="kaki">Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.</footer>
 <script src="assets/app.js"></script>
 </body>
 </html>
