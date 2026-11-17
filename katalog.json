@@ -1,0 +1,188 @@
+{
+  "dibuat": "2026-11-17T07:35:23.305Z",
+  "topik": [
+    {
+      "slug": "f-use",
+      "kode": "F.USE",
+      "nama": "Usaha & Energi",
+      "mapel": "Fisika",
+      "fase": "F",
+      "jalur": "TKA",
+      "urutan": 2,
+      "tahapan": {
+        "L1": {
+          "berkas": "konten/f-use/L1/index.html",
+          "judul": "Kuis Blok Fisika — Usaha & Energi"
+        },
+        "L2": {
+          "berkas": "konten/f-use/L2/index.html",
+          "judul": "Muara Topik Fisika F.USE — Urutan Kerja di Jalur Angkut Galon"
+        },
+        "L3": {
+          "berkas": "konten/f-use/L3/index.html",
+          "judul": "Tes Topik Fisika — Usaha & Energi"
+        },
+        "L4": {
+          "berkas": "konten/f-use/L4/index.html",
+          "judul": "Tantangan Mata Pelajaran Fisika"
+        }
+      },
+      "tp": [
+        {
+          "slug": "f-use-1-pra",
+          "kode": "F.USE.1-pra",
+          "judul": "Usaha, energi kinetik & potensial",
+          "teks": "Menjelaskan konsep usaha, energi kinetik, dan energi potensial, serta hubungan usaha dengan perubahan energi.",
+          "bloom": "C2",
+          "urutan_ajar": 1,
+          "prasyarat": [],
+          "ambang": 75,
+          "tahapan": {
+            "S1": {
+              "berkas": "konten/f-use/f-use-1-pra/S1/index.html",
+              "judul": "Peta & Janji"
+            },
+            "S2": {
+              "berkas": "konten/f-use/f-use-1-pra/S2/index.html",
+              "judul": "Cek Mandiri Sebelum Belajar — Fisika F.USE.1-pra"
+            },
+            "S2b": {
+              "berkas": "konten/f-use/f-use-1-pra/S2b/index.html",
+              "judul": "Lembar Bekal"
+            },
+            "S2c": {
+              "berkas": "konten/f-use/f-use-1-pra/S2c/index.html",
+              "judul": "Lembar Bekal Plus"
+            },
+            "S3": {
+              "berkas": "konten/f-use/f-use-1-pra/S3/index.html",
+              "judul": "Tebak Dulu, Sebelum Kita Belajar — F.USE.1-pra"
+            },
+            "S4": {
+              "berkas": "konten/f-use/f-use-1-pra/S4/index.html",
+              "judul": "Modul Konsep"
+            },
+            "S5": {
+              "berkas": "konten/f-use/f-use-1-pra/S5/index.html",
+              "judul": "Bedah Ramalan di Kelas"
+            },
+            "S6": {
+              "berkas": "konten/f-use/f-use-1-pra/S6/index.html",
+              "judul": "Inti Terbimbing di Kelas"
+            },
+            "S7": {
+              "berkas": "konten/f-use/f-use-1-pra/S7/index.html",
+              "judul": "Lembar Kerja Fisika F.USE.1-pra — Usaha & Energi"
+            },
+            "S8": {
+              "berkas": "konten/f-use/f-use-1-pra/S8/index.html",
+              "judul": "Cek Cepat di Kelas"
+            },
+            "S9": {
+              "berkas": "konten/f-use/f-use-1-pra/S9/index.html",
+              "judul": "Kartu Kerja Fisika · Usaha & Energi (bagian pertama)"
+            },
+            "S10": {
+              "berkas": "konten/f-use/f-use-1-pra/S10/index.html",
+              "judul": "Satu Layar Penutup · Usaha & Energi (bagian pertama)"
+            },
+            "S11": {
+              "berkas": "konten/f-use/f-use-1-pra/S11/index.html",
+              "judul": "Worksheet · Latihan Bertingkat · F.USE.1-pra"
+            },
+            "S12": {
+              "berkas": "konten/f-use/f-use-1-pra/S12/index.html",
+              "judul": "Tugas Kinerja Fisika F.USE.1-pra — Usaha dan Energi di Asramamu"
+            },
+            "S13": {
+              "berkas": "konten/f-use/f-use-1-pra/S13/index.html",
+              "judul": "Kuis Ingatan Tunda — Usaha, Energi Kinetik & Potensial"
+            },
+            "S14": {
+              "berkas": "konten/f-use/f-use-1-pra/S14/index.html",
+              "judul": "Latihan Selang-Seling — Usaha dan Energi"
+            }
+          }
+        },
+        {
+          "slug": "f-use-1",
+          "kode": "F.USE.1",
+          "judul": "Hukum Kekekalan Energi Mekanik",
+          "teks": "Menerapkan usaha, energi, dan Hukum Kekekalan Energi Mekanik untuk menyelesaikan masalah gerak nyata pada lintasan berlapis.",
+          "bloom": "C6",
+          "urutan_ajar": 2,
+          "prasyarat": [
+            "F.USE.1-pra"
+          ],
+          "ambang": 75,
+          "tahapan": {
+            "S1": {
+              "berkas": "konten/f-use/f-use-1/S1/index.html",
+              "judul": "Peta & Janji"
+            },
+            "S2": {
+              "berkas": "konten/f-use/f-use-1/S2/index.html",
+              "judul": "Cek Mandiri Sebelum Belajar — Fisika F.USE.1"
+            },
+            "S2b": {
+              "berkas": "konten/f-use/f-use-1/S2b/index.html",
+              "judul": "Lembar Bekal"
+            },
+            "S2c": {
+              "berkas": "konten/f-use/f-use-1/S2c/index.html",
+              "judul": "Lembar Bekal Plus"
+            },
+            "S3": {
+              "berkas": "konten/f-use/f-use-1/S3/index.html",
+              "judul": "Tebak Dulu, Sebelum Kita Belajar — F.USE.1"
+            },
+            "S4": {
+              "berkas": "konten/f-use/f-use-1/S4/index.html",
+              "judul": "Modul Konsep"
+            },
+            "S5": {
+              "berkas": "konten/f-use/f-use-1/S5/index.html",
+              "judul": "Bedah Ramalan di Kelas"
+            },
+            "S6": {
+              "berkas": "konten/f-use/f-use-1/S6/index.html",
+              "judul": "Inti Terbimbing di Kelas"
+            },
+            "S7": {
+              "berkas": "konten/f-use/f-use-1/S7/index.html",
+              "judul": "Lembar Kerja Fisika F.USE.1 — Praktik Terstruktur di Kelas"
+            },
+            "S8": {
+              "berkas": "konten/f-use/f-use-1/S8/index.html",
+              "judul": "Cek Cepat di Kelas"
+            },
+            "S9": {
+              "berkas": "konten/f-use/f-use-1/S9/index.html",
+              "judul": "Kartu Kerja Fisika · Usaha & Energi (bagian kedua)"
+            },
+            "S10": {
+              "berkas": "konten/f-use/f-use-1/S10/index.html",
+              "judul": "Satu Layar Penutup · Usaha & Energi (bagian kedua)"
+            },
+            "S11": {
+              "berkas": "konten/f-use/f-use-1/S11/index.html",
+              "judul": "Worksheet · Latihan Bertingkat · F.USE.1"
+            },
+            "S12": {
+              "berkas": "konten/f-use/f-use-1/S12/index.html",
+              "judul": "Tugas Kinerja Fisika F.USE.1 — Merancang Peluncur Bola Stan Pameran"
+            },
+            "S13": {
+              "berkas": "konten/f-use/f-use-1/S13/index.html",
+              "judul": "Kuis Ingatan Tunda — Usaha, Energi & Hukum Kekekalan Energi Mekanik"
+            },
+            "S14": {
+              "berkas": "konten/f-use/f-use-1/S14/index.html",
+              "judul": "Latihan Selang-Seling — Usaha dan Energi"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
