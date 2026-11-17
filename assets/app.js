@@ -29,6 +29,14 @@ const LAPIS = [
   { id:'L3', nama:'Tes Topik',              kapan:'Akhir topik', gate:1 },
   { id:'L4', nama:'Tantangan Mata Pelajaran', kapan:'Berkala, lintas topik' }
 ];
+const JALUR = [
+  { slug:'igcse', kode:'IGCSE', nama:'PHYSICS IGCSE', teks:'Cambridge IGCSE Physics 0625',
+    sub:'Kelas 9–10 · jalur internasional', cocok:/^igcse$/i },
+  { slug:'as-a',  kode:'AS/A',  nama:'PHYSICS AS/A',  teks:'Cambridge AS &amp; A Level Physics 9702',
+    sub:'Kelas 11–12 · jalur internasional', cocok:/^(as\/?-?a([\s-]?level)?|a[\s-]?level|as)$/i },
+  { slug:'tka',   kode:'TKA',   nama:'PHYSICS TKA',   teks:'Kurikulum Nasional · persiapan TKA',
+    sub:'Fase E–F · jalur nasional', cocok:/^tka$/i }
+];
 const FASE = ['Fase 0 · Pra-KBM', 'Fase 1 · KBM', 'Fase 2 · Pasca-KBM'];
 const STATUS = ['Belum Mulai', 'Siap', 'Mencoba', 'Akrab', 'Mahir', 'Tuntas'];
 const HARI = 864e5;
@@ -149,28 +157,70 @@ const semuaTP = () => K.topik.flatMap(t => t.tp.map(tp => Object.assign({ _t: t 
 const cariTP = slug => semuaTP().find(x => x.slug === slug);
 const cariTopik = slug => K.topik.find(x => x.slug === slug);
 const guru = () => !!db.opsi.guru;
+const cariJalur = slug => JALUR.find(j => j.slug === slug);
+const topikJalur = j => K.topik.filter(t => j.cocok.test(String(t.jalur || '').trim()));
+const jalurTopik = t => JALUR.find(j => j.cocok.test(String(t.jalur || '').trim())) || null;
+const topikLepas = () => K.topik.filter(t => !jalurTopik(t));
+const remah = t => { const j = t && jalurTopik(t);
+  return `<a href="#">Beranda</a> / ${j ? `<a href="#jalur-${j.slug}">${esc(j.kode)}</a> / ` : ''}`; };
+const kartuTopik = t => { const n = t.tp.length, tuntas = t.tp.filter(tp => hitung(tp).s === 5).length;
+  return `<a class="card" href="#topik-${t.slug}"><div class="eyebrow">${esc(t.mapel)}${t.fase ? ' · Fase ' + esc(t.fase) : ''}</div>
+    <h3>${esc(t.nama)}</h3><div class="mono muted">${esc(t.kode)} · ${n} TP</div>
+    <div class="meter"><i style="width:${n ? Math.round(tuntas / n * 100) : 0}%"></i></div>
+    <div class="muted" style="font-size:.85rem">${tuntas} dari ${n} TP Tuntas</div></a>`; };
 
 /* ---------- tampilan: beranda ---------- */
+function kotakJalur() {
+  return JALUR.map(j => {
+    const ts = topikJalur(j), n = ts.length;
+    const tps = ts.flatMap(t => t.tp);
+    const tuntas = tps.filter(tp => hitung(tp).s === 5).length;
+    const isi = n
+      ? `<span class="jm">${n} topik · ${tps.length} TP</span>`
+      : `<span class="jm segera">Segera hadir</span>`;
+    return `<a class="jalur j-${j.slug}" href="#jalur-${j.slug}">
+      <span class="jk">${esc(j.kode)}</span>
+      <span class="jn">${j.nama}</span>
+      <span class="jt">${j.teks}</span>
+      <span class="jb">${isi}${tps.length ? `<span class="jm">${tuntas} TP Tuntas</span>` : ''}</span>
+    </a>`;
+  }).join('');
+}
+
 function beranda() {
   const tps = semuaTP();
   let next = null;
   for (const tp of tps) { const l = langkah(tp); if (l) { next = { tp, id: l }; break; } }
-  const menunggu = tps.find(tp => { const h = hitung(tp); return h.e.S4 && !h.e.S8; });
-  const nextHTML = next
-    ? `<div class="next"><div class="what"><div class="eyebrow">Berikutnya untukmu</div>
-         <h2>${esc(T(next.id).nama)}</h2><div class="muted"><span class="mono">${esc(next.tp.kode)} · ${next.id}</span> — ${esc(next.tp.judul)}</div></div>
-         <a class="btn" href="#tp-${next.tp.slug}-${next.id.toLowerCase()}">Mulai</a></div>`
-    : `<div class="next"><div class="what"><div class="eyebrow">Berikutnya untukmu</div><h2>${menunggu ? 'Tunggu tatap muka' : 'Belum ada langkah baru'}</h2>
-         <div class="muted">${menunggu ? esc(menunggu.kode) + ': tahap KBM (S5–S10) berlangsung di kelas.' : 'Kuis tertunda dan pengulangan muncul di sini saat jatuh tempo.'}</div></div></div>`;
-  const kartu = K.topik.map(t => {
-    const n = t.tp.length, tuntas = t.tp.filter(tp => hitung(tp).s === 5).length;
-    return `<a class="card" href="#topik-${t.slug}"><div class="eyebrow">${esc(t.mapel)}${t.fase ? ' · Fase ' + esc(t.fase) : ''}</div>
-      <h3>${esc(t.nama)}</h3><div class="mono muted">${esc(t.kode)} · ${n} TP</div>
-      <div class="meter"><i style="width:${n ? Math.round(tuntas / n * 100) : 0}%"></i></div>
-      <div class="muted" style="font-size:.85rem">${tuntas} dari ${n} TP Tuntas</div></a>`;
-  }).join('');
-  return `<div class="stack">${nextHTML}<section class="stack"><h1>Topik</h1>
-    <div class="grid-topik">${kartu || '<p class="muted">Belum ada topik. Tambahkan folder di konten/.</p>'}</div></section></div>`;
+  const mulai = Object.keys(db.tp || {}).some(k => Object.keys((db.tp[k] || {}).ev || {}).length);
+  const lanjut = (mulai && next)
+    ? `<a class="next" href="#tp-${next.tp.slug}-${next.id.toLowerCase()}"><span class="what">
+         <span class="eyebrow">Lanjutkan belajar</span>
+         <b>${esc(T(next.id).nama)}</b>
+         <span class="muted"><span class="mono">${esc(next.tp.kode)} · ${next.id}</span> — ${esc(next.tp.judul)}</span></span>
+       <span class="btn">Mulai</span></a>`
+    : '';
+  const lepas = topikLepas();
+  const lain = lepas.length
+    ? `<section class="stack"><h2>Topik lain</h2><div class="grid-topik">${lepas.map(kartuTopik).join('')}</div></section>`
+    : '';
+  return `<div class="stack">
+    <section class="hero"><p class="eyebrow">Fitrah Islamic World Academy</p>
+      <h1>Belajar Fisika sampai tuntas</h1>
+      <p class="lede">Tiga jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.</p></section>
+    <section class="stack"><h2 class="sr-tajuk">Pilih jalur</h2><div class="grid-jalur">${kotakJalur()}</div></section>
+    ${lanjut}${lain}</div>`;
+}
+
+/* ---------- tampilan: jalur ---------- */
+function halJalur(j) {
+  const ts = topikJalur(j);
+  const kartu = ts.map(kartuTopik).join('');
+  return `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / ${esc(j.kode)}</div>
+    <section class="hero mini j-${j.slug}"><p class="eyebrow">${j.sub}</p><h1>${j.nama}</h1><p class="lede">${j.teks}</p></section>
+    <section class="stack"><h2>Topik</h2>
+      ${kartu ? `<div class="grid-topik">${kartu}</div>`
+              : `<div class="note">Materi jalur ini sedang disiapkan. Jalur yang sudah terbuka bisa dilihat di <a href="#">beranda</a>.${guru() ? ` <span class="muted">Guru: tambahkan folder topik di <span class="mono">konten/</span> dengan <span class="mono">"jalur": "${esc(j.kode)}"</span> pada <span class="mono">topik.json</span>.</span>` : ''}</div>`}
+    </section></div>`;
 }
 
 /* ---------- tampilan: topik ---------- */
@@ -182,7 +232,7 @@ function halTopik(t) {
   const lapis = LAPIS.map(l => { const ada = t.tahapan[l.id];
     return ada ? `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(l.nama)}<small>${esc(l.kapan)}</small></span><span></span></a>`
                : `<div class="tile miss"><span class="sid">${l.id}</span><span class="nm">${esc(l.nama)}<small>Belum diunggah</small></span><span></span></div>`; }).join('');
-  return `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / ${esc(t.kode)}</div>
+  return `<div class="stack"><div class="crumbs">${remah(t)}${esc(t.kode)}</div>
     <div><div class="eyebrow">${esc(t.mapel)}${t.jalur ? ' · ' + esc(t.jalur) : ''}</div><h1>${esc(t.nama)}</h1></div>
     <section class="stack"><h2>Tujuan Pembelajaran</h2><div class="list">${tps || '<p class="muted">Belum ada TP.</p>'}</div></section>
     <section class="stack"><h2>Lapis topik</h2><div class="layer">${lapis}</div></section></div>`;
@@ -208,7 +258,7 @@ function halTP(tp, aktif) {
     return `<div class="phase"><h3>${FASE[f]}</h3>${tiles}</div>`;
   }).join('');
   const lengkap = TAHAPAN.filter(s => s.rangka && !tp.tahapan[s.id]).map(s => s.id);
-  return `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / <a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${esc(tp.kode)}</div>
+  return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${esc(tp.kode)}</div>
     <div class="row" style="justify-content:space-between"><div style="min-width:0"><div class="eyebrow mono">${esc(tp.kode)}${tp.bloom ? ' · Bloom ' + esc(tp.bloom) : ''}</div>
       <h1>${esc(tp.judul)}</h1>${tp.teks ? `<p class="muted" style="margin:.4em 0 0;max-width:65ch">${esc(tp.teks)}</p>` : ''}</div>
       <div class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</div></div>
@@ -252,7 +302,7 @@ function panelGuruTP(tp, h) {
 /* ---------- tampilan: lapis topik ---------- */
 function halLapis(t, id) {
   const l = LAPIS.find(x => x.id === id), f = t.tahapan[id];
-  return `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / <a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
+  return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
     <h1>${id} · ${esc(l.nama)}</h1><p class="muted">${esc(l.kapan)}</p>
     ${f ? `<iframe class="frame" src="${esc(f.berkas)}" title="${esc(l.nama)}"></iframe>` : '<p>Belum diunggah.</p>'}</div>`;
 }
@@ -287,6 +337,7 @@ function render() {
   $('#nav-guru').classList.toggle('on', h === 'guru');
   $('#nav-belajar').classList.toggle('on', h !== 'guru');
   if (h === 'guru') html = halGuru();
+  else if ((m = h.match(/^jalur-(.+)$/)) && cariJalur(m[1])) html = halJalur(cariJalur(m[1]));
   else if ((m = h.match(/^topik-(.+)-(l[1-4])$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase());
   else if ((m = h.match(/^topik-(.+)$/)) && cariTopik(m[1])) html = halTopik(cariTopik(m[1]));
   else if ((m = h.match(/^tp-(.+)-(s\d+[bc]?)$/)) && cariTP(m[1])) { const id = m[2].toUpperCase().replace(/([BC])$/, c => c.toLowerCase()); cur = { tp: cariTP(m[1]), id }; html = halTP(cur.tp, id); }
