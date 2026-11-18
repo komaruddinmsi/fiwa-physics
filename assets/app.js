@@ -158,7 +158,38 @@ const EN = {
 "Soal Unit Test": "Unit Test",
 "berlatih dulu · tidak dinilai": "practise first · not graded",
 "sekali jalan · dinilai": "one attempt · graded",
-"Redaksi soal pada keduanya berbeda, tetapi langkah penyelesaiannya sama. Kerjakan latihannya sampai lancar, baru buka soal yang dinilai. Keduanya tidak memerlukan kalkulator.": "The two sets are worded differently but solved the same way. Work through the practice set until it flows, then open the graded one. Neither needs a calculator."
+"Redaksi soal pada keduanya berbeda, tetapi langkah penyelesaiannya sama. Kerjakan latihannya sampai lancar, baru buka soal yang dinilai. Keduanya tidak memerlukan kalkulator.": "The two sets are worded differently but solved the same way. Work through the practice set until it flows, then open the graded one. Neither needs a calculator.",
+"%s nomor masih salah": "%s item numbers still wrong",
+"%s · %s": "%s · %s",
+"Bahan pendukung belum diatur untuk topik ini.": "No supporting material has been set up for this topic yet.",
+"Belum ada murid aktif. Setujui anggota lebih dulu di laman Anggota.": "No active students yet. Approve members on the Members page first.",
+"Benar %s dari %s butir.": "%s of %s items correct.",
+"Buka di YouTube": "Open on YouTube",
+"Buka kembali nomor-nomor itu pada lembar di atas, kerjakan ulang langkahnya, lalu periksa lagi. Kunci jawaban sengaja tidak ditampilkan.": "Go back to those numbers on the sheet above, redo the steps, then check again. The answer key is deliberately not shown.",
+"Buka penuh di tab baru": "Open full size in a new tab",
+"Hentikan": "Stop",
+"Jeda": "Pause",
+"Ke %s · %s": "Go to %s · %s",
+"Langkah berikutnya": "Next step",
+"Memuat bahan pendukung…": "Loading supporting material…",
+"Memuat papan kelas…": "Loading the class board…",
+"Mode guru. Siswa tidak dapat mengetik skornya sendiri.": "Teacher mode. Students cannot type their own score.",
+"Murid": "Student",
+"Penguatan dan remediasi tidak mengubah statusmu dengan sendirinya. Status baru naik setelah kamu lulus Gerbang Prasyarat, yaitu skor minimal 80%. Kerjakan ulang gerbangnya sekarang.": "Reinforcement and remediation do not change your status by themselves. Your status only rises once you pass the Prerequisite Gate, that is a score of at least 80%. Take the gate again now.",
+"Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.": "The text is read aloud by the browser. A teacher can replace this with their own recording.",
+"Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.": "This browser cannot read the text aloud. Please read the text itself.",
+"Putar": "Play",
+"Semua butir sudah benar.": "Every item is correct.",
+"Sesudah ini: kerjakan ulang Gerbang Prasyarat": "Next: take the Prerequisite Gate again",
+"Skor tahapan ini dinilai dan diisi gurumu di kelas.": "Your teacher marks and enters the score for this stage in class.",
+"Skor tercatat: %s": "Score recorded: %s",
+"Skormu %s, ambangnya %s. Kurang %s poin lagi.": "Your score is %s, the threshold is %s. %s points short.",
+"Skormu terisi sendiri begitu kamu menekan tombol periksa pada lembar di atas. Tidak ada angka yang bisa diketik sendiri di sini.": "Your score fills in by itself as soon as you press the check button on the sheet above. No number can be typed in here.",
+"Sumber luar": "External source",
+"Tandai sudah mengikuti": "Mark as attended",
+"Tidak dapat memuat papan kelas.": "Could not load the class board.",
+"Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.": "Colour = status, number = tier. The top row is the progress on this device; the rows below come from each student's account."
+
 };
 let BHS = 'id';
 const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
@@ -842,7 +873,9 @@ function tpDariHash() { const m = location.hash.match(/^#tp-(.+?)(-s\d+[bc]?)?$/
 document.addEventListener('click', ev => {
   const lb = ev.target.closest('[data-bhs]');
   if (lb) { const v = lb.dataset.bhs === 'en' ? 'en' : 'id';
-    if (v !== BHS) { BHS = v; db.opsi.bahasa = v; simpan(); render(); } return; }
+    if (v !== BHS) { BHS = v; db.opsi.bahasa = v; simpan();
+      document.dispatchEvent(new CustomEvent('fims:bahasa', { detail: v }));
+      render(); } return; }
   const mk = ev.target.closest('[data-media]');
   if (mk) {
     const kartu = mk.closest('.mkartu'), isi = kartu.querySelector('.misi');
