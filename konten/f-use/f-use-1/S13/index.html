@@ -879,5 +879,88 @@ window.fimsButirSalah = function(){
 })();
 </script>
 <!-- ==== akhir FIMS-SHIM v1 ==== -->
+
+<style>
+/* === FIMS: panel bawah dapat dilipat === */
+.bilah-bawah{transition:padding .18s ease;}
+.bilah-bawah #fims-salah{max-height:30vh; overflow:auto; margin-top:10px;}
+.lipat-tombol{
+  position:absolute; top:-16px; right:16px; z-index:2;
+  background:#fff; color:#2F6F74; border:1px solid #D7E6E8; border-bottom:none;
+  border-radius:9px 9px 0 0; padding:4px 13px 4px; cursor:pointer;
+  font:600 12px 'Segoe UI',Arial,sans-serif; box-shadow:0 -3px 10px rgba(0,0,0,.07);
+}
+.lipat-tombol:hover{background:#F0F7F8;}
+body.bilah-lipat .bilah-bawah #fims-salah,
+body.bilah-lipat .bilah-bawah .pesan{display:none;}
+/* Keterangan dan "Periksa kelengkapan" hanya disembunyikan bila tombol kirim tetap ada. */
+body.bilah-lipat.ada-kirim .bilah-bawah .hitungan,
+body.bilah-lipat.ada-kirim .bilah-bawah button:not(.fims-aksi){display:none;}
+body.bilah-lipat .bilah-bawah button.fims-aksi{padding:6px 17px; font-size:12.5px;}
+body.bilah-lipat.ada-kirim .bilah-bawah .baris-bawah{justify-content:flex-end;}
+body.bilah-lipat .bilah-bawah{padding-top:8px; padding-bottom:10px;}
+body.bilah-lipat .bilah-bawah .bilah-luar{height:7px; margin-bottom:8px;}
+body.bilah-lipat .bilah-bawah button.selesai{padding:6px 17px; font-size:12.5px;}
+@media (max-width:640px){
+  body.bilah-lipat.ada-kirim .bilah-bawah .baris-bawah{flex-direction:row;}
+}
+@media print{ .lipat-tombol{display:none !important;} }
+</style>
+<script>
+/* === FIMS: lipat panel bawah, dan sesuaikan ruang bawah halaman === */
+(function(){
+  "use strict";
+  var bar = document.querySelector(".bilah-bawah");
+  if (!bar || document.querySelector(".lipat-tombol")) return;
+  var KUNCI = "fims-lipat:" + location.pathname;
+
+  var tb = document.createElement("button");
+  tb.type = "button"; tb.className = "lipat-tombol";
+  bar.appendChild(tb);
+
+  function ukur(){
+    var t = bar.offsetHeight + 16;
+    document.body.style.paddingBottom = t + "px";
+  }
+  function pasang(lipat, ingat){
+    document.body.classList.toggle("bilah-lipat", !!lipat);
+    tb.textContent = lipat ? "\u25B2 Tampilkan panel" : "\u25BC Sembunyikan panel";
+    tb.setAttribute("aria-expanded", lipat ? "false" : "true");
+    if (ingat){ try { localStorage.setItem(KUNCI, lipat ? "1" : "0"); } catch(e){} }
+    ukur();
+  }
+  tb.addEventListener("click", function(){
+    pasang(!document.body.classList.contains("bilah-lipat"), true);
+  });
+
+  /* Tombol kirim utama ditandai, supaya tetap terlihat saat panel dilipat. */
+  var aksi = document.getElementById("btn_selesai") || document.getElementById("btn_kirim");
+  if (aksi){ aksi.classList.add("fims-aksi"); document.body.classList.add("ada-kirim"); }
+
+  var awal = false;
+  try { awal = localStorage.getItem(KUNCI) === "1"; } catch(e){}
+  pasang(awal, false);
+
+  if (window.ResizeObserver) new ResizeObserver(ukur).observe(bar);
+  window.addEventListener("resize", ukur);
+
+  /* Hasil periksa yang BARU dibuka otomatis, walau panel sedang dilipat.
+     Isi ringkasan dibandingkan dengan yang terakhir, supaya menekan tombol
+     lipat sendiri tidak memicu panel terbuka lagi. */
+  if (window.MutationObserver){
+    var terakhir = null;
+    new MutationObserver(function(){
+      var k = document.getElementById("fims-salah");
+      var kini = k ? k.innerHTML : null;
+      if (kini !== null && kini !== terakhir){
+        terakhir = kini;
+        if (document.body.classList.contains("bilah-lipat")){ pasang(false, false); return; }
+      }
+      ukur();
+    }).observe(bar, { childList:true, subtree:true, characterData:true });
+  }
+})();
+</script>
+
 </body>
 </html>
