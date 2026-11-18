@@ -379,15 +379,40 @@ async function tarikProgres() {
   if (adaLokalBaru) FIMS.dorong(lokal);     // progres yang terlanjur dibuat sebelum masuk ikut naik
 }
 
-let jadwalDorong = null;
+let jadwalDorong = null, belumTerkirim = false;
 FIMS.dorong = function (db) {
   if (!FIMS.aku) return;
+  belumTerkirim = true;
   clearTimeout(jadwalDorong);
   jadwalDorong = setTimeout(() => {
     const d = db || bacaLokal();
-    API('progres', { method: 'PUT', body: JSON.stringify({ tp: d.tp || {} }) }).catch(() => {});
+    belumTerkirim = false;
+    API('progres', { method: 'PUT', body: JSON.stringify({ tp: d.tp || {} }) })
+      .catch(() => { belumTerkirim = true; });
   }, 1200);
 };
+
+/* Tab ditutup, ponsel dikunci, atau pindah aplikasi: kirim sekarang juga.
+   Tanpa ini, perubahan pada 1,2 detik terakhir sebelum halaman ditinggalkan
+   tidak pernah sampai ke peladen, dan hilang di perangkat berikutnya. */
+function dorongSegera() {
+  if (!FIMS.aku || !belumTerkirim) return;
+  clearTimeout(jadwalDorong);
+  const isi = JSON.stringify({ tp: bacaLokal().tp || {} });
+  belumTerkirim = false;
+  try {
+    if (navigator.sendBeacon &&
+        navigator.sendBeacon('/api/progres', new Blob([isi], { type: 'application/json' }))) return;
+  } catch {}
+  try {
+    fetch('/api/progres', { method: 'PUT', body: isi, keepalive: true,
+      credentials: 'same-origin', headers: { 'content-type': 'application/json' } }).catch(() => {});
+  } catch {}
+}
+window.addEventListener('pagehide', dorongSegera);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') dorongSegera();
+});
 
 FIMS.papan = () => API('papan');
 
