@@ -193,7 +193,8 @@ FIMS.halAnggota = async function () {
         ${a.status !== 'aktif' ? `<button class="btn kecil" data-putus="aktif">Setujui</button>` : ''}
         ${a.status !== 'ditolak' ? `<button class="btn ghost kecil" data-putus="ditolak">Tolak</button>` : ''}
         <button class="btn ghost kecil" data-peran="${a.peran === 'guru' ? 'siswa' : 'guru'}">Jadikan ${a.peran === 'guru' ? 'siswa' : 'guru'}</button>
-      ` : '<span class="muted">—</span>'}</td></tr>`;
+        <button class="btn ghost kecil bahaya" data-hapus="1">Hapus</button>
+      ` : '<span class="muted">Akun pemilik tidak dapat diubah</span>'}</td></tr>`;
 
   const tabel = (judul, daftar, catatan) => `<section class="panel stack">
       <h2>${judul} <span class="mcacah">${daftar.length}</span></h2>
@@ -204,21 +205,48 @@ FIMS.halAnggota = async function () {
 
   app.innerHTML = `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / Anggota</div>
     <div><div class="eyebrow">Keanggotaan</div><h1>Anggota situs</h1>
-      <p class="muted">Anda yang memutuskan siapa yang boleh masuk. Halaman ini hanya terbuka untuk pemilik situs — guru dan siswa tidak melihatnya.</p></div>
+      <p class="muted">Anda yang memutuskan siapa yang boleh masuk. Halaman ini hanya terbuka untuk pemilik situs — guru dan siswa tidak melihatnya.</p>
+      <div class="note"><b>Tolak</b> menutup akses tetapi menyimpan datanya, dan bisa dibatalkan kapan saja.
+        <b>Hapus</b> membuang akun beserta seluruh progres belajarnya, dan tidak dapat dikembalikan.
+        Untuk murid yang sedang belajar, hampir selalu Tolak yang Anda maksud.</div></div>
     ${tabel('Menunggu persetujuan', kelompok.menunggu, 'Permintaan baru muncul di sini. Periksa alamat surelnya sebelum menyetujui.')}
     ${tabel('Aktif', kelompok.aktif)}
     ${tabel('Ditolak', kelompok.ditolak)}</div>`;
 
+  function pasangKlik() {
   app.addEventListener('click', async ev => {
-    const b = ev.target.closest('[data-putus],[data-peran]');
+    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus]');
     if (!b) return;
     const email = b.closest('tr').dataset.email;
+
+    // Menghapus tidak dapat dibatalkan, jadi butuh dua klik: klik pertama meminta kepastian.
+    if (b.dataset.hapus) {
+      if (b.dataset.siap !== '1') {
+        app.querySelectorAll('[data-hapus][data-siap="1"]').forEach(x => {
+          x.dataset.siap = '0'; x.textContent = 'Hapus'; x.classList.remove('pasti');
+        });
+        b.dataset.siap = '1'; b.textContent = 'Klik lagi — hapus permanen'; b.classList.add('pasti');
+        clearTimeout(b._jeda);
+        b._jeda = setTimeout(() => {
+          b.dataset.siap = '0'; b.textContent = 'Hapus'; b.classList.remove('pasti');
+        }, 6000);
+        pasangKlik();                                   // pasang ulang, klik kedua masih ditangkap
+        return;
+      }
+      b.disabled = true; b.textContent = 'Menghapus…';
+      const rh = await API('anggota/hapus', { method: 'POST', body: JSON.stringify({ email }) });
+      if (!rh.ok) { b.disabled = false; b.textContent = 'Hapus'; alert(rh.galat || 'Gagal menghapus.'); pasangKlik(); return; }
+      return FIMS.halAnggota();
+    }
+
     b.disabled = true;
     const isi = b.dataset.putus ? { email, status: b.dataset.putus } : { email, peran: b.dataset.peran };
     const r2 = await API('anggota/putusan', { method: 'POST', body: JSON.stringify(isi) });
-    if (!r2.ok) { b.disabled = false; alert(r2.galat || 'Gagal menyimpan.'); return; }
+    if (!r2.ok) { b.disabled = false; alert(r2.galat || 'Gagal menyimpan.'); pasangKlik(); return; }
     FIMS.halAnggota();
   }, { once: true });
+  }
+  pasangKlik();
 };
 
 /* ---------- bilah kepala sesudah masuk ---------- */
