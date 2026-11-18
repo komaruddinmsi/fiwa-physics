@@ -2,7 +2,9 @@
 
 Situs ini sekarang punya pintu masuk. Tamu hanya melihat laman masuk; seluruh bahan belajar baru terbuka setelah pemilik situs menyetujui akunnya.
 
-Pemilik situs: **komaruddinmsi@gmail.com**
+> **Repositori ini publik.** Siapa pun dapat membaca berkas di dalamnya.
+> Karena itu, alamat surel pemilik dan nilai `RAHASIA` tidak pernah dituliskan di berkas mana pun —
+> keduanya hanya hidup di dasbor Cloudflare dan di basis data Anda.
 
 ---
 
@@ -44,22 +46,23 @@ Masih di **Settings**, cari **Environment variables** (atau **Variables and Secr
 
 1. **Add variable**
    - Nama: **`RAHASIA`**
-   - Nilai: teks acak panjang. Boleh pakai yang ini:
-
-     ```
-     QCuIro4yCdowiHV75PHraF5LtBD6xGqgz-YZEgTT32k7SChRrbvguEo1LkEMOPlc
-     ```
-
+   - Nilai: teks acak panjang, **buatan Anda sendiri**, minimal 40 karakter
    - Pilih **Encrypt** / **Secret** bila tersedia
 2. **Save**
 
-> Kunci ini dipakai untuk menandatangani sesi. Siapa pun yang tahu nilainya bisa membuat sesi palsu, jadi **jangan pernah menuliskannya ke dalam repositori**. Kalau sewaktu-waktu bocor, cukup ganti nilainya di sini — semua orang akan diminta masuk lagi, dan tidak ada data yang hilang.
+Cara cepat membuat nilainya: buka tab baru, tekan F12, tempel ini di Console, tekan Enter, salin hasilnya.
+
+```js
+crypto.randomUUID() + crypto.randomUUID()
+```
+
+> Kunci ini dipakai untuk menandatangani sesi. Siapa pun yang tahu nilainya bisa membuat sesi palsu dan masuk sebagai siapa saja. **Jangan pernah menuliskannya ke dalam repositori, catatan rapat, atau pesan.** Kalau sewaktu-waktu bocor, cukup ganti nilainya di sini: semua orang diminta masuk lagi, dan tidak ada data yang hilang.
 
 Dua peubah lain bersifat pilihan:
 
 | Nama | Guna | Bawaan |
 |---|---|---|
-| `EMAIL_OWNER` | Mengganti siapa pemilik situs | `komaruddinmsi@gmail.com` |
+| `EMAIL_OWNER` | Alamat surel pemilik. Bila diisi, pemilik langsung aktif tanpa menunggu persetujuan. Isi sebagai peubah **terenkripsi** | kosong |
 | `WAJIB_KODE` | Isi `1` bila anggota harus memasukkan kode enam huruf saat pertama kali | mati |
 
 ### Langkah 5 — Terbitkan ulang
@@ -71,9 +74,22 @@ Pengikatan baru berlaku pada penerbitan berikutnya.
 
 Tunggu sampai statusnya **Success**, lalu buka `https://fiwa-physics.pages.dev/`. Yang muncul seharusnya laman masuk.
 
-### Langkah 6 — Masuk pertama kali
+### Langkah 6 — Angkat diri Anda sebagai pemilik
 
-Masukkan **komaruddinmsi@gmail.com**, tekan tombol mana pun. Anda langsung masuk sebagai pemilik, tanpa menunggu persetujuan siapa pun — akun ini memang sudah disiapkan di dalam `skema.sql`.
+Ada dua jalan; pilih salah satu.
+
+**Jalan A — lewat peubah (paling mudah).** Pada Langkah 4, tambahkan peubah **terenkripsi** `EMAIL_OWNER` berisi alamat surel Anda. Buka situs, masukkan alamat itu, tekan tombol mana pun — Anda langsung masuk sebagai pemilik tanpa menunggu persetujuan siapa pun.
+
+**Jalan B — lewat Console D1.** Buka Console basis data, ganti alamat di bawah dengan milik Anda, lalu **Execute**:
+
+```sql
+INSERT OR REPLACE INTO anggota (email, nama, peran, status, dibuat)
+VALUES ('alamat-anda@contoh.com', 'Owner', 'owner', 'aktif', 0);
+```
+
+Console D1 bersifat pribadi, jadi alamat surel Anda tidak ikut terbaca siapa pun.
+
+Sesudah salah satunya, buka situs dan masuk dengan alamat itu.
 
 ---
 
@@ -86,6 +102,8 @@ Mereka membuka situs, mengisi alamat surel dan nama, lalu menekan **Masuk sebaga
 Tidak ada surel yang dikirim ke mana pun. Alamat surel hanya menjadi tanda pengenal.
 
 ### Anda menyetujui
+
+Menu **Anggota** hanya muncul untuk pemilik situs. Guru dan siswa tidak melihatnya, dan API-nya pun menolak mereka — jadi alamat surel Anda tidak terbaca siapa pun dari dalam situs.
 
 1. Masuk sebagai pemilik
 2. Klik **Anggota** di bilah atas

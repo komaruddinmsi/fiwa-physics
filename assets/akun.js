@@ -189,7 +189,7 @@ FIMS.halAnggota = async function () {
       <td>${tgl(a.dibuat)}</td>
       <td>${tgl(a.terakhir)}</td>
       <td>${a.kode ? `<span class="mono">${esc(a.kode)}</span>` : '—'}</td>
-      <td class="l">${r.owner && a.peran !== 'owner' ? `
+      <td class="l">${a.peran !== 'owner' ? `
         ${a.status !== 'aktif' ? `<button class="btn kecil" data-putus="aktif">Setujui</button>` : ''}
         ${a.status !== 'ditolak' ? `<button class="btn ghost kecil" data-putus="ditolak">Tolak</button>` : ''}
         <button class="btn ghost kecil" data-peran="${a.peran === 'guru' ? 'siswa' : 'guru'}">Jadikan ${a.peran === 'guru' ? 'siswa' : 'guru'}</button>
@@ -204,9 +204,7 @@ FIMS.halAnggota = async function () {
 
   app.innerHTML = `<div class="stack"><div class="crumbs"><a href="#">Beranda</a> / Anggota</div>
     <div><div class="eyebrow">Keanggotaan</div><h1>Anggota situs</h1>
-      <p class="muted">${r.owner
-        ? 'Sebagai pemilik situs, Anda yang memutuskan siapa yang boleh masuk.'
-        : 'Hanya pemilik situs yang dapat menyetujui atau menolak. Daftar ini untuk Anda baca.'}</p></div>
+      <p class="muted">Anda yang memutuskan siapa yang boleh masuk. Halaman ini hanya terbuka untuk pemilik situs — guru dan siswa tidak melihatnya.</p></div>
     ${tabel('Menunggu persetujuan', kelompok.menunggu, 'Permintaan baru muncul di sini. Periksa alamat surelnya sebelum menyetujui.')}
     ${tabel('Aktif', kelompok.aktif)}
     ${tabel('Ditolak', kelompok.ditolak)}</div>`;
@@ -234,7 +232,7 @@ function pasangBilah() {
     ${a.guru ? `<div class="mode-alih" role="group" aria-label="Mode tampilan">
         <button type="button" data-mode="guru">Guru</button><button type="button" data-mode="siswa">Siswa</button>
       </div>` : ''}
-    ${a.guru ? `<a href="#anggota" class="akun-tautan">Anggota</a>` : ''}
+    ${a.owner ? `<a href="#anggota" class="akun-tautan">Anggota</a>` : ''}
     <span class="akun-nama" title="${esc(a.email)}">${esc(a.nama || a.email.split('@')[0])}</span>
     <button type="button" class="akun-keluar" id="b-keluar">Keluar</button>`;
   nav.appendChild(blok);

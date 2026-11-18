@@ -10,7 +10,8 @@
 const NAMA_KUKI = 'fims_sesi';
 
 // Awalan jalur yang hanya boleh dibuka anggota aktif.
-const DIJAGA = ['/konten/', '/aset-f-use/', '/media-f-use/', '/katalog.json', '/skema.sql'];
+const DIJAGA = ['/konten/', '/aset-f-use/', '/media-f-use/', '/katalog.json',
+                '/skema.sql', '/skema-ringkas.sql', '/PANDUAN-AKUN.md', '/PANDUAN-MEDIA.md'];
 
 const dijaga = jalur => DIJAGA.some(a => jalur === a || jalur.startsWith(a));
 

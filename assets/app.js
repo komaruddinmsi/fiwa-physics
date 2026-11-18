@@ -659,7 +659,7 @@ function render() {
   let html, m; cur = null;
   $('#nav-guru').classList.toggle('on', h === 'guru');
   $('#nav-belajar').classList.toggle('on', h !== 'guru');
-  if (h === 'anggota' && window.FIMS && FIMS.aku && FIMS.aku.guru) { rangka(); FIMS.halAnggota(); return; }
+  if (h === 'anggota' && window.FIMS && FIMS.aku && FIMS.aku.owner) { rangka(); FIMS.halAnggota(); return; }
   if (h === 'guru') html = halGuru();
   else if ((m = h.match(/^jalur-(.+)$/)) && cariJalur(m[1])) html = halJalur(cariJalur(m[1]));
   else if ((m = h.match(/^topik-(.+)-(l[1-4])$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase());

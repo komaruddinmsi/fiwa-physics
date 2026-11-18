@@ -4,10 +4,11 @@
    Pengikatan yang dibutuhkan di proyek Pages:
      DB         — basis data D1 (wajib)
      RAHASIA    — teks acak panjang untuk menandatangani sesi (wajib)
-     EMAIL_OWNER— alamat pemilik situs (opsional; bawaan komaruddinmsi@gmail.com)
+     EMAIL_OWNER— alamat surel pemilik situs (opsional; bila diisi, pemilik langsung aktif
+                  tanpa menunggu persetujuan siapa pun. Isi sebagai peubah terenkripsi,
+                  jangan pernah dituliskan ke dalam repositori yang bersifat publik)
      WAJIB_KODE — "1" bila anggota harus memasukkan kode aktivasi (opsional; bawaan mati)  */
 
-const OWNER_BAWAAN = 'komaruddinmsi@gmail.com';
 const NAMA_KUKI = 'fims_sesi';
 const UMUR_SESI = 60 * 60 * 24 * 30;              // 30 hari
 
@@ -77,13 +78,13 @@ export async function onRequest(ctx) {
   if (!env.RAHASIA) return json({ siap: false, galat: 'Peubah RAHASIA belum diisi pada pengaturan proyek Pages.' }, 503);
 
   const DB = env.DB;
-  const owner = rapi(env.EMAIL_OWNER || OWNER_BAWAAN);
+  const owner = rapi(env.EMAIL_OWNER || '');   // kosong = tidak ada yang diangkat otomatis
   const wajibKode = String(env.WAJIB_KODE || '') === '1';
 
   const sesi = await bacaSesi(ambilKuki(request, NAMA_KUKI), env.RAHASIA);
   const aku = sesi ? await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(sesi.email).first() : null;
   const aktif = aku && aku.status === 'aktif' ? aku : null;
-  const isOwner = !!aktif && (aktif.peran === 'owner' || aktif.email === owner);
+  const isOwner = !!aktif && (aktif.peran === 'owner' || (!!owner && aktif.email === owner));
   const isGuru = !!aktif && (isOwner || aktif.peran === 'guru');
 
   const badan = async () => { try { return await request.json(); } catch { return {}; } };
@@ -129,7 +130,7 @@ export async function onRequest(ctx) {
       if (wajibKode && a.kode)    return json({ status: 'perlu_kode', email });
 
       const kuki = await buatSesi(email, a.peran, env.RAHASIA);
-      return json({ status: 'masuk', email, peran: a.peran, owner: email === owner }, 200, { 'set-cookie': pasangKuki(kuki) });
+      return json({ status: 'masuk', email, peran: a.peran }, 200, { 'set-cookie': pasangKuki(kuki) });
     }
 
     /* ---- aktivasi dengan kode (hanya bila WAJIB_KODE menyala) ---- */
@@ -148,9 +149,10 @@ export async function onRequest(ctx) {
     if (rute === 'keluar' && metode === 'POST')
       return json({ ok: true }, 200, { 'set-cookie': hapusKuki() });
 
-    /* ---- daftar anggota (guru melihat, owner memutuskan) ---- */
+    /* ---- daftar anggota: hanya pemilik situs ----
+       Guru pun tidak melihatnya, supaya alamat surel pemilik tidak tersebar. */
     if (rute === 'anggota' && metode === 'GET') {
-      if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
+      if (!isOwner) return json({ galat: 'Khusus pemilik situs.' }, 403);
       const r = await DB.prepare(
         'SELECT email, nama, peran, status, kelas, kode, dibuat, diputus, terakhir FROM anggota ORDER BY ' +
         "CASE status WHEN 'menunggu' THEN 0 WHEN 'aktif' THEN 1 ELSE 2 END, dibuat DESC"
