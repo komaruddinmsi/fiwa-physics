@@ -207,3 +207,35 @@ td.y{color:var(--s4);font-weight:600} td.n{color:var(--gate);font-weight:600} td
   .mikon{width:28px;height:28px}
   .mbingkai{height:min(66vh,480px)}
 }
+
+/* ---------- Akun: laman masuk, bilah akun, alih mode ---------- */
+body.tamu #nav-belajar, body.tamu #nav-guru{display:none}
+body:not(.guru) #nav-guru,
+body:not(.guru) .akun-tautan{display:none}
+.masuk-bingkai{display:grid;place-items:center;min-height:62vh;padding:8px 0}
+.masuk-kotak{width:min(560px,100%);background:var(--surface);border:1px solid var(--line);
+  border-radius:18px;padding:32px 30px;backdrop-filter:blur(8px)}
+.masuk-kotak h1{margin:6px 0 10px;font-size:clamp(1.5rem,3.4vw,2rem)}
+.masuk-kotak .lede{color:#cfdcff;margin:0 0 18px;max-width:52ch}
+.masuk-form{display:grid;gap:7px;margin-top:6px}
+.masuk-form label{font-size:.88rem;color:#cfdcff;margin-top:8px}
+.masuk-form input{font:inherit;padding:11px 13px;border:1px solid var(--line-kuat);border-radius:10px;
+  background:rgba(3,9,31,.6);color:var(--fg);width:100%}
+.masuk-tanya{margin:18px 0 2px;font-size:.9rem}
+.masuk-pilih{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.masuk-pilih .btn{flex:1 1 200px;text-align:center}
+.masuk-kaki{font-size:.84rem;margin-top:16px}
+.akun{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.akun-nama{font-size:.86rem;color:var(--muted);max-width:18ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.akun-tautan{color:var(--muted);text-decoration:none;font-weight:600;font-size:.92rem}
+.akun-tautan:hover{color:var(--fg)}
+.akun-keluar{font:600 .8rem var(--body);background:transparent;color:var(--muted);
+  border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer}
+.akun-keluar:hover{color:var(--fg);border-color:var(--line-kuat)}
+.mode-alih{display:inline-flex;border:1px solid var(--line-kuat);border-radius:99px;overflow:hidden;background:rgba(3,9,31,.45)}
+.mode-alih button{font:700 .74rem var(--body);letter-spacing:.03em;border:0;background:transparent;
+  color:var(--muted);padding:6px 13px;cursor:pointer}
+.mode-alih button:hover{color:var(--fg)}
+.mode-alih button.on{background:linear-gradient(135deg,var(--biru),var(--teal));color:#04142e}
+.btn.kecil{padding:5px 11px;font-size:.8rem;border-radius:8px;margin:2px 3px 2px 0}
+@media (max-width:620px){.akun-nama{display:none}}

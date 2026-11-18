@@ -67,6 +67,7 @@ const EN = {
 "Kerjakan Gerbang Formatif S8 di kelas": "Sit the S8 Class Formative Gate in class",
 "Kerjakan Latihan Bertingkat S11 dulu": "Do the S11 Tiered Practice first",
 "Kerjakan S11 dulu": "Do S11 first",
+"Selesaikan dulu %s · %s": "Finish %s · %s first",
 "Tugas Kinerja S12 harus dinilai minimal T3": "The S12 Performance Task must be graded at least T3",
 "Kuis tertunda dibuka %s (H+2 setelah S11)": "The delayed quiz opens %s (D+2 after S11)",
 "Sudah dikerjakan (sekali jalan). Gagal? Ulangi S11 dulu": "Already attempted (one attempt only). Failed? Redo S11 first",
@@ -124,7 +125,7 @@ const EN = {
 "Selisih S11 − S13: %s · Riwayat status: %s": "S11 − S13 gap: %s · Status history: %s",
 "%s poin": "%s points",
 "belum ada data": "no data yet",
-"Papan guru": "Teacher board",
+"Papan guru": "Teacher board", "Memuat papan kelas…": "Loading the class board…", "Tidak dapat memuat papan kelas.": "Could not load the class board.", "Belum ada murid aktif. Setujui anggota lebih dulu di laman Anggota.": "No active students yet. Approve members on the Members page first.", "Murid": "Students", "Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.": "Colour = status, number = tier. The top row is progress on this device; the rows below come from each student's account.", "Anggota": "Members", "Keluar": "Sign out", "Guru": "Teacher", "Siswa": "Student",
 "Kelengkapan & posisi": "Completeness & standing",
 "Kelengkapan tahapan": "Stage completeness",
 "✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.": "✕ = a core stage (S1, S2, S3, S5, S8, S10, S12, S13, S14) has not been uploaded. An LO with any ✕ is not ready to publish.",
@@ -143,7 +144,7 @@ const EN = {
 "Belajar": "Learn",
 "Papan Guru": "Teacher Board",
 "Mode guru": "Teacher mode",
-"Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.": "Mastery Learning Content Flow · CMS FIMS · Fitrah Islamic World Academy. Progress is stored on this device.",
+"Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres belajar tersimpan pada akunmu.": "Mastery Learning Content Flow · CMS FIMS · Fitrah Islamic World Academy. Your progress is saved to your account.",
 "Bahan pendukung": "Supporting material", "Memuat bahan pendukung…": "Loading supporting material…", "Belum ada bahan pendukung untuk tahapan ini.": "No supporting material for this stage yet.", "Gerbang penilaian — bahan bantu sengaja tidak disediakan.": "Assessment gate — support material is withheld on purpose.", "Video": "Video", "Audio": "Audio", "Simulasi": "Simulation", "Bacaan": "Reading", "Tautan": "Link", "Buka di YouTube": "Open on YouTube", "Buka penuh di tab baru": "Open full size in a new tab", "Sumber luar": "External source", "Putar": "Play", "Jeda": "Pause", "Lanjut": "Resume", "Hentikan": "Stop", "Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.": "This browser cannot read the script aloud. Please read the text instead.", "Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.": "The script is read aloud by the browser. A teacher can replace it with their own recording.", "Bahan pendukung belum diatur untuk topik ini.": "Supporting material has not been set up for this topic yet.", "Memuat katalog…": "Loading the catalogue…",
 "katalog.json belum ada. Jalankan <span class=\"mono\">node build.js</span> (Cloudflare menjalankannya otomatis).": "katalog.json is missing. Run <span class=\"mono\">node build.js</span> (Cloudflare runs it automatically).",
 "Fisika FIWA — beranda": "Fisika FIWA — home"
@@ -186,6 +187,9 @@ const JALUR = [
 ];
 const FASE = ['Fase 0 · Pra-KBM', 'Fase 1 · KBM', 'Fase 2 · Pasca-KBM'];
 const STATUS = ['Belum Mulai', 'Siap', 'Mencoba', 'Akrab', 'Mahir', 'Tuntas'];
+// Fase KBM ditempuh berurutan: tiap tahapan baru terbuka setelah tahapan sebelumnya selesai.
+// Gerbang Formatif S8 karena itu tidak dapat dibuka sebelum S7 dikerjakan.
+const RANTAI_KBM = { S5:'S3', S6:'S5', S7:'S6', S8:'S7', S9:'S8', S10:'S9' };
 const HARI = 864e5;
 const T = id => TAHAPAN.find(s => s.id === id);
 
@@ -195,11 +199,33 @@ let db = {};
 try { db = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { db = {}; }
 db.tp = db.tp || {}; db.opsi = db.opsi || {};
 BHS = db.opsi.bahasa === 'en' ? 'en' : 'id';
-const simpan = () => { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) {} };
+const simpan = () => {
+  try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) {}
+  if (window.FIMS && FIMS.aku) FIMS.dorong(db);        // progres mengikuti akun, bukan peramban
+};
 const prog = slug => (db.tp[slug] = db.tp[slug] || { ev: {}, tier: null, s14: [], riwayat: [] });
 const now = () => Date.now() + (db.opsi.geser || 0) * HARI;   // "geser hari" = simulasi waktu untuk uji coba
 
 /* ---------- mesin status ---------- */
+function hitungP(p, tp) {                      // murni: tidak menyentuh penyimpanan
+  p = p || {}; const e = p.ev || {}, amb = tp.ambang || 75, s14 = p.s14 || [];
+  const sk = id => (e[id] && e[id].skor != null) ? e[id].skor : null;
+  const ok = id => !!e[id];
+  let s = 0;
+  if (sk('S2') != null && sk('S2') >= 80) s = 1;
+  if (s >= 1 && ok('S4')) s = 2;
+  if (s >= 2 && sk('S8') != null && sk('S8') >= 80) s = 3;
+  const tier = p.tier || 0;
+  if (s >= 3 && sk('S11') != null && sk('S11') >= 75 && tier >= 3) s = 4;
+  let stabil = false;
+  if (s >= 4 && sk('S13') != null && sk('S13') >= amb) {
+    const gagalTerakhir = s14.length && s14[s14.length - 1].hasil === 'gagal';
+    s = gagalTerakhir ? 4 : 5;
+    stabil = s === 5 && s14.filter(x => x.hasil === 'lulus').length >= 3;
+  }
+  return { s, stabil, tier: p.tier || null };
+}
+
 function hitung(tp) {
   const p = prog(tp.slug), e = p.ev, amb = tp.ambang || 75;
   const sk = id => (e[id] && e[id].skor != null) ? e[id].skor : null;
@@ -230,7 +256,12 @@ function kunci(tp, id, h) {
   if (id === 'S2c') return (sk('S2') != null && sk('S2') < 60) ? null : tr('Hanya untuk skor S2 di bawah 60%');
   if (h.s < 1) return tr('Lulus Gerbang Prasyarat (S2 ≥ 80%) dulu');
   if (['S3', 'S4'].includes(id)) return null;
-  if (['S5', 'S6', 'S7', 'S8', 'S9', 'S10'].includes(id)) return e.S3 ? null : tr('Kirim prakonsepsi S3 sebelum tatap muka');
+  if (RANTAI_KBM[id]) {
+    if (!e.S3) return tr('Kirim prakonsepsi S3 sebelum tatap muka');
+    const b = RANTAI_KBM[id];
+    if (b !== 'S3' && !e[b]) return trf('Selesaikan dulu %s · %s', b, tr(T(b).nama));
+    return null;
+  }
   if (id === 'S11') return e.S8 ? null : tr('Kerjakan Gerbang Formatif S8 di kelas');
   if (id === 'S12') return e.S11 ? null : tr('Kerjakan Latihan Bertingkat S11 dulu');
   if (id === 'S13') {
@@ -304,7 +335,7 @@ let K = { topik: [] };
 const semuaTP = () => K.topik.flatMap(t => t.tp.map(tp => Object.assign({ _t: t }, tp)));
 const cariTP = slug => semuaTP().find(x => x.slug === slug);
 const cariTopik = slug => K.topik.find(x => x.slug === slug);
-const guru = () => !!db.opsi.guru;
+const guru = () => (window.FIMS && FIMS.aku) ? FIMS.modeGuru() : !!db.opsi.guru;
 const cariJalur = slug => JALUR.find(j => j.slug === slug);
 const topikJalur = j => K.topik.filter(t => j.cocok.test(String(t.jalur || '').trim()));
 const jalurTopik = t => JALUR.find(j => j.cocok.test(String(t.jalur || '').trim())) || null;
@@ -476,7 +507,8 @@ function halGuru() {
   const geser = db.opsi.geser || 0;
   return `<div class="stack"><div><div class="eyebrow">${tr('Papan guru')}</div><h1>${tr('Kelengkapan & posisi')}</h1></div>
     <section class="panel stack"><h2>${tr('Kelengkapan tahapan')}</h2><p class="muted" style="margin:0">${tr('✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}</section>
-    <section class="panel stack"><h2>${tr('Papan posisi')}</h2><p class="muted" style="margin:0">${tr('Warna = status, angka = tier. Versi statis hanya membaca progres di perangkat ini. Papan seluruh kelas butuh login dan database (Tahap 6 panduan).')}</p>${papan}</section>
+    <section class="panel stack"><h2>${tr('Papan posisi')}</h2><p class="muted" style="margin:0">${tr('Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.')}</p>${papan}
+      <div id="papan-kelas"><p class="muted" style="margin:0">${tr('Memuat papan kelas…')}</p></div></section>
     <section class="panel stack"><h2>${tr('Simulasi waktu')}</h2><p class="muted" style="margin:0">${trf('Untuk uji alur kuis tertunda (H+2) dan pengulangan (H+14). Sekarang digeser %s hari.', geser)}</p>
       <div class="row"><button class="btn ghost" data-geser="2">${tr('+2 hari')}</button><button class="btn ghost" data-geser="14">${tr('+14 hari')}</button><button class="btn ghost" data-geser="0">${tr('Kembali ke hari ini')}</button></div></section></div>`;
 }
@@ -489,7 +521,7 @@ function rangka() {
   pasang('#nav-belajar', tr('Belajar'));
   pasang('#nav-guru', tr('Papan Guru'));
   pasang('#lbl-guru', tr('Mode guru'));
-  pasang('#kaki', tr('Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.'));
+  pasang('#kaki', tr('Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres belajar tersimpan pada akunmu.'));
   const merek = document.querySelector('.brand'); if (merek) merek.setAttribute('aria-label', tr('Fisika FIWA — beranda'));
   document.querySelectorAll('[data-bhs]').forEach(b => {
     const on = b.dataset.bhs === BHS;
@@ -571,8 +603,12 @@ function narasi(aksi, teks) {
   S.cancel();
   ucap = new SpeechSynthesisUtterance(teks);
   ucap.lang = 'id-ID'; ucap.rate = 0.96; ucap.pitch = 1;
-  const suara = S.getVoices().find(v => /^id/i.test(v.lang));
+  const suara = (S.getVoices() || []).find(v => /^id/i.test(v.lang));
   if (suara) ucap.voice = suara;
+  else if (!narasi._tunggu) {                 // daftar suara kadang baru siap sesudah peristiwa ini
+    narasi._tunggu = true;
+    S.addEventListener && S.addEventListener('voiceschanged', () => { narasi._tunggu = false; }, { once: true });
+  }
   S.speak(ucap);
 }
 
@@ -600,12 +636,30 @@ function isiBahan() {
   });
 }
 
+function isiPapanKelas() {
+  const w = document.getElementById('papan-kelas');
+  if (!w || !(window.FIMS && FIMS.aku && FIMS.aku.guru)) return;
+  const tps = semuaTP();
+  FIMS.papan().then(r => {
+    const w2 = document.getElementById('papan-kelas'); if (!w2) return;
+    if (!r.murid) { w2.innerHTML = `<p class="muted" style="margin:0">${esc(r.galat || tr('Tidak dapat memuat papan kelas.'))}</p>`; return; }
+    if (!r.murid.length) { w2.innerHTML = `<p class="muted" style="margin:0">${tr('Belum ada murid aktif. Setujui anggota lebih dulu di laman Anggota.')}</p>`; return; }
+    const baris = m => `<tr><td class="l">${esc(m.nama || m.email.split('@')[0])}<br><span class="mono muted" style="font-size:.78em">${esc(m.email)}</span></td>` +
+      tps.map(tp => { const h = hitungP((m.tp || {})[tp.slug], tp);
+        return `<td class="cell st${h.s}" title="${tr(STATUS[h.s])}">${h.tier ? 'T' + h.tier : ''}</td>`; }).join('') +
+      `</tr>`;
+    w2.innerHTML = `<div class="scroll"><table><tr><th class="l">${tr('Murid')} <span class="mcacah">${r.murid.length}</span></th>` +
+      tps.map(tp => `<th class="mono">${esc(tp.kode)}</th>`).join('') + `</tr>${r.murid.map(baris).join('')}</table></div>`;
+  }).catch(() => {});
+}
+
 function render() {
   rangka();
   const h = decodeURIComponent(location.hash.slice(1));
   let html, m; cur = null;
   $('#nav-guru').classList.toggle('on', h === 'guru');
   $('#nav-belajar').classList.toggle('on', h !== 'guru');
+  if (h === 'anggota' && window.FIMS && FIMS.aku && FIMS.aku.guru) { rangka(); FIMS.halAnggota(); return; }
   if (h === 'guru') html = halGuru();
   else if ((m = h.match(/^jalur-(.+)$/)) && cariJalur(m[1])) html = halJalur(cariJalur(m[1]));
   else if ((m = h.match(/^topik-(.+)-(l[1-4])$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase());
@@ -616,6 +670,7 @@ function render() {
   $('#app').innerHTML = html;
   if (window.speechSynthesis) window.speechSynthesis.cancel();   // hentikan narasi halaman sebelumnya
   isiBahan();
+  isiPapanKelas();
   if (cur && document.getElementById('viewer')) document.getElementById('viewer').scrollIntoView({ block: 'start', behavior: 'smooth' });
   else window.scrollTo(0, 0);
 }
@@ -666,8 +721,11 @@ window.addEventListener('message', ev => {
   render();
 });
 window.addEventListener('hashchange', render);
+document.addEventListener('fims:mode', render);        // guru menukar mode tampilan
 
 fetch('katalog.json').then(r => r.json()).then(k => {
-  K = k; $('#modeGuru').checked = guru(); render();
+  K = k;
+  const kotak = $('#modeGuru'); if (kotak) kotak.checked = guru();   // kotak lama, tidak ada lagi sesudah akun dipasang
+  render();
 }).catch(() => { rangka(); $('#app').innerHTML = `<div class="note">${tr('katalog.json belum ada. Jalankan <span class="mono">node build.js</span> (Cloudflare menjalankannya otomatis).')}</div>`; });
 })();
