@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS anggota (
   peran       TEXT NOT NULL,             -- 'siswa' | 'guru' | 'owner'
   status      TEXT NOT NULL,             -- 'menunggu' | 'aktif' | 'ditolak'
   kelas       TEXT,
+  sandi       TEXT,                      -- turunan PBKDF2-SHA256 dari kata sandi, bukan sandinya
+  garam       TEXT,                      -- garam acak 16 bita untuk turunan di atas
   kode        TEXT,                      -- kode aktivasi, dipakai bila WAJIB_KODE menyala
   dibuat      INTEGER NOT NULL,
   diputus     INTEGER,

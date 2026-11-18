@@ -55,7 +55,30 @@ const EN = {
 "Akun %s sudah masuk antrean. Pemilik situs perlu menyetujuinya satu kali; sesudah itu kamu langsung bisa belajar dan tidak akan ditanya lagi.": "The account %s is now in the queue. The site owner needs to approve it once; after that you can start learning and will not be asked again.",
 "Beri tahu gurumu bahwa kamu sudah mendaftar, lalu tekan tombol di bawah untuk memeriksa apakah sudah disetujui.": "Tell your teacher that you have registered, then press the button below to check whether it has been approved.",
 "Periksa lagi": "Check again",
-"Ganti alamat surel": "Use another email",
+"Kembali ke laman masuk": "Back to the sign-in page",
+"Masukkan alamat surel dan kata sandi akunmu. Tampilan akan menyesuaikan sendiri dengan peranmu, sebagai siswa atau sebagai guru.": "Enter your email address and password. The site adjusts itself to your role, student or teacher.",
+"Kata sandi": "Password",
+"Lihat": "Show",
+"Sembunyikan": "Hide",
+"Masuk": "Sign in",
+"Belum punya akun?": "No account yet?",
+"Daftar di sini": "Register here",
+"Sudah punya akun?": "Already have an account?",
+"Masuk di sini": "Sign in here",
+"Akun baru": "New account",
+"Registrasi anggota": "Member registration",
+"Isi data di bawah ini sekali saja. Akunmu baru dapat dipakai setelah pemilik situs menyetujuinya.": "Fill this in once. Your account can only be used after the site owner approves it.",
+"(minimal 8 karakter)": "(at least 8 characters)",
+"Ulangi kata sandi": "Repeat password",
+"Daftar sebagai apa?": "Register as what?",
+"Kirim registrasi": "Submit registration",
+"Kata sandi minimal 8 karakter.": "The password must be at least 8 characters.",
+"Kedua kata sandi belum sama.": "The two passwords do not match yet.",
+"Registrasi gagal. Coba lagi sebentar.": "Registration failed. Try again shortly.",
+"Akun guru": "Teacher accounts",
+"Akun siswa": "Student accounts",
+"Belum ada akun guru.": "No teacher accounts yet.",
+"Belum ada akun siswa.": "No student accounts yet.",
 "Memeriksa…": "Checking…",
 "Belum disetujui. Coba lagi beberapa saat lagi.": "Not approved yet. Try again in a little while.",
 "Permintaan tidak disetujui": "Request declined",
@@ -100,6 +123,12 @@ const EN = {
 "Jadikan siswa": "Make student",
 "Hapus": "Delete",
 "Ubah nama": "Rename",
+"Ubah sandi": "Reset password",
+"Kata sandi baru, minimal 8 karakter": "New password, at least 8 characters",
+"Kata sandi baru": "New password",
+"Kata sandi minimal 8 karakter.": "The password must be at least 8 characters.",
+"Gagal menyimpan kata sandi.": "Could not save the password.",
+"Kata sandi %s sudah diganti. Beri tahu yang bersangkutan.": "The password for %s has been changed. Let them know.",
 "Simpan": "Save",
 "Batal": "Cancel",
 "Menyimpan…": "Saving…",
@@ -146,48 +175,130 @@ document.addEventListener('fims:bahasa', ev => setBahasa(ev.detail));
 /* ---------- gambar layar ---------- */
 const bungkus = isi => `<div class="masuk-bingkai" data-akun-layar><section class="masuk-kotak">${isi}</section></div>`;
 
-function layarMasuk(pesan) {
-  layarKini = () => layarMasuk(pesan);
+function layarMasuk(pesan, isian) {
+  const v = isian || {};
+  layarKini = () => layarMasuk(pesan, v);
   $('#app').innerHTML = bungkus(`
     <p class="eyebrow">${t('Fitrah Islamic World Academy')}</p>
     <h1>${t('Masuk ke Fisika FIWA')}</h1>
-    <p class="lede">${t('Cukup dengan alamat surelmu — tidak perlu kata sandi dan tidak perlu mendaftar. Bila ini pertama kalinya, pemilik situs akan menyetujui akunmu sekali saja.')}</p>
-    ${pesan ? `<div class="note">${esc(pesan)}</div>` : ''}
+    <p class="lede">${t('Masukkan alamat surel dan kata sandi akunmu. Tampilan akan menyesuaikan sendiri dengan peranmu, sebagai siswa atau sebagai guru.')}</p>
+    ${pesan ? `<div class="note galat">${esc(pesan)}</div>` : ''}
     <form id="f-masuk" class="masuk-form" autocomplete="on">
       <label for="m-email">${t('Alamat surel')}</label>
-      <input id="m-email" name="email" type="email" inputmode="email" autocomplete="email"
-             placeholder="${t('nama@contoh.sch.id')}" required>
-      <label for="m-nama">${t('Nama')} <span class="muted">${t('(opsional, membantu gurumu mengenali)')}</span></label>
-      <input id="m-nama" name="nama" type="text" autocomplete="name" placeholder="${t('Nama lengkap')}" maxlength="80">
-      <p class="muted masuk-tanya">${t('Masuk sebagai apa?')}</p>
-      <div class="masuk-pilih">
-        <button class="btn" type="submit" value="siswa" name="peran">${t('Masuk sebagai Siswa')}</button>
-        <button class="btn ghost" type="submit" value="guru" name="peran">${t('Masuk sebagai Guru')}</button>
+      <input id="m-email" name="email" type="email" inputmode="email" autocomplete="username"
+             placeholder="${t('nama@contoh.sch.id')}" value="${esc(v.email || '')}" required>
+      <label for="m-sandi">${t('Kata sandi')}</label>
+      <div class="sandi-baris">
+        <input id="m-sandi" name="password" type="password" autocomplete="current-password" required>
+        <button type="button" class="btn ghost kecil" id="b-lihat" aria-pressed="false">${t('Lihat')}</button>
       </div>
-      <p class="muted masuk-kaki">${t('Alamat surel hanya dipakai sebagai tanda pengenal di situs ini. Tidak dikirimi apa pun, dan tidak dibagikan ke mana pun.')}</p>
+      <div class="masuk-pilih"><button class="btn" type="submit">${t('Masuk')}</button></div>
+      <p class="muted masuk-kaki">${t('Belum punya akun?')}
+        <a href="#" id="b-ke-daftar" class="tautan-kuat">${t('Daftar di sini')}</a></p>
     </form>`);
 
-  let peran = 'siswa';
-  $('#f-masuk').querySelectorAll('button[type=submit]').forEach(b =>
-    b.addEventListener('click', () => { peran = b.value; }));
+  const lihat = $('#b-lihat');
+  lihat.addEventListener('click', () => {
+    const i = $('#m-sandi'), buka = i.type === 'password';
+    i.type = buka ? 'text' : 'password';
+    lihat.textContent = buka ? t('Sembunyikan') : t('Lihat');
+    lihat.setAttribute('aria-pressed', buka ? 'true' : 'false');
+    i.focus();
+  });
+  $('#b-ke-daftar').addEventListener('click', ev => { ev.preventDefault(); layarDaftar(); });
 
   $('#f-masuk').addEventListener('submit', async ev => {
     ev.preventDefault();
-    const email = $('#m-email').value.trim(), nama = $('#m-nama').value.trim();
+    const email = $('#m-email').value.trim(), sandi = $('#m-sandi').value;
     const tombol = $('#f-masuk').querySelectorAll('button');
     tombol.forEach(b => b.disabled = true);
-    const r = await API('masuk', { method: 'POST', body: JSON.stringify({ email, nama, peran }) });
+    const r = await API('masuk', { method: 'POST', body: JSON.stringify({ email, sandi }) });
     tombol.forEach(b => b.disabled = false);
     if (r.status === 'masuk') return mulai();
-    if (r.status === 'menunggu') return layarMenunggu(email);
+    if (r.status === 'menunggu') return layarMenunggu(email, sandi);
     if (r.status === 'ditolak') return layarDitolak(email);
     if (r.status === 'perlu_kode') return layarKode(email);
-    layarMasuk(r.galat || t('Tidak dapat masuk. Coba lagi sebentar.'));
+    layarMasuk(r.galat || t('Tidak dapat masuk. Coba lagi sebentar.'), { email });
   });
 }
 
-function layarMenunggu(email) {
-  layarKini = () => layarMenunggu(email);
+/* ---------- registrasi ----------
+   Akun yang baru dibuat berstatus menunggu; pemilik situs menyetujuinya sekali. */
+function layarDaftar(pesan, isian) {
+  const v = isian || {};
+  layarKini = () => layarDaftar(pesan, v);
+  $('#app').innerHTML = bungkus(`
+    <p class="eyebrow">${t('Akun baru')}</p>
+    <h1>${t('Registrasi anggota')}</h1>
+    <p class="lede">${t('Isi data di bawah ini sekali saja. Akunmu baru dapat dipakai setelah pemilik situs menyetujuinya.')}</p>
+    ${pesan ? `<div class="note galat">${esc(pesan)}</div>` : ''}
+    <form id="f-daftar" class="masuk-form" autocomplete="on">
+      <label for="d-nama">${t('Nama lengkap')}</label>
+      <input id="d-nama" type="text" autocomplete="name" maxlength="80" value="${esc(v.nama || '')}" required>
+
+      <label for="d-email">${t('Alamat surel')}</label>
+      <input id="d-email" type="email" inputmode="email" autocomplete="username"
+             placeholder="${t('nama@contoh.sch.id')}" value="${esc(v.email || '')}" required>
+
+      <label for="d-sandi">${t('Kata sandi')} <span class="muted">${t('(minimal 8 karakter)')}</span></label>
+      <div class="sandi-baris">
+        <input id="d-sandi" type="password" autocomplete="new-password" minlength="8" required>
+        <button type="button" class="btn ghost kecil" id="b-lihat-d" aria-pressed="false">${t('Lihat')}</button>
+      </div>
+
+      <label for="d-ulang">${t('Ulangi kata sandi')}</label>
+      <input id="d-ulang" type="password" autocomplete="new-password" minlength="8" required>
+
+      <p class="muted masuk-tanya">${t('Daftar sebagai apa?')}</p>
+      <div class="masuk-pilih peran-pilih" role="group">
+        <button type="button" class="btn peran on" data-peran="siswa">${t('Siswa')}</button>
+        <button type="button" class="btn ghost peran" data-peran="guru">${t('Guru')}</button>
+      </div>
+
+      <div class="masuk-pilih"><button class="btn" type="submit" id="b-kirim-daftar">${t('Kirim registrasi')}</button></div>
+      <p class="muted masuk-kaki">${t('Sudah punya akun?')}
+        <a href="#" id="b-ke-masuk" class="tautan-kuat">${t('Masuk di sini')}</a></p>
+    </form>`);
+
+  let peran = v.peran === 'guru' ? 'guru' : 'siswa';
+  const tombolPeran = $('#f-daftar').querySelectorAll('.peran');
+  const segarPeran = () => tombolPeran.forEach(b => {
+    const on = b.dataset.peran === peran;
+    b.classList.toggle('on', on); b.classList.toggle('ghost', !on);
+  });
+  tombolPeran.forEach(b => b.addEventListener('click', () => { peran = b.dataset.peran; segarPeran(); }));
+  segarPeran();
+
+  const lihat = $('#b-lihat-d');
+  lihat.addEventListener('click', () => {
+    const buka = $('#d-sandi').type === 'password';
+    $('#d-sandi').type = $('#d-ulang').type = buka ? 'text' : 'password';
+    lihat.textContent = buka ? t('Sembunyikan') : t('Lihat');
+    lihat.setAttribute('aria-pressed', buka ? 'true' : 'false');
+  });
+  $('#b-ke-masuk').addEventListener('click', ev => { ev.preventDefault(); layarMasuk(); });
+
+  $('#f-daftar').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const nama = $('#d-nama').value.trim(), email = $('#d-email').value.trim();
+    const sandi = $('#d-sandi').value, ulang = $('#d-ulang').value;
+    const simpan = { nama, email, peran };
+    if (sandi.length < 8) return layarDaftar(t('Kata sandi minimal 8 karakter.'), simpan);
+    if (sandi !== ulang)  return layarDaftar(t('Kedua kata sandi belum sama.'), simpan);
+
+    const tombol = $('#f-daftar').querySelectorAll('button');
+    tombol.forEach(b => b.disabled = true);
+    const r = await API('daftar', { method: 'POST', body: JSON.stringify({ nama, email, sandi, peran }) });
+    tombol.forEach(b => b.disabled = false);
+    if (r.status === 'masuk') return mulai();
+    if (r.status === 'menunggu') return layarMenunggu(email, sandi);
+    if (r.status === 'ditolak') return layarDitolak(email);
+    layarDaftar(r.galat || t('Registrasi gagal. Coba lagi sebentar.'), simpan);
+  });
+}
+
+function layarMenunggu(email, sandi) {
+  layarKini = () => layarMenunggu(email, sandi);
   $('#app').innerHTML = bungkus(`
     <p class="eyebrow">${t('Permintaan terkirim')}</p>
     <h1>${t('Menunggu persetujuan')}</h1>
@@ -195,11 +306,13 @@ function layarMenunggu(email) {
     <div class="note">${t('Beri tahu gurumu bahwa kamu sudah mendaftar, lalu tekan tombol di bawah untuk memeriksa apakah sudah disetujui.')}</div>
     <div class="masuk-pilih">
       <button class="btn" id="b-periksa">${t('Periksa lagi')}</button>
-      <button class="btn ghost" id="b-ganti">${t('Ganti alamat surel')}</button>
+      <button class="btn ghost" id="b-ganti">${t('Kembali ke laman masuk')}</button>
     </div>`);
   $('#b-periksa').addEventListener('click', async () => {
     const b = $('#b-periksa'); b.disabled = true; b.textContent = t('Memeriksa…');
-    const r = await API('masuk', { method: 'POST', body: JSON.stringify({ email, peran: 'siswa' }) });
+    const r = sandi
+      ? await API('masuk', { method: 'POST', body: JSON.stringify({ email, sandi }) })
+      : { status: 'menunggu' };
     if (r.status === 'masuk') return mulai();
     if (r.status === 'ditolak') return layarDitolak(email);
     if (r.status === 'perlu_kode') return layarKode(email);
@@ -301,6 +414,7 @@ FIMS.halAnggota = async function () {
       <td>${a.kode ? `<span class="mono">${esc(a.kode)}</span>` : '—'}</td>
       <td class="l">
         <button class="btn ghost kecil" data-nama="1">${t('Ubah nama')}</button>
+        <button class="btn ghost kecil" data-sandi="1">${t('Ubah sandi')}</button>
         ${a.peran !== 'owner' ? `
         ${a.status !== 'aktif' ? `<button class="btn kecil" data-putus="aktif">${t('Setujui')}</button>` : ''}
         ${a.status !== 'ditolak' ? `<button class="btn ghost kecil" data-putus="ditolak">${t('Tolak')}</button>` : ''}
@@ -308,12 +422,25 @@ FIMS.halAnggota = async function () {
         <button class="btn ghost kecil bahaya" data-hapus="1">${t('Hapus')}</button>
       ` : `<span class="muted">${t('Peran dan akses pemilik tidak dapat diubah')}</span>`}</td></tr>`;
 
-  const tabel = (judul, daftar, catatan) => `<section class="panel stack">
+  const tabelKecil = (daftar, kosong) => daftar.length
+    ? `<div class="scroll"><table><tr><th class="l">${t('Anggota')}</th><th>${t('Peran')}</th><th>${t('Daftar')}</th><th>${t('Terakhir')}</th><th>${t('Kode')}</th><th class="l">${t('Tindakan')}</th></tr>
+        ${daftar.map(baris).join('')}</table></div>`
+    : `<p class="muted" style="margin:0">${kosong}</p>`;
+
+  /* Guru dan siswa dipisahkan ke dalam dua tabel pada setiap kelompok status.
+     Pemilik situs ikut pada tabel guru, karena perannya memang mengajar. */
+  const tabel = (judul, daftar, catatan) => {
+    const guru  = daftar.filter(a => a.peran === 'guru' || a.peran === 'owner');
+    const siswa = daftar.filter(a => a.peran !== 'guru' && a.peran !== 'owner');
+    return `<section class="panel stack">
       <h2>${judul} <span class="mcacah">${daftar.length}</span></h2>
       ${catatan ? `<p class="muted" style="margin:0">${catatan}</p>` : ''}
-      ${daftar.length ? `<div class="scroll"><table><tr><th class="l">${t('Anggota')}</th><th>${t('Peran')}</th><th>${t('Daftar')}</th><th>${t('Terakhir')}</th><th>${t('Kode')}</th><th class="l">${t('Tindakan')}</th></tr>
-        ${daftar.map(baris).join('')}</table></div>` : `<p class="muted" style="margin:0">${t('Belum ada.')}</p>`}
+      <h3 class="mjudul">${t('Akun guru')} <span class="mcacah">${guru.length}</span></h3>
+      ${tabelKecil(guru, t('Belum ada akun guru.'))}
+      <h3 class="mjudul">${t('Akun siswa')} <span class="mcacah">${siswa.length}</span></h3>
+      ${tabelKecil(siswa, t('Belum ada akun siswa.'))}
     </section>`;
+  };
 
   app.innerHTML = `<div class="stack" data-akun-layar><div class="crumbs"><a href="#">${t('Beranda')}</a> / ${t('Anggota')}</div>
     <div><div class="eyebrow">${t('Keanggotaan')}</div><h1>${t('Anggota situs')}</h1>
@@ -325,9 +452,38 @@ FIMS.halAnggota = async function () {
 
   function pasangKlik() {
   app.addEventListener('click', async ev => {
-    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus],[data-nama],[data-simpan-nama],[data-batal-nama]');
+    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus],[data-nama],[data-simpan-nama],[data-batal-nama],[data-sandi],[data-simpan-sandi],[data-batal-sandi]');
     if (!b) return;
     const email = b.closest('tr').dataset.email;
+
+    /* Menyetel ulang kata sandi anggota. Sandi lama tidak dapat dibaca siapa pun,
+       termasuk pemilik situs — yang ada hanyalah menggantinya dengan yang baru. */
+    if (b.dataset.sandi) {
+      const sel = b.closest('tr').querySelector('.nm-teks');
+      if (!sel || sel.querySelector('.sd-isi')) { pasangKlik(); return; }
+      sel.innerHTML = `<input class="nm-isi sd-isi" type="text" minlength="8" maxlength="72"
+          placeholder="${t('Kata sandi baru, minimal 8 karakter')}" aria-label="${t('Kata sandi baru')}">
+        <button class="btn kecil" data-simpan-sandi="1">${t('Simpan')}</button>
+        <button class="btn ghost kecil" data-batal-sandi="1">${t('Batal')}</button>`;
+      const inp = sel.querySelector('.sd-isi');
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); sel.querySelector('[data-simpan-sandi]').click(); }
+        if (e.key === 'Escape') { e.preventDefault(); FIMS.halAnggota(); }
+      });
+      inp.focus();
+      pasangKlik(); return;
+    }
+    if (b.dataset.batalSandi) return FIMS.halAnggota();
+    if (b.dataset.simpanSandi) {
+      const inp = b.closest('tr').querySelector('.sd-isi');
+      const sandi = inp.value || '';
+      if (sandi.length < 8) { alert(t('Kata sandi minimal 8 karakter.')); inp.focus(); pasangKlik(); return; }
+      b.disabled = true; b.textContent = t('Menyimpan…');
+      const rs = await API('anggota/sandi', { method: 'POST', body: JSON.stringify({ email, sandi }) });
+      if (!rs.ok) alert(rs.galat || t('Gagal menyimpan kata sandi.'));
+      else alert(tf('Kata sandi %s sudah diganti. Beri tahu yang bersangkutan.', email));
+      return FIMS.halAnggota();
+    }
 
     // Mengubah nama anggota: sel nama berganti menjadi kolom isian di tempat.
     if (b.dataset.nama) {

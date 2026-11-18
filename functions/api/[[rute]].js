@@ -63,6 +63,31 @@ const pasangKuki = nilai =>
 const hapusKuki = () =>
   `${NAMA_KUKI}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`;
 
+/* ---------- kata sandi ----------
+   Disimpan sebagai turunan PBKDF2-SHA256 100.000 putaran dengan garam acak 16 bita.
+   Kata sandi aslinya tidak pernah disimpan dan tidak dapat dibaca kembali dari basis data. */
+const SANDI_PUTARAN = 100000;
+const dariB64 = t => Uint8Array.from(atob(String(t).replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+
+async function olahSandi(sandi, garamB64) {
+  const garam = garamB64 ? dariB64(garamB64) : crypto.getRandomValues(new Uint8Array(16));
+  const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(sandi), 'PBKDF2', false, ['deriveBits']);
+  const bit = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: garam, iterations: SANDI_PUTARAN, hash: 'SHA-256' }, k, 256);
+  return { sandi: b64url(bit), garam: b64url(garam) };
+}
+
+/* Pembandingan berwaktu tetap, supaya lama jawaban tidak membocorkan isi sandi. */
+function samaTetap(a, b) {
+  a = String(a || ''); b = String(b || '');
+  if (a.length !== b.length) return false;
+  let beda = 0;
+  for (let i = 0; i < a.length; i++) beda |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return beda === 0;
+}
+
+const sandiLayak = x => typeof x === 'string' && x.length >= 8 && x.length <= 200;
+
 const kodeBaru = () => {
   const huruf = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';        // tanpa I, O, 0, 1
   return [...crypto.getRandomValues(new Uint8Array(6))].map(n => huruf[n % huruf.length]).join('');
@@ -102,28 +127,65 @@ export async function onRequest(ctx) {
       });
     }
 
-    /* ---- masuk dengan email ---- */
+    /* ---- registrasi: nama, surel, kata sandi, pilihan peran ---- */
+    if (rute === 'daftar' && metode === 'POST') {
+      const b = await badan();
+      const email = rapi(b.email);
+      const nama = String(b.nama || '').trim().slice(0, 80);
+      const peranMinta = b.peran === 'guru' ? 'guru' : 'siswa';
+      if (nama.length < 2)      return json({ galat: 'Nama lengkap belum diisi.' }, 400);
+      if (!sahEmail(email))     return json({ galat: 'Alamat surel tidak sah.' }, 400);
+      if (!sandiLayak(b.sandi)) return json({ galat: 'Kata sandi minimal 8 karakter.' }, 400);
+
+      const ada = await DB.prepare('SELECT email, sandi FROM anggota WHERE email = ?').bind(email).first();
+      if (ada && ada.sandi) return json({ galat: 'Alamat surel ini sudah terdaftar. Silakan masuk.' }, 409);
+
+      const h = await olahSandi(b.sandi, null);
+      const jadiOwner = !!owner && email === owner;
+      if (ada) {
+        // Baris lama dari masa sebelum ada kata sandi: lengkapi, jangan hilangkan progresnya.
+        await DB.prepare('UPDATE anggota SET nama = ?, sandi = ?, garam = ?, terakhir = ? WHERE email = ?')
+          .bind(nama, h.sandi, h.garam, kini(), email).run();
+      } else {
+        await DB.prepare(
+          'INSERT INTO anggota (email, nama, peran, status, sandi, garam, kode, dibuat, terakhir) VALUES (?,?,?,?,?,?,?,?,?)'
+        ).bind(email, nama, jadiOwner ? 'owner' : peranMinta, jadiOwner ? 'aktif' : 'menunggu',
+               h.sandi, h.garam, wajibKode && !jadiOwner ? kodeBaru() : null, kini(), kini()).run();
+      }
+      const a = await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(email).first();
+      if (a.status === 'aktif' && !(wajibKode && a.kode)) {
+        const kuki = await buatSesi(email, a.peran, env.RAHASIA);
+        return json({ status: 'masuk', email, peran: a.peran }, 200, { 'set-cookie': pasangKuki(kuki) });
+      }
+      return json({ status: a.status === 'ditolak' ? 'ditolak' : 'menunggu', email });
+    }
+
+    /* ---- masuk dengan surel dan kata sandi ----
+       Peran tidak diminta di sini: ia diambil dari akun yang sudah disetujui pemilik. */
     if (rute === 'masuk' && metode === 'POST') {
       const b = await badan();
       const email = rapi(b.email);
-      const peranMinta = b.peran === 'guru' ? 'guru' : 'siswa';
-      const nama = String(b.nama || '').trim().slice(0, 80);
       if (!sahEmail(email)) return json({ galat: 'Alamat surel tidak sah.' }, 400);
+      if (!b.sandi)         return json({ galat: 'Kata sandi belum diisi.' }, 400);
 
-      let a = await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(email).first();
+      const a = await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(email).first();
+      // Jawaban yang sama untuk surel tak dikenal dan sandi salah, supaya daftar
+      // anggota tidak bisa ditebak satu per satu dari luar.
+      const tolak = () => json({ galat: 'Alamat surel atau kata sandi tidak cocok.' }, 403);
+      if (!a) return tolak();
 
-      if (!a) {
-        const jadiOwner = email === owner;
-        const kode = wajibKode && !jadiOwner ? kodeBaru() : null;
-        await DB.prepare(
-          'INSERT INTO anggota (email, nama, peran, status, kode, dibuat, terakhir) VALUES (?,?,?,?,?,?,?)'
-        ).bind(email, nama || null, jadiOwner ? 'owner' : peranMinta,
-               jadiOwner ? 'aktif' : 'menunggu', kode, kini(), kini()).run();
-        a = await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(email).first();
+      if (!a.sandi) {
+        // Akun lama dari masa sebelum ada kata sandi (termasuk baris pemilik yang
+        // dibuat lewat Console D1): kata sandi pertama yang dipakai menjadi miliknya.
+        if (!sandiLayak(b.sandi)) return json({ galat: 'Akun ini belum punya kata sandi. Tetapkan satu, minimal 8 karakter.' }, 400);
+        const h = await olahSandi(b.sandi, null);
+        await DB.prepare('UPDATE anggota SET sandi = ?, garam = ? WHERE email = ?').bind(h.sandi, h.garam, email).run();
       } else {
-        if (nama && !a.nama) await DB.prepare('UPDATE anggota SET nama = ? WHERE email = ?').bind(nama, email).run();
-        await DB.prepare('UPDATE anggota SET terakhir = ? WHERE email = ?').bind(kini(), email).run();
+        const h = await olahSandi(b.sandi, a.garam);
+        if (!samaTetap(h.sandi, a.sandi)) return tolak();
       }
+
+      await DB.prepare('UPDATE anggota SET terakhir = ? WHERE email = ?').bind(kini(), email).run();
 
       if (a.status === 'ditolak') return json({ status: 'ditolak' }, 403);
       if (a.status !== 'aktif')   return json({ status: 'menunggu', email });
@@ -181,6 +243,26 @@ export async function onRequest(ctx) {
         .bind(status || a.status, peran || a.peran, nama === null ? a.nama : nama, kode, kini(), aktif.email, email).run();
       return json({ ok: true, email, status: status || a.status, peran: peran || a.peran,
                     nama: nama === null ? a.nama : nama, kode });
+    }
+
+    /* ---- pemilik menyetel ulang kata sandi anggota ----
+       Dipakai bila ada yang lupa sandinya. Sandi lama tidak pernah bisa dibaca,
+       hanya diganti; sesi yang sedang berjalan milik orang itu tetap sah sampai
+       kedaluwarsa, karena tanda tangannya tidak bergantung pada kata sandi. */
+    if (rute === 'anggota/sandi' && metode === 'POST') {
+      if (!isOwner) return json({ galat: 'Hanya pemilik situs.' }, 403);
+      const b = await badan();
+      const email = rapi(b.email);
+      if (!sahEmail(email))     return json({ galat: 'Alamat surel tidak sah.' }, 400);
+      if (!sandiLayak(b.sandi)) return json({ galat: 'Kata sandi minimal 8 karakter.' }, 400);
+
+      const a = await DB.prepare('SELECT email FROM anggota WHERE email = ?').bind(email).first();
+      if (!a) return json({ galat: 'Anggota tidak ditemukan.' }, 404);
+
+      const h = await olahSandi(b.sandi, null);
+      await DB.prepare('UPDATE anggota SET sandi = ?, garam = ?, diputus = ?, oleh = ? WHERE email = ?')
+        .bind(h.sandi, h.garam, kini(), aktif.email, email).run();
+      return json({ ok: true, email });
     }
 
     if (rute === 'anggota/hapus' && metode === 'POST') {

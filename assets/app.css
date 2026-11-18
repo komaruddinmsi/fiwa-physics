@@ -303,3 +303,15 @@ body:not(.guru) .akun-tautan{display:none}
   margin-right:6px;
 }
 .nm-isi:focus{ outline:2px solid var(--biru); outline-offset:1px; }
+
+/* ---------- laman masuk & registrasi ---------- */
+.sandi-baris{ display:flex; gap:8px; align-items:stretch; }
+.sandi-baris input{ flex:1 1 auto; min-width:0; }
+.sandi-baris .btn{ flex:0 0 auto; white-space:nowrap; }
+.note.galat{ border-color:rgba(255,120,120,.5); background:rgba(120,20,30,.3); }
+.tautan-kuat{ color:var(--teal); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+.peran-pilih .btn.peran{ flex:1 1 auto; }
+
+/* ---------- panel anggota: tabel guru dan siswa ---------- */
+.mjudul{ font-size:.95rem; margin:14px 0 2px; letter-spacing:.01em; }
+.mjudul:first-of-type{ margin-top:6px; }
