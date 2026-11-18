@@ -167,11 +167,10 @@ export async function onRequest(ctx) {
       const status = ['aktif', 'ditolak', 'menunggu'].includes(b.status) ? b.status : null;
       const peran = ['siswa', 'guru'].includes(b.peran) ? b.peran : null;
       if (!email || (!status && !peran)) return json({ galat: 'Permintaan tidak lengkap.' }, 400);
-      if (email === owner && status && status !== 'aktif')
-        return json({ galat: 'Akun pemilik tidak dapat dinonaktifkan.' }, 400);
-
       const a = await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(email).first();
       if (!a) return json({ galat: 'Anggota tidak ditemukan.' }, 404);
+      if ((a.peran === 'owner' || (!!owner && email === owner)) && ((status && status !== 'aktif') || peran))
+        return json({ galat: 'Akun pemilik tidak dapat dinonaktifkan atau diturunkan perannya.' }, 400);
 
       let kode = a.kode;
       if (status === 'aktif' && wajibKode && !kode) kode = kodeBaru();
@@ -183,12 +182,17 @@ export async function onRequest(ctx) {
     if (rute === 'anggota/hapus' && metode === 'POST') {
       if (!isOwner) return json({ galat: 'Hanya pemilik situs.' }, 403);
       const email = rapi((await badan()).email);
-      if (email === owner) return json({ galat: 'Akun pemilik tidak dapat dihapus.' }, 400);
+      if (!email) return json({ galat: 'Alamat tidak diberikan.' }, 400);
+      if (email === aktif.email) return json({ galat: 'Akun Anda sendiri tidak dapat dihapus dari sini.' }, 400);
+      const sasaran = await DB.prepare('SELECT peran FROM anggota WHERE email = ?').bind(email).first();
+      if (!sasaran) return json({ galat: 'Anggota tidak ditemukan.' }, 404);
+      if (sasaran.peran === 'owner' || (!!owner && email === owner))
+        return json({ galat: 'Akun pemilik tidak dapat dihapus.' }, 400);
       await DB.batch([
         DB.prepare('DELETE FROM progres WHERE email = ?').bind(email),
         DB.prepare('DELETE FROM anggota WHERE email = ?').bind(email)
       ]);
-      return json({ ok: true });
+      return json({ ok: true, email });
     }
 
     /* ---- progres: mengikuti akun, bukan peramban ---- */
