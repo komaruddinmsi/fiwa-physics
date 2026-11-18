@@ -45,4 +45,3 @@ dan nama berkasnya biarkan sama. Warna situs diatur pada `:root` di
 Cloudflare Pages menyajikan seluruh berkas repo kepada siapa pun yang menebak
 alamatnya. Kunci jawaban, rubrik, dan log tinjauan **tidak pernah** diletakkan di
 repo ini; semuanya disimpan di komputer sekolah.
-

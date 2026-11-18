@@ -662,6 +662,38 @@ if (document.readyState === "loading"){
 
 cerminSemua();
 
+
+/* ==== FIMS · daftar butir yang masih salah ====
+   Dipakai pelapor di bawah untuk memberi tahu siswa nomor mana yang perlu diperbaiki.
+   Memakai pembanding milik halaman ini sendiri, supaya hasilnya persis sama dengan nilainya. */
+window.fimsButirSalah = function(){
+  function benarkah(id){
+    if (typeof butirBenar === "function") return butirBenar(id);
+    if (typeof benarkahIsian === "function") return benarkahIsian(id);
+    if (typeof KUNCI_NUM !== "undefined" && Object.prototype.hasOwnProperty.call(KUNCI_NUM, id)){
+      var v = bacaBilangan(nilaiElemen(id));
+      if (v === null) return false;
+      if (typeof cocokNum === "function") return cocokNum(id, v, KUNCI_NUM[id][0]);
+      var k = KUNCI_NUM[id];
+      return Math.abs(v - k[0]) <= (k.length > 1 ? k[1] : 0.01);
+    }
+    if (typeof KUNCI_PIL !== "undefined" && Object.prototype.hasOwnProperty.call(KUNCI_PIL, id)){
+      var j = nilaiElemen(id);
+      if (j === null || String(j).trim() === "") return false;
+      if (typeof cocokSel === "function") return cocokSel(id, j, KUNCI_PIL[id]);
+      return String(j).trim() === String(KUNCI_PIL[id]).trim();
+    }
+    return true;
+  }
+  var ids = [];
+  if (typeof KUNCI_NUM !== "undefined") ids = ids.concat(Object.keys(KUNCI_NUM));
+  if (typeof KUNCI_PIL !== "undefined") ids = ids.concat(Object.keys(KUNCI_PIL));
+  if (typeof cerminSemua === "function") cerminSemua();
+  var salah = [];
+  for (var i = 0; i < ids.length; i++) if (!benarkah(ids[i])) salah.push(ids[i]);
+  return { salah: salah, total: ids.length, benar: ids.length - salah.length };
+};
+
 })();
 </script>
 
@@ -681,12 +713,108 @@ cerminSemua();
     return n;
   }
 
+  /* ---- butir yang masih salah: nomor soalnya diambil dari judul blok soal ---- */
+  function labelButir(id){
+    var el = document.getElementById(id);
+    var kotak = (el && el.closest) ? el.closest(".soal") : null;
+    var jud = kotak ? kotak.querySelector(".soal-judul") : null;
+    var sp = jud ? jud.querySelector("span") : null;          /* "Nomor A1" bila ada, kalau tidak teks judulnya */
+    var t = (sp || jud) ? String((sp || jud).textContent || "").replace(/\s+/g, " ").trim() : "";
+    return { teks: t || id, kotak: kotak || el };
+  }
+
+  function gayaKotak(garis, latar){
+    return "margin:14px 0 0;padding:12px 15px;border-radius:10px;border:1px solid " + garis
+      + ";background:" + latar + ";color:" + garis
+      + ";font:600 15px 'Segoe UI',Arial,sans-serif;line-height:1.55;";
+  }
+
+  function gambarRingkas(urut, peta, d){
+    var k = document.getElementById("fims-salah");
+    if (!k){
+      k = document.createElement("div");
+      k.id = "fims-salah";
+      k.setAttribute("role", "status");
+      var acuan = document.getElementById("fims-kirim")
+               || document.getElementById("btn_periksa")
+               || document.getElementById("btn_selesai");
+      (acuan && acuan.parentNode ? acuan.parentNode : document.body).appendChild(k);
+    }
+    if (!urut.length){
+      k.style.cssText = gayaKotak("#1F7A4D", "#E6F4EC");
+      k.innerHTML = "<b>Semua butir sudah benar.</b> Benar " + d.benar + " dari " + d.total + " butir.";
+      return;
+    }
+    k.style.cssText = gayaKotak("#9A4A06", "#FFF4E3");
+    var isi = "<b>Masih ada " + urut.length + " nomor yang salah.</b> Benar " + d.benar
+            + " dari " + d.total + " butir."
+            + "<div style=\"margin:9px 0 0;display:flex;flex-wrap:wrap;gap:6px\">";
+    for (var i = 0; i < urut.length; i++){
+      isi += "<button type=\"button\" data-ke=\"" + i + "\" style=\"border:1px solid #9A4A06;"
+           + "background:#fff;color:#9A4A06;border-radius:999px;padding:5px 13px;cursor:pointer;"
+           + "font:600 14px 'Segoe UI',Arial,sans-serif;\">" + urut[i] + "</button>";
+    }
+    isi += "</div><p style=\"margin:10px 0 0;font-weight:400;color:#6B4418\">"
+         + "Klik nomornya untuk melompat ke soal itu. Kerjakan ulang langkahnya, lalu periksa lagi. "
+         + "Kunci jawaban sengaja tidak ditampilkan.</p>";
+    k.innerHTML = isi;
+    var tombol = k.querySelectorAll("[data-ke]");
+    for (var j = 0; j < tombol.length; j++){
+      (function(btn, sasaran){
+        btn.addEventListener("click", function(){
+          if (!sasaran) return;
+          sasaran.scrollIntoView({ behavior: "smooth", block: "center" });
+          var lama = sasaran.style.outline;
+          sasaran.style.outline = "3px solid #9A4A06";
+          sasaran.style.outlineOffset = "4px";
+          setTimeout(function(){ sasaran.style.outline = lama; }, 2000);
+        });
+      })(tombol[j], peta[urut[j]]);
+    }
+  }
+
+  function ringkasSalah(){
+    if (typeof window.fimsButirSalah !== "function") return null;
+    var d;
+    try { d = window.fimsButirSalah(); } catch (e) { return null; }
+    var tandai = {};
+    for (var i = 0; i < d.salah.length; i++) tandai[d.salah[i]] = true;
+
+    /* Diurutkan mengikuti urutan soal di lembar, bukan urutan kunci jawaban. */
+    var urut = [], peta = {}, sudah = {};
+    var blok = document.querySelectorAll(".soal");
+    for (var b = 0; b < blok.length; b++){
+      var medan = blok[b].querySelectorAll("[id]"), kena = null;
+      for (var m = 0; m < medan.length; m++){
+        if (tandai[medan[m].id]) { kena = medan[m].id; break; }
+      }
+      if (!kena) continue;
+      var jud = blok[b].querySelector(".soal-judul");
+      var sp = jud ? jud.querySelector("span") : null;
+      var t = ((sp || jud) ? String((sp || jud).textContent || "") : "").replace(/\s+/g, " ").trim();
+      if (!t) t = "Soal " + (b + 1);
+      for (var q = 0; q < medan.length; q++) if (tandai[medan[q].id]) sudah[medan[q].id] = true;
+      if (!Object.prototype.hasOwnProperty.call(peta, t)){ peta[t] = blok[b]; urut.push(t); }
+    }
+    /* Butir yang tidak berada di dalam blok soal mana pun tetap disebut. */
+    for (var j = 0; j < d.salah.length; j++){
+      if (sudah[d.salah[j]]) continue;
+      var L = labelButir(d.salah[j]);
+      if (!Object.prototype.hasOwnProperty.call(peta, L.teks)){ peta[L.teks] = L.kotak; urut.push(L.teks); }
+    }
+    gambarRingkas(urut, peta, d);
+    return { salah: urut, benar: d.benar, total: d.total };
+  }
+
   function lapor(){
+    var r = (LAPOR === "skor") ? ringkasSalah() : null;   /* digambar juga saat lembar dibuka sendiri */
     if (!TERPASANG) return false;            /* dibuka sendiri: tetap lembar biasa */
     try {
       if (LAPOR === "skor") {
         var n = (typeof window.hitungNilai === "function") ? bulat(window.hitungNilai()) : 0;
-        parent.postMessage({ fims: "skor", skor: n }, "*");
+        var pesan = { fims: "skor", skor: n };
+        if (r) { pesan.salah = r.salah; pesan.benar = r.benar; pesan.total = r.total; }
+        parent.postMessage(pesan, "*");
       } else {
         parent.postMessage({ fims: "selesai" }, "*");
       }
