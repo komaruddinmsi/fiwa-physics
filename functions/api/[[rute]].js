@@ -290,7 +290,9 @@ export async function onRequest(ctx) {
       return json({ tp });
     }
 
-    if (rute === 'progres' && metode === 'PUT') {
+    /* PUT dari pemakaian biasa; POST dipakai navigator.sendBeacon saat tab ditutup,
+       karena sendBeacon hanya bisa mengirim POST. */
+    if (rute === 'progres' && (metode === 'PUT' || metode === 'POST')) {
       if (!aktif) return json({ galat: 'Belum masuk.' }, 401);
       const b = await badan();
       const tp = b.tp || {};
