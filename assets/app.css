@@ -239,3 +239,19 @@ body:not(.guru) .akun-tautan{display:none}
 .mode-alih button.on{background:linear-gradient(135deg,var(--biru),var(--teal));color:#04142e}
 .btn.kecil{padding:5px 11px;font-size:.8rem;border-radius:8px;margin:2px 3px 2px 0}
 @media (max-width:620px){.akun-nama{display:none}}
+.btn.bahaya{color:#ff9aa2;border-color:rgba(255,122,122,.42)}
+.btn.bahaya:hover{color:#fff;border-color:var(--merah,#ff7a7a);background:rgba(255,122,122,.14)}
+.btn.bahaya.pasti{background:linear-gradient(135deg,#c0392b,#ff7a7a);color:#2a0b0b;border-color:transparent;font-weight:700}
+
+/* ---------- Petunjuk langkah berikutnya & kunci skor ---------- */
+.lanjut{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;
+  background:var(--surface);border:1px solid var(--line-kuat);border-radius:12px;padding:16px 18px}
+.lanjut b{font-family:var(--display);font-size:1.02rem;display:block}
+.lanjut p{margin:4px 0 0;color:var(--muted);font-size:.92rem;max-width:62ch}
+.lanjut.kuat{border-left:4px solid var(--gate);background:linear-gradient(90deg,var(--gate-soft),var(--surface) 55%)}
+.lanjut.kuat b{color:var(--gate)}
+@media (max-width:620px){.lanjut{grid-template-columns:1fr}.lanjut .btn{justify-self:start}}
+.row.kunci-skor{background:rgba(3,9,31,.45);border:1px dashed var(--line-kuat);border-radius:10px;padding:12px 14px}
+.row.kunci-skor .muted{font-size:.9rem;max-width:68ch}
+.skor-tercatat{font:600 .86rem var(--mono);color:var(--teal);background:rgba(0,201,167,.12);
+  border:1px solid rgba(0,201,167,.3);border-radius:99px;padding:4px 12px}

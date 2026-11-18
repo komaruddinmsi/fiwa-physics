@@ -118,7 +118,7 @@ const EN = {
 "Skor (%)": "Score (%)",
 "Simpan skor": "Save score",
 "Terisi otomatis bila halaman kuis mengirim skor.": "Filled in automatically when the quiz page reports a score.",
-"Tandai selesai": "Mark done",
+"Tandai selesai": "Mark done", "Tandai sudah mengikuti": "Mark as attended", "Mode guru. Siswa tidak dapat mengetik skornya sendiri.": "Teacher mode. Students cannot type their own score.", "Skor tahapan ini dinilai dan diisi gurumu di kelas.": "Your teacher marks and enters the score for this stage in class.", "Skormu terisi sendiri begitu kamu menekan tombol periksa pada lembar di atas. Tidak ada angka yang bisa diketik sendiri di sini.": "Your score is filled in automatically the moment you press the check button on the sheet above. There is no figure to type in here.", "Skor tercatat: %s": "Score on record: %s", "Langkah berikutnya": "Next step", "Ke %s · %s": "Go to %s · %s", "%s · %s": "%s · %s", "Sesudah ini: kerjakan ulang Gerbang Prasyarat": "Next: sit the Prerequisite Gate again", "Penguatan dan remediasi tidak mengubah statusmu dengan sendirinya. Status baru naik setelah kamu lulus Gerbang Prasyarat, yaitu skor minimal 80%. Kerjakan ulang gerbangnya sekarang.": "Reinforcement and remediation do not change your status by themselves. Your status only rises once you pass the Prerequisite Gate with at least 80%. Sit the gate again now.",
 "Panel guru · %s": "Teacher panel · %s",
 "Tier dari rubrik S9/S12": "Tier from the S9/S12 rubric",
 "Hapus progres TP ini": "Clear progress for this LO",
@@ -163,7 +163,7 @@ const TAHAPAN = [
   { id:'S5',  f:1, nama:'Pembahasan Prakonsepsi',  lulus:'Dipimpin guru', rangka:1 },
   { id:'S6',  f:1, nama:'Inti Terbimbing',         lulus:'Dipimpin guru' },
   { id:'S7',  f:1, nama:'Praktik Terstruktur',     lulus:'Lembar kerja terisi' },
-  { id:'S8',  f:1, nama:'Gerbang Formatif Kelas',  lulus:'≥80% benar', gate:1, skor:1, rangka:1 },
+  { id:'S8',  f:1, nama:'Gerbang Formatif Kelas',  lulus:'≥80% benar', gate:1, skor:1, guruIsi:1, rangka:1 },
   { id:'S9',  f:1, nama:'Diferensiasi T1–T4',      lulus:'Sesuai cabang S8' },
   { id:'S10', f:1, nama:'Konsolidasi & Jangkar',   lulus:'Jangkar terkirim', rangka:1 },
   { id:'S11', f:2, nama:'Latihan Bertingkat',      lulus:'Benar 3 dari 4 (≥75%) · H+0–H+2', skor:1 },
@@ -297,7 +297,9 @@ function catat(tp, id, data) {
     p.s14.push({ hasil: lulus ? 'lulus' : 'gagal', waktu: now() });
     if (!lulus) p.s14Mulai = now();               // turun ke Mahir & jadwal ulang dari interval pertama
   } else {
-    p.ev[id] = { waktu: now(), skor: data.skor == null ? null : Math.round(data.skor) };
+    const lama = p.ev[id];
+    p.ev[id] = { waktu: now(),
+      skor: data.skor == null ? (lama && lama.skor != null ? lama.skor : null) : Math.round(data.skor) };
     if (id === 'S2' && p.ev.S2.skor >= 80) { delete p.ev.S2b; delete p.ev.S2c; }
   }
   simpan();
@@ -456,18 +458,53 @@ function s14Panel(h) {
   return `<section class="panel stack"><h3>${tr('Jadwal pengulangan berjarak (S14)')}</h3><div class="scroll"><table><tr><th>${tr('Interval')}</th><th>${tr('Hari')}</th><th>${tr('Jatuh tempo')}</th><th>${tr('Hasil')}</th></tr>${rows}</table></div></section>`;
 }
 
+// Tahapan mana yang mesti dikerjakan sesudah tahapan ini.
+function berikutnya(tp, id) {
+  if (id === 'S2b' || id === 'S2c') return 'S2';     // penguatan dan remediasi selalu bermuara ke gerbangnya
+  const l = langkah(tp);
+  return (l && l !== id) ? l : null;
+}
+
+function petunjukLanjut(tp, id) {
+  const b = berikutnya(tp, id);
+  if (!b || !tp.tahapan[b]) return '';
+  const nm = esc(tr(T(b).nama));
+  const tautan = `<a class="btn" href="#tp-${tp.slug}-${b.toLowerCase()}">${trf('Ke %s · %s', b, nm)}</a>`;
+  if (id === 'S2b' || id === 'S2c') {
+    return `<div class="lanjut kuat"><div><b>${tr('Sesudah ini: kerjakan ulang Gerbang Prasyarat')}</b>
+      <p>${tr('Penguatan dan remediasi tidak mengubah statusmu dengan sendirinya. Status baru naik setelah kamu lulus Gerbang Prasyarat, yaitu skor minimal 80%. Kerjakan ulang gerbangnya sekarang.')}</p></div>${tautan}</div>`;
+  }
+  return `<div class="lanjut"><div><b>${tr('Langkah berikutnya')}</b>
+    <p>${trf('%s · %s', b, nm)}</p></div>${tautan}</div>`;
+}
+
 function viewer(tp, id, h) {
   const s = T(id), f = tp.tahapan[id];
   if (!f) return `<div class="panel">${trf('Tahapan %s belum diunggah.', id)}</div>`;
   const k = kunci(tp, id, h);
   if (k && !guru()) return `<div class="note">🔒 ${esc(k)}</div>`;
+  const tercatat = h.e[id] && h.e[id].skor != null ? h.e[id].skor : null;
+  const nilaiTercatat = tercatat != null
+    ? `<span class="skor-tercatat">${trf('Skor tercatat: %s', tercatat)}</span>` : '';
   let aksi;
-  if (s.tier) aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai bukti terkirim')}</button><span class="muted">${tr('Tier diisi guru (rubrik T1–T4).')}</span></div>`;
-  else if (s.skor || id === 'S14') aksi = `<div class="row"><label for="skorIn">${tr('Skor (%)')}</label><input type="number" id="skorIn" min="0" max="100" style="width:90px"><button class="btn" data-aksi="skor">${tr('Simpan skor')}</button><span class="muted">${tr('Terisi otomatis bila halaman kuis mengirim skor.')}</span></div>`;
-  else aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai selesai')}</button></div>`;
+  if (s.tier) {
+    aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai bukti terkirim')}</button><span class="muted">${tr('Tier diisi guru (rubrik T1–T4).')}</span></div>`;
+  } else if (s.skor || id === 'S14') {
+    if (guru()) {
+      // Hanya guru yang boleh mengetik angka. Di mode siswa kolom ini tidak ada sama sekali.
+      aksi = `<div class="row"><label for="skorIn">${tr('Skor (%)')}</label><input type="number" id="skorIn" min="0" max="100" style="width:90px"><button class="btn" data-aksi="skor">${tr('Simpan skor')}</button><span class="muted">${tr('Mode guru. Siswa tidak dapat mengetik skornya sendiri.')}</span>${nilaiTercatat}</div>`;
+    } else if (s.guruIsi) {
+      aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai sudah mengikuti')}</button><span class="muted">${tr('Skor tahapan ini dinilai dan diisi gurumu di kelas.')}</span>${nilaiTercatat}</div>`;
+    } else {
+      aksi = `<div class="row kunci-skor"><span class="muted">${tr('Skormu terisi sendiri begitu kamu menekan tombol periksa pada lembar di atas. Tidak ada angka yang bisa diketik sendiri di sini.')}</span>${nilaiTercatat}</div>`;
+    }
+  } else {
+    aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai selesai')}</button></div>`;
+  }
   return `<section class="viewer" id="viewer"><div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
     <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>${aksi}
+    ${petunjukLanjut(tp, id)}
     <div id="bahan" class="bahan" data-topik="${esc(topikDariTP(tp).slug)}" data-tp="${esc(tp.kode)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></section>`;
 }
 
@@ -716,7 +753,7 @@ window.addEventListener('message', ev => {
   const d = ev.data; if (!d || !d.fims || !cur) return;
   const s = T(cur.id);
   if (d.fims === 'skor' && typeof d.skor === 'number' && (s.skor || cur.id === 'S14')) catat(cur.tp, cur.id, { skor: d.skor });
-  else if (d.fims === 'selesai' && !s.skor) catat(cur.tp, cur.id, {});
+  else if (d.fims === 'selesai') catat(cur.tp, cur.id, {});   // skor yang sudah ada tidak tertimpa
   else return;
   render();
 });
