@@ -26,7 +26,13 @@ function cariTahapan(dir, daftar) {
     if (!nama) continue;
     const p = path.join(dir, nama);
     const f = isDir(p) ? path.join(p, 'index.html') : p;
-    if (fs.existsSync(f)) hasil[id] = { berkas: f.split(path.sep).join('/'), judul: judulDari(f) };
+    if (!fs.existsSync(f)) continue;
+    hasil[id] = { berkas: f.split(path.sep).join('/'), judul: judulDari(f) };
+    // Konten kedua untuk satu tahapan: <ID>/latihan.html (dipakai L3: latihan unit test)
+    if (isDir(p)) {
+      const lat = path.join(p, 'latihan.html');
+      if (fs.existsSync(lat)) hasil[id].latihan = { berkas: lat.split(path.sep).join('/'), judul: judulDari(lat) };
+    }
   }
   return hasil;
 }

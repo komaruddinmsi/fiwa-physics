@@ -269,3 +269,37 @@ body:not(.guru) .akun-tautan{display:none}
   background:rgba(255,184,77,.12);border-radius:999px;padding:4px 12px;white-space:nowrap}
 .periksa .jarak{color:var(--fg);font-weight:600;margin-top:10px}
 .periksa .saran{margin-top:10px}
+
+/* ---------- gembok: TP berurutan & lapis topik ---------- */
+.item.terkunci, .tile.terkunci{
+  opacity:.72; cursor:not-allowed;
+  background:rgba(10,24,60,.46); border-style:dashed;
+}
+.item.terkunci:hover, .tile.terkunci:hover{ transform:none; }
+.gembok{ display:inline-block; margin-top:4px; font-size:.82rem; color:var(--gate); }
+.tile.terkunci .sid{ color:var(--gate); }
+.terkunci-panel{ text-align:center; }
+.gembok-besar{ font-size:2.4rem; margin:0 0 4px; }
+
+/* ---------- dua konten dalam satu lapis ---------- */
+.tab-konten{ display:flex; gap:10px; flex-wrap:wrap; margin:4px 0 2px; }
+.tab-konten .tabk{
+  flex:1 1 220px; display:block; text-decoration:none; border-radius:12px; padding:11px 15px;
+  background:rgba(10,24,60,.55); border:1px solid rgba(120,160,255,.26); color:var(--fg);
+  font-weight:600; line-height:1.3; transition:border-color .15s, background .15s;
+}
+.tab-konten .tabk small{ display:block; margin-top:3px; font-weight:400; font-size:.78rem; color:var(--muted); }
+.tab-konten .tabk:hover{ border-color:rgba(120,160,255,.5); }
+.tab-konten .tabk.on{
+  background:linear-gradient(135deg, rgba(63,123,255,.3), rgba(0,201,167,.22));
+  border-color:var(--biru); color:#fff;
+}
+.note.kecilan{ font-size:.85rem; }
+
+/* ---------- ubah nama anggota ---------- */
+.nm-isi{
+  background:rgba(4,14,40,.8); color:var(--fg); border:1px solid rgba(120,160,255,.42);
+  border-radius:7px; padding:5px 9px; font:600 .92rem var(--body); width:min(230px, 60vw);
+  margin-right:6px;
+}
+.nm-isi:focus{ outline:2px solid var(--biru); outline-offset:1px; }

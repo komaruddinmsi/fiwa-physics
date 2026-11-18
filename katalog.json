@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-17T07:35:23.305Z",
+  "dibuat": "2026-11-18T07:42:54.946Z",
   "topik": [
     {
       "slug": "f-use",
@@ -20,7 +20,11 @@
         },
         "L3": {
           "berkas": "konten/f-use/L3/index.html",
-          "judul": "Tes Topik Fisika — Usaha & Energi"
+          "judul": "Tes Topik Fisika — Usaha & Energi",
+          "latihan": {
+            "berkas": "konten/f-use/L3/latihan.html",
+            "judul": "Latihan Unit Test — Tes Topik Fisika F.USE (Usaha &amp; Energi)"
+          }
         },
         "L4": {
           "berkas": "konten/f-use/L4/index.html",

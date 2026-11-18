@@ -184,17 +184,19 @@ FIMS.halAnggota = async function () {
   r.anggota.forEach(a => (kelompok[a.status] || kelompok.ditolak).push(a));
 
   const baris = a => `<tr data-email="${esc(a.email)}">
-      <td class="l"><b>${esc(a.nama || '—')}</b><br><span class="mono muted">${esc(a.email)}</span></td>
+      <td class="l"><b class="nm-teks">${esc(a.nama || '—')}</b><br><span class="mono muted">${esc(a.email)}</span></td>
       <td>${a.peran === 'owner' ? 'Pemilik' : a.peran === 'guru' ? 'Guru' : 'Siswa'}</td>
       <td>${tgl(a.dibuat)}</td>
       <td>${tgl(a.terakhir)}</td>
       <td>${a.kode ? `<span class="mono">${esc(a.kode)}</span>` : '—'}</td>
-      <td class="l">${a.peran !== 'owner' ? `
+      <td class="l">
+        <button class="btn ghost kecil" data-nama="1">Ubah nama</button>
+        ${a.peran !== 'owner' ? `
         ${a.status !== 'aktif' ? `<button class="btn kecil" data-putus="aktif">Setujui</button>` : ''}
         ${a.status !== 'ditolak' ? `<button class="btn ghost kecil" data-putus="ditolak">Tolak</button>` : ''}
         <button class="btn ghost kecil" data-peran="${a.peran === 'guru' ? 'siswa' : 'guru'}">Jadikan ${a.peran === 'guru' ? 'siswa' : 'guru'}</button>
         <button class="btn ghost kecil bahaya" data-hapus="1">Hapus</button>
-      ` : '<span class="muted">Akun pemilik tidak dapat diubah</span>'}</td></tr>`;
+      ` : '<span class="muted">Peran dan akses pemilik tidak dapat diubah</span>'}</td></tr>`;
 
   const tabel = (judul, daftar, catatan) => `<section class="panel stack">
       <h2>${judul} <span class="mcacah">${daftar.length}</span></h2>
@@ -215,9 +217,36 @@ FIMS.halAnggota = async function () {
 
   function pasangKlik() {
   app.addEventListener('click', async ev => {
-    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus]');
+    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus],[data-nama],[data-simpan-nama],[data-batal-nama]');
     if (!b) return;
     const email = b.closest('tr').dataset.email;
+
+    // Mengubah nama anggota: sel nama berganti menjadi kolom isian di tempat.
+    if (b.dataset.nama) {
+      const sel = b.closest('tr').querySelector('.nm-teks');
+      if (!sel || sel.querySelector('.nm-isi')) { pasangKlik(); return; }
+      const lama = sel.textContent.trim() === '—' ? '' : sel.textContent.trim();
+      sel.innerHTML = `<input class="nm-isi" type="text" maxlength="80" value="${esc(lama)}" aria-label="Nama anggota">
+        <button class="btn kecil" data-simpan-nama="1">Simpan</button>
+        <button class="btn ghost kecil" data-batal-nama="1">Batal</button>`;
+      const inp = sel.querySelector('.nm-isi');
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); sel.querySelector('[data-simpan-nama]').click(); }
+        if (e.key === 'Escape') { e.preventDefault(); FIMS.halAnggota(); }
+      });
+      inp.focus(); inp.select();
+      pasangKlik(); return;
+    }
+    if (b.dataset.batalNama) return FIMS.halAnggota();
+    if (b.dataset.simpanNama) {
+      const inp = b.closest('tr').querySelector('.nm-isi');
+      const nama = (inp.value || '').trim();
+      if (!nama) { inp.focus(); pasangKlik(); return; }
+      b.disabled = true; b.textContent = 'Menyimpan…';
+      const rn = await API('anggota/putusan', { method: 'POST', body: JSON.stringify({ email, nama }) });
+      if (!rn.ok) alert(rn.galat || 'Gagal menyimpan nama.');
+      return FIMS.halAnggota();
+    }
 
     // Menghapus tidak dapat dibatalkan, jadi butuh dua klik: klik pertama meminta kepastian.
     if (b.dataset.hapus) {

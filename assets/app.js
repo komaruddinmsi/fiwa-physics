@@ -147,7 +147,18 @@ const EN = {
 "Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres belajar tersimpan pada akunmu.": "Mastery Learning Content Flow · CMS FIMS · Fitrah Islamic World Academy. Your progress is saved to your account.",
 "Bahan pendukung": "Supporting material", "Memuat bahan pendukung…": "Loading supporting material…", "Belum ada bahan pendukung untuk tahapan ini.": "No supporting material for this stage yet.", "Gerbang penilaian — bahan bantu sengaja tidak disediakan.": "Assessment gate — support material is withheld on purpose.", "Video": "Video", "Audio": "Audio", "Simulasi": "Simulation", "Bacaan": "Reading", "Tautan": "Link", "Buka di YouTube": "Open on YouTube", "Buka penuh di tab baru": "Open full size in a new tab", "Sumber luar": "External source", "Putar": "Play", "Jeda": "Pause", "Lanjut": "Resume", "Hentikan": "Stop", "Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.": "This browser cannot read the script aloud. Please read the text instead.", "Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.": "The script is read aloud by the browser. A teacher can replace it with their own recording.", "Bahan pendukung belum diatur untuk topik ini.": "Supporting material has not been set up for this topic yet.", "Memuat katalog…": "Loading the catalogue…",
 "katalog.json belum ada. Jalankan <span class=\"mono\">node build.js</span> (Cloudflare menjalankannya otomatis).": "katalog.json is missing. Run <span class=\"mono\">node build.js</span> (Cloudflare runs it automatically).",
-"Fisika FIWA — beranda": "Fisika FIWA — home"
+"Fisika FIWA — beranda": "Fisika FIWA — home",
+"Tuntaskan dulu %s · %s": "Complete %s · %s first",
+"Tuntaskan dulu %s": "Complete %s first",
+"Lapis ini belum terbuka.": "This layer is not open yet.",
+"TP ini belum terbuka.": "This objective is not open yet.",
+"Kembali ke daftar TP": "Back to the objective list",
+"Tujuan Pembelajaran ditempuh berurutan. TP berikutnya terbuka sendiri begitu TP sebelumnya berstatus Tuntas.": "Learning objectives are taken in order. The next one opens by itself once the previous one reaches Mastered.",
+"Latihan Unit Test": "Unit Test Practice",
+"Soal Unit Test": "Unit Test",
+"berlatih dulu · tidak dinilai": "practise first · not graded",
+"sekali jalan · dinilai": "one attempt · graded",
+"Redaksi soal pada keduanya berbeda, tetapi langkah penyelesaiannya sama. Kerjakan latihannya sampai lancar, baru buka soal yang dinilai. Keduanya tidak memerlukan kalkulator.": "The two sets are worded differently but solved the same way. Work through the practice set until it flows, then open the graded one. Neither needs a calculator."
 };
 let BHS = 'id';
 const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
@@ -350,6 +361,28 @@ const cariJalur = slug => JALUR.find(j => j.slug === slug);
 const topikJalur = j => K.topik.filter(t => j.cocok.test(String(t.jalur || '').trim()));
 const jalurTopik = t => JALUR.find(j => j.cocok.test(String(t.jalur || '').trim())) || null;
 const topikLepas = () => K.topik.filter(t => !jalurTopik(t));
+
+/* TP ditempuh berurutan: TP ke-n baru terbuka setelah seluruh TP sebelumnya Tuntas.
+   Contoh: F.USE.1 hanya terbuka bila F.USE.1-pra sudah Tuntas. */
+function kunciTP(tp) {
+  if (guru()) return null;
+  const t = topikDariTP(tp);
+  if (!t || !t.tp) return null;
+  const i = t.tp.findIndex(x => x.slug === tp.slug);
+  if (i <= 0) return null;
+  for (let j = 0; j < i; j++) {
+    if (hitung(t.tp[j]).s < 5) return trf('Tuntaskan dulu %s · %s', t.tp[j].kode, t.tp[j].judul);
+  }
+  return null;
+}
+
+/* Lapis topik (L1–L4) baru terbuka setelah seluruh TP topik itu Tuntas. */
+function kunciLapis(t) {
+  if (guru()) return null;
+  const belum = (t.tp || []).filter(tp => hitung(tp).s < 5);
+  if (!belum.length) return null;
+  return trf('Tuntaskan dulu %s', belum.map(x => x.kode).join(', '));
+}
 const remah = t => { const j = t && jalurTopik(t);
   return `<a href="#">${tr('Beranda')}</a> / ${j ? `<a href="#jalur-${j.slug}">${esc(j.kode)}</a> / ` : ''}`; };
 const kartuTopik = t => { const n = t.tp.length, tuntas = t.tp.filter(tp => hitung(tp).s === 5).length;
@@ -414,13 +447,17 @@ function halJalur(j) {
 
 /* ---------- tampilan: topik ---------- */
 function halTopik(t) {
-  const tps = t.tp.map(tp => { const h = hitung(tp);
-    return `<a class="item" href="#tp-${tp.slug}"><span class="code">${esc(tp.kode)}</span>
-      <span class="t"><b>${esc(tp.judul)}</b>${tp.teks ? `<br><span class="muted">${esc(tp.teks)}</span>` : ''}</span>
-      <span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span></a>`; }).join('');
+  const tps = t.tp.map(tp => { const h = hitung(tp), k = kunciTP(tp);
+    const isi = `<span class="code">${esc(tp.kode)}</span>
+      <span class="t"><b>${esc(tp.judul)}</b>${tp.teks ? `<br><span class="muted">${esc(tp.teks)}</span>` : ''}${k ? `<br><span class="gembok">🔒 ${esc(k)}</span>` : ''}</span>
+      <span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span>`;
+    return k ? `<div class="item terkunci" title="${esc(k)}">${isi}</div>`
+             : `<a class="item" href="#tp-${tp.slug}">${isi}</a>`; }).join('');
+  const kl = kunciLapis(t);
   const lapis = LAPIS.map(l => { const ada = t.tahapan[l.id];
-    return ada ? `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(l.nama))}<small>${esc(tr(l.kapan))}</small></span><span></span></a>`
-               : `<div class="tile miss"><span class="sid">${l.id}</span><span class="nm">${esc(tr(l.nama))}<small>${tr('Belum diunggah')}</small></span><span></span></div>`; }).join('');
+    if (!ada) return `<div class="tile miss"><span class="sid">${l.id}</span><span class="nm">${esc(tr(l.nama))}<small>${tr('Belum diunggah')}</small></span><span></span></div>`;
+    if (kl) return `<div class="tile terkunci" title="${esc(kl)}"><span class="sid">${l.id} 🔒</span><span class="nm">${esc(tr(l.nama))}<small>${esc(kl)}</small></span><span></span></div>`;
+    return `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(l.nama))}<small>${esc(tr(l.kapan))}</small></span><span></span></a>`; }).join('');
   return `<div class="stack"><div class="crumbs">${remah(t)}${esc(t.kode)}</div>
     <div><div class="eyebrow">${esc(t.mapel)}${t.jalur ? ' · ' + esc(t.jalur) : ''}</div><h1>${esc(t.nama)}</h1></div>
     <section class="stack"><h2>${tr('Tujuan Pembelajaran')}</h2><div class="list">${tps || `<p class="muted">${tr('Belum ada TP.')}</p>`}</div></section>
@@ -429,6 +466,16 @@ function halTopik(t) {
 
 /* ---------- tampilan: TP ---------- */
 function halTP(tp, aktif) {
+  const kTP = kunciTP(tp);
+  if (kTP) {
+    const tt = topikDariTP(tp);
+    return `<div class="stack"><div class="crumbs">${remah(tt)}<a href="#topik-${tt.slug}">${esc(tt.kode)}</a> / ${esc(tp.kode)}</div>
+      <h1>${esc(tp.kode)} · ${esc(tp.judul)}</h1>
+      <div class="panel terkunci-panel"><p class="gembok-besar">🔒</p>
+        <p><b>${tr('TP ini belum terbuka.')}</b></p><p class="muted">${esc(kTP)}</p>
+        <p class="muted">${tr('Tujuan Pembelajaran ditempuh berurutan. TP berikutnya terbuka sendiri begitu TP sebelumnya berstatus Tuntas.')}</p>
+        <p><a class="btn" href="#topik-${tt.slug}">${tr('Kembali ke daftar TP')}</a></p></div></div>`;
+  }
   const h = hitung(tp), t = tp._t;
   const ladder = STATUS.map((n, i) => `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${tr(n)}</div>`).join('');
   const lanes = [0, 1, 2].map(f => {
@@ -578,11 +625,30 @@ function panelGuruTP(tp, h) {
 }
 
 /* ---------- tampilan: lapis topik ---------- */
-function halLapis(t, id) {
+function halLapis(t, id, sub) {
   const l = LAPIS.find(x => x.id === id), f = t.tahapan[id];
-  return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
-    <h1>${id} · ${esc(tr(l.nama))}</h1><p class="muted">${esc(tr(l.kapan))}</p>
-    ${f ? `<iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(l.nama))}"></iframe>` : `<p>${tr('Belum diunggah.')}</p>`}
+  const kepala = `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
+    <h1>${id} · ${esc(tr(l.nama))}</h1><p class="muted">${esc(tr(l.kapan))}</p>`;
+
+  const k = kunciLapis(t);
+  if (k) return `${kepala}<div class="panel terkunci-panel"><p class="gembok-besar">🔒</p>
+    <p><b>${tr('Lapis ini belum terbuka.')}</b></p><p class="muted">${esc(k)}</p>
+    <p><a class="btn" href="#topik-${t.slug}">${tr('Kembali ke daftar TP')}</a></p></div></div>`;
+
+  if (!f) return `${kepala}<p>${tr('Belum diunggah.')}</p></div>`;
+
+  // Sebagian lapis punya dua konten: latihan dulu, baru soal yang dinilai.
+  const punyaLatihan = !!f.latihan;
+  const pilih = (sub === 'latihan' && punyaLatihan) ? 'latihan' : 'utama';
+  const berkas = pilih === 'latihan' ? f.latihan.berkas : f.berkas;
+  const tab = punyaLatihan ? `<div class="tab-konten">
+      <a class="tabk${pilih === 'latihan' ? ' on' : ''}" href="#topik-${t.slug}-${id.toLowerCase()}-latihan">${tr('Latihan Unit Test')}<small>${tr('berlatih dulu · tidak dinilai')}</small></a>
+      <a class="tabk${pilih === 'utama' ? ' on' : ''}" href="#topik-${t.slug}-${id.toLowerCase()}">${tr('Soal Unit Test')}<small>${tr('sekali jalan · dinilai')}</small></a>
+    </div>
+    <p class="note kecilan">${tr('Redaksi soal pada keduanya berbeda, tetapi langkah penyelesaiannya sama. Kerjakan latihannya sampai lancar, baru buka soal yang dinilai. Keduanya tidak memerlukan kalkulator.')}</p>` : '';
+
+  return `${kepala}${tab}
+    <iframe class="frame" src="${esc(berkas)}" title="${esc(tr(l.nama))}"></iframe>
     <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></div>`;
 }
 
@@ -758,7 +824,7 @@ function render() {
   if (h === 'anggota' && window.FIMS && FIMS.aku && FIMS.aku.owner) { rangka(); FIMS.halAnggota(); return; }
   if (h === 'guru') html = halGuru();
   else if ((m = h.match(/^jalur-(.+)$/)) && cariJalur(m[1])) html = halJalur(cariJalur(m[1]));
-  else if ((m = h.match(/^topik-(.+)-(l[1-4])$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase());
+  else if ((m = h.match(/^topik-(.+)-(l[1-4])(?:-(latihan))?$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase(), m[3]);
   else if ((m = h.match(/^topik-(.+)$/)) && cariTopik(m[1])) html = halTopik(cariTopik(m[1]));
   else if ((m = h.match(/^tp-(.+)-(s\d+[bc]?)$/)) && cariTP(m[1])) { const id = m[2].toUpperCase().replace(/([BC])$/, c => c.toLowerCase()); cur = { tp: cariTP(m[1]), id }; html = halTP(cur.tp, id); }
   else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) html = halTP(cariTP(m[1]));

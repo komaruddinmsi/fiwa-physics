@@ -166,7 +166,10 @@ export async function onRequest(ctx) {
       const email = rapi(b.email);
       const status = ['aktif', 'ditolak', 'menunggu'].includes(b.status) ? b.status : null;
       const peran = ['siswa', 'guru'].includes(b.peran) ? b.peran : null;
-      if (!email || (!status && !peran)) return json({ galat: 'Permintaan tidak lengkap.' }, 400);
+      // Nama boleh diubah pemilik, termasuk pada akun pemilik sendiri.
+      const nama = b.nama === undefined ? null : rapi(String(b.nama)).slice(0, 80);
+      if (nama !== null && !nama) return json({ galat: 'Nama tidak boleh kosong.' }, 400);
+      if (!email || (!status && !peran && nama === null)) return json({ galat: 'Permintaan tidak lengkap.' }, 400);
       const a = await DB.prepare('SELECT * FROM anggota WHERE email = ?').bind(email).first();
       if (!a) return json({ galat: 'Anggota tidak ditemukan.' }, 404);
       if ((a.peran === 'owner' || (!!owner && email === owner)) && ((status && status !== 'aktif') || peran))
@@ -174,9 +177,10 @@ export async function onRequest(ctx) {
 
       let kode = a.kode;
       if (status === 'aktif' && wajibKode && !kode) kode = kodeBaru();
-      await DB.prepare('UPDATE anggota SET status = ?, peran = ?, kode = ?, diputus = ?, oleh = ? WHERE email = ?')
-        .bind(status || a.status, peran || a.peran, kode, kini(), aktif.email, email).run();
-      return json({ ok: true, email, status: status || a.status, peran: peran || a.peran, kode });
+      await DB.prepare('UPDATE anggota SET status = ?, peran = ?, nama = ?, kode = ?, diputus = ?, oleh = ? WHERE email = ?')
+        .bind(status || a.status, peran || a.peran, nama === null ? a.nama : nama, kode, kini(), aktif.email, email).run();
+      return json({ ok: true, email, status: status || a.status, peran: peran || a.peran,
+                    nama: nama === null ? a.nama : nama, kode });
     }
 
     if (rute === 'anggota/hapus' && metode === 'POST') {
