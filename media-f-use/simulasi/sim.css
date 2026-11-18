@@ -1,0 +1,56 @@
+/* Gaya bersama untuk seluruh simulasi F.USE.
+   Diselaraskan dengan tema situs Fisika FIWA (biru #002484 → teal #00b49c). */
+:root{
+  --bg:#061233; --panel:rgba(16,38,96,.72); --panel-2:rgba(10,26,70,.55);
+  --line:rgba(120,160,255,.24); --line-kuat:rgba(140,180,255,.44);
+  --fg:#eaf0ff; --muted:#9db0e6;
+  --biru:#3f7bff; --teal:#00c9a7; --emas:#ffc247; --merah:#ff7a7a; --ungu:#b48cff;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;padding:18px;color:var(--fg);font:15px/1.5 var(--body);
+  background:
+    radial-gradient(900px 500px at 8% -10%, rgba(26,73,196,.55) 0%, transparent 60%),
+    radial-gradient(700px 420px at 95% 0%, rgba(0,180,156,.30) 0%, transparent 58%),
+    linear-gradient(180deg,#061233 0%,#040c24 100%);
+  background-attachment:fixed;min-height:100vh;
+}
+h1{font:700 1.25rem/1.2 var(--display);margin:0 0 4px}
+h2{font:700 1rem/1.2 var(--display);margin:0 0 8px;color:#bcd0ff}
+.sub{color:var(--muted);margin:0 0 16px;font-size:.92rem;max-width:72ch}
+.kotak{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;backdrop-filter:blur(8px)}
+.atur{display:grid;gap:14px}
+.baris{display:grid;grid-template-columns:150px 1fr 92px;gap:12px;align-items:center}
+.baris label{font-size:.9rem;color:#cfdcff}
+.baris output{font:600 .9rem var(--mono);color:var(--teal);text-align:right}
+input[type=range]{width:100%;accent-color:#00c9a7;height:22px}
+.tombol{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+button{font:600 .88rem var(--body);border:0;border-radius:9px;padding:9px 16px;cursor:pointer;
+  background:linear-gradient(135deg,var(--biru),var(--teal));color:#04142e}
+button.ghost{background:transparent;color:#9fbcff;border:1px solid var(--line-kuat)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+label.sakelar{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;color:#cfdcff;cursor:pointer}
+canvas{width:100%;height:auto;display:block;border-radius:12px;background:rgba(3,9,31,.55);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start}
+@media (max-width:760px){.grid{grid-template-columns:1fr}.baris{grid-template-columns:120px 1fr 78px}}
+.angka{display:grid;gap:7px;margin:0;font-size:.92rem}
+.angka div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.angka b{font:600 .95rem var(--mono)}
+.n-biru{color:var(--biru)} .n-teal{color:var(--teal)} .n-emas{color:var(--emas)}
+.n-merah{color:var(--merah)} .n-ungu{color:var(--ungu)}
+.rumus{font:600 .95rem var(--mono);background:rgba(3,9,31,.5);border-left:3px solid var(--teal);
+  padding:10px 12px;border-radius:0 8px 8px 0;margin:12px 0 0;overflow-x:auto;white-space:nowrap}
+.catatan{border-left:3px solid var(--emas);background:rgba(255,194,71,.1);padding:10px 12px;
+  border-radius:0 8px 8px 0;font-size:.9rem;margin-top:14px}
+.catatan b{color:var(--emas)}
+.sel{margin-top:14px;display:grid;gap:10px}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--panel-2)}
+summary{cursor:pointer;font-weight:600;color:#bcd0ff}
+details p{margin:8px 0 0;color:#cfdcff;font-size:.92rem}
+.kaki{margin-top:18px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);padding-top:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}

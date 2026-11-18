@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi — Ayunan bandul dan pertukaran energi</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+
+<h1>Ayunan bandul: energi yang bertukar tanpa habis</h1>
+<p class="sub">Bandul adalah contoh paling bersih dari kekekalan energi mekanik. Di titik tertinggi seluruh energi berupa energi potensial, di titik terendah seluruhnya energi kinetik. Nyalakan hambatan udara untuk melihat apa yang terjadi bila energi mekanik tidak lagi kekal.</p>
+
+<div class="grid">
+  <div class="kotak">
+    <canvas id="pentas" width="760" height="400" aria-label="Bandul berayun dengan batang energi"></canvas>
+    <div class="tombol" style="margin-top:12px">
+      <button id="jalan">Lepaskan</button>
+      <button id="ulang" class="ghost">Kembalikan</button>
+    </div>
+  </div>
+
+  <div class="kotak">
+    <h2>Pengaturan</h2>
+    <div class="atur">
+      <div class="baris"><label for="sudut">Simpangan awal</label><input type="range" id="sudut" min="5" max="80" value="45" step="5"><output id="osudut">45°</output></div>
+      <div class="baris"><label for="L">Panjang tali</label><input type="range" id="L" min="0.5" max="3" value="1.5" step="0.1"><output id="oL">1,5 m</output></div>
+      <div class="baris"><label for="m">Massa bandul</label><input type="range" id="m" min="0.2" max="5" value="1" step="0.2"><output id="om">1,0 kg</output></div>
+      <div class="baris"><label for="redam">Hambatan udara</label><input type="range" id="redam" min="0" max="0.5" value="0" step="0.02"><output id="oredam">0,00</output></div>
+    </div>
+
+    <h2 style="margin-top:18px">Keadaan sekarang</h2>
+    <div class="angka">
+      <div><span>Sudut θ</span><b id="rth">—</b></div>
+      <div><span>Ketinggian dari titik terendah</span><b id="rh">—</b></div>
+      <div><span>Kelajuan v</span><b id="rv">—</b></div>
+      <div><span>Energi potensial</span><b class="n-ungu" id="rEp">—</b></div>
+      <div><span>Energi kinetik</span><b class="n-teal" id="rEk">—</b></div>
+      <div><span>Energi mekanik</span><b class="n-emas" id="rEm">—</b></div>
+    </div>
+    <p class="rumus" id="jejak">h = L(1 − cos θ)   ·   v = √(2gh)</p>
+    <div class="catatan"><b>Coba ini.</b> Ubah massa bandul sambil menahan sudut dan panjang tali tetap. Kelajuan di titik terendah tidak berubah sedikit pun — massa meniadakan diri dari persamaan mgh = ½mv².</div>
+  </div>
+</div>
+
+<div class="sel">
+  <details>
+    <summary>Dari mana rumus h = L(1 − cos θ)?</summary>
+    <p>Titik gantung berada L di atas titik terendah. Ketika tali menyimpang sejauh θ, bandul berada L cos θ di bawah titik gantung, jadi ketinggiannya dari titik terendah adalah L − L cos θ. Pada sudut kecil nilainya hampir nol, itulah sebabnya ayunan kecil terasa sangat ringan.</p>
+  </details>
+  <details>
+    <summary>Mengapa tegangan tali tidak melakukan usaha?</summary>
+    <p>Tegangan tali selalu mengarah sepanjang tali, sedangkan bandul bergerak tegak lurus terhadapnya. Karena sudut antara gaya dan perpindahan selalu 90°, usahanya nol. Jadi hanya gaya berat yang mengubah energi kinetik bandul — dan inilah yang membuat hukum kekekalan energi mekanik berlaku rapi di sini.</p>
+  </details>
+  <details>
+    <summary>Apa yang terjadi dengan hambatan udara?</summary>
+    <p>Setiap ayunan kehilangan sedikit energi mekanik yang berubah menjadi kalor dan bunyi. Simpangan menyusut sedikit demi sedikit, tetapi periode ayunan hampir tidak berubah. Perhatikan batang energi mekanik yang terus memendek sementara pertukaran E<sub>p</sub> ↔ E<sub>k</sub> tetap berlangsung.</p>
+  </details>
+</div>
+
+<p class="kaki">Simulasi F.USE · Fisika FIWA. g = 10 m/s². Gerak dihitung dengan persamaan ayunan penuh (tanpa pendekatan sudut kecil), hambatan udara dimodelkan sebanding kecepatan sudut.</p>
+
+<script>
+(function () {
+  'use strict';
+  const g = 10;
+  const $ = id => document.getElementById(id);
+  const P = $('pentas'), c = P.getContext('2d');
+  const fmt = (x, n) => x.toFixed(n).replace('.', ',');
+
+  let th = 0, w = 0, lari = false, lintas = [];
+
+  function pasangAwal() {
+    th = +$('sudut').value * Math.PI / 180; w = 0; lari = false; lintas = [];
+    $('jalan').textContent = 'Lepaskan';
+  }
+
+  function langkah(dt) {
+    const L = +$('L').value, b = +$('redam').value;
+    // θ'' = −(g/L) sin θ − b θ'   (integrasi semi-implisit, stabil untuk ayunan panjang)
+    const a = -(g / L) * Math.sin(th) - b * w;
+    w += a * dt;
+    th += w * dt;
+  }
+
+  function keadaan() {
+    const L = +$('L').value, m = +$('m').value;
+    const h = L * (1 - Math.cos(th));
+    const v = Math.abs(w) * L;
+    return { L, m, h, v, Ep: m * g * h, Ek: .5 * m * v * v };
+  }
+
+  function gambar(d) {
+    const W = P.width, H = P.height;
+    c.clearRect(0, 0, W, H);
+    const gx = (W - 200) / 2, gy = 46;
+    const skala = (H - 150) / 3;                       // piksel per meter
+    const px = gx + Math.sin(th) * d.L * skala;
+    const py = gy + Math.cos(th) * d.L * skala;
+
+    // langit-langit
+    c.strokeStyle = 'rgba(140,180,255,.6)'; c.lineWidth = 3;
+    c.beginPath(); c.moveTo(gx - 70, gy); c.lineTo(gx + 70, gy); c.stroke();
+    c.strokeStyle = 'rgba(140,180,255,.3)'; c.lineWidth = 1.5;
+    for (let i = -66; i < 70; i += 12) { c.beginPath(); c.moveTo(gx + i, gy); c.lineTo(gx + i - 8, gy - 9); c.stroke(); }
+
+    // busur simpangan maksimum
+    const thMaks = +$('sudut').value * Math.PI / 180;
+    c.setLineDash([4, 5]); c.strokeStyle = 'rgba(255,194,71,.4)'; c.lineWidth = 1;
+    c.beginPath(); c.arc(gx, gy, d.L * skala, Math.PI / 2 - thMaks, Math.PI / 2 + thMaks); c.stroke();
+    c.beginPath(); c.moveTo(gx, gy); c.lineTo(gx, gy + d.L * skala + 26); c.stroke();
+    c.setLineDash([]);
+
+    // garis acuan terendah
+    const yDasar = gy + d.L * skala;
+    c.setLineDash([5, 5]); c.strokeStyle = 'rgba(140,180,255,.32)';
+    c.beginPath(); c.moveTo(gx - 150, yDasar); c.lineTo(gx + 150, yDasar); c.stroke();
+    c.setLineDash([]);
+    c.fillStyle = '#9db0e6'; c.font = '11px system-ui'; c.fillText('h = 0', gx - 148, yDasar + 17);
+
+    // jejak lintasan
+    lintas.push({ x: px, y: py });
+    if (lintas.length > 160) lintas.shift();
+    c.strokeStyle = 'rgba(0,201,167,.35)'; c.lineWidth = 2; c.beginPath();
+    lintas.forEach((p, i) => i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y));
+    c.stroke();
+
+    // tali dan bandul
+    c.strokeStyle = '#8fb0ff'; c.lineWidth = 2.5;
+    c.beginPath(); c.moveTo(gx, gy); c.lineTo(px, py); c.stroke();
+    const r = 10 + d.m * 3.2;
+    const grd = c.createRadialGradient(px - r / 3, py - r / 3, 2, px, py, r);
+    grd.addColorStop(0, '#6ef0d6'); grd.addColorStop(1, '#1b5fc4');
+    c.fillStyle = grd; c.beginPath(); c.arc(px, py, r, 0, 7); c.fill();
+
+    // tinggi sekarang
+    if (d.h > 0.01) {
+      c.setLineDash([3, 4]); c.strokeStyle = 'rgba(180,140,255,.8)'; c.lineWidth = 1.5;
+      c.beginPath(); c.moveTo(px, py); c.lineTo(px, yDasar); c.stroke();
+      c.setLineDash([]);
+      c.fillStyle = '#b48cff'; c.font = '600 11px ui-monospace, monospace';
+      c.fillText('h = ' + fmt(d.h, 2) + ' m', px + 7, (py + yDasar) / 2);
+    }
+
+    // batang energi
+    const xB = W - 185, lebar = 158;
+    const Em0 = d.m * g * (d.L * (1 - Math.cos(thMaks))) || 1;
+    const batang = (i, nilai, warna, nama) => {
+      const y = 50 + i * 54;
+      c.fillStyle = 'rgba(3,9,31,.6)'; c.fillRect(xB, y, lebar, 21);
+      c.fillStyle = warna; c.fillRect(xB, y, Math.max(1, Math.min(1, nilai / Em0) * lebar), 21);
+      c.fillStyle = '#cfdcff'; c.font = '11px system-ui'; c.fillText(nama, xB, y - 5);
+      c.fillStyle = '#eaf0ff'; c.font = '600 11px ui-monospace, monospace';
+      c.fillText(fmt(nilai, 2) + ' J', xB + 5, y + 16);
+    };
+    c.fillStyle = '#bcd0ff'; c.font = '700 13px system-ui'; c.fillText('Energi', xB, 30);
+    batang(0, d.Ep, '#b48cff', 'Potensial  mgh');
+    batang(1, d.Ek, '#00c9a7', 'Kinetik  ½mv²');
+    batang(2, d.Ep + d.Ek, '#ffc247', 'Mekanik');
+  }
+
+  function tulis(d) {
+    $('osudut').textContent = $('sudut').value + '°';
+    $('oL').textContent = fmt(+$('L').value, 1) + ' m';
+    $('om').textContent = fmt(+$('m').value, 1) + ' kg';
+    $('oredam').textContent = fmt(+$('redam').value, 2);
+    $('rth').textContent = fmt(th * 180 / Math.PI, 1) + '°';
+    $('rh').textContent  = fmt(d.h, 3) + ' m';
+    $('rv').textContent  = fmt(d.v, 2) + ' m/s';
+    $('rEp').textContent = fmt(d.Ep, 2) + ' J';
+    $('rEk').textContent = fmt(d.Ek, 2) + ' J';
+    $('rEm').textContent = fmt(d.Ep + d.Ek, 2) + ' J';
+    $('jejak').innerHTML = 'h = ' + fmt(d.L, 1) + '(1 − cos ' + fmt(th * 180 / Math.PI, 0) + '°) = ' +
+      fmt(d.h, 3) + ' m &nbsp;·&nbsp; v = ' + fmt(d.v, 2) + ' m/s';
+  }
+
+  let tLalu = 0;
+  function bingkai(t) {
+    const dt = Math.min(0.03, (t - tLalu) / 1000 || 0.016); tLalu = t;
+    if (lari) { const n = 8, k = dt / n; for (let i = 0; i < n; i++) langkah(k); }   // delapan langkah kecil: energi tidak menyimpang
+    const d = keadaan();
+    gambar(d); tulis(d);
+    requestAnimationFrame(bingkai);
+  }
+
+  ['sudut', 'L', 'm', 'redam'].forEach(id => $(id).addEventListener('input', pasangAwal));
+  $('jalan').addEventListener('click', () => { lari = !lari; $('jalan').textContent = lari ? 'Jeda' : 'Lanjutkan'; });
+  $('ulang').addEventListener('click', pasangAwal);
+
+  pasangAwal();
+  requestAnimationFrame(bingkai);
+})();
+</script>
+</body>
+</html>

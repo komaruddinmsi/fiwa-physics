@@ -1,0 +1,63 @@
+/* Gaya bersama untuk halaman bacaan konsep F.USE — selaras tema situs Fisika FIWA. */
+:root{
+  --bg:#061233; --panel:rgba(16,38,96,.70); --panel-2:rgba(10,26,70,.5);
+  --line:rgba(120,160,255,.22); --line-kuat:rgba(140,180,255,.42);
+  --fg:#eaf0ff; --lembut:#cfdcff; --muted:#9db0e6;
+  --biru:#3f7bff; --teal:#00c9a7; --emas:#ffc247; --merah:#ff7a7a; --ungu:#b48cff;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;padding:22px 20px 40px;color:var(--fg);font:16px/1.65 var(--body);
+  background:
+    radial-gradient(1000px 540px at 6% -10%, rgba(26,73,196,.52) 0%, transparent 60%),
+    radial-gradient(760px 450px at 96% 0%, rgba(0,180,156,.28) 0%, transparent 58%),
+    linear-gradient(180deg,#061233 0%,#040c24 100%);
+  background-attachment:fixed;min-height:100vh;
+}
+.isi{max-width:74ch;margin:0 auto}
+.label{font:600 .74rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+h1{font:700 1.75rem/1.15 var(--display);margin:4px 0 10px;text-wrap:balance}
+h2{font:700 1.2rem/1.2 var(--display);margin:34px 0 10px;color:#bcd0ff;
+   border-top:1px solid var(--line);padding-top:18px}
+h3{font:700 1.02rem/1.25 var(--display);margin:22px 0 8px;color:#dce6ff}
+p{margin:0 0 14px;color:var(--lembut)}
+.lede{font-size:1.06rem;color:#dce6ff;margin-bottom:22px}
+ul,ol{margin:0 0 14px;padding-left:22px;color:var(--lembut)}
+li{margin-bottom:7px}
+b,strong{color:var(--fg)}
+em{color:#dce6ff}
+code,.mono{font-family:var(--mono);font-size:.9em}
+.rumus{font:600 1.05rem var(--mono);background:rgba(3,9,31,.55);border-left:3px solid var(--teal);
+  padding:14px 16px;border-radius:0 10px 10px 0;margin:16px 0;overflow-x:auto;color:#eaf0ff}
+.rumus small{display:block;font:400 .82rem var(--body);color:var(--muted);margin-top:7px;white-space:normal}
+.kotak{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:18px 0}
+.kotak h3{margin-top:0}
+.awas{border-left:4px solid var(--emas);background:rgba(255,194,71,.1);padding:14px 16px;border-radius:0 10px 10px 0;margin:18px 0}
+.awas b{color:var(--emas)}
+.salah{border-left:4px solid var(--merah);background:rgba(255,122,122,.09);padding:14px 16px;border-radius:0 10px 10px 0;margin:18px 0}
+.salah b{color:var(--merah)}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;color:var(--lembut)}
+th{background:rgba(3,9,31,.5);color:#dce6ff;font-weight:600}
+td.n{font-family:var(--mono);text-align:right;white-space:nowrap}
+/* Pembahasan tujuh langkah */
+.bahas{counter-reset:lk;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:18px 0}
+.bahas h3{margin-top:0}
+.bahas ol{list-style:none;padding:0;margin:0}
+.bahas ol li{counter-increment:lk;position:relative;padding:10px 0 10px 40px;border-bottom:1px dashed var(--line)}
+.bahas ol li:last-child{border-bottom:0;padding-bottom:0}
+.bahas ol li::before{content:counter(lk);position:absolute;left:0;top:10px;width:25px;height:25px;border-radius:50%;
+  background:linear-gradient(135deg,var(--biru),var(--teal));color:#04142e;font:700 .8rem var(--mono);
+  display:grid;place-items:center}
+.bahas .lk{display:block;font:600 .74rem var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--teal);margin-bottom:2px}
+.jawab{font:700 1rem var(--mono);color:var(--emas)}
+details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0;background:var(--panel-2)}
+summary{cursor:pointer;font-weight:600;color:#bcd0ff}
+details p:last-child{margin-bottom:0}
+.kaki{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem}
+a{color:#9fbcff}
+@media (max-width:560px){body{padding:18px 14px 32px}h1{font-size:1.5rem}}

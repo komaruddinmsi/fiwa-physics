@@ -144,7 +144,7 @@ const EN = {
 "Papan Guru": "Teacher Board",
 "Mode guru": "Teacher mode",
 "Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres tersimpan di perangkat ini.": "Mastery Learning Content Flow · CMS FIMS · Fitrah Islamic World Academy. Progress is stored on this device.",
-"Memuat katalog…": "Loading the catalogue…",
+"Bahan pendukung": "Supporting material", "Memuat bahan pendukung…": "Loading supporting material…", "Belum ada bahan pendukung untuk tahapan ini.": "No supporting material for this stage yet.", "Gerbang penilaian — bahan bantu sengaja tidak disediakan.": "Assessment gate — support material is withheld on purpose.", "Video": "Video", "Audio": "Audio", "Simulasi": "Simulation", "Bacaan": "Reading", "Tautan": "Link", "Buka di YouTube": "Open on YouTube", "Buka penuh di tab baru": "Open full size in a new tab", "Sumber luar": "External source", "Putar": "Play", "Jeda": "Pause", "Lanjut": "Resume", "Hentikan": "Stop", "Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.": "This browser cannot read the script aloud. Please read the text instead.", "Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.": "The script is read aloud by the browser. A teacher can replace it with their own recording.", "Bahan pendukung belum diatur untuk topik ini.": "Supporting material has not been set up for this topic yet.", "Memuat katalog…": "Loading the catalogue…",
 "katalog.json belum ada. Jalankan <span class=\"mono\">node build.js</span> (Cloudflare menjalankannya otomatis).": "katalog.json is missing. Run <span class=\"mono\">node build.js</span> (Cloudflare runs it automatically).",
 "Fisika FIWA — beranda": "Fisika FIWA — home"
 };
@@ -436,7 +436,8 @@ function viewer(tp, id, h) {
   else aksi = `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai selesai')}</button></div>`;
   return `<section class="viewer" id="viewer"><div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
-    <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>${aksi}</section>`;
+    <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>${aksi}
+    <div id="bahan" class="bahan" data-topik="${esc(topikDariTP(tp).slug)}" data-tp="${esc(tp.kode)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></section>`;
 }
 
 function panelGuruTP(tp, h) {
@@ -454,7 +455,8 @@ function halLapis(t, id) {
   const l = LAPIS.find(x => x.id === id), f = t.tahapan[id];
   return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
     <h1>${id} · ${esc(tr(l.nama))}</h1><p class="muted">${esc(tr(l.kapan))}</p>
-    ${f ? `<iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(l.nama))}"></iframe>` : `<p>${tr('Belum diunggah.')}</p>`}</div>`;
+    ${f ? `<iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(l.nama))}"></iframe>` : `<p>${tr('Belum diunggah.')}</p>`}
+    <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></div>`;
 }
 
 /* ---------- tampilan: papan guru ---------- */
@@ -495,6 +497,109 @@ function rangka() {
   });
 }
 
+/* ---------- bahan pendukung: video, audio, simulasi, bacaan ---------- */
+const MEDIA = {};                                   // tembolok per topik
+const topikDariTP = tp => tp._t || K.topik.find(t => t.tp.some(x => x.slug === tp.slug)) || { slug: '' };
+
+function muatMedia(slugTopik) {
+  if (MEDIA[slugTopik]) return MEDIA[slugTopik];
+  MEDIA[slugTopik] = fetch('media-' + slugTopik + '/media.json')
+    .then(r => r.ok ? r.json() : null).catch(() => null);
+  return MEDIA[slugTopik];
+}
+
+const JENIS = { video:'Video', audio:'Audio', simulasi:'Simulasi', bacaan:'Bacaan', tautan:'Tautan' };
+const IKON  = { video:'▶', audio:'♪', simulasi:'⚙', bacaan:'▤', tautan:'↗' };
+
+function kartuBahan(it, i) {
+  const jenis = JENIS[it.tipe] ? it.tipe : 'tautan';
+  return `<article class="mkartu m-${jenis}" data-i="${i}">
+    <button class="mkepala" type="button" data-media="${i}" aria-expanded="false">
+      <span class="mikon" aria-hidden="true">${IKON[jenis]}</span>
+      <span class="mjudul">${esc(it.judul || tr(JENIS[jenis]))}${it.catatan ? `<small>${esc(it.catatan)}</small>` : ''}</span>
+      <span class="mjenis">${tr(JENIS[jenis])}${it.luar ? ' · ' + tr('Sumber luar') : ''}</span>
+      <span class="mtanda" aria-hidden="true">+</span>
+    </button>
+    <div class="misi" hidden></div>
+  </article>`;
+}
+
+function isiPemutar(el, it) {
+  if (el.dataset.siap) return;
+  el.dataset.siap = '1';
+  if (it.tipe === 'video' && it.yt) {
+    const mulai = it.mulai ? '&start=' + (+it.mulai | 0) : '';
+    el.innerHTML = `<div class="m16by9"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(it.yt)}?rel=0&modestbranding=1&playsinline=1${mulai}"
+        title="${esc(it.judul || '')}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe></div>
+      <p class="mkaki"><a href="https://www.youtube.com/watch?v=${encodeURIComponent(it.yt)}" target="_blank" rel="noopener">${tr('Buka di YouTube')} ↗</a></p>`;
+    return;
+  }
+  if (it.tipe === 'audio') {
+    if (it.berkas) {
+      el.innerHTML = `<audio class="maudio" controls preload="none" src="${esc(it.berkas)}"></audio>`;
+    } else {
+      el.innerHTML = `<div class="mnarasi">
+          <div class="mtombol"><button class="btn" type="button" data-narasi="putar">${tr('Putar')}</button>
+          <button class="btn ghost" type="button" data-narasi="jeda">${tr('Jeda')}</button>
+          <button class="btn ghost" type="button" data-narasi="henti">${tr('Hentikan')}</button></div>
+          <p class="mnaskah">${esc(it.naskah || '')}</p>
+          <p class="mkaki">${tr('Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.')}</p>
+        </div>`;
+    }
+    return;
+  }
+  const alamat = it.berkas || it.url;
+  if (!alamat) { el.innerHTML = ''; return; }
+  if (it.tipe === 'tautan') {
+    el.innerHTML = `<p class="mkaki"><a class="btn" href="${esc(alamat)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></p>`;
+    return;
+  }
+  el.innerHTML = `<iframe class="mbingkai ${it.tipe === 'bacaan' ? 'mbaca' : ''}" src="${esc(alamat)}"
+      title="${esc(it.judul || '')}" loading="lazy" allowfullscreen></iframe>
+    <p class="mkaki"><a href="${esc(alamat)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></p>`;
+}
+
+/* narasi dibacakan peramban */
+let ucap = null;
+function narasi(aksi, teks) {
+  const S = window.speechSynthesis;
+  if (!S) return alert(tr('Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.'));
+  if (aksi === 'henti') { S.cancel(); ucap = null; return; }
+  if (aksi === 'jeda') { S.speaking && !S.paused ? S.pause() : S.resume(); return; }
+  S.cancel();
+  ucap = new SpeechSynthesisUtterance(teks);
+  ucap.lang = 'id-ID'; ucap.rate = 0.96; ucap.pitch = 1;
+  const suara = S.getVoices().find(v => /^id/i.test(v.lang));
+  if (suara) ucap.voice = suara;
+  S.speak(ucap);
+}
+
+function isiBahan() {
+  const wadah = document.getElementById('bahan');
+  if (!wadah) return;
+  const slugTopik = wadah.dataset.topik, kunciTP = wadah.dataset.tp, idT = wadah.dataset.tahapan;
+  muatMedia(slugTopik).then(m => {
+    const w = document.getElementById('bahan');
+    if (!w || w.dataset.tahapan !== idT) return;             // halaman sudah berpindah
+    if (!m) { w.innerHTML = `<p class="muted mkosong">${tr('Bahan pendukung belum diatur untuk topik ini.')}</p>`; return; }
+    const daftar = (kunciTP ? ((m.tp || {})[kunciTP] || {})[idT] : (m.topik || {})[idT]) || [];
+    if (!daftar.length) {
+      const gerbang = ['S2', 'S8', 'S13'].indexOf(idT) >= 0;
+      w.innerHTML = `<p class="muted mkosong">${tr(gerbang
+        ? 'Gerbang penilaian — bahan bantu sengaja tidak disediakan.'
+        : 'Belum ada bahan pendukung untuk tahapan ini.')}</p>`;
+      return;
+    }
+    w.innerHTML = `<h3 class="mtajuk">${tr('Bahan pendukung')} <span class="mcacah">${daftar.length}</span></h3>
+      <div class="mdaftar">${daftar.map(kartuBahan).join('')}</div>`;
+    w.__daftar = daftar;
+    const pertama = w.querySelector('.mkepala');
+    if (pertama) pertama.click();                            // buka bahan pertama
+  });
+}
+
 function render() {
   rangka();
   const h = decodeURIComponent(location.hash.slice(1));
@@ -509,6 +614,8 @@ function render() {
   else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) html = halTP(cariTP(m[1]));
   else html = beranda();
   $('#app').innerHTML = html;
+  if (window.speechSynthesis) window.speechSynthesis.cancel();   // hentikan narasi halaman sebelumnya
+  isiBahan();
   if (cur && document.getElementById('viewer')) document.getElementById('viewer').scrollIntoView({ block: 'start', behavior: 'smooth' });
   else window.scrollTo(0, 0);
 }
@@ -519,6 +626,24 @@ document.addEventListener('click', ev => {
   const lb = ev.target.closest('[data-bhs]');
   if (lb) { const v = lb.dataset.bhs === 'en' ? 'en' : 'id';
     if (v !== BHS) { BHS = v; db.opsi.bahasa = v; simpan(); render(); } return; }
+  const mk = ev.target.closest('[data-media]');
+  if (mk) {
+    const kartu = mk.closest('.mkartu'), isi = kartu.querySelector('.misi');
+    const w = document.getElementById('bahan'), daftar = (w && w.__daftar) || [];
+    const buka = isi.hasAttribute('hidden');
+    if (buka) { isiPemutar(isi, daftar[+mk.dataset.media] || {}); isi.removeAttribute('hidden'); }
+    else { isi.setAttribute('hidden', ''); if (window.speechSynthesis) window.speechSynthesis.cancel(); }
+    kartu.classList.toggle('buka', buka);
+    mk.setAttribute('aria-expanded', buka ? 'true' : 'false');
+    mk.querySelector('.mtanda').textContent = buka ? '−' : '+';
+    return;
+  }
+  const nb = ev.target.closest('[data-narasi]');
+  if (nb) {
+    const teks = nb.closest('.mnarasi').querySelector('.mnaskah').textContent;
+    narasi(nb.dataset.narasi, teks);
+    return;
+  }
   const b = ev.target.closest('[data-aksi],[data-geser]'); if (!b) return;
   if (b.dataset.geser != null) { db.opsi.geser = +b.dataset.geser ? (db.opsi.geser || 0) + +b.dataset.geser : 0; simpan(); return render(); }
   const a = b.dataset.aksi, tp = tpDariHash(); if (!tp) return;

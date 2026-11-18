@@ -1,0 +1,467 @@
+{
+  "_baca_ini_dulu": "Berkas ini adalah satu-satunya tempat Anda mengatur bahan pendukung tiap tahapan. Panduan lengkap ada di media-f-use/PANDUAN-MEDIA.md. Kunci di dalam 'tp' adalah kode TP persis seperti pada tp.json; kunci di dalamnya adalah kode tahapan S1 sampai S14 dan L1 sampai L4. Semua kunci yang diawali garis bawah diabaikan oleh situs.",
+  "_tipe_yang_didukung": {
+    "video": "{ tipe, judul, yt (kode video YouTube), mulai (detik, opsional), catatan (opsional) }",
+    "audio": "{ tipe, judul, berkas (mp3/ogg, opsional) atau naskah (dibacakan peramban) }",
+    "simulasi": "{ tipe, judul, berkas (html milik sendiri) atau url (situs luar), catatan }",
+    "bacaan": "{ tipe, judul, berkas (html milik sendiri) atau url, catatan }",
+    "tautan": "{ tipe, judul, url, catatan } — dibuka di tab baru, dipakai bila situs menolak ditanam"
+  },
+  "_catatan_gerbang": "S2, S8, dan S13 sengaja dibiarkan kosong. Ketiganya gerbang penilaian; memberi bahan bantu di sana melanggar aturan bank soal pada Kontrak Tahapan Ketuntasan.",
+
+  "tp": {
+
+    "F.USE.1-pra": {
+
+      "S1": [
+        {
+          "tipe": "audio",
+          "judul": "Sambutan dan peta belajar unit ini",
+          "naskah": "Selamat datang di unit Usaha dan Energi. Pada tujuan pembelajaran pertama ini kamu akan mengenal tiga besaran: usaha, energi kinetik, dan energi potensial. Jalurnya empat belas tahapan, dari peta belajar sampai pengulangan berjarak. Dua di antaranya adalah gerbang yang harus kamu lewati: Gerbang Prasyarat di awal dan Gerbang Ketuntasan di akhir. Kamu tidak dinyatakan tuntas karena rajin mengerjakan, melainkan karena lulus gerbang itu dengan butir soal yang belum pernah kamu lihat. Jadi kerjakan tiap tahapan sungguh-sungguh, bukan sekadar sampai tercentang. Satu pesan terakhir: bila ada bagian yang belum jelas, kembalilah ke simulasi dan bacaan sebelum lanjut. Tahapan berikutnya selalu mengandaikan yang sebelumnya sudah kamu pahami."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Bacaan konsep — usaha, energi kinetik, energi potensial",
+          "berkas": "media-f-use/bacaan/bacaan-tp1.html",
+          "catatan": "Boleh dibaca sekilas dulu sekarang, dan dibaca tuntas pada tahapan S4."
+        }
+      ],
+
+      "S2": [],
+
+      "S2b": [
+        {
+          "tipe": "video",
+          "judul": "Usaha: pengertian dan rumus dasar",
+          "yt": "gbePTtq-aLc",
+          "catatan": "Bariqul AN — Usaha, Energi, dan Daya bagian 1. Tonton bagian pengertian usaha dan contoh perhitungannya."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Usaha oleh gaya bersudut",
+          "berkas": "media-f-use/simulasi/usaha-gaya.html",
+          "catatan": "Setel sudut ke 0 derajat, lalu naikkan perlahan sampai 90 derajat. Perhatikan usaha mengecil sampai nol."
+        }
+      ],
+
+      "S2c": [
+        {
+          "tipe": "video",
+          "judul": "Usaha dan energi dari awal sekali",
+          "yt": "qXSFmDzYWnE",
+          "catatan": "BIG Course — penjelasan runut dari pengertian usaha. Tonton seluruhnya tanpa melompat."
+        },
+        {
+          "tipe": "audio",
+          "judul": "Tiga hal yang harus kamu pegang sebelum mengulang",
+          "naskah": "Kalau kamu sampai di tahapan ini, artinya ada bagian dasar yang perlu dibereskan dulu, dan itu wajar. Pegang tiga hal ini. Pertama, usaha hanya terjadi bila gaya menyebabkan perpindahan. Tidak ada perpindahan, tidak ada usaha, sekuat apa pun kamu mendorong. Kedua, yang dihitung hanyalah komponen gaya yang searah perpindahan, sehingga muncul faktor kosinus sudut. Ketiga, satuan usaha adalah joule, dan joule sama dengan newton kali meter. Kerjakan ulang contoh soal di bacaan dengan menutup penyelesaiannya. Kalau tiga hal ini sudah kokoh, Gerbang Prasyarat akan terasa jauh lebih ringan."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Bacaan konsep bagian 1 — usaha",
+          "berkas": "media-f-use/bacaan/bacaan-tp1.html"
+        }
+      ],
+
+      "S3": [
+        {
+          "tipe": "video",
+          "judul": "Perubahan energi potensial menjadi energi kinetik",
+          "yt": "vxS6xiyeY8w",
+          "catatan": "Tonton tanpa mencatat. Sesudahnya, tuliskan dugaanmu sendiri pada lembar pemantik."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Pemantik — tebak dulu, baru jalankan",
+          "berkas": "media-f-use/simulasi/energi-kinetik-potensial.html",
+          "catatan": "Sebelum menggeser apa pun: tebak, kalau kelajuan digandakan, energi kinetiknya menjadi berapa kali? Baru uji."
+        }
+      ],
+
+      "S4": [
+        {
+          "tipe": "video",
+          "judul": "Penyajian konsep: usaha dan energi",
+          "yt": "qXSFmDzYWnE",
+          "catatan": "BIG Course. Jeda di tiap contoh soal, kerjakan sendiri dulu, baru lanjutkan."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Bacaan konsep lengkap TP1",
+          "berkas": "media-f-use/bacaan/bacaan-tp1.html",
+          "catatan": "Bacaan utama tahapan ini. Kerjakan tiga contoh soalnya di buku tulis."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Usaha oleh gaya bersudut",
+          "berkas": "media-f-use/simulasi/usaha-gaya.html"
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Energi kinetik dan energi potensial",
+          "berkas": "media-f-use/simulasi/energi-kinetik-potensial.html"
+        }
+      ],
+
+      "S5": [
+        {
+          "tipe": "simulasi",
+          "judul": "Bahan pembahasan prakonsepsi (dipandu guru)",
+          "berkas": "media-f-use/simulasi/energi-kinetik-potensial.html",
+          "catatan": "Guru menayangkan ini saat membahas dugaan siswa yang keliru, terutama anggapan bahwa Ek berbanding lurus dengan v."
+        }
+      ],
+
+      "S6": [
+        {
+          "tipe": "video",
+          "judul": "Usaha dan energi kinetik",
+          "yt": "6n-YaCwb74g",
+          "catatan": "Wien Classroom. Dipakai guru sebagai contoh terbimbing di kelas."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Usaha sebagai luas grafik gaya–perpindahan",
+          "berkas": "media-f-use/simulasi/grafik-gaya-perpindahan.html",
+          "catatan": "Mulai dari pola Gaya tetap, lalu Gaya naik, lalu Pegas. Tiap kali, tanyakan bentuk daerahnya dulu."
+        }
+      ],
+
+      "S7": [
+        {
+          "tipe": "simulasi",
+          "judul": "Usaha oleh gaya bersudut — dengan gesekan",
+          "berkas": "media-f-use/simulasi/usaha-gaya.html",
+          "catatan": "Nyalakan gesekan. Pakai angka di layar untuk mengisi tabel pada lembar kerja."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Luas grafik F–s",
+          "berkas": "media-f-use/simulasi/grafik-gaya-perpindahan.html",
+          "catatan": "Seret titiknya sampai menyerupai grafik pada soal, lalu bandingkan hasil hitunganmu dengan angka di layar."
+        }
+      ],
+
+      "S8": [],
+
+      "S9": [
+        {
+          "tipe": "video",
+          "judul": "Tier 1–2 · Usaha dan energi kinetik, pelan dan rinci",
+          "yt": "6n-YaCwb74g",
+          "catatan": "Untuk yang masih perlu pendampingan: tonton sambil menyalin langkah penyelesaiannya."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Tier 3–4 · Grafik gaya–perpindahan",
+          "berkas": "media-f-use/simulasi/grafik-gaya-perpindahan.html",
+          "catatan": "Untuk yang sudah lancar: susun grafik yang usaha totalnya tepat nol, lalu jelaskan mengapa bentuk itu bisa terjadi."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Tier 3–4 · Energi pada lintasan lengkung",
+          "url": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/latest/energy-skate-park-basics_all.html?locale=in",
+          "luar": true,
+          "catatan": "PhET, University of Colorado Boulder. Sumber luar — bila jaringan sekolah memblokirnya, pakai tombol buka di tab baru."
+        }
+      ],
+
+      "S10": [
+        {
+          "tipe": "audio",
+          "judul": "Rangkuman tiga menit",
+          "naskah": "Mari kita rapikan apa yang sudah kamu pelajari. Satu: usaha adalah gaya dikali perpindahan dikali kosinus sudut di antara keduanya. Bila sudutnya sembilan puluh derajat, usahanya nol. Bila gayanya berlawanan arah gerak, usahanya negatif. Dua: energi kinetik adalah setengah em ve kuadrat. Karena kelajuan dikuadratkan, menggandakan kelajuan melipatempatkan energi kinetik. Tiga: energi potensial gravitasi adalah em ge ha, dan nilainya selalu diukur terhadap acuan yang kamu tetapkan sendiri. Empat: usaha total sama dengan perubahan energi kinetik. Kalau benda melambat, usaha totalnya pasti negatif. Sekarang tutup catatanmu dan coba ucapkan keempatnya dengan kalimatmu sendiri. Kalau ada yang tersendat, di situlah tempat kamu mengulang."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Tabel pembanding tiga besaran",
+          "berkas": "media-f-use/bacaan/bacaan-tp1.html",
+          "catatan": "Buka bagian Membandingkan ketiganya untuk menguatkan jangkar ingatan."
+        }
+      ],
+
+      "S11": [
+        {
+          "tipe": "video",
+          "judul": "Pembahasan soal usaha dan energi",
+          "yt": "npVtN_SayhY",
+          "catatan": "Buka hanya sesudah kamu mencoba sendiri. Membuka lebih dulu akan menghapus manfaat latihan ini."
+        }
+      ],
+
+      "S12": [
+        {
+          "tipe": "bacaan",
+          "judul": "Mengingat kembali format pembahasan tujuh langkah",
+          "berkas": "media-f-use/bacaan/bacaan-tp1.html",
+          "catatan": "Laporan tugas kinerjamu harus memakai format tujuh langkah seperti pada contoh soal di bacaan ini."
+        }
+      ],
+
+      "S13": [],
+
+      "S14": [
+        {
+          "tipe": "audio",
+          "judul": "Kilas balik sebelum pengulangan",
+          "naskah": "Ini pengulangan berjarak, jadi jangan membuka catatan dulu. Coba ingat sendiri. Apa rumus usaha dan kapan nilainya nol? Bagaimana hubungan energi kinetik dengan kelajuan, berbanding lurus atau kuadrat? Energi potensial diukur terhadap apa? Dan apa bunyi teorema usaha dan energi? Beri jeda sejenak pada tiap pertanyaan dan jawab dalam hati. Usaha mengingat kembali seperti inilah yang membuat ingatan bertahan lama, jauh lebih kuat daripada membaca ulang. Sesudah itu, baru kerjakan soalnya."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Pemeriksaan cepat",
+          "berkas": "media-f-use/simulasi/energi-kinetik-potensial.html",
+          "catatan": "Pakai hanya untuk memeriksa jawabanmu sesudah selesai mengerjakan."
+        }
+      ]
+    },
+
+    "F.USE.1": {
+
+      "S1": [
+        {
+          "tipe": "audio",
+          "judul": "Apa yang berbeda pada tujuan pembelajaran ini",
+          "naskah": "Tujuan pembelajaran kedua ini menuntut lebih dari yang pertama. Di sini kamu tidak hanya menghitung, tetapi menilai dan merancang. Pertanyaan pokoknya bukan berapa hasilnya, melainkan: bolehkah hukum kekekalan energi mekanik dipakai pada keadaan ini? Jawabannya bergantung pada ada tidaknya gesekan dan gaya hambat. Karena itu, pada setiap soal, biasakan menuliskan alasan mengapa kamu memilih pendekatan energi, bukan langsung menulis rumus. Gerbang Ketuntasan di tahapan tiga belas akan menguji justru kemampuan menilai itu, dengan keadaan yang belum pernah kamu temui sebelumnya."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Bacaan konsep — hukum kekekalan energi mekanik",
+          "berkas": "media-f-use/bacaan/bacaan-tp2.html"
+        }
+      ],
+
+      "S2": [],
+
+      "S2b": [
+        {
+          "tipe": "simulasi",
+          "judul": "Energi kinetik dan potensial — penyegaran",
+          "berkas": "media-f-use/simulasi/energi-kinetik-potensial.html",
+          "catatan": "Pastikan kamu lancar membaca kedua rumus ini sebelum melanjutkan ke energi mekanik."
+        },
+        {
+          "tipe": "video",
+          "judul": "Energi mekanik dan hukum kekekalan energi",
+          "yt": "Y1343LoKocs",
+          "catatan": "Best Education — penjelasan runut dari energi mekanik."
+        }
+      ],
+
+      "S2c": [
+        {
+          "tipe": "video",
+          "judul": "Perubahan energi potensial menjadi energi kinetik",
+          "yt": "vxS6xiyeY8w",
+          "catatan": "Mulai dari sini bila konsep pertukaran energi masih terasa kabur."
+        },
+        {
+          "tipe": "audio",
+          "judul": "Dua hal yang harus kokoh sebelum mengulang",
+          "naskah": "Ada dua hal yang perlu kokoh sebelum kamu mengulang gerbang ini. Pertama, energi mekanik adalah penjumlahan energi kinetik dan energi potensial pada saat yang sama. Bukan dua besaran terpisah, melainkan satu angka gabungan. Kedua, hukum kekekalan energi mekanik berbunyi: selama tidak ada gesekan dan hambatan, angka gabungan itu tidak berubah sepanjang lintasan. Jadi kalau ketinggian berkurang, energi kinetik pasti bertambah sebanyak yang hilang dari energi potensial. Tidak ada yang lenyap, hanya berpindah bentuk. Buka simulasi lintasan lengkung dan amati kedua batang itu: yang satu memendek persis sebanyak yang lain memanjang."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Lihat pertukaran energinya",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Setel gesekan ke nol. Amati batang Mekanik yang panjangnya tidak pernah berubah."
+        }
+      ],
+
+      "S3": [
+        {
+          "tipe": "simulasi",
+          "judul": "Pemantik — sanggupkah kereta melewati bukit?",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Tebak dulu sebelum menekan Lepaskan, lalu tulis dugaan dan alasanmu di lembar pemantik. Ganti massanya dan tebak lagi."
+        },
+        {
+          "tipe": "video",
+          "judul": "Energi mekanik dan hukum kekekalannya",
+          "yt": "oK6EGcHe-Jk",
+          "catatan": "Inspirasi70. Tonton tanpa mencatat; tujuannya memunculkan pertanyaan, bukan jawaban."
+        }
+      ],
+
+      "S4": [
+        {
+          "tipe": "bacaan",
+          "judul": "Bacaan konsep lengkap TP2",
+          "berkas": "media-f-use/bacaan/bacaan-tp2.html",
+          "catatan": "Bacaan utama tahapan ini. Perhatikan khusus bagian 3 tentang cara menilai boleh tidaknya hukum ini dipakai."
+        },
+        {
+          "tipe": "video",
+          "judul": "Energi mekanik dan hukum kekekalan energi mekanik",
+          "yt": "oK6EGcHe-Jk",
+          "catatan": "Jeda di setiap contoh, kerjakan sendiri dulu."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Lintasan lengkung: Ep dan Ek bertukar",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html"
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Ayunan bandul",
+          "berkas": "media-f-use/simulasi/ayunan-bandul.html",
+          "catatan": "Contoh paling bersih: tegangan tali tidak pernah melakukan usaha."
+        }
+      ],
+
+      "S5": [
+        {
+          "tipe": "simulasi",
+          "judul": "Bahan pembahasan prakonsepsi (dipandu guru)",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Guru mengubah massa di depan kelas untuk mematahkan dugaan bahwa benda berat lebih mudah melewati bukit."
+        },
+        {
+          "tipe": "video",
+          "judul": "Pembahasan penerapan hukum kekekalan energi mekanik",
+          "yt": "dpSwPRWYcSE",
+          "catatan": "Wien Classroom. Dipakai guru sebagai contoh bersama."
+        }
+      ],
+
+      "S6": [
+        {
+          "tipe": "simulasi",
+          "judul": "Ayunan bandul — pertukaran energi",
+          "berkas": "media-f-use/simulasi/ayunan-bandul.html",
+          "catatan": "Latihan terbimbing: hitung dulu v di titik terendah dengan rumus, baru cocokkan dengan angka simulasi."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Dua akibat yang mengejutkan",
+          "berkas": "media-f-use/bacaan/bacaan-tp2.html",
+          "catatan": "Bagian 2 bacaan: massa dan bentuk lintasan tidak menentukan kelajuan akhir."
+        }
+      ],
+
+      "S7": [
+        {
+          "tipe": "simulasi",
+          "judul": "Lintasan licin lawan lintasan kasar",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Lembar kerja tahapan ini memakai simulasi ini. Catat Em dan kalor pada setiap nilai gesekan yang diminta."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Bandul dengan hambatan udara",
+          "berkas": "media-f-use/simulasi/ayunan-bandul.html",
+          "catatan": "Naikkan hambatan udara sedikit demi sedikit dan catat penyusutan simpangannya."
+        }
+      ],
+
+      "S8": [],
+
+      "S9": [
+        {
+          "tipe": "video",
+          "judul": "Tier 1–2 · Pembahasan soal langkah demi langkah",
+          "yt": "dpSwPRWYcSE",
+          "catatan": "Untuk yang masih perlu pendampingan: salin tiap langkah penyelesaiannya, jangan hanya menonton."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Tier 3–4 · Rancang sendiri keadaannya",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Tantangan: cari nilai gesekan terkecil yang membuat kereta gagal melewati bukit, lalu jelaskan dengan perhitungan."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Tier 3–4 · Taman seluncur PhET",
+          "url": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/latest/energy-skate-park-basics_all.html?locale=in",
+          "luar": true,
+          "catatan": "PhET, University of Colorado Boulder. Sumber luar — bila diblokir jaringan sekolah, gunakan tombol buka di tab baru."
+        }
+      ],
+
+      "S10": [
+        {
+          "tipe": "audio",
+          "judul": "Rangkuman dan jangkar ingatan",
+          "naskah": "Rapikan dulu sebelum melanjutkan. Energi mekanik adalah jumlah energi kinetik dan energi potensial. Hukum kekekalan energi mekanik berlaku hanya bila tidak ada gesekan dan hambatan. Bila ada gesekan, energi mekanik berkurang persis sebesar kalor yang timbul, dan jumlah seluruh energi tetap kekal. Dua akibat yang perlu kamu ingat: massa tidak menentukan kelajuan akhir, dan bentuk lintasan tidak menentukan kelajuan akhir, asalkan licin. Satu batas yang juga penting: pendekatan energi tidak pernah bisa menjawab pertanyaan tentang waktu atau percepatan, karena waktu tidak muncul dalam persamaannya. Jangkar ingatanmu cukup satu kalimat: yang kekal adalah jumlahnya, bukan masing-masingnya."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Urutan pertanyaan untuk menilai pendekatan",
+          "berkas": "media-f-use/bacaan/bacaan-tp2.html",
+          "catatan": "Bagian 3. Salin keempat pertanyaan itu ke kartu jangkarmu."
+        }
+      ],
+
+      "S11": [
+        {
+          "tipe": "video",
+          "judul": "Pembahasan aplikasi hukum kekekalan energi mekanik",
+          "yt": "dpSwPRWYcSE",
+          "catatan": "Buka hanya sesudah kamu mencoba sendiri seluruh butirnya."
+        }
+      ],
+
+      "S12": [
+        {
+          "tipe": "simulasi",
+          "judul": "Pembanding hasil percobaanmu",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Sesudah data percobaan nyata terkumpul, bandingkan dengan simulasi dan jelaskan selisihnya."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "Format pembahasan tujuh langkah",
+          "berkas": "media-f-use/bacaan/bacaan-tp2.html",
+          "catatan": "Laporan tugas kinerja wajib memakai format ini."
+        }
+      ],
+
+      "S13": [],
+
+      "S14": [
+        {
+          "tipe": "audio",
+          "judul": "Kilas balik tanpa membuka catatan",
+          "naskah": "Tutup dulu catatanmu. Jawab dalam hati. Kapan hukum kekekalan energi mekanik boleh dipakai? Apa yang terjadi pada energi mekanik ketika ada gesekan, dan ke mana perginya? Apakah benda yang lebih berat tiba di dasar dengan kelajuan lebih besar? Dan pertanyaan apa yang tidak bisa dijawab dengan pendekatan energi? Beri jeda pada tiap pertanyaan. Mengingat kembali seperti ini terasa lebih berat daripada membaca ulang, dan justru karena beratnya itulah ingatanmu menguat. Baru sesudah itu kerjakan soal pengulangannya."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Pemeriksaan cepat",
+          "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+          "catatan": "Hanya untuk memeriksa jawaban sesudah selesai."
+        }
+      ]
+    }
+  },
+
+  "topik": {
+    "L1": [
+      {
+        "tipe": "bacaan",
+        "judul": "Bacaan konsep TP1",
+        "berkas": "media-f-use/bacaan/bacaan-tp1.html"
+      }
+    ],
+    "L2": [
+      {
+        "tipe": "simulasi",
+        "judul": "Muara topik — semua gagasan dalam satu lintasan",
+        "berkas": "media-f-use/simulasi/kekekalan-energi-mekanik.html",
+        "catatan": "Gunakan untuk menautkan usaha, energi kinetik, energi potensial, dan gesekan dalam satu peristiwa."
+      },
+      {
+        "tipe": "bacaan",
+        "judul": "Bacaan konsep TP2",
+        "berkas": "media-f-use/bacaan/bacaan-tp2.html"
+      }
+    ],
+    "L3": [],
+    "L4": [
+      {
+        "tipe": "simulasi",
+        "judul": "Tantangan lintas topik — grafik gaya–perpindahan",
+        "berkas": "media-f-use/simulasi/grafik-gaya-perpindahan.html",
+        "catatan": "Hubungkan luas grafik dengan energi potensial pegas: W = setengah ka eks kuadrat."
+      }
+    ]
+  }
+}

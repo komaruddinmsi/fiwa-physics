@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi — Usaha sebagai luas grafik gaya–perpindahan</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+
+<h1>Usaha sebagai luas di bawah grafik F–s</h1>
+<p class="sub">Rumus W = F·s hanya berlaku bila gaya tetap. Bila gaya berubah-ubah, usaha dihitung sebagai luas daerah di bawah grafik gaya terhadap perpindahan. Seret titik-titik bulat pada grafik untuk mengubah bentuk gayanya.</p>
+
+<div class="grid">
+  <div class="kotak">
+    <canvas id="grafik" width="720" height="420" aria-label="Grafik gaya terhadap perpindahan yang dapat diseret"></canvas>
+    <div class="tombol" style="margin-top:12px">
+      <button data-pola="tetap" class="ghost">Gaya tetap</button>
+      <button data-pola="naik" class="ghost">Gaya naik</button>
+      <button data-pola="pegas" class="ghost">Pegas</button>
+      <button data-pola="bolak" class="ghost">Searah lalu berlawanan</button>
+    </div>
+  </div>
+
+  <div class="kotak">
+    <h2>Hasil</h2>
+    <div class="angka">
+      <div><span>Luas di atas sumbu (usaha positif)</span><b class="n-teal" id="rPos">—</b></div>
+      <div><span>Luas di bawah sumbu (usaha negatif)</span><b class="n-merah" id="rNeg">—</b></div>
+      <div><span>Usaha total</span><b class="n-emas" id="rTot">—</b></div>
+      <div><span>Gaya rata-rata</span><b class="n-biru" id="rRata">—</b></div>
+    </div>
+    <p class="rumus" id="jejak">W = luas daerah di bawah grafik</p>
+
+    <h2 style="margin-top:18px">Cara membaca</h2>
+    <div class="angka">
+      <div><span>Jarak total</span><b id="rS">10 m</b></div>
+      <div><span>Bentuk daerah</span><b id="rBentuk">—</b></div>
+    </div>
+    <div class="catatan"><b>Ingat.</b> Daerah di bawah sumbu mendatar bernilai negatif, karena di sana gaya berlawanan arah dengan perpindahan. Usaha total adalah selisih, bukan jumlah, dari kedua luas itu.</div>
+  </div>
+</div>
+
+<div class="sel">
+  <details>
+    <summary>Kasus gaya tetap</summary>
+    <p>Bila grafiknya mendatar, daerahnya berbentuk persegi panjang dengan luas F × s. Jadi rumus W = F·s hanyalah kasus khusus dari aturan luas ini, bukan aturan yang berbeda.</p>
+  </details>
+  <details>
+    <summary>Kasus pegas</summary>
+    <p>Pada pegas, gaya tarik membesar sebanding dengan pertambahan panjang: F = kx. Grafiknya garis lurus dari titik asal, dan daerahnya berbentuk segitiga dengan luas ½ × x × F = ½kx². Inilah asal rumus energi potensial pegas.</p>
+  </details>
+  <details>
+    <summary>Mengapa luas sama dengan usaha?</summary>
+    <p>Bagi lintasan menjadi potongan-potongan yang sangat pendek. Pada tiap potongan, gaya boleh dianggap tetap, sehingga usahanya adalah F dikali panjang potongan — persis luas satu batang tipis. Menjumlahkan semua batang berarti menghitung luas seluruh daerah.</p>
+  </details>
+</div>
+
+<p class="kaki">Simulasi F.USE · Fisika FIWA. Sumbu mendatar perpindahan 0–10 m, sumbu tegak gaya −60 N sampai +60 N.</p>
+
+<script>
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const cv = $('grafik'), c = cv.getContext('2d');
+  const S_MAKS = 10, F_MAKS = 60, N = 5;             // 5 titik kendali pada s = 0, 2.5, 5, 7.5, 10
+  const kiri = 64, kanan = cv.width - 24, atas = 28, bawah = cv.height - 48;
+  const nolY = (atas + bawah) / 2;
+
+  const pola = {
+    tetap: [30, 30, 30, 30, 30],
+    naik:  [0, 15, 30, 45, 60],
+    pegas: [0, 12, 24, 36, 48],
+    bolak: [40, 40, 0, -30, -30]
+  };
+  let F = pola.tetap.slice();
+  let seret = -1;
+
+  const fmt = (x, n) => x.toFixed(n).replace('.', ',');
+  const px = i => kiri + i / (N - 1) * (kanan - kiri);
+  const py = f => nolY - f / F_MAKS * (nolY - atas);
+  const keF = y => Math.max(-F_MAKS, Math.min(F_MAKS, (nolY - y) / (nolY - atas) * F_MAKS));
+
+  // Luas trapesium per ruas; ruas yang memotong sumbu dipecah supaya tanda luasnya benar.
+  function luas() {
+    const dx = S_MAKS / (N - 1);
+    let pos = 0, neg = 0;
+    for (let i = 0; i < N - 1; i++) {
+      const a = F[i], b = F[i + 1];
+      if (a === 0 && b === 0) continue;
+      if (a * b >= 0) {                        // tidak memotong sumbu
+        const L = (a + b) / 2 * dx;
+        L >= 0 ? pos += L : neg += L;
+      } else {                                 // memotong sumbu: dua segitiga
+        const xp = dx * Math.abs(a) / (Math.abs(a) + Math.abs(b));
+        const L1 = a / 2 * xp, L2 = b / 2 * (dx - xp);
+        L1 >= 0 ? pos += L1 : neg += L1;
+        L2 >= 0 ? pos += L2 : neg += L2;
+      }
+    }
+    return { pos, neg, tot: pos + neg };
+  }
+
+  function bentuk() {
+    const sama = F.every(x => Math.abs(x - F[0]) < 1);
+    if (sama) return 'persegi panjang';
+    const beda = [];
+    for (let i = 0; i < N - 1; i++) beda.push(F[i + 1] - F[i]);
+    const naikSemua = beda.every(d => d >= -1), turunSemua = beda.every(d => d <= 1);
+    if (F[0] === 0 && naikSemua) return 'segitiga';
+    if (naikSemua || turunSemua) return 'trapesium';
+    return 'gabungan beberapa bidang';
+  }
+
+  function gambar() {
+    c.clearRect(0, 0, cv.width, cv.height);
+
+    // kisi
+    c.strokeStyle = 'rgba(120,160,255,.16)'; c.lineWidth = 1;
+    for (let f = -F_MAKS; f <= F_MAKS; f += 20) {
+      const y = py(f);
+      c.beginPath(); c.moveTo(kiri, y); c.lineTo(kanan, y); c.stroke();
+      c.fillStyle = '#9db0e6'; c.font = '10px ui-monospace, monospace';
+      c.fillText(String(f), 24, y + 3);
+    }
+    for (let s = 0; s <= S_MAKS; s += 2.5) {
+      const x = kiri + s / S_MAKS * (kanan - kiri);
+      c.beginPath(); c.moveTo(x, atas); c.lineTo(x, bawah); c.stroke();
+      c.fillStyle = '#9db0e6'; c.font = '10px ui-monospace, monospace';
+      c.fillText(fmt(s, 1), x - 8, bawah + 18);
+    }
+
+    // daerah terarsir
+    c.beginPath(); c.moveTo(px(0), nolY);
+    for (let i = 0; i < N; i++) c.lineTo(px(i), py(F[i]));
+    c.lineTo(px(N - 1), nolY); c.closePath();
+    const grd = c.createLinearGradient(0, atas, 0, bawah);
+    grd.addColorStop(0, 'rgba(0,201,167,.42)');
+    grd.addColorStop(.5, 'rgba(0,201,167,.14)');
+    grd.addColorStop(.5, 'rgba(255,122,122,.14)');
+    grd.addColorStop(1, 'rgba(255,122,122,.42)');
+    c.fillStyle = grd; c.fill();
+
+    // sumbu
+    c.strokeStyle = 'rgba(160,195,255,.85)'; c.lineWidth = 1.8;
+    c.beginPath(); c.moveTo(kiri, atas); c.lineTo(kiri, bawah); c.stroke();
+    c.beginPath(); c.moveTo(kiri, nolY); c.lineTo(kanan, nolY); c.stroke();
+    c.fillStyle = '#cfdcff'; c.font = '12px system-ui';
+    c.fillText('F (N)', 20, atas - 10);
+    c.fillText('s (m)', kanan - 38, nolY + 20);
+
+    // garis gaya
+    c.strokeStyle = '#ffc247'; c.lineWidth = 3; c.beginPath();
+    for (let i = 0; i < N; i++) i ? c.lineTo(px(i), py(F[i])) : c.moveTo(px(i), py(F[i]));
+    c.stroke();
+
+    // titik kendali
+    for (let i = 0; i < N; i++) {
+      c.fillStyle = seret === i ? '#ffffff' : '#ffc247';
+      c.beginPath(); c.arc(px(i), py(F[i]), 8, 0, 7); c.fill();
+      c.strokeStyle = 'rgba(4,20,46,.8)'; c.lineWidth = 2; c.stroke();
+      c.fillStyle = '#eaf0ff'; c.font = '600 11px ui-monospace, monospace';
+      c.fillText(Math.round(F[i]) + ' N', px(i) - 14, py(F[i]) - 14);
+    }
+  }
+
+  function tulis() {
+    const L = luas();
+    $('rPos').textContent = fmt(L.pos, 1) + ' J';
+    $('rNeg').textContent = fmt(L.neg, 1) + ' J';
+    $('rTot').textContent = fmt(L.tot, 1) + ' J';
+    $('rRata').textContent = fmt(L.tot / S_MAKS, 1) + ' N';
+    $('rBentuk').textContent = bentuk();
+    $('jejak').textContent = 'W = (' + fmt(L.pos, 1) + ') + (' + fmt(L.neg, 1) + ') = ' + fmt(L.tot, 1) + ' J';
+  }
+
+  const segar = () => { gambar(); tulis(); };
+
+  function titikDekat(x, y) {
+    for (let i = 0; i < N; i++) if (Math.hypot(x - px(i), y - py(F[i])) < 20) return i;
+    return -1;
+  }
+  const koord = e => {
+    const r = cv.getBoundingClientRect();
+    return { x: (e.clientX - r.left) * cv.width / r.width, y: (e.clientY - r.top) * cv.height / r.height };
+  };
+
+  cv.addEventListener('pointerdown', e => {
+    const p = koord(e); seret = titikDekat(p.x, p.y);
+    if (seret >= 0) { cv.setPointerCapture(e.pointerId); segar(); }
+  });
+  cv.addEventListener('pointermove', e => {
+    const p = koord(e);
+    cv.style.cursor = titikDekat(p.x, p.y) >= 0 ? 'grab' : 'default';
+    if (seret < 0) return;
+    e.preventDefault();
+    F[seret] = Math.round(keF(p.y) / 5) * 5;
+    segar();
+  });
+  const lepas = () => { seret = -1; segar(); };
+  cv.addEventListener('pointerup', lepas);
+  cv.addEventListener('pointercancel', lepas);
+
+  document.querySelectorAll('[data-pola]').forEach(b =>
+    b.addEventListener('click', () => { F = pola[b.dataset.pola].slice(); segar(); }));
+
+  segar();
+})();
+</script>
+</body>
+</html>

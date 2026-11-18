@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi — Energi kinetik dan energi potensial</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+
+<h1>Energi kinetik dan energi potensial</h1>
+<p class="sub">Dua besaran ini sering tertukar. Geser massa, kelajuan, dan ketinggian, lalu bandingkan grafiknya: energi kinetik tumbuh sebagai kuadrat kelajuan, sedangkan energi potensial tumbuh lurus terhadap ketinggian.</p>
+
+<div class="grid">
+  <div class="kotak">
+    <canvas id="pentas" width="760" height="380" aria-label="Peragaan benda pada ketinggian tertentu dengan batang energi"></canvas>
+    <p class="rumus" id="jejak">E<sub>k</sub> = ½mv²   ·   E<sub>p</sub> = mgh</p>
+  </div>
+
+  <div class="kotak">
+    <h2>Pengaturan</h2>
+    <div class="atur">
+      <div class="baris"><label for="m">Massa m</label><input type="range" id="m" min="0.5" max="20" value="4" step="0.5"><output id="om">4 kg</output></div>
+      <div class="baris"><label for="v">Kelajuan v</label><input type="range" id="v" min="0" max="20" value="6" step="0.5"><output id="ov">6 m/s</output></div>
+      <div class="baris"><label for="h">Ketinggian h</label><input type="range" id="h" min="0" max="20" value="5" step="0.5"><output id="oh">5 m</output></div>
+    </div>
+
+    <h2 style="margin-top:18px">Hasil</h2>
+    <div class="angka">
+      <div><span>Energi kinetik E<sub>k</sub></span><b class="n-teal" id="rEk">—</b></div>
+      <div><span>Energi potensial E<sub>p</sub></span><b class="n-ungu" id="rEp">—</b></div>
+      <div><span>Energi mekanik E<sub>m</sub></span><b class="n-emas" id="rEm">—</b></div>
+      <div><span>Kalau v digandakan</span><b class="n-teal" id="rGanda">—</b></div>
+      <div><span>Kalau h digandakan</span><b class="n-ungu" id="rGandaH">—</b></div>
+    </div>
+    <div class="catatan"><b>Uji dugaanmu.</b> Gandakan kelajuan dari 5 m/s menjadi 10 m/s. Energi kinetik tidak menjadi dua kali, melainkan empat kali. Inilah sebabnya menambah kecepatan kendaraan jauh lebih berbahaya daripada yang terasa.</div>
+  </div>
+</div>
+
+<div class="kotak" style="margin-top:16px">
+  <h2>Grafik</h2>
+  <div class="grid">
+    <canvas id="grafikK" width="520" height="280" aria-label="Grafik energi kinetik terhadap kelajuan"></canvas>
+    <canvas id="grafikP" width="520" height="280" aria-label="Grafik energi potensial terhadap ketinggian"></canvas>
+  </div>
+</div>
+
+<div class="sel">
+  <details>
+    <summary>Mengapa E<sub>k</sub> berbanding lurus dengan kuadrat kelajuan?</summary>
+    <p>Untuk mempercepat benda dari diam sampai kelajuan v dengan gaya tetap, jarak yang harus ditempuh sebanding dengan v². Usaha yang diperlukan adalah gaya dikali jarak, sehingga ikut sebanding dengan v². Energi kinetik tidak lain adalah usaha total yang sudah tersimpan dalam gerak benda itu.</p>
+  </details>
+  <details>
+    <summary>Energi potensial selalu diukur terhadap acuan</summary>
+    <p>Nilai mgh bergantung pada tempat kita menetapkan h = 0. Yang punya arti fisis bukan nilai E<sub>p</sub> itu sendiri, melainkan <em>selisihnya</em> ketika benda berpindah ketinggian. Karena itu dalam setiap soal, acuan harus dinyatakan lebih dahulu, dan boleh dipilih di mana saja asal konsisten.</p>
+  </details>
+  <details>
+    <summary>Satuan</summary>
+    <p>Keduanya bersatuan joule. Periksa: kg · (m/s)² = kg·m²/s² = N·m = J, dan kg · m/s² · m = N·m = J. Kesamaan satuan inilah yang memungkinkan keduanya dijumlahkan menjadi energi mekanik.</p>
+  </details>
+</div>
+
+<p class="kaki">Simulasi F.USE · Fisika FIWA. Percepatan gravitasi g = 10 m/s², acuan ketinggian di permukaan tanah.</p>
+
+<script>
+(function () {
+  'use strict';
+  const g = 10;
+  const $ = id => document.getElementById(id);
+  const kv = { m:$('m'), v:$('v'), h:$('h') };
+  const fmt = (x, n) => x.toFixed(n).replace('.', ',');
+
+  function nilai() {
+    const m = +kv.m.value, v = +kv.v.value, h = +kv.h.value;
+    return { m, v, h, Ek: .5 * m * v * v, Ep: m * g * h };
+  }
+
+  function tulis(d) {
+    $('om').textContent = fmt(d.m, 1) + ' kg';
+    $('ov').textContent = fmt(d.v, 1) + ' m/s';
+    $('oh').textContent = fmt(d.h, 1) + ' m';
+    $('rEk').textContent = fmt(d.Ek, 1) + ' J';
+    $('rEp').textContent = fmt(d.Ep, 1) + ' J';
+    $('rEm').textContent = fmt(d.Ek + d.Ep, 1) + ' J';
+    $('rGanda').textContent  = fmt(.5 * d.m * (2 * d.v) ** 2, 1) + ' J  (×4)';
+    $('rGandaH').textContent = fmt(d.m * g * (2 * d.h), 1) + ' J  (×2)';
+    $('jejak').innerHTML =
+      'E<sub>k</sub> = ½ × ' + fmt(d.m, 1) + ' × ' + fmt(d.v, 1) + '² = ' + fmt(d.Ek, 1) + ' J' +
+      ' &nbsp; · &nbsp; E<sub>p</sub> = ' + fmt(d.m, 1) + ' × 10 × ' + fmt(d.h, 1) + ' = ' + fmt(d.Ep, 1) + ' J';
+  }
+
+  const P = $('pentas'), c = P.getContext('2d');
+  function gambar(d) {
+    const W = P.width, H = P.height, tanah = H - 54;
+    c.clearRect(0, 0, W, H);
+
+    // tanah
+    c.strokeStyle = 'rgba(140,180,255,.5)'; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(30, tanah); c.lineTo(W - 250, tanah); c.stroke();
+    c.fillStyle = '#9db0e6'; c.font = '12px system-ui';
+    c.fillText('acuan h = 0', 30, tanah + 20);
+
+    // tiang ketinggian
+    const hMaks = 20, skalaH = (tanah - 50) / hMaks;
+    const yB = tanah - d.h * skalaH, xB = 170;
+    c.setLineDash([5, 5]); c.strokeStyle = 'rgba(180,140,255,.65)'; c.lineWidth = 1.5;
+    c.beginPath(); c.moveTo(60, yB); c.lineTo(xB, yB); c.stroke();
+    c.beginPath(); c.moveTo(60, tanah); c.lineTo(60, yB); c.stroke();
+    c.setLineDash([]);
+    c.fillStyle = '#b48cff'; c.font = '600 12px ui-monospace, monospace';
+    c.fillText('h = ' + fmt(d.h, 1) + ' m', 66, (tanah + yB) / 2);
+
+    // benda
+    const r = 11 + d.m * 1.1;
+    const grd = c.createRadialGradient(xB - r / 3, yB - r / 3, 2, xB, yB, r);
+    grd.addColorStop(0, '#6ef0d6'); grd.addColorStop(1, '#1b5fc4');
+    c.fillStyle = grd; c.beginPath(); c.arc(xB, yB, r, 0, 7); c.fill();
+    c.fillStyle = '#eaf0ff'; c.font = '600 11px ui-monospace, monospace';
+    c.fillText(fmt(d.m, 1) + ' kg', xB - 16, yB + 4);
+
+    // panah kelajuan
+    if (d.v > 0) {
+      const p = Math.min(110, 14 + d.v * 5);
+      c.strokeStyle = '#00c9a7'; c.fillStyle = '#00c9a7'; c.lineWidth = 3;
+      c.beginPath(); c.moveTo(xB + r + 4, yB); c.lineTo(xB + r + 4 + p, yB); c.stroke();
+      c.beginPath(); c.moveTo(xB + r + 4 + p, yB);
+      c.lineTo(xB + r + 4 + p - 10, yB - 5); c.lineTo(xB + r + 4 + p - 10, yB + 5);
+      c.closePath(); c.fill();
+      c.font = '600 12px ui-monospace, monospace';
+      c.fillText('v = ' + fmt(d.v, 1) + ' m/s', xB + r + 10, yB - 12);
+    }
+
+    // batang energi
+    const xB2 = W - 215, lebar = 175, maks = Math.max(d.Ek, d.Ep, 1);
+    const batang = (i, nilai, warna, nama) => {
+      const y = 46 + i * 54;
+      c.fillStyle = 'rgba(3,9,31,.6)'; c.fillRect(xB2, y, lebar, 22);
+      c.fillStyle = warna; c.fillRect(xB2, y, Math.max(2, nilai / maks * lebar), 22);
+      c.fillStyle = '#cfdcff'; c.font = '12px system-ui'; c.fillText(nama, xB2, y - 6);
+      c.fillStyle = '#eaf0ff'; c.font = '600 12px ui-monospace, monospace';
+      c.fillText(fmt(nilai, 0) + ' J', xB2 + 6, y + 16);
+    };
+    c.fillStyle = '#bcd0ff'; c.font = '700 13px system-ui'; c.fillText('Energi', xB2, 26);
+    batang(0, d.Ek, '#00c9a7', 'Kinetik  ½mv²');
+    batang(1, d.Ep, '#b48cff', 'Potensial  mgh');
+    batang(2, d.Ek + d.Ep, '#ffc247', 'Mekanik  Ek + Ep');
+  }
+
+  function kurva(cv, fn, xMaks, xNow, warna, labelX, labelY, judul) {
+    const k = cv.getContext('2d'), W = cv.width, H = cv.height;
+    const kiri = 56, bawah = H - 38, atas = 30, kanan = W - 18;
+    k.clearRect(0, 0, W, H);
+    k.fillStyle = '#bcd0ff'; k.font = '700 13px system-ui'; k.fillText(judul, kiri, 18);
+
+    let yMaks = 0;
+    for (let i = 0; i <= 100; i++) yMaks = Math.max(yMaks, fn(i / 100 * xMaks));
+    yMaks = yMaks || 1;
+
+    // sumbu dan kisi
+    k.strokeStyle = 'rgba(120,160,255,.22)'; k.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+      const y = bawah - i / 4 * (bawah - atas);
+      k.beginPath(); k.moveTo(kiri, y); k.lineTo(kanan, y); k.stroke();
+      k.fillStyle = '#9db0e6'; k.font = '10px ui-monospace, monospace';
+      k.fillText((yMaks * i / 4).toFixed(0), 8, y + 3);
+    }
+    k.strokeStyle = 'rgba(140,180,255,.6)'; k.lineWidth = 1.5;
+    k.beginPath(); k.moveTo(kiri, atas); k.lineTo(kiri, bawah); k.lineTo(kanan, bawah); k.stroke();
+    k.fillStyle = '#9db0e6'; k.font = '11px system-ui';
+    k.fillText(labelX, kanan - 46, bawah + 24);
+    k.fillText(labelY, 8, atas - 12);
+
+    // kurva
+    k.strokeStyle = warna; k.lineWidth = 2.5; k.beginPath();
+    for (let i = 0; i <= 160; i++) {
+      const x = i / 160 * xMaks;
+      const px = kiri + x / xMaks * (kanan - kiri);
+      const py = bawah - fn(x) / yMaks * (bawah - atas);
+      i ? k.lineTo(px, py) : k.moveTo(px, py);
+    }
+    k.stroke();
+
+    // titik sekarang
+    const px = kiri + xNow / xMaks * (kanan - kiri);
+    const py = bawah - fn(xNow) / yMaks * (bawah - atas);
+    k.setLineDash([4, 4]); k.strokeStyle = 'rgba(255,194,71,.8)'; k.lineWidth = 1;
+    k.beginPath(); k.moveTo(px, bawah); k.lineTo(px, py); k.lineTo(kiri, py); k.stroke();
+    k.setLineDash([]);
+    k.fillStyle = '#ffc247'; k.beginPath(); k.arc(px, py, 5, 0, 7); k.fill();
+  }
+
+  function segar() {
+    const d = nilai();
+    tulis(d); gambar(d);
+    kurva($('grafikK'), v => .5 * d.m * v * v, 20, d.v, '#00c9a7', 'v (m/s)', 'Ek (J)', 'Energi kinetik terhadap kelajuan');
+    kurva($('grafikP'), h => d.m * g * h,      20, d.h, '#b48cff', 'h (m)',   'Ep (J)', 'Energi potensial terhadap ketinggian');
+  }
+
+  Object.values(kv).forEach(el => el.addEventListener('input', segar));
+  segar();
+})();
+</script>
+</body>
+</html>
