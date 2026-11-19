@@ -317,3 +317,6 @@ body:not(.guru) .akun-tautan{display:none}
 .mjudul:first-of-type{ margin-top:6px; }
 
 .mkaki .mluar{ display:inline-block; margin-top:5px; color:var(--muted); font-size:.82rem; line-height:1.45; }
+
+/* paket soal: dokumen lepas, perlu ruang lebih tinggi */
+.frame-penuh{height:86vh;min-height:560px}

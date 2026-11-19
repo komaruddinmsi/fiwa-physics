@@ -7,6 +7,22 @@
 
 /* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
 const EN = {
+"Paket soal": "Question packs",
+"Paket": "Pack",
+"%s paket": "%s packs",
+"1 paket": "1 pack",
+"%s topik · %s paket": "%s topics · %s packs",
+"1 topik · %s paket": "1 topic · %s packs",
+"Belum ada paket soal pada topik ini.": "No question packs in this topic yet.",
+"Penyisihan": "Preliminary",
+"Semifinal": "Semifinal",
+"Final": "Final",
+"Lainnya": "Other",
+"%s soal": "%s questions",
+"Buka penuh di tab baru": "Open full in a new tab",
+"Dokumen ini berdiri sendiri: nilai dan pembahasan muncul di dalam lembar itu sendiri, tidak masuk ke progres jalur belajar.": "This document stands alone: the score and worked solutions appear inside the sheet itself and do not enter the learning-path progress.",
+"Kembali ke daftar paket": "Back to the pack list",
+"Dokumen tidak ditemukan.": "Document not found.",
 "Peta & Janji": "Map & Pledge",
 "Gerbang Prasyarat": "Prerequisite Gate",
 "Penguatan Prasyarat": "Prerequisite Reinforcement",
@@ -422,21 +438,30 @@ function kunciLapis(t) {
 }
 const remah = t => { const j = t && jalurTopik(t);
   return `<a href="#">${tr('Beranda')}</a> / ${j ? `<a href="#jalur-${j.slug}">${esc(j.kode)}</a> / ` : ''}`; };
-const kartuTopik = t => { const n = t.tp.length, tuntas = t.tp.filter(tp => hitung(tp).s === 5).length;
+const kartuTopik = t => { if (t.jenis === 'paket') return kartuPaketTopik(t);
+  const n = t.tp.length, tuntas = t.tp.filter(tp => hitung(tp).s === 5).length;
   return `<a class="card" href="#topik-${t.slug}"><div class="eyebrow">${esc(t.mapel)}${t.fase ? ' · ' + tr('Fase ') + esc(t.fase) : ''}</div>
     <h3>${esc(t.nama)}</h3><div class="mono muted">${esc(t.kode)} · ${n === 1 ? tr('1 TP') : trf('%s TP', n)}</div>
     <div class="meter"><i style="width:${n ? Math.round(tuntas / n * 100) : 0}%"></i></div>
     <div class="muted" style="font-size:.85rem">${trf('%s dari %s TP Tuntas', tuntas, n)}</div></a>`; };
+
+const kartuPaketTopik = t => { const n = (t.paket || []).length;
+  return `<a class="card" href="#topik-${t.slug}"><div class="eyebrow">${esc(t.mapel)}${t.fase ? ' · ' + tr('Fase ') + esc(t.fase) : ''}</div>
+    <h3>${esc(t.nama)}</h3><div class="mono muted">${esc(t.kode)} · ${n === 1 ? tr('1 paket') : trf('%s paket', n)}</div>
+    ${t.ringkas ? `<div class="muted" style="font-size:.85rem">${esc(t.ringkas)}</div>` : ''}</a>`; };
 
 /* ---------- tampilan: beranda ---------- */
 function kotakJalur() {
   return JALUR.map(j => {
     const ts = topikJalur(j), n = ts.length;
     const tps = ts.flatMap(t => t.tp);
+    const pks = ts.flatMap(t => t.paket || []);
     const tuntas = tps.filter(tp => hitung(tp).s === 5).length;
-    const isi = n
-      ? `<span class="jm">${n === 1 ? trf('1 topik · %s TP', tps.length) : trf('%s topik · %s TP', n, tps.length)}</span>`
-      : `<span class="jm segera">${tr('Segera hadir')}</span>`;
+    const isi = !n
+      ? `<span class="jm segera">${tr('Segera hadir')}</span>`
+      : tps.length
+        ? `<span class="jm">${n === 1 ? trf('1 topik · %s TP', tps.length) : trf('%s topik · %s TP', n, tps.length)}</span>`
+        : `<span class="jm">${n === 1 ? trf('1 topik · %s paket', pks.length) : trf('%s topik · %s paket', n, pks.length)}</span>`;
     return `<a class="jalur j-${j.slug}" href="#jalur-${j.slug}">
       <span class="jk">${esc(j.kode)}</span>
       <span class="jn">${j.nama}</span>
@@ -482,8 +507,45 @@ function halJalur(j) {
     </section></div>`;
 }
 
+/* ---------- tampilan: topik berjenis paket (tanpa alur pembelajaran) ---------- */
+const NAMA_TAHAP = t => (t && t.nama) || 'Lainnya';
+
+function halTopikPaket(t) {
+  const daftar = t.paket || [];
+  const tahap = (t.tahap || []).slice();
+  const sisa = daftar.filter(p => !tahap.some(x => x.kode === p.tahap));
+  const kel = tahap.map(th => ({ th, isi: daftar.filter(p => p.tahap === th.kode) }))
+    .concat(sisa.length ? [{ th: { kode: '', nama: 'Lainnya' }, isi: sisa }] : [])
+    .filter(g => g.isi.length);
+  const blok = kel.map(g => `<section class="stack"><h2>${esc(tr(NAMA_TAHAP(g.th)))}</h2><div class="list">${
+    g.isi.map(p => `<a class="item" href="#topik-${t.slug}-p-${p.slug}">
+      <span class="code">${esc((p.tahap || '·').slice(0, 3).toUpperCase())}</span>
+      <span class="t"><b>${esc(p.judul)}</b>${p.ringkas ? `<br><span class="muted">${esc(p.ringkas)}</span>` : ''}</span>
+      <span class="row">${p.soal ? `<span class="tier">${trf('%s soal', p.soal)}</span>` : ''}</span></a>`).join('')
+  }</div></section>`).join('');
+  return `<div class="stack"><div class="crumbs">${remah(t)}${esc(t.kode)}</div>
+    <div><div class="eyebrow">${esc(t.mapel)}${t.jalur ? ' · ' + esc(t.jalur) : ''}</div><h1>${esc(t.nama)}</h1>
+    ${t.ringkas ? `<p class="muted">${esc(t.ringkas)}</p>` : ''}</div>
+    ${blok || `<p class="muted">${tr('Belum ada paket soal pada topik ini.')}</p>`}</div>`;
+}
+
+function halPaket(t, slugP) {
+  const p = (t.paket || []).find(x => x.slug === slugP);
+  const kepala = `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${tr('Paket')}</div>`;
+  if (!p) return `${kepala}<div class="note">${tr('Dokumen tidak ditemukan.')} <a href="#topik-${t.slug}">${tr('Kembali ke daftar paket')}</a></div></div>`;
+  return `${kepala}
+    <div><h1>${esc(p.judul)}</h1>
+      <p class="muted">${[p.bentuk, p.soal ? trf('%s soal', p.soal) : '', p.catatan].filter(Boolean).map(esc).join(' · ')}</p></div>
+    <div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+      <span class="muted" style="font-size:.85rem">${tr('Dokumen ini berdiri sendiri: nilai dan pembahasan muncul di dalam lembar itu sendiri, tidak masuk ke progres jalur belajar.')}</span>
+      <a class="btn ghost" href="${esc(p.berkas)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></div>
+    <iframe class="frame frame-penuh" src="${esc(p.berkas)}" title="${esc(p.judul)}"></iframe>
+    <p><a class="btn ghost" href="#topik-${t.slug}">← ${tr('Kembali ke daftar paket')}</a></p></div>`;
+}
+
 /* ---------- tampilan: topik ---------- */
 function halTopik(t) {
+  if (t.jenis === 'paket') return halTopikPaket(t);
   const tps = t.tp.map(tp => { const h = hitung(tp), k = kunciTP(tp);
     const isi = `<span class="code">${esc(tp.kode)}</span>
       <span class="t"><b>${esc(tp.judul)}</b>${tp.teks ? `<br><span class="muted">${esc(tp.teks)}</span>` : ''}${k ? `<br><span class="gembok">🔒 ${esc(k)}</span>` : ''}</span>
@@ -863,6 +925,7 @@ function render() {
   if (h === 'anggota' && window.FIMS && FIMS.aku && FIMS.aku.owner) { rangka(); FIMS.halAnggota(); return; }
   if (h === 'guru') html = halGuru();
   else if ((m = h.match(/^jalur-(.+)$/)) && cariJalur(m[1])) html = halJalur(cariJalur(m[1]));
+  else if ((m = h.match(/^topik-(.+?)-p-(.+)$/)) && cariTopik(m[1])) html = halPaket(cariTopik(m[1]), m[2]);
   else if ((m = h.match(/^topik-(.+)-(l[1-4])(?:-(latihan))?$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase(), m[3]);
   else if ((m = h.match(/^topik-(.+)$/)) && cariTopik(m[1])) html = halTopik(cariTopik(m[1]));
   else if ((m = h.match(/^tp-(.+)-(s\d+[bc]?)$/)) && cariTP(m[1])) { const id = m[2].toUpperCase().replace(/([BC])$/, c => c.toLowerCase()); cur = { tp: cariTP(m[1]), id }; html = halTP(cur.tp, id); }
