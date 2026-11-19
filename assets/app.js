@@ -148,7 +148,8 @@ const EN = {
 "Papan Guru": "Teacher Board",
 "Mode guru": "Teacher mode",
 "Alur Konten Pembelajaran Tuntas · CMS FIMS · Fitrah Islamic World Academy. Progres belajar tersimpan pada akunmu.": "Mastery Learning Content Flow · CMS FIMS · Fitrah Islamic World Academy. Your progress is saved to your account.",
-"Bahan pendukung": "Supporting material", "Memuat bahan pendukung…": "Loading supporting material…", "Belum ada bahan pendukung untuk tahapan ini.": "No supporting material for this stage yet.", "Gerbang penilaian — bahan bantu sengaja tidak disediakan.": "Assessment gate — support material is withheld on purpose.", "Video": "Video", "Audio": "Audio", "Simulasi": "Simulation", "Bacaan": "Reading", "Tautan": "Link", "Buka di YouTube": "Open on YouTube", "Buka penuh di tab baru": "Open full size in a new tab", "Sumber luar": "External source", "Putar": "Play", "Jeda": "Pause", "Lanjut": "Resume", "Hentikan": "Stop", "Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.": "This browser cannot read the script aloud. Please read the text instead.", "Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.": "The script is read aloud by the browser. A teacher can replace it with their own recording.", "Bahan pendukung belum diatur untuk topik ini.": "Supporting material has not been set up for this topic yet.", "Memuat katalog…": "Loading the catalogue…",
+"Bahan pendukung": "Supporting material", "Memuat bahan pendukung…": "Loading supporting material…", "Belum ada bahan pendukung untuk tahapan ini.": "No supporting material for this stage yet.", "Gerbang penilaian — bahan bantu sengaja tidak disediakan.": "Assessment gate — support material is withheld on purpose.", "Video": "Video", "Audio": "Audio", "Simulasi": "Simulation", "Bacaan": "Reading", "Tautan": "Link", "Buka di YouTube": "Open on YouTube", "Buka penuh di tab baru": "Open full size in a new tab", "Sumber luar": "External source",
+"Bahan ini dari situs luar. Bila kotaknya tetap kosong, situs itu menolak ditampilkan di dalam halaman — pakai tautan di atas.": "This material comes from an external site. If the box stays empty, that site refuses to be shown inside a page — use the link above.", "Putar": "Play", "Jeda": "Pause", "Lanjut": "Resume", "Hentikan": "Stop", "Peramban ini belum dapat membacakan naskah. Silakan baca teksnya langsung.": "This browser cannot read the script aloud. Please read the text instead.", "Naskah dibacakan oleh peramban. Guru dapat menggantinya dengan rekaman suara sendiri.": "The script is read aloud by the browser. A teacher can replace it with their own recording.", "Bahan pendukung belum diatur untuk topik ini.": "Supporting material has not been set up for this topic yet.", "Memuat katalog…": "Loading the catalogue…",
 "katalog.json belum ada. Jalankan <span class=\"mono\">node build.js</span> (Cloudflare menjalankannya otomatis).": "katalog.json is missing. Run <span class=\"mono\">node build.js</span> (Cloudflare runs it automatically).",
 "Fisika FIWA — beranda": "Fisika FIWA — home",
 "Tuntaskan dulu %s · %s": "Complete %s · %s first",
@@ -786,9 +787,11 @@ function isiPemutar(el, it) {
     el.innerHTML = `<p class="mkaki"><a class="btn" href="${esc(alamat)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></p>`;
     return;
   }
+  const luar = /^https?:/i.test(alamat);
   el.innerHTML = `<iframe class="mbingkai ${it.tipe === 'bacaan' ? 'mbaca' : ''}" src="${esc(alamat)}"
       title="${esc(it.judul || '')}" loading="lazy" allowfullscreen></iframe>
-    <p class="mkaki"><a href="${esc(alamat)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></p>`;
+    <p class="mkaki"><a href="${esc(alamat)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a>${
+      luar ? `<br><span class="mluar">${tr('Bahan ini dari situs luar. Bila kotaknya tetap kosong, situs itu menolak ditampilkan di dalam halaman — pakai tautan di atas.')}</span>` : ''}</p>`;
 }
 
 /* narasi dibacakan peramban */

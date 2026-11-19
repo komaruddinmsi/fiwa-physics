@@ -26,10 +26,11 @@
      "catatan": "Tarik vektornya, lalu baca komponen dan resultannya. Simulasi ini tidak menghitung untukmu — ia hanya menampilkan."
     },
     {
-     "tipe": "tautan",
+     "tipe": "bacaan",
      "judul": "OpenStax 3.3 · Vector Addition and Subtraction: Analytical Methods",
      "url": "https://openstax.org/books/college-physics-2e/pages/3-3-vector-addition-and-subtraction-analytical-methods",
-     "catatan": "Bacaan terbuka berbahasa Inggris. Terbuka di tab baru."
+     "catatan": "Bacaan terbuka berbahasa Inggris.",
+     "luar": true
     }
    ],
    "S6": [
@@ -79,10 +80,11 @@
      "catatan": "Tarik benda, nyalakan panah gaya dan nilai gaya netonya."
     },
     {
-     "tipe": "tautan",
+     "tipe": "bacaan",
      "judul": "OpenStax 4.3 · Newton's Second Law of Motion",
      "url": "https://openstax.org/books/college-physics-2e/pages/4-3-newtons-second-law-of-motion-concept-of-a-system",
-     "catatan": "Bacaan terbuka berbahasa Inggris. Terbuka di tab baru."
+     "catatan": "Bacaan terbuka berbahasa Inggris.",
+     "luar": true
     }
    ],
    "S6": [
@@ -126,16 +128,18 @@
    ],
    "S4": [
     {
-     "tipe": "tautan",
+     "tipe": "bacaan",
      "judul": "OpenStax 4.4 · Newton's Third Law of Motion",
      "url": "https://openstax.org/books/college-physics-2e/pages/4-4-newtons-third-law-of-motion-symmetry-in-forces",
-     "catatan": "Bacaan terbuka berbahasa Inggris. Terbuka di tab baru."
+     "catatan": "Bacaan terbuka berbahasa Inggris.",
+     "luar": true
     },
     {
-     "tipe": "tautan",
+     "tipe": "simulasi",
      "judul": "Gaya dan Gerak pada Bidang Miring · PhET",
      "url": "https://phet.colorado.edu/in/simulation/ramp-forces-and-motion",
-     "catatan": "Simulasi ini belum tersedia dalam bentuk yang bisa disematkan, jadi ia terbuka di tab baru."
+     "catatan": "Dibuka langsung di panel ini.",
+     "luar": true
     }
    ],
    "S9": [
@@ -169,10 +173,11 @@
      "catatan": "Geser bebannya, lalu perhatikan kapan papan setimbang dan kapan tidak."
     },
     {
-     "tipe": "tautan",
+     "tipe": "bacaan",
      "judul": "OpenStax 9.2 · The Second Condition for Equilibrium",
      "url": "https://openstax.org/books/college-physics-2e/pages/9-2-the-second-condition-for-equilibrium",
-     "catatan": "Bacaan terbuka berbahasa Inggris. Terbuka di tab baru."
+     "catatan": "Bacaan terbuka berbahasa Inggris.",
+     "luar": true
     }
    ],
    "S6": [
@@ -213,10 +218,11 @@
   "L3": [],
   "L4": [
    {
-    "tipe": "tautan",
+    "tipe": "simulasi",
     "judul": "Bank soal PhET seluruh topik",
     "url": "https://phet.colorado.edu/in/simulations/filter?subjects=physics",
-    "catatan": "Jelajahi sendiri simulasi fisika lain yang berhubungan."
+    "catatan": "Jelajahi sendiri simulasi fisika lain yang berhubungan.",
+    "luar": true
    }
   ]
  }

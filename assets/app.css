@@ -315,3 +315,5 @@ body:not(.guru) .akun-tautan{display:none}
 /* ---------- panel anggota: tabel guru dan siswa ---------- */
 .mjudul{ font-size:.95rem; margin:14px 0 2px; letter-spacing:.01em; }
 .mjudul:first-of-type{ margin-top:6px; }
+
+.mkaki .mluar{ display:inline-block; margin-top:5px; color:var(--muted); font-size:.82rem; line-height:1.45; }
