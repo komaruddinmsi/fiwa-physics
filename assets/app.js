@@ -7,6 +7,14 @@
 
 /* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
 const EN = {
+"Fenomena Dunia Nyata": "Real-World Phenomena",
+"Mulai dari sini": "Start here",
+"Lihat dulu untuk apa semua ini dipakai, sebelum masuk ke tujuan pembelajaran pertama.": "See what all of this is for before entering the first learning objective.",
+"Buka pembuka topik": "Open the topic opener",
+"Belum membaca pembukanya? Lihat fenomena dunia nyata topik ini lebih dulu.": "Haven't read the opener? Look at this topic's real-world phenomena first.",
+"Halaman pembuka belum diunggah.": "The opener page has not been uploaded yet.",
+"Kembali ke daftar TP": "Back to the objective list",
+"Lanjut ke": "Continue to",
 "Paket soal": "Question packs",
 "Paket": "Pack",
 "%s paket": "%s packs",
@@ -23,7 +31,7 @@ const EN = {
 "Dokumen ini berdiri sendiri: nilai dan pembahasan muncul di dalam lembar itu sendiri, tidak masuk ke progres jalur belajar.": "This document stands alone: the score and worked solutions appear inside the sheet itself and do not enter the learning-path progress.",
 "Kembali ke daftar paket": "Back to the pack list",
 "Dokumen tidak ditemukan.": "Document not found.",
-"Peta & Janji": "Map & Pledge",
+"Peta & Tujuan Pembelajaran": "Map & Learning Objective",
 "Gerbang Prasyarat": "Prerequisite Gate",
 "Penguatan Prasyarat": "Prerequisite Reinforcement",
 "Remediasi Prasyarat": "Prerequisite Remediation",
@@ -173,6 +181,7 @@ const EN = {
 "Lapis ini belum terbuka.": "This layer is not open yet.",
 "TP ini belum terbuka.": "This objective is not open yet.",
 "Kembali ke daftar TP": "Back to the objective list",
+"Lanjut ke": "Continue to",
 "Tujuan Pembelajaran ditempuh berurutan. TP berikutnya terbuka sendiri begitu TP sebelumnya berstatus Tuntas.": "Learning objectives are taken in order. The next one opens by itself once the previous one reaches Mastered.",
 "Latihan Unit Test": "Unit Test Practice",
 "Soal Unit Test": "Unit Test",
@@ -216,7 +225,7 @@ const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
 const trf = (x, ...v) => { let i = 0; return tr(x).replace(/%s/g, () => v[i++]); };
 
 const TAHAPAN = [
-  { id:'S1',  f:0, nama:'Peta & Janji',            lulus:'Dibuka',                         rangka:1 },
+  { id:'S1',  f:0, nama:'Peta & Tujuan Pembelajaran',            lulus:'Dibuka',                         rangka:1 },
   { id:'S2',  f:0, nama:'Gerbang Prasyarat',       lulus:'≥80% lanjut · 60–79% → S2b · <60% → S2c', gate:1, skor:1, rangka:1 },
   { id:'S2b', f:0, nama:'Penguatan Prasyarat',     lulus:'Ulang S2 satu kali', cabang:1 },
   { id:'S2c', f:0, nama:'Remediasi Prasyarat',     lulus:'Ulang S2', cabang:1 },
@@ -543,6 +552,29 @@ function halPaket(t, slugP) {
     <p><a class="btn ghost" href="#topik-${t.slug}">← ${tr('Kembali ke daftar paket')}</a></p></div>`;
 }
 
+/* ---------- tampilan: pembuka topik ---------- */
+function halPembuka(t) {
+  const kepala = `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${tr('Fenomena Dunia Nyata')}</div>
+    <div><div class="eyebrow">${tr('Mulai dari sini')}</div><h1>${tr('Fenomena Dunia Nyata')}</h1>
+    <p class="muted">${tr('Lihat dulu untuk apa semua ini dipakai, sebelum masuk ke tujuan pembelajaran pertama.')}</p></div>`;
+  if (!t.pembuka) return `${kepala}<div class="note">${tr('Halaman pembuka belum diunggah.')}</div></div>`;
+  const tp1 = t.tp[0];
+  return `${kepala}
+    <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="${esc(t.pembuka.berkas)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></div>
+    <iframe class="frame frame-penuh" src="${esc(t.pembuka.berkas)}" title="${tr('Fenomena Dunia Nyata')}"></iframe>
+    <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="PEMBUKA"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div>
+    <p class="row" style="gap:.5rem;flex-wrap:wrap">
+      ${tp1 ? `<a class="btn" href="#tp-${tp1.slug}">${tr('Lanjut ke')} ${esc(tp1.kode)} · S1 →</a>` : ''}
+      <a class="btn ghost" href="#topik-${t.slug}">${tr('Kembali ke daftar TP')}</a></p></div>`;
+}
+
+const kartuPembuka = t => t.pembuka
+  ? `<a class="item pembuka-kartu" href="#topik-${t.slug}-pembuka">
+       <span class="code">▶</span>
+       <span class="t"><b>${tr('Fenomena Dunia Nyata')}</b><br><span class="muted">${tr('Lihat dulu untuk apa semua ini dipakai, sebelum masuk ke tujuan pembelajaran pertama.')}</span></span>
+       <span class="row"><span class="tier">${tr('Mulai dari sini')}</span></span></a>`
+  : '';
+
 /* ---------- tampilan: topik ---------- */
 function halTopik(t) {
   if (t.jenis === 'paket') return halTopikPaket(t);
@@ -559,6 +591,7 @@ function halTopik(t) {
     return `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(l.nama))}<small>${esc(tr(l.kapan))}</small></span><span></span></a>`; }).join('');
   return `<div class="stack"><div class="crumbs">${remah(t)}${esc(t.kode)}</div>
     <div><div class="eyebrow">${esc(t.mapel)}${t.jalur ? ' · ' + esc(t.jalur) : ''}</div><h1>${esc(t.nama)}</h1></div>
+    ${t.pembuka ? `<section class="stack"><h2>${tr('Fenomena Dunia Nyata')}</h2><div class="list">${kartuPembuka(t)}</div></section>` : ''}
     <section class="stack"><h2>${tr('Tujuan Pembelajaran')}</h2><div class="list">${tps || `<p class="muted">${tr('Belum ada TP.')}</p>`}</div></section>
     <section class="stack"><h2>${tr('Lapis topik')}</h2><div class="layer">${lapis}</div></section></div>`;
 }
@@ -706,7 +739,11 @@ function viewer(tp, id, h) {
   const k = kunci(tp, id, h);
   if (k && !guru()) return `<div class="note">🔒 ${esc(k)}</div>`;
   const aksi = barisAksi(tp, id, h, s);
-  return `<section class="viewer" id="viewer"><div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
+  // S1 pada TP pertama: ingatkan halaman pembuka topik dibuka lebih dulu.
+  const tt = topikDariTP(tp);
+  const awal = id === 'S1' && tt.pembuka && tt.tp && tt.tp[0] && tt.tp[0].slug === tp.slug
+    ? `<a class="note pembuka-ingat" href="#topik-${tt.slug}-pembuka">▶ ${tr('Belum membaca pembukanya? Lihat fenomena dunia nyata topik ini lebih dulu.')}</a>` : '';
+  return `<section class="viewer" id="viewer">${awal}<div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
     <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>
     <div id="viewer-bawah">${bagianBawah(tp, id, h, aksi)}</div>
@@ -925,6 +962,7 @@ function render() {
   if (h === 'anggota' && window.FIMS && FIMS.aku && FIMS.aku.owner) { rangka(); FIMS.halAnggota(); return; }
   if (h === 'guru') html = halGuru();
   else if ((m = h.match(/^jalur-(.+)$/)) && cariJalur(m[1])) html = halJalur(cariJalur(m[1]));
+  else if ((m = h.match(/^topik-(.+)-pembuka$/)) && cariTopik(m[1])) html = halPembuka(cariTopik(m[1]));
   else if ((m = h.match(/^topik-(.+?)-p-(.+)$/)) && cariTopik(m[1])) html = halPaket(cariTopik(m[1]), m[2]);
   else if ((m = h.match(/^topik-(.+)-(l[1-4])(?:-(latihan))?$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase(), m[3]);
   else if ((m = h.match(/^topik-(.+)$/)) && cariTopik(m[1])) html = halTopik(cariTopik(m[1]));

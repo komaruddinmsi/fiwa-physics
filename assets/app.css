@@ -320,3 +320,8 @@ body:not(.guru) .akun-tautan{display:none}
 
 /* paket soal: dokumen lepas, perlu ruang lebih tinggi */
 .frame-penuh{height:86vh;min-height:560px}
+
+/* pembuka topik: kartu ajakan dan pengingat di S1 TP pertama */
+.pembuka-kartu .code{background:linear-gradient(135deg,#3f7bff,#00c9a7);color:#04142e;font-weight:700}
+.pembuka-ingat{display:block;text-decoration:none;margin:0 0 .75rem}
+.pembuka-ingat:hover{border-color:var(--line-kuat)}
