@@ -16,6 +16,16 @@
    Tanpa FIMS_KUNCI, halaman hanya melapor "selesai" lewat
    tombol #fims-kirim.
    ============================================================ */
+/* Penyimpan isian per akun (fims-simpan.js) dimuat otomatis dari folder yang sama dengan berkas ini. */
+(function () {
+  try {
+    if (window.FIMS_LEMBAR || document.getElementById("fims-simpan-js")) return;
+    var me = document.currentScript, src = me && me.src ? me.src.replace(/fims-shim\.js(\?.*)?$/, "fims-simpan.js") : "/assets/fims-simpan.js";
+    var e = document.createElement("script"); e.id = "fims-simpan-js"; e.src = src;
+    (document.head || document.documentElement).appendChild(e);
+  } catch (x) {}
+})();
+
 (function () {
   "use strict";
 
@@ -271,7 +281,10 @@ function sha256(ascii){
   }
 
   /* ---------- melapor ke mesin alur ---------- */
+  var selesaiLembar = false;       // murid sudah menekan Selesai (juga bila lembar dibuka sendiri, bukan lewat situs)
   function lapor() {
+    selesaiLembar = true;
+    try { if (window.FIMS_LEMBAR) window.FIMS_LEMBAR.lapor({ selesai: true }); } catch (e0) {}
     if (!TERPASANG) return false;
     try {
       if (ADA_NILAI) {
@@ -285,6 +298,24 @@ function sha256(ascii){
       return true;
     } catch (e) { return false; }
   }
+
+  /* ---------- kait untuk penyimpan isian per akun ---------- */
+  window.FIMS_RINGKAS = function () {
+    var r = { selesai: selesaiLembar };
+    if (ADA_NILAI) {
+      var semua = IDS_NUM.concat(IDS_PIL), n = 0, i, el;
+      for (i = 0; i < semua.length; i++) { el = document.getElementById(semua[i]); if (el && terisi(el)) n++; }
+      r.terisi = n; r.total = TOTAL;
+      if (selesaiLembar) r.skor = hitungNilai();
+    }
+    return r;
+  };
+  window.FIMS_PULIHKAN = function (info) {
+    if (!info || !info.selesai) return;
+    selesaiLembar = true; sudahKirim = true;       // hasilnya sudah tercatat sebelumnya: tampilkan lagi, jangan kirim ulang
+    try { if (ADA_NILAI) { cerminSemua(); gambarRingkas(butirSalah()); perbarui(); } } catch (e) {}
+    try { kabar(document.getElementById("btn_selesai") || document.getElementById("fims-kirim")); } catch (e2) {}
+  };
 
   function kabar(dekat) {
     var k = document.getElementById("fims-kabar");
