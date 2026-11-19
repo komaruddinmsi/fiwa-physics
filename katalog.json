@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-19T07:13:34.902Z",
+  "dibuat": "2026-11-19T12:22:26.539Z",
   "topik": [
     {
       "slug": "pri-uin-smp",
@@ -70,6 +70,28 @@
           "soal": 10,
           "bentuk": "Isian angka · 40 kotak",
           "ringkas": "Bagian dan bobotnya sama dengan Semifinal Versi 1, angka dan konteks soalnya berbeda.",
+          "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
+          "urutan": 999
+        },
+        {
+          "slug": "final-v1",
+          "berkas": "konten/pri-uin-smp/paket/final-v1.html",
+          "judul": "Simulasi Final · Versi 1",
+          "tahap": "final",
+          "soal": 10,
+          "bentuk": "Isian angka · 40 kotak",
+          "ringkas": "Sepuluh bagian: Suhu & Kalor, Sistem Gerak Benda, Gaya & Hukum Newton, Usaha & Energi, Fluida & Tekanan, Getaran & Gelombang Bunyi, Optik, Listrik, Magnet, Tata Surya. Besaran & Satuan tidak lagi diujikan tersendiri.",
+          "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
+          "urutan": 999
+        },
+        {
+          "slug": "final-v2",
+          "berkas": "konten/pri-uin-smp/paket/final-v2.html",
+          "judul": "Simulasi Final · Versi 2",
+          "tahap": "final",
+          "soal": 10,
+          "bentuk": "Isian angka · 40 kotak",
+          "ringkas": "Bagian dan bobotnya sama dengan Final Versi 1, angka dan konteks soalnya berbeda.",
           "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
           "urutan": 999
         }
@@ -338,6 +360,28 @@
           "soal": 10,
           "bentuk": "Isian angka · 40 kotak",
           "ringkas": "Bagian dan bobotnya sama dengan Semifinal Versi 1, angka dan konteks soalnya berbeda.",
+          "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
+          "urutan": 999
+        },
+        {
+          "slug": "final-v1",
+          "berkas": "konten/pri-uin-sma/paket/final-v1.html",
+          "judul": "Simulasi Final · Versi 1",
+          "tahap": "final",
+          "soal": 10,
+          "bentuk": "Isian angka · 40 kotak",
+          "ringkas": "Sepuluh bagian: Mekanika, Getaran & Gelombang, Optik, Listrik/Elektrodinamika, Magnet & Induksi Elektromagnetik, Fisika Modern, Termodinamika, Energi & Daya, Hukum Kekekalan Energi & Momentum, Fluida Statis & Dinamis.",
+          "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
+          "urutan": 999
+        },
+        {
+          "slug": "final-v2",
+          "berkas": "konten/pri-uin-sma/paket/final-v2.html",
+          "judul": "Simulasi Final · Versi 2",
+          "tahap": "final",
+          "soal": 10,
+          "bentuk": "Isian angka · 40 kotak",
+          "ringkas": "Bagian dan bobotnya sama dengan Final Versi 1, angka dan konteks soalnya berbeda.",
           "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
           "urutan": 999
         }
