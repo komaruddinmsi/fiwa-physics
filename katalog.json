@@ -1,6 +1,60 @@
 {
-  "dibuat": "2026-11-19T00:59:40.104Z",
+  "dibuat": "2026-11-19T03:18:50.418Z",
   "topik": [
+    {
+      "slug": "pri-uin-smp",
+      "kode": "PRI.SMP",
+      "nama": "PRI UIN — SMP",
+      "mapel": "Fisika",
+      "fase": "",
+      "jalur": "Olimpiade",
+      "urutan": 1,
+      "jenis": "paket",
+      "ringkas": "Simulasi Olimpiade Fisika PRI UIN Jakarta jenjang SMP. Tiap paket dikerjakan sekali jalan dengan hitung mundur, lalu dinilai langsung di lembar itu juga.",
+      "tahap": [
+        {
+          "kode": "penyisihan",
+          "nama": "Penyisihan",
+          "urutan": 1
+        },
+        {
+          "kode": "semifinal",
+          "nama": "Semifinal",
+          "urutan": 2
+        },
+        {
+          "kode": "final",
+          "nama": "Final",
+          "urutan": 3
+        }
+      ],
+      "paket": [
+        {
+          "slug": "penyisihan-v1",
+          "berkas": "konten/pri-uin-smp/paket/penyisihan-v1.html",
+          "judul": "Simulasi Penyisihan · Versi 1",
+          "tahap": "penyisihan",
+          "soal": 30,
+          "bentuk": "Pilihan ganda 5 opsi",
+          "ringkas": "Sebelas bagian: Besaran & Satuan, Suhu & Kalor, Sistem Gerak Benda, Gaya & Hukum Newton, Usaha & Energi, Fluida & Tekanan, Getaran & Gelombang Bunyi, Optik, Listrik, Magnet, Tata Surya.",
+          "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah.",
+          "urutan": 999
+        },
+        {
+          "slug": "penyisihan-v2",
+          "berkas": "konten/pri-uin-smp/paket/penyisihan-v2.html",
+          "judul": "Simulasi Penyisihan · Versi 2",
+          "tahap": "penyisihan",
+          "soal": 30,
+          "bentuk": "Pilihan ganda 5 opsi",
+          "ringkas": "Bagian dan bobotnya sama dengan Versi 1, angka dan konteks soalnya berbeda. Pakai sebagai pengulangan setelah Versi 1 selesai dibahas.",
+          "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah.",
+          "urutan": 999
+        }
+      ],
+      "tahapan": {},
+      "tp": []
+    },
     {
       "slug": "f-use",
       "kode": "F.USE",
@@ -9,6 +63,7 @@
       "fase": "F",
       "jalur": "TKA",
       "urutan": 2,
+      "jenis": "alur",
       "tahapan": {
         "L1": {
           "berkas": "konten/f-use/L1/index.html",
@@ -189,6 +244,60 @@
       ]
     },
     {
+      "slug": "pri-uin-sma",
+      "kode": "PRI.SMA",
+      "nama": "PRI UIN — SMA",
+      "mapel": "Fisika",
+      "fase": "",
+      "jalur": "Olimpiade",
+      "urutan": 2,
+      "jenis": "paket",
+      "ringkas": "Simulasi Olimpiade Fisika PRI UIN Jakarta jenjang SMA. Tiap paket dikerjakan sekali jalan dengan hitung mundur, lalu dinilai langsung di lembar itu juga.",
+      "tahap": [
+        {
+          "kode": "penyisihan",
+          "nama": "Penyisihan",
+          "urutan": 1
+        },
+        {
+          "kode": "semifinal",
+          "nama": "Semifinal",
+          "urutan": 2
+        },
+        {
+          "kode": "final",
+          "nama": "Final",
+          "urutan": 3
+        }
+      ],
+      "paket": [
+        {
+          "slug": "penyisihan-v1",
+          "berkas": "konten/pri-uin-sma/paket/penyisihan-v1.html",
+          "judul": "Simulasi Penyisihan · Versi 1",
+          "tahap": "penyisihan",
+          "soal": 30,
+          "bentuk": "Pilihan ganda 5 opsi",
+          "ringkas": "Dua belas bagian: Pengukuran, Vektor, Mekanika, Getaran & Gelombang, Optik, Listrik & Elektrodinamika, Magnet & Induksi, Gelombang Elektromagnetik, Fisika Modern, Termodinamika, Energi & Daya.",
+          "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah.",
+          "urutan": 999
+        },
+        {
+          "slug": "penyisihan-v2",
+          "berkas": "konten/pri-uin-sma/paket/penyisihan-v2.html",
+          "judul": "Simulasi Penyisihan · Versi 2",
+          "tahap": "penyisihan",
+          "soal": 30,
+          "bentuk": "Pilihan ganda 5 opsi",
+          "ringkas": "Bagian dan bobotnya sama dengan Versi 1, angka dan konteks soalnya berbeda. Pakai sebagai pengulangan setelah Versi 1 selesai dibahas.",
+          "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah.",
+          "urutan": 999
+        }
+      ],
+      "tahapan": {},
+      "tp": []
+    },
+    {
       "slug": "f-mek",
       "kode": "F.MEK",
       "nama": "Mekanika: Gaya & Gerak",
@@ -196,6 +305,7 @@
       "fase": "F",
       "jalur": "TKA",
       "urutan": 3,
+      "jenis": "alur",
       "tahapan": {
         "L1": {
           "berkas": "konten/f-mek/L1/index.html",

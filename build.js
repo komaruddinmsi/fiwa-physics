@@ -37,11 +37,51 @@ function cariTahapan(dir, daftar) {
   return hasil;
 }
 
+// Topik berjenis "paket": kumpulan dokumen lepas tanpa alur pembelajaran.
+// Struktur: konten/<topik>/paket/*.html  (+ paket.json untuk keterangan tiap berkas)
+function cariPaket(dirT) {
+  const dirP = path.join(dirT, 'paket');
+  if (!isDir(dirP)) return { tahap: [], daftar: [] };
+  const meta = readJSON(path.join(dirP, 'paket.json'));
+  const ket = meta.berkas || {};
+  const tahap = (meta.tahap || []).slice().sort((a, b) => (a.urutan ?? 999) - (b.urutan ?? 999));
+  const urutTahap = k => { const i = tahap.findIndex(t => t.kode === k); return i < 0 ? 999 : i; };
+  const daftar = fs.readdirSync(dirP)
+    .filter(n => n.toLowerCase().endsWith('.html'))
+    .map(n => {
+      const f = path.join(dirP, n), m = ket[n] || {};
+      return {
+        slug: slug(n.replace(/\.html$/i, '')),
+        berkas: f.split(path.sep).join('/'),
+        judul: m.judul || judulDari(f) || n,
+        tahap: m.tahap || '',
+        soal: m.soal ?? null,
+        bentuk: m.bentuk || '',
+        ringkas: m.ringkas || '',
+        catatan: m.catatan || '',
+        urutan: m.urutan ?? 999
+      };
+    })
+    .sort((a, b) => urutTahap(a.tahap) - urutTahap(b.tahap) || a.urutan - b.urutan || a.slug.localeCompare(b.slug));
+  return { tahap, daftar };
+}
+
 const topik = [];
 if (isDir(ROOT)) {
   for (const t of fs.readdirSync(ROOT).filter(n => isDir(path.join(ROOT, n)))) {
     const dirT = path.join(ROOT, t);
     const metaT = readJSON(path.join(dirT, 'topik.json'));
+    const jenis = metaT.jenis === 'paket' ? 'paket' : 'alur';
+    if (jenis === 'paket') {
+      const { tahap, daftar } = cariPaket(dirT);
+      topik.push({
+        slug: slug(t), kode: metaT.kode || t, nama: metaT.nama || t,
+        mapel: metaT.mapel || 'Umum', fase: metaT.fase || '', jalur: metaT.jalur || '',
+        urutan: metaT.urutan ?? 999, jenis: 'paket', ringkas: metaT.ringkas || '',
+        tahap, paket: daftar, tahapan: {}, tp: []
+      });
+      continue;
+    }
     const daftarTP = [];
     for (const p of fs.readdirSync(dirT).filter(n => isDir(path.join(dirT, n)) && !TAHAPAN_TOPIK.includes(n.toUpperCase()))) {
       const dirP = path.join(dirT, p);
@@ -68,6 +108,7 @@ if (isDir(ROOT)) {
       fase: metaT.fase || '',
       jalur: metaT.jalur || '',
       urutan: metaT.urutan ?? 999,
+      jenis: 'alur',
       tahapan: cariTahapan(dirT, TAHAPAN_TOPIK),
       tp: daftarTP
     });
@@ -75,4 +116,5 @@ if (isDir(ROOT)) {
 }
 topik.sort((a, b) => a.urutan - b.urutan || a.kode.localeCompare(b.kode));
 fs.writeFileSync('katalog.json', JSON.stringify({ dibuat: new Date().toISOString(), topik }, null, 2));
-console.log(`${topik.length} topik, ${topik.reduce((n, t) => n + t.tp.length, 0)} TP ditemukan`);
+const nPaket = topik.reduce((n, t) => n + (t.paket ? t.paket.length : 0), 0);
+console.log(`${topik.length} topik, ${topik.reduce((n, t) => n + t.tp.length, 0)} TP, ${nPaket} paket ditemukan`);
