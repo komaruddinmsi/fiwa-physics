@@ -121,9 +121,16 @@ export async function onRequest(ctx) {
       if (aku.status !== 'aktif')
         return json({ siap: true, masuk: false, status: aku.status, email: aku.email, peran: aku.peran, wajibKode },
           200, { 'set-cookie': aku.status === 'ditolak' ? hapusKuki() : '' });
+      let menunggu = 0;
+      if (isOwner) {
+        try {
+          const c = await DB.prepare("SELECT COUNT(*) AS n FROM anggota WHERE status = 'menunggu'").first();
+          menunggu = (c && c.n) || 0;
+        } catch {}
+      }
       return json({
         siap: true, masuk: true, email: aku.email, nama: aku.nama, peran: aku.peran,
-        kelas: aku.kelas, owner: isOwner, guru: isGuru, wajibKode
+        kelas: aku.kelas, owner: isOwner, guru: isGuru, wajibKode, menunggu
       });
     }
 
@@ -241,8 +248,13 @@ export async function onRequest(ctx) {
       if (status === 'aktif' && wajibKode && !kode) kode = kodeBaru();
       await DB.prepare('UPDATE anggota SET status = ?, peran = ?, nama = ?, kode = ?, diputus = ?, oleh = ? WHERE email = ?')
         .bind(status || a.status, peran || a.peran, nama === null ? a.nama : nama, kode, kini(), aktif.email, email).run();
+      let menunggu = 0;
+      try {
+        const c = await DB.prepare("SELECT COUNT(*) AS n FROM anggota WHERE status = 'menunggu'").first();
+        menunggu = (c && c.n) || 0;
+      } catch {}
       return json({ ok: true, email, status: status || a.status, peran: peran || a.peran,
-                    nama: nama === null ? a.nama : nama, kode });
+                    nama: nama === null ? a.nama : nama, kode, menunggu });
     }
 
     /* ---- pemilik menyetel ulang kata sandi anggota ----
