@@ -100,6 +100,8 @@ const EN = {
 "Pemilik": "Owner",
 "Mode tampilan": "View mode",
 "Anggota": "Members",
+"%s anggota menunggu persetujuan": "%s members awaiting approval",
+"1 anggota menunggu persetujuan": "1 member awaiting approval",
 "Keluar": "Sign out",
 "Memuat…": "Loading…",
 "Tidak dapat memuat daftar anggota.": "Could not load the member list.",
@@ -430,6 +432,7 @@ FIMS.halAnggota = async function () {
   const tgl = w => w ? new Date(w * 1000).toLocaleDateString(BHS === 'en' ? 'en-GB' : 'id-ID', { day: 'numeric', month: 'short', year: '2-digit' }) : '—';
   const kelompok = { menunggu: [], aktif: [], ditolak: [] };
   r.anggota.forEach(a => (kelompok[a.status] || kelompok.ditolak).push(a));
+  FIMS.setMenunggu(kelompok.menunggu.length);
 
   const baris = a => `<tr data-email="${esc(a.email)}">
       <td class="l"><b class="nm-teks">${esc(a.nama || '—')}</b><br><span class="mono muted">${esc(a.email)}</span></td>
@@ -561,6 +564,7 @@ FIMS.halAnggota = async function () {
     const isi = b.dataset.putus ? { email, status: b.dataset.putus } : { email, peran: b.dataset.peran };
     const r2 = await API('anggota/putusan', { method: 'POST', body: JSON.stringify(isi) });
     if (!r2.ok) { b.disabled = false; alert(r2.galat || t('Gagal menyimpan.')); pasangKlik(); return; }
+    if (r2.menunggu !== undefined) FIMS.setMenunggu(r2.menunggu);
     FIMS.halAnggota();
   }, { once: true });
   }
@@ -578,7 +582,7 @@ function pasangBilah() {
     ${a.guru ? `<div class="mode-alih" role="group" aria-label="${t('Mode tampilan')}">
         <button type="button" data-mode="guru">${t('Guru')}</button><button type="button" data-mode="siswa">${t('Siswa')}</button>
       </div>` : ''}
-    ${a.owner ? `<a href="#anggota" class="akun-tautan">${t('Anggota')}</a>` : ''}
+    ${a.owner ? `<a href="#anggota" class="akun-tautan" id="t-anggota">${t('Anggota')}<span class="lencana" id="lencana-menunggu" hidden></span></a>` : ''}
     <span class="akun-nama" title="${esc(a.email)}">${esc(a.nama || a.email.split('@')[0])}</span>
     <button type="button" class="akun-keluar" id="b-keluar">${t('Keluar')}</button>`;
   nav.appendChild(blok);
@@ -594,6 +598,24 @@ function pasangBilah() {
     location.hash = ''; location.reload();
   });
   segarMode();
+  segarLencana();
+}
+
+/* Lencana jumlah anggota yang menunggu persetujuan, pada tautan "Anggota". */
+FIMS.setMenunggu = function (n) {
+  if (FIMS.aku) FIMS.aku.menunggu = Number(n) || 0;
+  segarLencana();
+};
+
+function segarLencana() {
+  const b = document.getElementById('lencana-menunggu');
+  if (!b) return;
+  const n = (FIMS.aku && Number(FIMS.aku.menunggu)) || 0;
+  b.textContent = n < 1 ? '' : (n > 99 ? '99+' : String(n));
+  b.hidden = n < 1;
+  const taut = document.getElementById('t-anggota');
+  if (taut) taut.title = n < 1 ? t('Anggota')
+    : (n === 1 ? t('1 anggota menunggu persetujuan') : tf('%s anggota menunggu persetujuan', n));
 }
 
 function segarMode() {
@@ -622,7 +644,7 @@ async function mulai() {
     if (r.status === 'ditolak') return layarDitolak(r.email);
     return layarMasuk();
   }
-  FIMS.aku = { email: r.email, nama: r.nama, peran: r.peran, guru: !!r.guru, owner: !!r.owner };
+  FIMS.aku = { email: r.email, nama: r.nama, peran: r.peran, guru: !!r.guru, owner: !!r.owner, menunggu: Number(r.menunggu) || 0 };
   if (FIMS.aku.guru && !localStorage.getItem(KUNCI_MODE)) FIMS.setMode('guru');
   await tarikProgres();
   pasangBilah();

@@ -325,3 +325,8 @@ body:not(.guru) .akun-tautan{display:none}
 .pembuka-kartu .code{background:linear-gradient(135deg,#3f7bff,#00c9a7);color:#04142e;font-weight:700}
 .pembuka-ingat{display:block;text-decoration:none;margin:0 0 .75rem}
 .pembuka-ingat:hover{border-color:var(--line-kuat)}
+
+/* lencana jumlah anggota menunggu persetujuan */
+.akun-tautan{position:relative}
+.lencana{display:inline-flex;align-items:center;justify-content:center;min-width:1.25rem;height:1.25rem;margin-left:.4rem;padding:0 .35rem;border-radius:999px;background:#e5484d;color:#fff;font-size:.72rem;font-weight:700;line-height:1;vertical-align:text-top}
+.lencana[hidden]{display:none}
