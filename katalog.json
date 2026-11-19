@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-19T06:04:24.691Z",
+  "dibuat": "2026-11-19T07:13:34.902Z",
   "topik": [
     {
       "slug": "pri-uin-smp",
@@ -86,6 +86,10 @@
       "jalur": "TKA",
       "urutan": 2,
       "jenis": "alur",
+      "pembuka": {
+        "berkas": "konten/f-use/pembuka/index.html",
+        "judul": "Fenomena Dunia Nyata — Usaha &amp; Energi"
+      },
       "tahapan": {
         "L1": {
           "berkas": "konten/f-use/L1/index.html",
@@ -121,7 +125,7 @@
           "tahapan": {
             "S1": {
               "berkas": "konten/f-use/f-use-1-pra/S1/index.html",
-              "judul": "Peta & Janji"
+              "judul": "Peta & Tujuan Pembelajaran"
             },
             "S2": {
               "berkas": "konten/f-use/f-use-1-pra/S2/index.html",
@@ -145,7 +149,7 @@
             },
             "S5": {
               "berkas": "konten/f-use/f-use-1-pra/S5/index.html",
-              "judul": "Bedah Ramalan di Kelas"
+              "judul": "Bedah Prediksi di Kelas"
             },
             "S6": {
               "berkas": "konten/f-use/f-use-1-pra/S6/index.html",
@@ -199,7 +203,7 @@
           "tahapan": {
             "S1": {
               "berkas": "konten/f-use/f-use-1/S1/index.html",
-              "judul": "Peta & Janji"
+              "judul": "Peta & Tujuan Pembelajaran"
             },
             "S2": {
               "berkas": "konten/f-use/f-use-1/S2/index.html",
@@ -223,7 +227,7 @@
             },
             "S5": {
               "berkas": "konten/f-use/f-use-1/S5/index.html",
-              "judul": "Bedah Ramalan di Kelas"
+              "judul": "Bedah Prediksi di Kelas"
             },
             "S6": {
               "berkas": "konten/f-use/f-use-1/S6/index.html",
@@ -350,6 +354,10 @@
       "jalur": "TKA",
       "urutan": 3,
       "jenis": "alur",
+      "pembuka": {
+        "berkas": "konten/f-mek/pembuka/index.html",
+        "judul": "Fenomena Dunia Nyata — Mekanika: Gaya &amp; Gerak"
+      },
       "tahapan": {
         "L1": {
           "berkas": "konten/f-mek/L1/index.html",
@@ -385,7 +393,7 @@
           "tahapan": {
             "S1": {
               "berkas": "konten/f-mek/f-mek-1-pra/S1/index.html",
-              "judul": "Peta &amp; Janji"
+              "judul": "Peta &amp; Tujuan Pembelajaran"
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-1-pra/S2/index.html",
@@ -463,7 +471,7 @@
           "tahapan": {
             "S1": {
               "berkas": "konten/f-mek/f-mek-2/S1/index.html",
-              "judul": "Peta &amp; Janji"
+              "judul": "Peta &amp; Tujuan Pembelajaran"
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-2/S2/index.html",
@@ -541,7 +549,7 @@
           "tahapan": {
             "S1": {
               "berkas": "konten/f-mek/f-mek-1a/S1/index.html",
-              "judul": "Peta &amp; Janji"
+              "judul": "Peta &amp; Tujuan Pembelajaran"
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-1a/S2/index.html",
@@ -619,7 +627,7 @@
           "tahapan": {
             "S1": {
               "berkas": "konten/f-mek/f-mek-1b/S1/index.html",
-              "judul": "Peta &amp; Janji"
+              "judul": "Peta &amp; Tujuan Pembelajaran"
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-1b/S2/index.html",

@@ -66,6 +66,13 @@ function cariPaket(dirT) {
   return { tahap, daftar };
 }
 
+// Halaman pembuka topik: fenomena dunia nyata, dibuka sebelum S1 pada TP pertama.
+function cariPembuka(dirT) {
+  const f = path.join(dirT, 'pembuka', 'index.html');
+  if (!fs.existsSync(f)) return null;
+  return { berkas: f.split(path.sep).join('/'), judul: judulDari(f) };
+}
+
 const topik = [];
 if (isDir(ROOT)) {
   for (const t of fs.readdirSync(ROOT).filter(n => isDir(path.join(ROOT, n)))) {
@@ -83,7 +90,7 @@ if (isDir(ROOT)) {
       continue;
     }
     const daftarTP = [];
-    for (const p of fs.readdirSync(dirT).filter(n => isDir(path.join(dirT, n)) && !TAHAPAN_TOPIK.includes(n.toUpperCase()))) {
+    for (const p of fs.readdirSync(dirT).filter(n => isDir(path.join(dirT, n)) && n.toLowerCase() !== 'pembuka' && !TAHAPAN_TOPIK.includes(n.toUpperCase()))) {
       const dirP = path.join(dirT, p);
       const metaP = readJSON(path.join(dirP, 'tp.json'));
       const tahapan = cariTahapan(dirP, TAHAPAN_TP);
@@ -109,6 +116,7 @@ if (isDir(ROOT)) {
       jalur: metaT.jalur || '',
       urutan: metaT.urutan ?? 999,
       jenis: 'alur',
+      pembuka: cariPembuka(dirT),
       tahapan: cariTahapan(dirT, TAHAPAN_TOPIK),
       tp: daftarTP
     });
@@ -117,4 +125,6 @@ if (isDir(ROOT)) {
 topik.sort((a, b) => a.urutan - b.urutan || a.kode.localeCompare(b.kode));
 fs.writeFileSync('katalog.json', JSON.stringify({ dibuat: new Date().toISOString(), topik }, null, 2));
 const nPaket = topik.reduce((n, t) => n + (t.paket ? t.paket.length : 0), 0);
+const tanpaPembuka = topik.filter(t => t.jenis === 'alur' && !t.pembuka).map(t => t.kode);
 console.log(`${topik.length} topik, ${topik.reduce((n, t) => n + t.tp.length, 0)} TP, ${nPaket} paket ditemukan`);
+if (tanpaPembuka.length) console.warn(`PERINGATAN: topik tanpa halaman pembuka: ${tanpaPembuka.join(', ')} — tambahkan konten/<topik>/pembuka/index.html`);
