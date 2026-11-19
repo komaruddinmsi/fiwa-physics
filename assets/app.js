@@ -7,6 +7,8 @@
 
 /* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
 const EN = {
+"Sembunyikan": "Hide",
+"Tampilkan": "Show",
 "Butuh penilaian": "Awaiting grading",
 "Memuat antrean penilaian…": "Loading the grading queue…",
 "Tidak ada yang menunggu penilaianmu.": "Nothing is awaiting your grading.",
@@ -817,8 +819,21 @@ function halGuru() {
     <tr><td class="l">${tr('Perangkat ini')}</td>${tps.map(tp => { const h = hitung(tp); return `<td class="cell st${h.s}" title="${tr(STATUS[h.s])}">${h.tier ? 'T' + h.tier : ''}</td>`; }).join('')}</tr></table></div>
     <div class="row" style="font-size:.8rem">${STATUS.map((n, i) => chip(i)).join('')}</div>`;
   const geser = db.opsi.geser || 0;
+  /* Panel yang bisa dilipat. <details> dipakai supaya bekerja tanpa JavaScript
+     dan tetap dapat dijangkau papan tik. Keadaan buka/tutup hanya kenyamanan
+     per peramban, jadi aman bila penyimpanannya kosong atau menolak. */
+  const terbuka = (kunci, baku) => {
+    let v = null;
+    try { v = localStorage.getItem('fims.lipat.' + kunci); } catch {}
+    return v === null ? baku : v === 'buka';
+  };
+  const lipat = (kunci, judul, isi, bakuTutup) => `<details class="panel stack lipat" data-lipat="${kunci}"${
+      terbuka(kunci, !bakuTutup) ? ' open' : ''}>
+      <summary><h2>${judul}</h2><span class="lipat-tanda" aria-hidden="true"></span></summary>
+      <div class="lipat-isi stack">${isi}</div></details>`;
   return `<div class="stack"><div><div class="eyebrow">${tr('Papan guru')}</div><h1>${tr('Kelengkapan & posisi')}</h1></div>
-    <section class="panel stack"><h2>${tr('Kelengkapan tahapan')}</h2><p class="muted" style="margin:0">${tr('✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}</section>
+    ${lipat('kelengkapan', tr('Kelengkapan tahapan'),
+      `<p class="muted" style="margin:0">${tr('✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}`, true)}
     <section class="panel stack"><h2>${tr('Butuh penilaian')}</h2>
       <p class="muted" style="margin:0">${tr('Murid di bawah ini sudah sampai pada tahapan yang nilainya diisi guru. Yang paling lama menunggu berada di atas.')} ${tr('Hanya murid bimbinganmu yang tampil di sini. Pemilik situs melihat seluruh murid.')}</p>
       <div id="antrean-nilai"><p class="muted" style="margin:0">${tr('Memuat antrean penilaian…')}</p></div></section>
@@ -972,6 +987,17 @@ function isiPapanKelas() {
   muatAntrean();
 }
 
+/* Mengingat panel mana yang dilipat, per peramban. */
+function pasangLipat() {
+  document.querySelectorAll('details.lipat[data-lipat]').forEach(d => {
+    if (d.dataset.lipatSiap) return;
+    d.dataset.lipatSiap = '1';
+    d.addEventListener('toggle', () => {
+      try { localStorage.setItem('fims.lipat.' + d.dataset.lipat, d.open ? 'buka' : 'tutup'); } catch {}
+    });
+  });
+}
+
 /* Antrean penilaian guru: S12 menunggu tier, S8 menunggu skor gerbang kelas. */
 function muatAntrean() {
   const w = document.getElementById('antrean-nilai');
@@ -1038,6 +1064,7 @@ function render() {
   else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) html = halTP(cariTP(m[1]));
   else html = beranda();
   $('#app').innerHTML = html;
+  pasangLipat();
   if (window.speechSynthesis) window.speechSynthesis.cancel();   // hentikan narasi halaman sebelumnya
   isiBahan();
   isiPapanKelas();

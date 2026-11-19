@@ -340,3 +340,24 @@ body:not(.guru) .akun-tautan{display:none}
 /* antrean penilaian guru */
 .nilai-isi{width:6.5rem;margin-right:.35rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-size:.85rem}
 tr.sudah{opacity:.55}
+
+/* panel yang bisa dilipat (details/summary) */
+details.lipat > summary{display:flex;align-items:center;gap:.5rem;cursor:pointer;list-style:none;user-select:none}
+details.lipat > summary::-webkit-details-marker{display:none}
+details.lipat > summary h2{margin:0;flex:1}
+details.lipat > summary:focus-visible{outline:2px solid var(--aksen);outline-offset:3px;border-radius:6px}
+.lipat-tanda{flex:none;width:1.4rem;height:1.4rem;border:1px solid var(--line);border-radius:6px;position:relative}
+.lipat-tanda::before,.lipat-tanda::after{content:"";position:absolute;background:currentColor;transition:transform .15s ease}
+.lipat-tanda::before{left:.3rem;right:.3rem;top:calc(50% - 1px);height:2px}
+.lipat-tanda::after{top:.3rem;bottom:.3rem;left:calc(50% - 1px);width:2px}
+details.lipat[open] > summary .lipat-tanda::after{transform:scaleY(0)}
+details.lipat > summary:hover .lipat-tanda{border-color:var(--line-kuat,var(--line))}
+.lipat-isi{margin-top:.85rem}
+details.lipat,.lipat-isi,.lipat-isi > *{min-width:0}
+details.lipat > summary{min-width:0}
+details.lipat > summary h2{min-width:0;overflow-wrap:anywhere}
+
+/* wadah grid harus boleh menyusut, kalau tidak tabel lebar di dalamnya
+   meregangkan seluruh halaman alih-alih menggulir di tempatnya sendiri */
+.panel.stack > *,.lipat-isi > *,#antrean-nilai,#papan-kelas{min-width:0}
+.scroll{max-width:100%}
