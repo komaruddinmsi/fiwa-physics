@@ -1,8 +1,20 @@
 {
   "tahap": [
-    { "kode": "penyisihan", "nama": "Penyisihan", "urutan": 1 },
-    { "kode": "semifinal",  "nama": "Semifinal",  "urutan": 2 },
-    { "kode": "final",      "nama": "Final",      "urutan": 3 }
+    {
+      "kode": "penyisihan",
+      "nama": "Penyisihan",
+      "urutan": 1
+    },
+    {
+      "kode": "semifinal",
+      "nama": "Semifinal",
+      "urutan": 2
+    },
+    {
+      "kode": "final",
+      "nama": "Final",
+      "urutan": 3
+    }
   ],
   "berkas": {
     "penyisihan-v1.html": {
@@ -20,6 +32,22 @@
       "bentuk": "Pilihan ganda 5 opsi",
       "ringkas": "Bagian dan bobotnya sama dengan Versi 1, angka dan konteks soalnya berbeda. Pakai sebagai pengulangan setelah Versi 1 selesai dibahas.",
       "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah."
+    },
+    "semifinal-v1.html": {
+      "judul": "Simulasi Semifinal · Versi 1",
+      "tahap": "semifinal",
+      "soal": 10,
+      "bentuk": "Isian angka · 33 kotak",
+      "ringkas": "Sebelas bagian yang sama dengan penyisihan, tetapi berbentuk isian bertahap: tiap soal dipecah menjadi beberapa kotak (a, b, c) yang dinilai sendiri-sendiri.",
+      "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain."
+    },
+    "semifinal-v2.html": {
+      "judul": "Simulasi Semifinal · Versi 2",
+      "tahap": "semifinal",
+      "soal": 10,
+      "bentuk": "Isian angka · 40 kotak",
+      "ringkas": "Bagian dan bobotnya sama dengan Semifinal Versi 1, angka dan konteks soalnya berbeda.",
+      "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain."
     }
   }
 }
