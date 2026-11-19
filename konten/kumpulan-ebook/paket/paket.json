@@ -1,0 +1,37 @@
+{
+  "tahap": [
+    {
+      "kode": "karya",
+      "nama": "Karya Pembina FIWA",
+      "urutan": 1
+    },
+    {
+      "kode": "rujukan",
+      "nama": "Buku Rujukan",
+      "urutan": 2
+    }
+  ],
+  "berkas": {
+    "modul-praktis-master-fisika.html": {
+      "judul": "Modul Praktis Master Fisika — Konsep, Penurunan Rumus, dan Ilustrasi Visual",
+      "tahap": "karya",
+      "bentuk": "E-book PDF · Indonesia",
+      "ringkas": "Komaruddin, S.Si., M.Si., Gr. Buku pegangan pembinaan olimpiade.",
+      "catatan": "30 bab"
+    },
+    "introduction-to-classical-mechanics-morin.html": {
+      "judul": "Introduction to Classical Mechanics — With Problems and Solutions",
+      "tahap": "rujukan",
+      "bentuk": "E-book PDF · Inggris",
+      "ringkas": "David Morin. Rujukan mekanika paling dihormati untuk pembinaan olimpiade tingkat lanjut.",
+      "catatan": "14 bab"
+    },
+    "fundamentals-of-physics-halliday.html": {
+      "judul": "Fundamentals of Physics — Extended, 10th Edition",
+      "tahap": "rujukan",
+      "bentuk": "E-book PDF · Inggris",
+      "ringkas": "David Halliday, Robert Resnick, Jearl Walker. Buku teks fisika dasar universitas yang menjadi rujukan baku pembinaan OSN.",
+      "catatan": "44 bab"
+    }
+  }
+}

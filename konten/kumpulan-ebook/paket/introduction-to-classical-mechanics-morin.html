@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Classical Mechanics — Kumpulan E-Book</title><style>
+:root{--tosca0:#073B44;--tosca:#0B4F58;--tosca2:#17A2AF;--toscaB:#E3F5F6;--oranye:#C05621;--oranyeB:#FDEBDD;
+--tinta:#12333A;--abu:#6A7F84;--abuB:#F1F5F6;--garis:#D7E6E8;--putih:#fff}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--abuB);color:var(--tinta);font:16px/1.6 'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif}
+.bungkus{max-width:900px;margin:0 auto;padding:0 16px 56px}
+header.kepala{background:linear-gradient(135deg,var(--tosca0),var(--tosca2));color:#fff;padding:28px 16px}
+header.kepala .in{max-width:900px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.sampul{width:96px;height:132px;border-radius:6px;background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.35);display:flex;flex-direction:column;justify-content:flex-end;padding:9px;font-size:.62rem;
+  line-height:1.25;letter-spacing:.02em;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.sampul b{display:block;font-size:.78rem;margin-bottom:4px;line-height:1.15}
+.kode{display:inline-block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+header h1{margin:.15rem 0 .1rem;font-size:1.55rem;line-height:1.2}
+header .anak{margin:0;opacity:.9}
+header .penulis{margin:.5rem 0 0;font-size:.9rem;opacity:.95}
+.kartu{background:var(--putih);border:1px solid var(--garis);border-radius:10px;padding:18px 18px;margin-top:16px}
+.kartu h2{margin:0 0 .6rem;font-size:1.08rem;color:var(--tosca)}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0;font-size:.92rem}
+.meta dt{color:var(--abu)}.meta dd{margin:0}
+.hak{background:var(--oranyeB);border-left:3px solid var(--oranye);padding:10px 12px;border-radius:6px;font-size:.88rem;margin-top:12px}
+ol.cara{margin:0;padding-left:1.25rem}ol.cara li{margin:.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:7px 9px;border-bottom:1px solid var(--garis);text-align:left;vertical-align:top}
+th{color:var(--abu);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+td.no{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--tosca);font-weight:600}
+.gulir{overflow-x:auto}
+ol.bab{columns:2;column-gap:28px;margin:0;padding-left:1.6rem;font-size:.9rem}
+ol.bab li{break-inside:avoid;padding:2px 0}
+@media (max-width:620px){ol.bab{columns:1}header.kepala .in{grid-template-columns:1fr}.sampul{display:none}}
+.tombol{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;border-radius:7px;border:1px solid var(--tosca2);
+  background:var(--tosca2);color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;cursor:pointer;font-family:inherit}
+.btn.tenang{background:transparent;color:var(--tosca)}
+.btn[aria-pressed="true"]{background:var(--tosca);border-color:var(--tosca);color:#fff}
+iframe.berkas{display:block;width:100%;height:78vh;min-height:520px;border:1px solid var(--garis);border-radius:8px;background:#fff;margin-top:12px}
+.belum{background:var(--toscaB);border:1px dashed var(--tosca2);border-radius:8px;padding:16px;margin-top:12px;font-size:.92rem}
+ul.taut{margin:0;padding:0;list-style:none}ul.taut li{padding:6px 0;border-bottom:1px solid var(--garis)}
+ul.taut li:last-child{border-bottom:0}ul.taut a{color:var(--tosca);font-weight:600}
+.kecil{font-size:.84rem;color:var(--abu);margin:.5rem 0 0}
+details.kartu>summary{cursor:pointer;font-weight:600;color:var(--tosca)}
+details.kartu[open]>summary{margin-bottom:.6rem}
+ol.bab a.loncat{color:var(--tosca);text-decoration:none}ol.bab a.loncat:hover{text-decoration:underline}
+ul.bab-lain{margin:.7rem 0 0;padding:.6rem 0 0;list-style:none;border-top:1px solid var(--garis);font-size:.9rem}
+ul.bab-lain a{color:var(--tosca);font-weight:600;text-decoration:none}ul.bab-lain a:hover{text-decoration:underline}
+.tombol button.btn{font-size:.82rem;text-align:left}
+footer.kaki{text-align:center;color:var(--abu);font-size:.8rem;padding:24px 16px}
+</style></head>
+<body>
+<header class="kepala"><div class="in">
+<div class="sampul" aria-hidden="true"><b>Introduction to Classical Mechanics</b>David Morin</div>
+<div><span class="kode">Buku rujukan · Inggris</span>
+<h1>Introduction to Classical Mechanics</h1><p class="anak">With Problems and Solutions</p>
+<p class="penulis">David Morin</p></div></div></header><main class="bungkus"><div class="kartu"><h2>Tentang buku ini</h2>
+<p style="margin-top:0">Rujukan mekanika paling dihormati untuk pembinaan olimpiade tingkat lanjut. Kuat di strategi menyelesaikan soal, analisis limit dan dimensi, serta ratusan soal berpembahasan lengkap. Cocok untuk siswa yang sudah tuntas mekanika tingkat SMA dan bersiap ke OSN nasional atau seleksi internasional.</p>
+<dl class="meta"><dt>Penulis</dt><dd>David Morin</dd><dt>Terbitan</dt><dd>Cambridge University Press, 2008 · ISBN 978-0-521-87622-3</dd>
+<dt>Bahasa</dt><dd>Inggris</dd><dt>Isi</dt><dd>14 bab</dd><dt>Berkas</dt><dd>PDF</dd></dl>
+<div class="hak">Hak cipta pada David Morin dan Cambridge University Press. Dimuat di sini untuk pembinaan internal FIWA. Jangan disebarkan ulang; untuk koleksi sekolah, beli atau pinjam salinan resminya.</div></div><div class="kartu" id="baca"><h2>Baca e-book</h2>
+
+<div class="tombol" id="alat-baca"><a class="btn tenang" id="tab-baru" href="../../../aset-ebook/introduction-to-classical-mechanics-morin.pdf" target="_blank" rel="noopener">Buka penuh di tab baru ↗</a>
+<a class="btn tenang" id="unduh" href="../../../aset-ebook/introduction-to-classical-mechanics-morin.pdf" download>Unduh bagian ini (PDF)</a></div>
+<div id="wadah"></div>
+<p class="kecil">Di HP, penampil PDF dalam halaman sering hanya menampilkan halaman pertama. Bila begitu, pakai <b>Buka penuh di tab baru</b>.
+Panel bookmark di penampil (ikon daftar di kiri atas) memuat bab dan subbab.</p>
+<script>
+(function(){
+  var BAG = [{"src": "../../../aset-ebook/introduction-to-classical-mechanics-morin.pdf", "path": "aset-ebook/introduction-to-classical-mechanics-morin.pdf", "label": "Buku utuh"}];
+  var ada = [];          // true / false / undefined (belum diketahui)
+  var wadah = document.getElementById('wadah');
+  var tabBaru = document.getElementById('tab-baru'), unduh = document.getElementById('unduh');
+  var pilih = document.getElementById('pilih-bagian');
+  function tampil(i, hal){
+    var x = BAG[i];
+    if (pilih) pilih.querySelectorAll('button').forEach(function(t){ t.setAttribute('aria-pressed', String(t.getAttribute('data-i') === String(i))); });
+    var u = x.src + (hal ? '#page=' + hal + '&view=FitH' : '');
+    tabBaru.href = u; unduh.href = x.src;
+    if (ada[i] === false) {
+      wadah.innerHTML = '<div class="belum"><b>Berkas PDF belum diunggah.</b><br>Taruh berkasnya di <code>' + x.path +
+        '</code> pada repositori, lalu terbitkan ulang. Halaman ini akan langsung menampilkannya.</div>';
+      tabBaru.style.display = unduh.style.display = 'none';
+      return;
+    }
+    tabBaru.style.display = unduh.style.display = '';
+    // bingkai dibuat baru tiap kali: pindah halaman lewat #page= tidak andal di bingkai yang sudah terbuka
+    wadah.innerHTML = '';
+    var f = document.createElement('iframe');
+    f.className = 'berkas'; f.title = x.label; f.src = u;
+    wadah.appendChild(f);
+  }
+  function periksa(i){
+    return fetch(BAG[i].src, { method: 'HEAD', credentials: 'same-origin' })
+      .then(function(r){ ada[i] = r.ok; }).catch(function(){ /* tak diketahui: coba tampilkan saja */ });
+  }
+  var cek = BAG.map(function(_, i){ return periksa(i); });
+  Promise.all(cek).then(function(){ tampil(0); });
+  if (pilih) pilih.addEventListener('click', function(e){
+    var t = e.target.closest('button[data-i]'); if (t) tampil(Number(t.getAttribute('data-i')));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a.loncat'); if (!a) return;
+    e.preventDefault();
+    tampil(Number(a.getAttribute('data-bagian')), Number(a.getAttribute('data-hal')));
+    document.getElementById('baca').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script></div><details class="kartu"><summary>Cadangan: bab yang dibagikan gratis oleh penulis</summary>
+<p style="margin-top:0">David Morin membagikan bagian-bagian ini sendiri di situs resminya. Dipakai bila berkas utuh di atas tidak tampil. Pilih satu untuk dibaca di sini.</p>
+<div class="tombol" id="pilih-bab"><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/cmchap0.pdf" aria-pressed="false">Daftar isi &amp; prakata</button><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/cmchap1.pdf" aria-pressed="false">Bab 1 · Strategies for Solving Problems</button><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/cmchap6.pdf" aria-pressed="false">Bab 6 · The Lagrangian Method</button><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/cmchap11.pdf" aria-pressed="false">Bab 11 · Relativity (Kinematics)</button><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/cmchap15.pdf" aria-pressed="false">Bab tambahan · Hamiltonian Mechanics</button><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/cmappendices.pdf" aria-pressed="false">Lampiran A–J</button><button type="button" class="btn tenang" data-src="https://davidmorin.physics.fas.harvard.edu/sites/g/files/omnuum12331/files/2025-10/corrections.pdf" aria-pressed="false">Ralat (errata)</button></div>
+<div id="wadah-bab" class="belum">Pilih salah satu bab di atas.</div>
+<p class="kecil">Berkasnya dimuat dari server Harvard. Bila kotaknya tetap kosong, server itu menolak ditampilkan di dalam halaman lain —
+pakai tautan <b>Buka penuh di tab baru</b> yang muncul di atas kotak.</p>
+<script>
+(function(){
+  var w = document.getElementById('wadah-bab');
+  document.getElementById('pilih-bab').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-src]'); if (!b) return;
+    document.querySelectorAll('#pilih-bab button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    var u = b.getAttribute('data-src');
+    w.className = '';
+    w.innerHTML = '<div class="tombol"><a class="btn tenang" target="_blank" rel="noopener" href="' + u + '">Buka penuh di tab baru ↗</a></div>' +
+                  '<iframe class="berkas" title="' + b.textContent.replace(/"/g, '') + '" src="' + u + '"></iframe>';
+  });
+})();
+</script></details><div class="kartu"><h2>Cara memakainya untuk pembinaan</h2><ol class="cara"><li>Mulai dari Bab 1 (Strategies for Solving Problems) — gratis di bawah, dan paling berguna dari seluruh buku.</li><li>Untuk bab lain, pakai peta di bawah: kerjakan bidang OSN yang sedang dibina, bukan urut dari depan.</li><li>Kerjakan soal bertanda satu atau dua bintang dulu; bintang tiga dan empat untuk persiapan seleksi internasional.</li></ol></div><div class="kartu"><h2>Peta bab ke bidang OSN</h2>
+<div class="gulir"><table><tr><th>Bidang</th><th>Baca</th></tr><tr><td>Semua bidang · cara berpikir</td><td class="no">Bab 1</td></tr><tr><td>Kesetimbangan</td><td class="no">Bab 2</td></tr><tr><td>Dinamika</td><td class="no">Bab 3</td></tr><tr><td>Getaran</td><td class="no">Bab 4</td></tr><tr><td>Momentum &amp; energi</td><td class="no">Bab 5</td></tr><tr><td>Gravitasi &amp; orbit</td><td class="no">Bab 7</td></tr><tr><td>Rotasi &amp; benda tegar</td><td class="no">Bab 8–9</td></tr><tr><td>Kerangka dipercepat</td><td class="no">Bab 10</td></tr><tr><td>Fisika modern · relativitas</td><td class="no">Bab 11–12</td></tr><tr><td>Lanjutan, di atas OSN nasional</td><td class="no">Bab 6, 13–14</td></tr></table></div></div><div class="kartu"><h2>Daftar bab</h2><ol class="bab"><li>Strategies for Solving Problems</li><li>Statics</li><li>Using F = ma</li><li>Oscillations</li><li>Conservation of Energy and Momentum</li><li>The Lagrangian Method</li><li>Central Forces</li><li>Angular Momentum, Part I (Constant L̂)</li><li>Angular Momentum, Part II (General L̂)</li><li>Accelerating Frames of Reference</li><li>Relativity (Kinematics)</li><li>Relativity (Dynamics)</li><li>4-vectors</li><li>General Relativity</li></ol></div><div class="kartu"><h2>Halaman resmi</h2><ul class="taut"><li><a href="https://davidmorin.physics.fas.harvard.edu/books/classical-mechanics" target="_blank" rel="noopener">Halaman buku di situs David Morin (Harvard) ↗</a></li><li><a href="https://www.cambridge.org/us/academic/subjects/physics/general-and-classical-physics/introduction-classical-mechanics-problems-and-solutions?format=HB" target="_blank" rel="noopener">Halaman buku di Cambridge University Press ↗</a></li><li><a href="https://books.google.com/books?id=Ni6CD7K2X4MC" target="_blank" rel="noopener">Pratinjau halaman di Google Books ↗</a></li></ul></div></main><footer class="kaki">CMS FIMS · Physics Olympiad<br>Fitrah Islamic World Academy</footer>
+</body></html>
