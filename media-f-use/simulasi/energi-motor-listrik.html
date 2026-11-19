@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energi baterai motor listrik</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+<h1>Ke mana energi baterai motor listrik pergi?</h1>
+<p class="sub">Mulai 2027 ojol dan kurir diarahkan beralih ke motor listrik. Baterainya menyimpan energi dalam
+jumlah tertentu — sekali habis, motor berhenti. Naikkan tanjakan, tambah beban, lalu lihat berapa persen
+baterai terpakai dan berapa yang kembali saat menuruni jalan.</p>
+
+<div class="grid">
+  <div class="kotak">
+    <canvas id="kanvas" width="760" height="300" aria-label="Animasi motor listrik menanjak dan menurun"></canvas>
+    <div class="tombol" style="margin-top:12px">
+      <button type="button" id="jalan">Jalankan</button>
+      <button type="button" class="ghost" id="ulang">Ulangi</button>
+      <label class="sakelar"><input type="checkbox" id="regen" checked> Pengereman regeneratif menyala</label>
+    </div>
+  </div>
+
+  <div class="kotak atur">
+    <h2>Yang bisa kamu ubah</h2>
+    <div class="baris"><label for="mtot">Massa motor + pengendara</label>
+      <input type="range" id="mtot" min="100" max="260" step="5" value="160">
+      <output id="o_m"></output></div>
+    <div class="baris"><label for="h">Tinggi tanjakan</label>
+      <input type="range" id="h" min="5" max="80" step="5" value="40">
+      <output id="o_h"></output></div>
+    <div class="baris"><label for="bat">Isi baterai</label>
+      <input type="range" id="bat" min="200" max="2000" step="100" value="1000">
+      <output id="o_bat"></output></div>
+
+    <h2 style="margin-top:8px">Yang dihitung fisika</h2>
+    <div class="baris"><label>Usaha melawan berat (mgh)</label><span></span><output id="o_W"></output></div>
+    <div class="baris"><label>Terpakai saat menanjak</label><span></span><output id="o_naik"></output></div>
+    <div class="baris"><label>Kembali saat menurun</label><span></span><output id="o_turun"></output></div>
+    <div class="baris"><label>Sisa baterai</label><span></span><output id="o_sisa"></output></div>
+    <p class="sub" style="margin:4px 0 0">Energi tidak hilang, ia <b>berpindah bentuk</b>. Naik: listrik &rarr;
+    energi potensial. Turun tanpa regeneratif: energi potensial &rarr; panas di kampas rem, lenyap untuk
+    baterai. Turun dengan regeneratif: sebagian kembali menjadi listrik.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var K = document.getElementById('kanvas'), c = K.getContext('2d');
+  var el = function(i){ return document.getElementById(i); };
+  var mtot = el('mtot'), h = el('h'), bat = el('bat'), regen = el('regen');
+  var g = 10, EFF_NAIK = 0.75, EFF_REGEN = 0.45;
+  var x = 0, fase = 'siap', sisa = 0, naik = 0, turun = 0, berjalan = false;
+
+  function W(){ return (+mtot.value) * g * (+h.value); }                 // joule
+  function kapasitas(){ return (+bat.value) * 1000; }                    // kJ -> J
+
+  function tulis(){
+    el('o_m').textContent   = mtot.value + ' kg';
+    el('o_h').textContent   = h.value + ' m';
+    el('o_bat').textContent = bat.value + ' kJ';
+    el('o_W').textContent   = (W()/1000).toFixed(0) + ' kJ';
+    el('o_naik').textContent  = (naik/1000).toFixed(0) + ' kJ';
+    el('o_turun').textContent = (turun/1000).toFixed(0) + ' kJ';
+    var p = kapasitas() ? Math.max(0, sisa/kapasitas()*100) : 0;
+    el('o_sisa').textContent = p.toFixed(0) + '%';
+  }
+
+  function bukit(px){                       // tinggi layar pada posisi 0..1
+    var dasar = 240, puncak = 90;
+    if (px < 0.35) return dasar;
+    if (px < 0.5)  return dasar - (dasar-puncak) * (px-0.35)/0.15;
+    if (px < 0.65) return puncak;
+    if (px < 0.8)  return puncak + (dasar-puncak) * (px-0.65)/0.15;
+    return dasar;
+  }
+
+  function gambar(){
+    var Wd = K.width, Hd = K.height;
+    c.clearRect(0,0,Wd,Hd);
+    // jalan
+    c.beginPath(); c.moveTo(0, bukit(0));
+    for (var i=0;i<=200;i++){ var p=i/200; c.lineTo(p*Wd, bukit(p)); }
+    c.lineTo(Wd, Hd); c.lineTo(0, Hd); c.closePath();
+    var gg = c.createLinearGradient(0,80,0,Hd);
+    gg.addColorStop(0,'rgba(63,123,255,.35)'); gg.addColorStop(1,'rgba(6,18,51,.9)');
+    c.fillStyle = gg; c.fill();
+    c.strokeStyle = 'rgba(140,180,255,.5)'; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(0, bukit(0));
+    for (var j=0;j<=200;j++){ var q=j/200; c.lineTo(q*Wd, bukit(q)); } c.stroke();
+
+    // bilah baterai
+    var bw = 170, bh = 20, bx = Wd - bw - 16, by = 20;
+    c.strokeStyle = 'rgba(140,180,255,.6)'; c.lineWidth = 2;
+    c.strokeRect(bx, by, bw, bh);
+    var frac = kapasitas() ? Math.max(0, Math.min(1, sisa/kapasitas())) : 0;
+    c.fillStyle = frac > 0.4 ? '#00c9a7' : (frac > 0.15 ? '#ffc247' : '#ff7a7a');
+    c.fillRect(bx+2, by+2, (bw-4)*frac, bh-4);
+    c.fillStyle = '#eaf0ff'; c.font = '13px system-ui';
+    c.fillText('Baterai ' + (frac*100).toFixed(0) + '%', bx, by - 6);
+
+    // motor
+    var py = bukit(x) - 12;
+    c.fillStyle = '#eaf0ff';
+    c.beginPath(); c.arc(x*Wd - 10, py+10, 7, 0, 6.3); c.stroke();
+    c.beginPath(); c.arc(x*Wd + 10, py+10, 7, 0, 6.3); c.stroke();
+    c.fillStyle = '#00c9a7';
+    c.fillRect(x*Wd - 13, py - 8, 26, 14);
+
+    c.fillStyle = '#9db0e6'; c.font = '13px system-ui';
+    var pesan = fase === 'naik' ? 'Menanjak — baterai terkuras'
+              : fase === 'turun' ? (regen.checked ? 'Menurun — sebagian energi kembali ke baterai'
+                                                  : 'Menurun — energi jadi panas di rem, hilang')
+              : fase === 'habis' ? 'Baterai habis. Motor berhenti di tengah tanjakan.'
+              : fase === 'selesai' ? 'Sampai. Lihat sisa baterainya.' : 'Siap jalan';
+    c.fillText(pesan, 14, 28);
+  }
+
+  var lalu = 0;
+  function bingkai(w){
+    if (!lalu) lalu = w;
+    var dt = Math.min((w-lalu)/1000, .05); lalu = w;
+    if (berjalan){
+      var laju = 0.14;
+      var sebelum = bukit(x), sesudah = bukit(Math.min(1, x + laju*dt));
+      var dh = (sebelum - sesudah) / (240-90) * (+h.value);   // meter naik (positif) per langkah
+      if (dh > 0){
+        fase = 'naik';
+        var pakai = (+mtot.value) * g * dh / EFF_NAIK;
+        sisa -= pakai; naik += pakai;
+        if (sisa <= 0){ sisa = 0; berjalan = false; fase = 'habis'; tulis(); gambar(); return requestAnimationFrame(bingkai); }
+      } else if (dh < 0){
+        fase = 'turun';
+        if (regen.checked){
+          var balik = (+mtot.value) * g * (-dh) * EFF_REGEN;
+          sisa = Math.min(kapasitas(), sisa + balik); turun += balik;
+        }
+      }
+      x += laju*dt;
+      if (x >= 1){ x = 1; berjalan = false; fase = 'selesai'; }
+      tulis();
+    }
+    gambar();
+    requestAnimationFrame(bingkai);
+  }
+
+  function ulangi(){ berjalan = false; x = 0; fase = 'siap'; naik = 0; turun = 0; sisa = kapasitas(); lalu = 0; tulis(); }
+  [mtot, h, bat].forEach(function(i){ i.addEventListener('input', ulangi); });
+  regen.addEventListener('change', ulangi);
+  el('jalan').addEventListener('click', function(){ if (fase==='selesai'||fase==='habis') ulangi(); berjalan = true; lalu = 0; });
+  el('ulang').addEventListener('click', ulangi);
+  ulangi(); requestAnimationFrame(bingkai);
+})();
+</script>
+</body>
+</html>

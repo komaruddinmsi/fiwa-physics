@@ -8,11 +8,8 @@
     "tautan": "{ tipe, judul, url, catatan } — dibuka di tab baru, dipakai bila situs menolak ditanam"
   },
   "_catatan_gerbang": "S2, S8, dan S13 sengaja dibiarkan kosong. Ketiganya gerbang penilaian; memberi bahan bantu di sana melanggar aturan bank soal pada Kontrak Tahapan Ketuntasan.",
-
   "tp": {
-
     "F.USE.1-pra": {
-
       "S1": [
         {
           "tipe": "audio",
@@ -26,9 +23,7 @@
           "catatan": "Boleh dibaca sekilas dulu sekarang, dan dibaca tuntas pada tahapan S4."
         }
       ],
-
       "S2": [],
-
       "S2b": [
         {
           "tipe": "video",
@@ -43,7 +38,6 @@
           "catatan": "Setel sudut ke 0 derajat, lalu naikkan perlahan sampai 90 derajat. Perhatikan usaha mengecil sampai nol."
         }
       ],
-
       "S2c": [
         {
           "tipe": "video",
@@ -62,7 +56,6 @@
           "berkas": "media-f-use/bacaan/bacaan-tp1.html"
         }
       ],
-
       "S3": [
         {
           "tipe": "video",
@@ -77,7 +70,6 @@
           "catatan": "Sebelum menggeser apa pun: tebak, kalau kelajuan digandakan, energi kinetiknya menjadi berapa kali? Baru uji."
         }
       ],
-
       "S4": [
         {
           "tipe": "video",
@@ -102,7 +94,6 @@
           "berkas": "media-f-use/simulasi/energi-kinetik-potensial.html"
         }
       ],
-
       "S5": [
         {
           "tipe": "simulasi",
@@ -111,7 +102,6 @@
           "catatan": "Guru menayangkan ini saat membahas dugaan siswa yang keliru, terutama anggapan bahwa Ek berbanding lurus dengan v."
         }
       ],
-
       "S6": [
         {
           "tipe": "video",
@@ -126,7 +116,6 @@
           "catatan": "Mulai dari pola Gaya tetap, lalu Gaya naik, lalu Pegas. Tiap kali, tanyakan bentuk daerahnya dulu."
         }
       ],
-
       "S7": [
         {
           "tipe": "simulasi",
@@ -141,9 +130,7 @@
           "catatan": "Seret titiknya sampai menyerupai grafik pada soal, lalu bandingkan hasil hitunganmu dengan angka di layar."
         }
       ],
-
       "S8": [],
-
       "S9": [
         {
           "tipe": "video",
@@ -165,7 +152,6 @@
           "catatan": "PhET, University of Colorado Boulder. Sumber luar — bila jaringan sekolah memblokirnya, pakai tombol buka di tab baru."
         }
       ],
-
       "S10": [
         {
           "tipe": "audio",
@@ -179,7 +165,6 @@
           "catatan": "Buka bagian Membandingkan ketiganya untuk menguatkan jangkar ingatan."
         }
       ],
-
       "S11": [
         {
           "tipe": "video",
@@ -188,7 +173,6 @@
           "catatan": "Buka hanya sesudah kamu mencoba sendiri. Membuka lebih dulu akan menghapus manfaat latihan ini."
         }
       ],
-
       "S12": [
         {
           "tipe": "bacaan",
@@ -197,9 +181,7 @@
           "catatan": "Laporan tugas kinerjamu harus memakai format tujuh langkah seperti pada contoh soal di bacaan ini."
         }
       ],
-
       "S13": [],
-
       "S14": [
         {
           "tipe": "audio",
@@ -214,9 +196,7 @@
         }
       ]
     },
-
     "F.USE.1": {
-
       "S1": [
         {
           "tipe": "audio",
@@ -229,9 +209,7 @@
           "berkas": "media-f-use/bacaan/bacaan-tp2.html"
         }
       ],
-
       "S2": [],
-
       "S2b": [
         {
           "tipe": "simulasi",
@@ -246,7 +224,6 @@
           "catatan": "Best Education — penjelasan runut dari energi mekanik."
         }
       ],
-
       "S2c": [
         {
           "tipe": "video",
@@ -266,7 +243,6 @@
           "catatan": "Setel gesekan ke nol. Amati batang Mekanik yang panjangnya tidak pernah berubah."
         }
       ],
-
       "S3": [
         {
           "tipe": "simulasi",
@@ -281,7 +257,6 @@
           "catatan": "Inspirasi70. Tonton tanpa mencatat; tujuannya memunculkan pertanyaan, bukan jawaban."
         }
       ],
-
       "S4": [
         {
           "tipe": "bacaan",
@@ -307,7 +282,6 @@
           "catatan": "Contoh paling bersih: tegangan tali tidak pernah melakukan usaha."
         }
       ],
-
       "S5": [
         {
           "tipe": "simulasi",
@@ -322,7 +296,6 @@
           "catatan": "Wien Classroom. Dipakai guru sebagai contoh bersama."
         }
       ],
-
       "S6": [
         {
           "tipe": "simulasi",
@@ -337,7 +310,6 @@
           "catatan": "Bagian 2 bacaan: massa dan bentuk lintasan tidak menentukan kelajuan akhir."
         }
       ],
-
       "S7": [
         {
           "tipe": "simulasi",
@@ -352,9 +324,7 @@
           "catatan": "Naikkan hambatan udara sedikit demi sedikit dan catat penyusutan simpangannya."
         }
       ],
-
       "S8": [],
-
       "S9": [
         {
           "tipe": "video",
@@ -376,7 +346,6 @@
           "catatan": "PhET, University of Colorado Boulder. Sumber luar — bila diblokir jaringan sekolah, gunakan tombol buka di tab baru."
         }
       ],
-
       "S10": [
         {
           "tipe": "audio",
@@ -390,7 +359,6 @@
           "catatan": "Bagian 3. Salin keempat pertanyaan itu ke kartu jangkarmu."
         }
       ],
-
       "S11": [
         {
           "tipe": "video",
@@ -399,7 +367,6 @@
           "catatan": "Buka hanya sesudah kamu mencoba sendiri seluruh butirnya."
         }
       ],
-
       "S12": [
         {
           "tipe": "simulasi",
@@ -414,9 +381,7 @@
           "catatan": "Laporan tugas kinerja wajib memakai format ini."
         }
       ],
-
       "S13": [],
-
       "S14": [
         {
           "tipe": "audio",
@@ -432,8 +397,32 @@
       ]
     }
   },
-
   "topik": {
+    "PEMBUKA": [
+      {
+        "tipe": "video",
+        "judul": "Usaha dan energi: pengantar",
+        "yt": "54vvOkQQ8X8",
+        "catatan": "Video pembuka. Tonton sekali sebelum masuk ke TP pertama."
+      },
+      {
+        "tipe": "simulasi",
+        "judul": "Energi baterai motor listrik (buatan sendiri)",
+        "berkas": "media-f-use/simulasi/energi-motor-listrik.html",
+        "catatan": "Matikan pengereman regeneratif, jalankan lagi, lalu bandingkan sisa baterainya."
+      },
+      {
+        "tipe": "audio",
+        "judul": "Pembuka topik — dibacakan",
+        "naskah": "Selamat datang di topik Usaha dan Energi. Topik ini bukan tentang menghafal rumus, melainkan tentang satu pertanyaan: energi itu tadi pergi ke mana. Pertama, mulai tahun dua ribu dua puluh tujuh ojek daring dan kurir diarahkan beralih ke motor listrik. Baterai menyimpan energi dalam jumlah yang pasti, jadi setiap joule penting. Kedua, panel surya di atap mengubah cahaya menjadi listrik, lalu menjadi angin sejuk; tiga perubahan bentuk, satu energi yang sama, dan setiap langkah menyisakan panas. Ketiga, naik tangga asrama membuatmu lelah sedangkan turun tidak, padahal jaraknya sama; yang kamu bayar adalah ketinggian, bukan lintasan. Mainkan dulu simulasinya, baru masuk ke tujuan pembelajaran pertama."
+      },
+      {
+        "tipe": "bacaan",
+        "judul": "Ke mana energi pergi (buatan sendiri)",
+        "berkas": "media-f-use/bacaan/bacaan-tp1.html",
+        "catatan": "Bacaan ringan untuk menemani pembuka."
+      }
+    ],
     "L1": [
       {
         "tipe": "bacaan",

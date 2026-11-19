@@ -40,7 +40,7 @@
       <div><span>Hilang jadi kalor</span><b class="n-merah" id="rQ">—</b></div>
     </div>
     <p class="rumus" id="jejakRumus">E<sub>p</sub> + E<sub>k</sub> = tetap</p>
-    <div class="catatan" id="ramal"><b>Ramalkan dulu.</b> Sebelum menekan Lepaskan, tebak: sanggupkah kereta melewati bukit?</div>
+    <div class="catatan" id="ramal"><b>Prediksikan dulu.</b> Sebelum menekan Lepaskan, tebak: sanggupkah kereta melewati bukit?</div>
   </div>
 </div>
 
@@ -217,7 +217,7 @@
     const h0 = +$('h0').value, hb = +$('bukit').value;
     const r = $('ramal');
     if (!lari && Q === 0) {
-      r.innerHTML = '<b>Ramalkan dulu.</b> Tinggi lepas ' + fmt(h0, 1) + ' m, tinggi bukit ' + fmt(hb, 1) +
+      r.innerHTML = '<b>Prediksikan dulu.</b> Tinggi lepas ' + fmt(h0, 1) + ' m, tinggi bukit ' + fmt(hb, 1) +
         ' m. Sanggupkah kereta melewatinya? Tekan Lepaskan untuk menguji.';
     } else if (+$('mu').value === 0) {
       r.innerHTML = h0 > hb
