@@ -1,0 +1,11 @@
+{
+  "kode": "F.MEK.1b",
+  "judul": "Menganalisis struktur lewat gaya: momen & komponen",
+  "teks": "Menganalisis hubungan gerak dan gaya serta pemanfaatannya untuk menjelaskan fenomena alam, desain, atau rekayasa struktur.",
+  "bloom": "C4",
+  "urutan_ajar": 4,
+  "prasyarat": [
+    "f-mek-1a"
+  ],
+  "ambang": 75
+}

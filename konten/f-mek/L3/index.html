@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet CBT Fisika — Mekanika (Paket 2)</title>
+<style>
+:root{--tosca0:#073B44;--tosca:#0B4F58;--tosca2:#17A2AF;--tosca3:#6FCFD8;--toscaB:#E3F5F6;--oranye:#C05621;--oranye2:#E27A2E;--oranyeB:#FDEBDD;--kuning:#E9B308;--kuningB:#FEF6DA;--tinta:#12333A;--abu:#6A7F84;--abuB:#F1F5F6;--putih:#fff}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F6FAFB;color:var(--tinta);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;padding-bottom:140px}
+.bungkus{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kepala{position:relative;overflow:hidden;color:#fff;background:linear-gradient(110deg,var(--tosca0),var(--tosca),var(--tosca2));border-bottom:5px solid var(--kuning);border-image:linear-gradient(90deg,var(--kuning),var(--oranye2)) 1;padding:30px 0 26px}
+.kepala::before,.kepala::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.09);pointer-events:none}
+.kepala::before{width:260px;height:260px;right:-70px;top:-110px}
+.kepala::after{width:170px;height:170px;right:90px;bottom:-110px}
+.kepala .bungkus{position:relative;z-index:1}
+.kepala .kecil{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.88;font-weight:600}
+.kepala h1{margin:6px 0 8px;font-size:26px;line-height:1.25}
+.kepala p{margin:0;opacity:.93;max-width:60ch}
+main.bungkus{padding-top:18px}
+.kartu{background:var(--putih);border:1px solid #D7E6E8;border-radius:12px;padding:18px 20px;margin:0 0 16px}
+.kartu h2{margin:0 0 12px;font-size:18px;color:var(--tosca)}
+.identitas label,.waktu label{display:block;font-weight:600;margin:10px 0 4px}
+.identitas .dua{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input[type=text]{width:100%;font:inherit;padding:10px 12px;border:1.5px solid #B8D3D7;border-radius:8px;background:#fff;color:var(--tinta)}
+input[type=text]:focus,select:focus,button:focus-visible{outline:3px solid var(--tosca3);outline-offset:1px}
+.waktu{border-left:6px solid var(--tosca)}
+.waktu input[type=text]{max-width:160px}
+.tombol{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--tosca);color:#fff}
+.tombol.utama{margin:12px 0 4px;background:var(--oranye)}
+.tombol.sekunder{background:var(--toscaB);color:var(--tosca);border:1.5px solid var(--tosca3)}
+.tombol:disabled{opacity:.45;cursor:not-allowed}
+.catatan{margin:8px 0 0;color:var(--abu);font-size:14.5px}
+.aturan{background:var(--kuningB);border:1px solid #F0DC9A;border-left:6px solid var(--kuning)}
+.aturan h2{color:#8A6604}
+.aturan ol{margin:0;padding-left:22px}
+.aturan li{margin:6px 0}
+.aturan b,.aturan strong{color:#8A6604}
+.bagian{margin:0 0 22px;border-radius:12px;overflow:hidden;border:1px solid #D7E6E8}
+.bagian-kep{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:linear-gradient(110deg,var(--tosca0),var(--tosca),var(--tosca2));color:#fff;padding:12px 16px}
+.lencana{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:2px 12px;font-weight:700;font-size:13px;letter-spacing:.06em}
+.rentang{margin-left:auto;font-size:13.5px;opacity:.92}
+.bagian-badan{background:#FBFDFD;padding:14px}
+.soal{background:var(--putih);border:1px solid #D7E6E8;border-radius:12px;margin:0 0 14px;overflow:hidden;scroll-margin-top:12px}
+.soal-kep{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--toscaB);padding:9px 16px;font-weight:700;color:var(--tosca);border-bottom:1px solid #CFE6E8}
+.soal-bentuk{font-weight:600;font-size:13.5px;color:var(--abu)}
+.soal.k-isi .soal-kep{background:var(--tosca);color:#fff}
+.soal.k-isi .soal-bentuk{color:#D5F2F4}
+.soal.k-ragu .soal-kep{background:var(--kuning);color:var(--tinta)}
+.soal.k-ragu .soal-bentuk{color:#5b4300}
+.soal.kosong{border-color:var(--oranye2);box-shadow:0 0 0 3px var(--oranyeB)}
+.soal.kosong .soal-kep{background:var(--oranyeB);color:var(--oranye)}
+.soal-isi{padding:14px 16px}
+.naskah{background:var(--abuB);border-left:5px solid var(--tosca);border-radius:6px;padding:12px 14px;margin:0 0 12px}
+.naskah svg{max-width:100%}
+.perintah{margin:0 0 10px;font-weight:600}
+.pilihan{list-style:none;margin:0;padding:0}
+.pilihan li{margin:0 0 8px}
+.opsi{display:flex;gap:10px;align-items:flex-start;border:1.5px solid #CFE0E3;border-radius:10px;padding:10px 12px;cursor:pointer;background:#fff}
+.opsi:hover{border-color:var(--tosca3)}
+.opsi.dipilih{border-color:var(--tosca);background:var(--toscaB)}
+.opsi input{margin-top:5px;width:18px;height:18px;flex:0 0 auto;accent-color:var(--tosca)}
+.opsi .huruf{font-weight:700;color:var(--tosca);min-width:1.4em}
+table.bs{width:100%;border-collapse:collapse;margin:0 0 4px}
+table.bs th{background:var(--tosca);color:#fff;padding:8px 10px;text-align:left;font-size:14.5px}
+table.bs td{border-bottom:1px solid #D7E6E8;padding:9px 10px;vertical-align:middle}
+table.bs .c{text-align:center;width:1%;white-space:nowrap}
+table.bs .no{font-weight:700;color:var(--tosca)}
+table.bs .nyata label{cursor:default}
+select{font:inherit;padding:8px 10px;border:1.5px solid #B8D3D7;border-radius:8px;background:#fff;color:var(--tinta);min-width:130px}
+.tandai{margin-top:12px;padding-top:10px;border-top:2px dashed #E0C97A}
+.tandai label{display:inline-flex;gap:8px;align-items:center;color:var(--oranye);font-weight:600;cursor:pointer}
+.tandai input{width:18px;height:18px;accent-color:var(--oranye2)}
+#tirai{background:var(--tosca);color:#fff;border-radius:12px;padding:14px 18px;margin:0 0 16px;font-weight:600}
+#tirai.habis{background:#FBE2E2;color:#9B2C2C;border:2px solid #9B2C2C}
+#hasil{border-left:6px solid var(--kuning)}
+#hasil .skor-besar{font-size:64px;line-height:1;font-weight:800;color:var(--tosca);margin:4px 0 2px}
+#hasil .ket{margin:0 0 12px;color:var(--abu);font-weight:600}
+table.penguasaan{width:100%;border-collapse:collapse;margin:0 0 10px}
+table.penguasaan th{background:var(--tosca);color:#fff;padding:8px 10px;text-align:left;font-size:14.5px}
+table.penguasaan td{border-bottom:1px solid #D7E6E8;padding:8px 10px}
+table.penguasaan td.r,table.penguasaan th.r{text-align:right;white-space:nowrap}
+#soal.terkunci .opsi,#soal.terkunci select,#soal.terkunci .tandai{opacity:.72;pointer-events:none}
+.umpan{margin-top:16px;padding-top:14px;border-top:3px solid var(--toscaB)}
+.feedback-head{margin-bottom:10px}
+.result-pill{display:inline-block;border-radius:999px;padding:5px 14px;font-weight:700;font-size:14.5px}
+.result-pill.ok{background:#DDF3E4;color:#1E6B3A;border:1px solid #9FD6B2}
+.result-pill.no{background:#FBE2E2;color:#9B2C2C;border:1px solid #E6A9A9}
+.result-pill.sebagian{background:var(--kuningB);color:#8A6604;border:1px solid #EBD27C}
+.panel{border:1px solid #D7E6E8;border-radius:10px;padding:12px 14px;margin:10px 0;background:#fff}
+.panel h3{margin:0 0 8px;font-size:16px;color:var(--tosca)}
+.panel.review{background:var(--kuningB);border-color:#F0DC9A}
+.panel ol{margin:0;padding-left:22px}
+.panel li{margin:6px 0}
+.panel p{margin:0}
+.bawah{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:1px solid #CFE0E3;box-shadow:0 -4px 18px rgba(7,59,68,.12);padding-bottom:env(safe-area-inset-bottom,0px)}
+#navpanel{max-height:48vh;overflow-y:auto;padding:12px 16px;border-bottom:1px solid #E1ECEE;background:#FBFDFD}
+#navpanel .kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px;max-width:880px;margin:0 auto}
+.navnum{font:inherit;font-weight:700;height:42px;border-radius:8px;border:1px solid #CFE0E3;background:var(--abuB);color:var(--tinta);cursor:pointer}
+.navnum.isi{background:var(--tosca);color:#fff;border-color:var(--tosca)}
+.navnum.ragu{background:var(--kuning);color:var(--tinta);border-color:#C79A06}
+.keterangan{max-width:880px;margin:10px auto 0;font-size:13.5px;color:var(--abu);display:flex;flex-wrap:wrap;gap:6px 16px}
+.keterangan i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1px solid #9bb}
+.bawah .bungkus{padding-top:8px;padding-bottom:8px}
+#bilah{height:8px;background:#DDE9EB;border-radius:99px;overflow:hidden}
+#bilah span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--tosca2),var(--kuning));border-radius:99px;transition:width .2s}
+.baris-bawah{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:8px}
+#hitung{font-weight:600;font-size:14.5px}
+#jam{margin-left:auto;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;color:var(--tosca)}
+#jam.sedikit{color:var(--oranye)}
+#jam.habis{color:#9B2C2C}
+.baris-bawah .tombol{padding:9px 13px;font-size:14.5px}
+#pesan{margin-top:6px;min-height:1.3em;font-size:14.5px;color:var(--tosca);font-weight:600}
+#pesan.awas{color:var(--oranye)}
+@media (max-width:640px){
+  body{padding-bottom:150px}
+  .kepala h1{font-size:22px}
+  .identitas .dua{grid-template-columns:1fr}
+  .kartu{padding:16px}
+  .bagian-badan{padding:10px}
+  .soal-isi{padding:12px}
+  table.bs,table.bs tbody,table.bs tr,table.bs td{display:block;width:100%}
+  table.bs thead{display:none}
+  table.bs tr{border:1px solid #D7E6E8;border-radius:10px;margin:0 0 10px;padding:8px 10px;background:#fff}
+  table.bs td{border:0;padding:4px 0;text-align:left}
+  table.bs .c{width:100%;text-align:left;white-space:normal}
+  table.bs .no::before{content:"Pernyataan "}
+  select{width:100%}
+  .baris-bawah .tombol{flex:1 1 30%;padding:9px 6px;font-size:13.5px}
+  #jam{font-size:18px}
+  #hasil .skor-besar{font-size:54px}
+  table.penguasaan,table.penguasaan tbody,table.penguasaan tr,table.penguasaan td{display:block;width:100%}
+  table.penguasaan thead{display:none}
+  table.penguasaan tr{border:1px solid #D7E6E8;border-radius:10px;margin:0 0 10px;padding:8px 10px;background:#fff}
+  table.penguasaan td{border:0;padding:3px 0;text-align:left}
+  table.penguasaan td.r{text-align:left;white-space:normal}
+  table.penguasaan td[data-l]::before{content:attr(data-l) ": ";color:var(--abu);font-weight:600}
+}
+</style>
+</head>
+<body>
+<header class="kepala"><div class="bungkus">
+<div class="kecil">Fisika · F.MEK · Paket 2</div>
+<h1>Latihan TKA Fisika — Mekanika</h1>
+<p>25 soal tentang vektor gaya, hukum Newton, dan kesetimbangan. Kerjakan sendiri, tanpa kalkulator.</p>
+</div></header>
+<main class="bungkus">
+<section class="kartu identitas"><h2>Identitas</h2>
+<label for="nama">Nama lengkap</label><input type="text" id="nama" name="nama" autocomplete="off">
+<div class="dua"><div><label for="kelas">Kelas</label><input type="text" id="kelas" name="kelas" autocomplete="off"></div><div><label for="tanggal">Tanggal</label><input type="text" id="tanggal" name="tanggal" autocomplete="off"></div></div>
+</section>
+<section class="kartu waktu" id="setup"><h2>Waktu mengerjakan</h2>
+<label for="menit">Lama pengerjaan <em>(menit)</em></label>
+<input type="text" id="menit" name="menit" inputmode="numeric" value="50">
+<div><button type="button" class="tombol utama" id="tbl-mulai">Mulai mengerjakan</button></div>
+<p class="catatan">Hitung mundur berjalan begitu kamu menekan tombol ini. Pastikan angkanya sama dengan yang disebut gurumu.</p>
+<input type="hidden" id="tenggat" name="tenggat" value="">
+</section>
+<section class="kartu aturan"><h2>Aturan mengerjakan</h2><ol><li>Hitung mundur berjalan sejak tombol <b>Mulai</b> ditekan. Sisa waktu tampil di bilah bawah, dan lembar ini terkunci sendiri ketika waktunya habis.</li><li>Ada tiga bentuk soal. <i>Pilihan ganda</i>: pilih satu jawaban. <i>Pilihan ganda kompleks</i>: jawaban benarnya lebih dari satu. <i>Benar–Salah</i>: tentukan Benar atau Salah untuk ketiga pernyataannya.</li><li>Tiap soal bernilai sama. Pada <i>pilihan ganda kompleks</i>, tiap jawaban benar yang kamu pilih bernilai poin. Pada <i>Benar–Salah</i>, tiap pernyataan yang kamu jawab tepat bernilai poin. <b>Tidak ada pengurangan nilai</b> untuk jawaban salah atau kosong — jadi jangan ada yang kamu kosongkan.</li><li><b>Kalkulator tidak dipakai.</b> Angka yang kamu perlukan seluruhnya tertulis di dalam soal.</li><li>Kotak <b>Tandai ragu-ragu</b> hanya penanda untuk dirimu sendiri dan tidak dinilai. Tombol <b>Periksa kelengkapan</b> memeriksa soal yang belum terisi — bukan benar atau salahnya.</li><li>Waktu bawaan dua menit untuk tiap soal. Percepatan gravitasi dipakai g = 10 m/s² pada seluruh soal.</li></ol></section>
+<div id="soal" hidden>
+<div id="tirai" hidden></div>
+<section class="kartu" id="hasil" hidden></section>
+<section class="bagian" id="bagian-ST1">
+<div class="bagian-kep"><span class="lencana">ST1</span><b>Vektor gaya: penjumlahan dan penguraian komponen</b><span class="rentang">Soal 1–5</span></div>
+<div class="bagian-badan">
+<article class="soal" id="kartu-s1">
+<div class="soal-kep"><span class="soal-no">Soal 1</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Dua perahu motor di Danau Toba, Sumatera Utara, menyeret sebuah rakit keramba ikan. Tali dari perahu pertama dan tali dari perahu kedua bertemu pada satu kait di sisi depan rakit. Perahu pertama menariknya ke timur sebesar 5 kN, sedangkan perahu kedua menariknya ke utara sebesar 12 kN. Rakit itu memuat 24 petak keramba. (data ilustratif)</div>
+<p class="perintah">Besar resultan gaya tarik pada rakit adalah &hellip; kN.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s1A"><input type="radio" id="s1A" name="s1" value="A"><span class="huruf">A.</span><span class="teks">7</span></label></li>
+<li><label class="opsi" for="s1B"><input type="radio" id="s1B" name="s1" value="B"><span class="huruf">B.</span><span class="teks">8,5</span></label></li>
+<li><label class="opsi" for="s1C"><input type="radio" id="s1C" name="s1" value="C"><span class="huruf">C.</span><span class="teks">13</span></label></li>
+<li><label class="opsi" for="s1D"><input type="radio" id="s1D" name="s1" value="D"><span class="huruf">D.</span><span class="teks">17</span></label></li>
+<li><label class="opsi" for="s1E"><input type="radio" id="s1E" name="s1" value="E"><span class="huruf">E.</span><span class="teks">60</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s1"><input type="checkbox" id="ragu-s1" name="ragu-s1" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s2">
+<div class="soal-kep"><span class="soal-no">Soal 2</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang tukang di Bandar Lampung mengerek karung semen ke lantai dua rumah yang sedang dibangun. Tali kerek miring dan membentuk sudut 53° terhadap garis vertikal, dengan tegangan tali 150 N. Lantai dua berada 5 m di atas tanah. Gunakan sin 53° = 0,8 dan cos 53° = 0,6. (data ilustratif)</div>
+<p class="perintah">Komponen mendatar gaya tarik pada tali adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s2A"><input type="radio" id="s2A" name="s2" value="A"><span class="huruf">A.</span><span class="teks">72</span></label></li>
+<li><label class="opsi" for="s2B"><input type="radio" id="s2B" name="s2" value="B"><span class="huruf">B.</span><span class="teks">75</span></label></li>
+<li><label class="opsi" for="s2C"><input type="radio" id="s2C" name="s2" value="C"><span class="huruf">C.</span><span class="teks">90</span></label></li>
+<li><label class="opsi" for="s2D"><input type="radio" id="s2D" name="s2" value="D"><span class="huruf">D.</span><span class="teks">96</span></label></li>
+<li><label class="opsi" for="s2E"><input type="radio" id="s2E" name="s2" value="E"><span class="huruf">E.</span><span class="teks">120</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s2"><input type="checkbox" id="ragu-s2" name="ragu-s2" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s3">
+<div class="soal-kep"><span class="soal-no">Soal 3</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Karung pupuk bermassa 60 kg dinaikkan ke bak truk oleh sebuah koperasi tani di Malang dengan meniti papan landai sepanjang 2,5 m. Tepi bak truk berada 2,0 m di atas tanah dan menjadi tumpuan ujung papan sebelah atas; ujung sebelah bawah menyentuh tanah. Bak truk itu berkapasitas 3 ton. Gunakan g = 10 m/s². (data ilustratif)<div style="margin:10px 0 4px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 252" role="img" aria-label="Papan landai menuju bak truk. Panjang papan 2,5 m. Ujung atas papan berada 2,0 m lebih tinggi daripada ujung bawah. Sebuah karung pupuk bermassa 60 kg berada di atas papan. Gambar tidak berskala." style="width:100%;max-width:400px;height:auto;display:block;margin:0 auto" font-family="Segoe UI,Arial,sans-serif" font-size="13.5"><title>Papan landai menuju bak truk. Panjang papan 2,5 m. Ujung atas papan berada 2,0 m lebih tinggi daripada ujung bawah. Sebuah karung pupuk bermassa 60 kg berada di atas papan. Gambar tidak berskala.</title><rect x="0" y="0" width="400" height="252" rx="8" fill="#ffffff" stroke="#D7E6E8"/><polygon points="350,205 130,205 130,44" fill="#E3F5F6" stroke="none"/><line fill="none" x1="350.0" y1="205.0" x2="130.0" y2="205.0" stroke="#12333A" stroke-width="1.6"/><line fill="none" x1="130.0" y1="205.0" x2="130.0" y2="44.0" stroke="#12333A" stroke-width="1.6"/><line fill="none" x1="60.0" y1="44.0" x2="132.0" y2="44.0" stroke="#12333A" stroke-width="5.0"/><text x="92.0" y="34.0" text-anchor="middle" fill="#5B6E73">bak truk</text><line fill="none" x1="350.0" y1="205.0" x2="130.0" y2="44.0" stroke="#0B4F58" stroke-width="5.0"/><rect x="217.0" y="96.5" width="46" height="28" rx="4" fill="#F4C8A6" stroke="#C05621" stroke-width="2" transform="rotate(36.2 240.0 124.5)"/><text x="248.0" y="82.5" text-anchor="middle" fill="#C05621" font-weight="700" transform="rotate(36.2 248.0 82.5)">karung 60 kg</text><line fill="none" x1="104.0" y1="46.0" x2="104.0" y2="203.0" stroke="#5B6E73" stroke-width="1.4"/><polygon points="104.0,46.0 100.5,55.0 107.5,55.0" fill="#5B6E73"/><polygon points="104.0,203.0 100.5,194.0 107.5,194.0" fill="#5B6E73"/><text x="96.0" y="129.5" text-anchor="end" fill="#12333A">2,0 m</text><text x="224.0" y="150.5" text-anchor="middle" fill="#12333A" transform="rotate(36.2 224.0 150.5)">2,5 m</text><text x="392.0" y="244.0" text-anchor="end" fill="#5B6E73">gambar tidak berskala</text></svg></div></div>
+<p class="perintah">Komponen berat karung yang sejajar papan adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s3A"><input type="radio" id="s3A" name="s3" value="A"><span class="huruf">A.</span><span class="teks">48</span></label></li>
+<li><label class="opsi" for="s3B"><input type="radio" id="s3B" name="s3" value="B"><span class="huruf">B.</span><span class="teks">360</span></label></li>
+<li><label class="opsi" for="s3C"><input type="radio" id="s3C" name="s3" value="C"><span class="huruf">C.</span><span class="teks">384</span></label></li>
+<li><label class="opsi" for="s3D"><input type="radio" id="s3D" name="s3" value="D"><span class="huruf">D.</span><span class="teks">480</span></label></li>
+<li><label class="opsi" for="s3E"><input type="radio" id="s3E" name="s3" value="E"><span class="huruf">E.</span><span class="teks">600</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s3"><input type="checkbox" id="ragu-s3" name="ragu-s3" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s4">
+<div class="soal-kep"><span class="soal-no">Soal 4</span><span class="soal-bentuk">Pilihan Ganda Kompleks</span></div>
+<div class="soal-isi">
+<div class="naskah">Tiga gaya mendatar bekerja serentak pada sebuah ponton penyeberangan kecil di Sungai Musi, Palembang. Mesin tempel menghasilkan dorongan 100 N pada arah 53° dari timur menuju utara. Arus sungai menekan ponton ke barat sebesar 52 N, dan angin menekannya ke selatan sebesar 65 N. Ponton bermassa 400 kg. Gunakan sin 53° = 0,8 dan cos 53° = 0,6. (data ilustratif)</div>
+<p class="perintah">Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s4A"><input type="checkbox" id="s4A" name="s4" value="A"><span class="huruf">A.</span><span class="teks">Arah resultan sama dengan arah dorongan mesin.</span></label></li>
+<li><label class="opsi" for="s4B"><input type="checkbox" id="s4B" name="s4" value="B"><span class="huruf">B.</span><span class="teks">Dorongan mesin terurai menjadi 60 N ke timur dan 80 N ke utara.</span></label></li>
+<li><label class="opsi" for="s4C"><input type="checkbox" id="s4C" name="s4" value="C"><span class="huruf">C.</span><span class="teks">Resultan memiliki komponen 8 N ke arah timur.</span></label></li>
+<li><label class="opsi" for="s4D"><input type="checkbox" id="s4D" name="s4" value="D"><span class="huruf">D.</span><span class="teks">Besar resultan 217 N, yaitu hasil penjumlahan ketiga besar gaya.</span></label></li>
+<li><label class="opsi" for="s4E"><input type="checkbox" id="s4E" name="s4" value="E"><span class="huruf">E.</span><span class="teks">Besar resultan 17 N.</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s4"><input type="checkbox" id="ragu-s4" name="ragu-s4" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s5">
+<div class="soal-kep"><span class="soal-no">Soal 5</span><span class="soal-bentuk">Benar–Salah</span></div>
+<div class="soal-isi">
+<div class="naskah">Angin kencang melepaskan sebuah terpal pelindung bermassa 6,0 kg dari tiangnya di Pantai Muizenberg, Cape Town, Afrika Selatan. Dalam gerak jatuhnya, terpal itu hanya mengalami beratnya sendiri dan dorongan angin yang arahnya mendatar, sebesar 80 N; gesekan udara selain itu tidak diperhitungkan dan g = 10 m/s². Terpal itu berukuran 3,0 m × 2,0 m. (data ilustratif)</div>
+<p class="perintah">Tentukan Benar atau Salah untuk setiap pernyataan berikut berdasarkan informasi di atas!</p>
+<table class="bs"><thead><tr><th class="c">No</th><th>Pernyataan</th><th class="c">Benar atau Salah</th></tr></thead><tbody>
+<tr><td class="c no">I</td><td class="nyata"><label for="s5p1">Resultan gaya berat dan dorongan angin berbesar 140 N.</label></td><td class="c"><select id="s5p1" name="s5p1" aria-label="Soal 5, pernyataan I"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">II</td><td class="nyata"><label for="s5p2">Garis kerja resultan itu menyimpang 53° dari arah vertikal.</label></td><td class="c"><select id="s5p2" name="s5p2" aria-label="Soal 5, pernyataan II"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">III</td><td class="nyata"><label for="s5p3">Seandainya terpal bermassa 15 kg sedangkan dorongan angin tetap 80 N, resultan gaya menjadi 170 N.</label></td><td class="c"><select id="s5p3" name="s5p3" aria-label="Soal 5, pernyataan III"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+</tbody></table>
+<div class="tandai"><label for="ragu-s5"><input type="checkbox" id="ragu-s5" name="ragu-s5" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+</div>
+</section>
+<section class="bagian" id="bagian-ST2">
+<div class="bagian-kep"><span class="lencana">ST2</span><b>Hukum Newton: gaya neto, percepatan, dan aksi–reaksi</b><span class="rentang">Soal 6–17</span></div>
+<div class="bagian-badan">
+<article class="soal" id="kartu-s6">
+<div class="soal-kep"><span class="soal-no">Soal 6</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Di sebuah rumah sakit di Kupang, seorang perawat mendorong troli obat bermassa 50 kg menyusuri lorong yang rata. Gaya neto pada troli 125 N searah geraknya, dan lorong itu sepanjang 80 m. (data ilustratif)</div>
+<p class="perintah">Percepatan troli obat adalah &hellip; m/s².</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s6A"><input type="radio" id="s6A" name="s6" value="A"><span class="huruf">A.</span><span class="teks">0,4</span></label></li>
+<li><label class="opsi" for="s6B"><input type="radio" id="s6B" name="s6" value="B"><span class="huruf">B.</span><span class="teks">2,5</span></label></li>
+<li><label class="opsi" for="s6C"><input type="radio" id="s6C" name="s6" value="C"><span class="huruf">C.</span><span class="teks">75</span></label></li>
+<li><label class="opsi" for="s6D"><input type="radio" id="s6D" name="s6" value="D"><span class="huruf">D.</span><span class="teks">175</span></label></li>
+<li><label class="opsi" for="s6E"><input type="radio" id="s6E" name="s6" value="E"><span class="huruf">E.</span><span class="teks">6.250</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s6"><input type="checkbox" id="ragu-s6" name="ragu-s6" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s7">
+<div class="soal-kep"><span class="soal-no">Soal 7</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Di sebuah pabrik di Osaka, Jepang, seorang pekerja menyeret palet berisi kardus bermassa 40 kg dengan tali mendatar. Palet meluncur lurus pada kelajuan tetap ketika gaya tarik tali 80 N. Lantai pabrik terbuat dari semen sepanjang 25 m, dan g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Koefisien gesek kinetik antara palet dan lantai adalah &hellip;.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s7A"><input type="radio" id="s7A" name="s7" value="A"><span class="huruf">A.</span><span class="teks">0,2</span></label></li>
+<li><label class="opsi" for="s7B"><input type="radio" id="s7B" name="s7" value="B"><span class="huruf">B.</span><span class="teks">0,5</span></label></li>
+<li><label class="opsi" for="s7C"><input type="radio" id="s7C" name="s7" value="C"><span class="huruf">C.</span><span class="teks">2,0</span></label></li>
+<li><label class="opsi" for="s7D"><input type="radio" id="s7D" name="s7" value="D"><span class="huruf">D.</span><span class="teks">8,0</span></label></li>
+<li><label class="opsi" for="s7E"><input type="radio" id="s7E" name="s7" value="E"><span class="huruf">E.</span><span class="teks">3.200</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s7"><input type="checkbox" id="ragu-s7" name="ragu-s7" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s8">
+<div class="soal-kep"><span class="soal-no">Soal 8</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang kuli di proyek perumahan di Bekasi mendorong gerobak berisi batu bata dengan gaya mendatar 500 N. Massa gerobak beserta muatannya 200 kg, dan permukaan jalan proyek memberikan gaya gesek 100 N pada gerobak. Proyek itu mencakup 48 rumah. (data ilustratif)</div>
+<p class="perintah">Percepatan gerobak adalah &hellip; m/s².</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s8A"><input type="radio" id="s8A" name="s8" value="A"><span class="huruf">A.</span><span class="teks">0,5</span></label></li>
+<li><label class="opsi" for="s8B"><input type="radio" id="s8B" name="s8" value="B"><span class="huruf">B.</span><span class="teks">0,8</span></label></li>
+<li><label class="opsi" for="s8C"><input type="radio" id="s8C" name="s8" value="C"><span class="huruf">C.</span><span class="teks">2,0</span></label></li>
+<li><label class="opsi" for="s8D"><input type="radio" id="s8D" name="s8" value="D"><span class="huruf">D.</span><span class="teks">2,5</span></label></li>
+<li><label class="opsi" for="s8E"><input type="radio" id="s8E" name="s8" value="E"><span class="huruf">E.</span><span class="teks">3,0</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s8"><input type="checkbox" id="ragu-s8" name="ragu-s8" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s9">
+<div class="soal-kep"><span class="soal-no">Soal 9</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Dua peti baja bersentuhan di atas lantai licin sebuah pabrik baja di Cilegon. Operator mendorong peti pertama bermassa 40 kg dengan gaya mendatar 150 N, dan peti itu ikut mendorong peti kedua bermassa 20 kg yang menempel di depannya. Panjang lantai pabrik itu 60 m. (data ilustratif)</div>
+<p class="perintah">Besar gaya kontak yang dikerjakan peti pertama pada peti kedua adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s9A"><input type="radio" id="s9A" name="s9" value="A"><span class="huruf">A.</span><span class="teks">20</span></label></li>
+<li><label class="opsi" for="s9B"><input type="radio" id="s9B" name="s9" value="B"><span class="huruf">B.</span><span class="teks">40</span></label></li>
+<li><label class="opsi" for="s9C"><input type="radio" id="s9C" name="s9" value="C"><span class="huruf">C.</span><span class="teks">50</span></label></li>
+<li><label class="opsi" for="s9D"><input type="radio" id="s9D" name="s9" value="D"><span class="huruf">D.</span><span class="teks">75</span></label></li>
+<li><label class="opsi" for="s9E"><input type="radio" id="s9E" name="s9" value="E"><span class="huruf">E.</span><span class="teks">100</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s9"><input type="checkbox" id="ragu-s9" name="ragu-s9" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s10">
+<div class="soal-kep"><span class="soal-no">Soal 10</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Dalam latihan di sebuah pusat pelatihan pemadam kebakaran di Sydney, Australia, dua karung pasir bermassa 7,0 kg dan 3,0 kg tergantung pada ujung-ujung seutas tali yang melewati sebuah katrol di menara latihan. Tali dan katrol dianggap tak bermassa dan licin, dengan g = 10 m/s². Sistem dilepas dari keadaan diam. Menara latihan itu setinggi 12 m. (data ilustratif)</div>
+<p class="perintah">Tegangan tali selama karung bergerak adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s10A"><input type="radio" id="s10A" name="s10" value="A"><span class="huruf">A.</span><span class="teks">12</span></label></li>
+<li><label class="opsi" for="s10B"><input type="radio" id="s10B" name="s10" value="B"><span class="huruf">B.</span><span class="teks">28</span></label></li>
+<li><label class="opsi" for="s10C"><input type="radio" id="s10C" name="s10" value="C"><span class="huruf">C.</span><span class="teks">30</span></label></li>
+<li><label class="opsi" for="s10D"><input type="radio" id="s10D" name="s10" value="D"><span class="huruf">D.</span><span class="teks">40</span></label></li>
+<li><label class="opsi" for="s10E"><input type="radio" id="s10E" name="s10" value="E"><span class="huruf">E.</span><span class="teks">42</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s10"><input type="checkbox" id="ragu-s10" name="ragu-s10" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s11">
+<div class="soal-kep"><span class="soal-no">Soal 11</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah kereta luncur peralatan bermassa 30 kg ditarik seorang peneliti di stasiun riset Svalbard, Norwegia, melintasi hamparan salju padat yang rata. Gaya tarik 150 N bekerja melalui tali yang naik miring 37° dari permukaan salju. Kereta luncur dan salju saling bergesekan dengan koefisien gesek kinetik 0,1. Panjang tali penarik 2,5 m. Gunakan sin 37° = 0,6, cos 37° = 0,8, dan g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Percepatan kereta luncur adalah &hellip; m/s².</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s11A"><input type="radio" id="s11A" name="s11" value="A"><span class="huruf">A.</span><span class="teks">2,7</span></label></li>
+<li><label class="opsi" for="s11B"><input type="radio" id="s11B" name="s11" value="B"><span class="huruf">B.</span><span class="teks">3,0</span></label></li>
+<li><label class="opsi" for="s11C"><input type="radio" id="s11C" name="s11" value="C"><span class="huruf">C.</span><span class="teks">3,3</span></label></li>
+<li><label class="opsi" for="s11D"><input type="radio" id="s11D" name="s11" value="D"><span class="huruf">D.</span><span class="teks">4,0</span></label></li>
+<li><label class="opsi" for="s11E"><input type="radio" id="s11E" name="s11" value="E"><span class="huruf">E.</span><span class="teks">4,3</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s11"><input type="checkbox" id="ragu-s11" name="ragu-s11" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s12">
+<div class="soal-kep"><span class="soal-no">Soal 12</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang pemain seluncur es bermassa 70 kg di Gelanggang Es Harbin, Tiongkok, mendorong rekannya yang bermassa 50 kg dengan gaya 140 N. Sebelum didorong keduanya diam di atas es licin, dan gaya-gaya lain dapat diabaikan. Ukuran gelanggang 60 m × 30 m. (data ilustratif)</div>
+<p class="perintah">Besar percepatan pemain yang mendorong adalah &hellip; m/s².</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s12A"><input type="radio" id="s12A" name="s12" value="A"><span class="huruf">A.</span><span class="teks">0</span></label></li>
+<li><label class="opsi" for="s12B"><input type="radio" id="s12B" name="s12" value="B"><span class="huruf">B.</span><span class="teks">2,0</span></label></li>
+<li><label class="opsi" for="s12C"><input type="radio" id="s12C" name="s12" value="C"><span class="huruf">C.</span><span class="teks">2,8</span></label></li>
+<li><label class="opsi" for="s12D"><input type="radio" id="s12D" name="s12" value="D"><span class="huruf">D.</span><span class="teks">4,8</span></label></li>
+<li><label class="opsi" for="s12E"><input type="radio" id="s12E" name="s12" value="E"><span class="huruf">E.</span><span class="teks">140</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s12"><input type="checkbox" id="ragu-s12" name="ragu-s12" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s13">
+<div class="soal-kep"><span class="soal-no">Soal 13</span><span class="soal-bentuk">Pilihan Ganda Kompleks</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang pengunjung bermassa 50 kg naik lift menara pandang di Kuala Lumpur, Malaysia, sambil berpijak pada timbangan pegas. Gerak lift terbagi tiga tahap: mula-mula lift diam, lalu kelajuannya naik beraturan sampai 3,0 m/s dalam 2,0 s; sesudah itu lift melaju tetap 3,0 m/s selama 12 s; pada tahap akhir kelajuannya turun beraturan hingga lift berhenti dalam 3,0 s. Angka pada timbangan pegas menunjukkan gaya normal lantai lift terhadap pengunjung. Menara itu memiliki 86 lantai dan g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s13A"><input type="checkbox" id="s13A" name="s13" value="A"><span class="huruf">A.</span><span class="teks">Selama lift dipercepat ke atas, massa pengunjung berubah menjadi 57,5 kg.</span></label></li>
+<li><label class="opsi" for="s13B"><input type="checkbox" id="s13B" name="s13" value="B"><span class="huruf">B.</span><span class="teks">Selama lift dipercepat ke atas, timbangan menunjukkan gaya normal 575 N.</span></label></li>
+<li><label class="opsi" for="s13C"><input type="checkbox" id="s13C" name="s13" value="C"><span class="huruf">C.</span><span class="teks">Pada tahap kelajuan tetap, pengunjung bebas dari semua gaya karena percepatannya nol.</span></label></li>
+<li><label class="opsi" for="s13D"><input type="checkbox" id="s13D" name="s13" value="D"><span class="huruf">D.</span><span class="teks">Selama lift melambat sebelum berhenti, gaya normal pada pengunjung 550 N.</span></label></li>
+<li><label class="opsi" for="s13E"><input type="checkbox" id="s13E" name="s13" value="E"><span class="huruf">E.</span><span class="teks">Selama lift melambat sebelum berhenti, gaya normal pada pengunjung 450 N.</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s13"><input type="checkbox" id="ragu-s13" name="ragu-s13" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s14">
+<div class="soal-kep"><span class="soal-no">Soal 14</span><span class="soal-bentuk">Benar–Salah</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah traktor di perkebunan sawit di Kabupaten Pelalawan, Riau, menarik gerobak buah sawit di jalan kebun yang datar dan lurus lewat kabel penghubung ringan yang tidak melar. Massa traktor 1.200 kg dan massa gerobak 800 kg. Gaya dorong roda penggerak traktor 4.000 N. Hambatan gerak pada traktor 600 N dan hambatan gerak pada gerobak 400 N. Jalan kebun itu sepanjang 2 km. (data ilustratif)</div>
+<p class="perintah">Tentukan Benar atau Salah untuk setiap pernyataan berikut berdasarkan informasi di atas!</p>
+<table class="bs"><thead><tr><th class="c">No</th><th>Pernyataan</th><th class="c">Benar atau Salah</th></tr></thead><tbody>
+<tr><td class="c no">I</td><td class="nyata"><label for="s14p1">Percepatan traktor dan gerobak 1,5 m/s².</label></td><td class="c"><select id="s14p1" name="s14p1" aria-label="Soal 14, pernyataan I"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">II</td><td class="nyata"><label for="s14p2">Tegangan kabel penghubung 1.200 N.</label></td><td class="c"><select id="s14p2" name="s14p2" aria-label="Soal 14, pernyataan II"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">III</td><td class="nyata"><label for="s14p3">Bila kabel penghubung putus, gerobak tidak berhenti seketika, melainkan diperlambat 0,5 m/s².</label></td><td class="c"><select id="s14p3" name="s14p3" aria-label="Soal 14, pernyataan III"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+</tbody></table>
+<div class="tandai"><label for="ragu-s14"><input type="checkbox" id="ragu-s14" name="ragu-s14" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s15">
+<div class="soal-kep"><span class="soal-no">Soal 15</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah keranjang material bermassa 450 kg (termasuk isinya) diangkat derek pada pembangunan jembatan di Balikpapan. Sesaat setelah mulai terangkat, kabel derek menarik keranjang ke atas dengan gaya 5.400 N. Lantai jembatan berada 18 m di atas permukaan air. Anggap g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Besar percepatan keranjang sesaat setelah mulai terangkat adalah &hellip; m/s².</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s15A"><input type="radio" id="s15A" name="s15" value="A"><span class="huruf">A.</span><span class="teks">2,0</span></label></li>
+<li><label class="opsi" for="s15B"><input type="radio" id="s15B" name="s15" value="B"><span class="huruf">B.</span><span class="teks">10</span></label></li>
+<li><label class="opsi" for="s15C"><input type="radio" id="s15C" name="s15" value="C"><span class="huruf">C.</span><span class="teks">12</span></label></li>
+<li><label class="opsi" for="s15D"><input type="radio" id="s15D" name="s15" value="D"><span class="huruf">D.</span><span class="teks">22</span></label></li>
+<li><label class="opsi" for="s15E"><input type="radio" id="s15E" name="s15" value="E"><span class="huruf">E.</span><span class="teks">900</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s15"><input type="checkbox" id="ragu-s15" name="ragu-s15" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s16">
+<div class="soal-kep"><span class="soal-no">Soal 16</span><span class="soal-bentuk">Pilihan Ganda Kompleks</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah kotak bibit bermassa 50 kg tergeletak diam pada landasan beton miring di lahan terasering Kintamani, Bali. Dari ujung bawah ke ujung atas, landasan itu sepanjang 12,5 m dan naik setinggi 3,5 m. Antara kotak dan beton, koefisien gesek statisnya 0,4 dan koefisien gesek kinetiknya 0,3. Gunakan g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s16A"><input type="checkbox" id="s16A" name="s16" value="A"><span class="huruf">A.</span><span class="teks">Landasan menekan kotak dengan gaya normal 480 N.</span></label></li>
+<li><label class="opsi" for="s16B"><input type="checkbox" id="s16B" name="s16" value="B"><span class="huruf">B.</span><span class="teks">Gaya gesek yang dikerjakan landasan pada kotak 192 N.</span></label></li>
+<li><label class="opsi" for="s16C"><input type="checkbox" id="s16C" name="s16" value="C"><span class="huruf">C.</span><span class="teks">Gaya gesek statis terbesar yang dapat diberikan landasan 192 N.</span></label></li>
+<li><label class="opsi" for="s16D"><input type="checkbox" id="s16D" name="s16" value="D"><span class="huruf">D.</span><span class="teks">Jika massa kotak digandakan, kotak mulai meluncur.</span></label></li>
+<li><label class="opsi" for="s16E"><input type="checkbox" id="s16E" name="s16" value="E"><span class="huruf">E.</span><span class="teks">Kotak tetap diam di landasan.</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s16"><input type="checkbox" id="ragu-s16" name="ragu-s16" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s17">
+<div class="soal-kep"><span class="soal-no">Soal 17</span><span class="soal-bentuk">Benar–Salah</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah helikopter milik tim SAR di Manado, Sulawesi Utara, lepas landas secara vertikal dari helipad dengan massa 1.000 kg. Sesaat setelah terangkat, gaya angkat rotor dianggap konstan 12.500 N ke atas, sedangkan gesekan udara tidak diperhitungkan. Baling-baling helikopter berdiameter 11 m dan g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Tentukan Benar atau Salah untuk setiap pernyataan berikut berdasarkan informasi di atas!</p>
+<table class="bs"><thead><tr><th class="c">No</th><th>Pernyataan</th><th class="c">Benar atau Salah</th></tr></thead><tbody>
+<tr><td class="c no">I</td><td class="nyata"><label for="s17p1">Gaya neto pada helikopter 2.500 N ke atas.</label></td><td class="c"><select id="s17p1" name="s17p1" aria-label="Soal 17, pernyataan I"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">II</td><td class="nyata"><label for="s17p2">Percepatan helikopter 2,5 m/s² ke atas.</label></td><td class="c"><select id="s17p2" name="s17p2" aria-label="Soal 17, pernyataan II"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">III</td><td class="nyata"><label for="s17p3">Bila massa helikopter menjadi 1.500 kg dengan gaya angkat tetap 12.500 N, helikopter tetap naik dengan percepatan 2,5 m/s².</label></td><td class="c"><select id="s17p3" name="s17p3" aria-label="Soal 17, pernyataan III"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+</tbody></table>
+<div class="tandai"><label for="ragu-s17"><input type="checkbox" id="ragu-s17" name="ragu-s17" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+</div>
+</section>
+<section class="bagian" id="bagian-ST3">
+<div class="bagian-kep"><span class="lencana">ST3</span><b>Analisis gaya pada struktur: momen gaya dan kesetimbangan</b><span class="rentang">Soal 18–25</span></div>
+<div class="bagian-badan">
+<article class="soal" id="kartu-s18">
+<div class="soal-kep"><span class="soal-no">Soal 18</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang penjaga sekolah di Pontianak mendorong daun pintu gerbang yang berengsel. Tangannya mendorong pada titik yang berjarak 50 cm dari engsel dengan gaya 50 N yang membentuk sudut 53° terhadap daun pintu. Daun pintu itu tingginya 2,0 m. Gunakan sin 53° = 0,8 dan cos 53° = 0,6. (data ilustratif)</div>
+<p class="perintah">Besar momen gaya yang bekerja pada daun pintu terhadap engsel adalah &hellip; N·m.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s18A"><input type="radio" id="s18A" name="s18" value="A"><span class="huruf">A.</span><span class="teks">15</span></label></li>
+<li><label class="opsi" for="s18B"><input type="radio" id="s18B" name="s18" value="B"><span class="huruf">B.</span><span class="teks">20</span></label></li>
+<li><label class="opsi" for="s18C"><input type="radio" id="s18C" name="s18" value="C"><span class="huruf">C.</span><span class="teks">25</span></label></li>
+<li><label class="opsi" for="s18D"><input type="radio" id="s18D" name="s18" value="D"><span class="huruf">D.</span><span class="teks">2.000</span></label></li>
+<li><label class="opsi" for="s18E"><input type="radio" id="s18E" name="s18" value="E"><span class="huruf">E.</span><span class="teks">2.500</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s18"><input type="checkbox" id="ragu-s18" name="ragu-s18" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s19">
+<div class="soal-kep"><span class="soal-no">Soal 19</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang pedagang di Pasar Raya Padang memikul dua keranjang pada sebuah pikulan bambu. Keranjang kiri bermassa 24 kg digantung 0,60 m dari bahu. Keranjang kanan bermassa 36 kg digantung di sisi seberang, dan pedagang menggeser letaknya sampai pikulan mendatar dan diam. Massa pikulan boleh diabaikan; pikulan itu panjangnya 1,8 m. Gunakan g = 10 m/s². (data ilustratif)</div>
+<p class="perintah">Jarak keranjang kanan dari bahu adalah &hellip; m.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s19A"><input type="radio" id="s19A" name="s19" value="A"><span class="huruf">A.</span><span class="teks">0,4</span></label></li>
+<li><label class="opsi" for="s19B"><input type="radio" id="s19B" name="s19" value="B"><span class="huruf">B.</span><span class="teks">0,6</span></label></li>
+<li><label class="opsi" for="s19C"><input type="radio" id="s19C" name="s19" value="C"><span class="huruf">C.</span><span class="teks">0,9</span></label></li>
+<li><label class="opsi" for="s19D"><input type="radio" id="s19D" name="s19" value="D"><span class="huruf">D.</span><span class="teks">14,4</span></label></li>
+<li><label class="opsi" for="s19E"><input type="radio" id="s19E" name="s19" value="E"><span class="huruf">E.</span><span class="teks">144</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s19"><input type="checkbox" id="ragu-s19" name="ragu-s19" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s20">
+<div class="soal-kep"><span class="soal-no">Soal 20</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Untuk menyeberangi saluran irigasi di Karawang, warga meletakkan sebuah balok kayu jati pada dua pondasi beton: pondasi A menyangga ujung kiri dan pondasi B menyangga ujung kanan. Balok serbasama itu panjangnya 8,0 m dan bermassa 40 kg. Seorang tukang bermassa 60 kg berdiam di titik yang berjarak 2,0 m dari ujung A. Gunakan g = 10 m/s². Penampang balok itu 20 cm × 15 cm. (data ilustratif)</div>
+<p class="perintah">Gaya tumpuan di A pada balok adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s20A"><input type="radio" id="s20A" name="s20" value="A"><span class="huruf">A.</span><span class="teks">200</span></label></li>
+<li><label class="opsi" for="s20B"><input type="radio" id="s20B" name="s20" value="B"><span class="huruf">B.</span><span class="teks">350</span></label></li>
+<li><label class="opsi" for="s20C"><input type="radio" id="s20C" name="s20" value="C"><span class="huruf">C.</span><span class="teks">450</span></label></li>
+<li><label class="opsi" for="s20D"><input type="radio" id="s20D" name="s20" value="D"><span class="huruf">D.</span><span class="teks">500</span></label></li>
+<li><label class="opsi" for="s20E"><input type="radio" id="s20E" name="s20" value="E"><span class="huruf">E.</span><span class="teks">650</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s20"><input type="checkbox" id="ragu-s20" name="ragu-s20" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s21">
+<div class="soal-kep"><span class="soal-no">Soal 21</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah crane kecil di pelabuhan Busan, Korea Selatan, memiliki lengan berupa batang serbasama sepanjang 9,0 m dengan massa 30 kg. Poros putarnya berada 1,5 m dari ujung pangkal lengan. Di sebelah pangkal, sebuah beban penyeimbang yang pusat massanya 1,5 m dari poros itu menjaga lengan tetap mendatar dan diam. Gunakan g = 10 m/s². Lengan itu dicat selang-seling kuning dan hitam. (data ilustratif)</div>
+<p class="perintah">Gaya ke atas yang dikerjakan poros pada lengan adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s21A"><input type="radio" id="s21A" name="s21" value="A"><span class="huruf">A.</span><span class="teks">90</span></label></li>
+<li><label class="opsi" for="s21B"><input type="radio" id="s21B" name="s21" value="B"><span class="huruf">B.</span><span class="teks">300</span></label></li>
+<li><label class="opsi" for="s21C"><input type="radio" id="s21C" name="s21" value="C"><span class="huruf">C.</span><span class="teks">600</span></label></li>
+<li><label class="opsi" for="s21D"><input type="radio" id="s21D" name="s21" value="D"><span class="huruf">D.</span><span class="teks">900</span></label></li>
+<li><label class="opsi" for="s21E"><input type="radio" id="s21E" name="s21" value="E"><span class="huruf">E.</span><span class="teks">1.200</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s21"><input type="checkbox" id="ragu-s21" name="ragu-s21" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s22">
+<div class="soal-kep"><span class="soal-no">Soal 22</span><span class="soal-bentuk">Pilihan Ganda</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah gong perunggu bermassa 24 kg digantung pada dua rantai baja di museum musik Den Haag, Belanda. Ujung atas tiap rantai terkait pada kait di puncak salah satu dari dua tiang gapura yang sama tinggi, dan ujung bawah kedua rantai bertemu pada titik gantung gong. Kedua tiang berjarak 3,0 m; titik gantung itu tepat di tengahnya dan berada 2,0 m di bawah kait. Massa rantai diabaikan dan g = 10 m/s². Rantai itu dilapisi cat hitam. (data ilustratif)<div style="margin:10px 0 4px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 318" role="img" aria-label="Dua tiang gapura setinggi sama berjarak 3,0 m. Dua rantai dari kait di puncak tiang bertemu di titik tengah, tempat gong perunggu bermassa 24 kg digantung. Titik gantung gong berada 2,0 m di bawah kait rantai. Gambar tidak berskala." style="width:100%;max-width:400px;height:auto;display:block;margin:0 auto" font-family="Segoe UI,Arial,sans-serif" font-size="13.5"><title>Dua tiang gapura setinggi sama berjarak 3,0 m. Dua rantai dari kait di puncak tiang bertemu di titik tengah, tempat gong perunggu bermassa 24 kg digantung. Titik gantung gong berada 2,0 m di bawah kait rantai. Gambar tidak berskala.</title><rect x="0" y="0" width="400" height="318" rx="8" fill="#ffffff" stroke="#D7E6E8"/><line fill="none" x1="62.0" y1="30.0" x2="62.0" y2="285.0" stroke="#12333A" stroke-width="4.0"/><line fill="none" x1="338.0" y1="30.0" x2="338.0" y2="285.0" stroke="#12333A" stroke-width="4.0"/><line fill="none" x1="62.0" y1="40.0" x2="200.0" y2="224.0" stroke="#0B4F58" stroke-width="2.8"/><line fill="none" x1="338.0" y1="40.0" x2="200.0" y2="224.0" stroke="#0B4F58" stroke-width="2.8"/><line fill="none" x1="62.0" y1="40.0" x2="338.0" y2="40.0" stroke="#5B6E73" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="200.0" cy="240.0" r="14" fill="#F4C8A6" stroke="#C05621" stroke-width="2"/><text x="200.0" y="272.0" text-anchor="middle" fill="#C05621" font-weight="700">gong 24 kg</text><line fill="none" x1="66.0" y1="22.0" x2="334.0" y2="22.0" stroke="#5B6E73" stroke-width="1.4"/><polygon points="66.0,22.0 75.0,25.5 75.0,18.5" fill="#5B6E73"/><polygon points="334.0,22.0 325.0,25.5 325.0,18.5" fill="#5B6E73"/><text x="200.0" y="16.0" text-anchor="middle" fill="#12333A">3,0 m</text><line fill="none" x1="200.0" y1="42.0" x2="200.0" y2="222.0" stroke="#5B6E73" stroke-width="1.4"/><polygon points="200.0,42.0 196.5,51.0 203.5,51.0" fill="#5B6E73"/><polygon points="200.0,222.0 196.5,213.0 203.5,213.0" fill="#5B6E73"/><text x="208.0" y="112.0" text-anchor="start" fill="#12333A">2,0 m</text><text x="392.0" y="310.0" text-anchor="end" fill="#5B6E73">gambar tidak berskala</text></svg></div></div>
+<p class="perintah">Tegangan pada masing-masing rantai adalah &hellip; N.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s22A"><input type="radio" id="s22A" name="s22" value="A"><span class="huruf">A.</span><span class="teks">72</span></label></li>
+<li><label class="opsi" for="s22B"><input type="radio" id="s22B" name="s22" value="B"><span class="huruf">B.</span><span class="teks">96</span></label></li>
+<li><label class="opsi" for="s22C"><input type="radio" id="s22C" name="s22" value="C"><span class="huruf">C.</span><span class="teks">120</span></label></li>
+<li><label class="opsi" for="s22D"><input type="radio" id="s22D" name="s22" value="D"><span class="huruf">D.</span><span class="teks">150</span></label></li>
+<li><label class="opsi" for="s22E"><input type="radio" id="s22E" name="s22" value="E"><span class="huruf">E.</span><span class="teks">200</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s22"><input type="checkbox" id="ragu-s22" name="ragu-s22" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s23">
+<div class="soal-kep"><span class="soal-no">Soal 23</span><span class="soal-bentuk">Pilihan Ganda Kompleks</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang pekerja bangunan di Makassar menahan gerobak sorong dalam keadaan mendatar dan diam. Gerobak itu memuat pasir bermassa 48 kg yang pusat massanya berada 0,50 m di belakang poros roda. Tangan pekerja memegang pegangan pada jarak 1,50 m di belakang poros roda dan menahan dengan gaya ke atas. Massa gerobak kosong diabaikan dan g = 10 m/s². Roda gerobak berdiameter 40 cm. (data ilustratif)</div>
+<p class="perintah">Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s23A"><input type="checkbox" id="s23A" name="s23" value="A"><span class="huruf">A.</span><span class="teks">Gaya yang dikerjakan tangan pekerja pada pegangan 160 N.</span></label></li>
+<li><label class="opsi" for="s23B"><input type="checkbox" id="s23B" name="s23" value="B"><span class="huruf">B.</span><span class="teks">Gaya normal yang dikerjakan tanah pada roda 320 N.</span></label></li>
+<li><label class="opsi" for="s23C"><input type="checkbox" id="s23C" name="s23" value="C"><span class="huruf">C.</span><span class="teks">Gaya yang dikerjakan tangan pekerja pada pegangan 480 N, sama dengan berat pasir.</span></label></li>
+<li><label class="opsi" for="s23D"><input type="checkbox" id="s23D" name="s23" value="D"><span class="huruf">D.</span><span class="teks">Bila muatan pasir dikurangi menjadi 24 kg, gaya tangan yang diperlukan menjadi 80 N.</span></label></li>
+<li><label class="opsi" for="s23E"><input type="checkbox" id="s23E" name="s23" value="E"><span class="huruf">E.</span><span class="teks">Bila tangan memegang pegangan pada jarak 2,0 m dari poros roda, gaya tangan yang diperlukan 120 N.</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s23"><input type="checkbox" id="ragu-s23" name="ragu-s23" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s24">
+<div class="soal-kep"><span class="soal-no">Soal 24</span><span class="soal-bentuk">Pilihan Ganda Kompleks</span></div>
+<div class="soal-isi">
+<div class="naskah">Seorang petani kelapa di Pariaman, Sumatera Barat, menyandarkan galah bambu seragam sepanjang 6,0 m dan bermassa 24 kg pada dinding gudang yang licin. Ujung atas galah menempel pada dinding di ketinggian 4,8 m dari tanah, dan ujung bawahnya bertumpu pada tanah yang kasar. Galah dalam keadaan diam, dengan g = 10 m/s². Galah itu memiliki 12 ruas. (data ilustratif)</div>
+<p class="perintah">Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.</p>
+<ul class="pilihan">
+<li><label class="opsi" for="s24A"><input type="checkbox" id="s24A" name="s24" value="A"><span class="huruf">A.</span><span class="teks">Tanah menahan galah dengan gaya normal 240 N, sama dengan berat galah.</span></label></li>
+<li><label class="opsi" for="s24B"><input type="checkbox" id="s24B" name="s24" value="B"><span class="huruf">B.</span><span class="teks">Dinding menekan galah dengan gaya normal 240 N.</span></label></li>
+<li><label class="opsi" for="s24C"><input type="checkbox" id="s24C" name="s24" value="C"><span class="huruf">C.</span><span class="teks">Gaya gesek yang dikerjakan tanah pada galah 330 N.</span></label></li>
+<li><label class="opsi" for="s24D"><input type="checkbox" id="s24D" name="s24" value="D"><span class="huruf">D.</span><span class="teks">Dinding menekan galah dengan gaya normal 90 N.</span></label></li>
+<li><label class="opsi" for="s24E"><input type="checkbox" id="s24E" name="s24" value="E"><span class="huruf">E.</span><span class="teks">Momen berat galah terhadap ujung bawahnya 1.440 N·m.</span></label></li>
+</ul>
+<div class="tandai"><label for="ragu-s24"><input type="checkbox" id="ragu-s24" name="ragu-s24" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s25">
+<div class="soal-kep"><span class="soal-no">Soal 25</span><span class="soal-bentuk">Benar–Salah</span></div>
+<div class="soal-isi">
+<div class="naskah">Sebuah lentera hias bermassa 15 kg digantung sebuah pusat budaya di Medan pada simpul yang dihubungkan ke dua tali. Satu tali ditarik mendatar ke tiang di sisi kanan; tali lainnya miring, panjangnya 2,5 m, menuju kait di langit-langit teras yang 1,5 m lebih tinggi daripada simpul. Tali dianggap tak bermassa, sistem diam, dan g = 10 m/s². Lentera itu berdiameter 40 cm. (data ilustratif)<div style="margin:10px 0 4px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" role="img" aria-label="Sebuah simpul tali menahan lentera hias bermassa 15 kg. Satu tali mendatar menghubungkan simpul ke tiang di sebelah kanan. Satu tali miring sepanjang 2,5 m menghubungkan simpul ke kait di langit-langit di sebelah kiri atas; kait berada 1,5 m di atas simpul. Gambar tidak berskala." style="width:100%;max-width:400px;height:auto;display:block;margin:0 auto" font-family="Segoe UI,Arial,sans-serif" font-size="13.5"><title>Sebuah simpul tali menahan lentera hias bermassa 15 kg. Satu tali mendatar menghubungkan simpul ke tiang di sebelah kanan. Satu tali miring sepanjang 2,5 m menghubungkan simpul ke kait di langit-langit di sebelah kiri atas; kait berada 1,5 m di atas simpul. Gambar tidak berskala.</title><rect x="0" y="0" width="400" height="280" rx="8" fill="#ffffff" stroke="#D7E6E8"/><rect x="352" y="40" width="16" height="190" fill="#EEF2F3" stroke="#12333A" stroke-width="1.4"/><line fill="none" x1="60.0" y1="76.0" x2="260.0" y2="76.0" stroke="#12333A" stroke-width="4.0"/><line fill="none" x1="104.0" y1="76.0" x2="232.0" y2="172.0" stroke="#0B4F58" stroke-width="2.8"/><line fill="none" x1="232.0" y1="172.0" x2="352.0" y2="172.0" stroke="#0B4F58" stroke-width="2.8"/><line fill="none" x1="232.0" y1="172.0" x2="232.0" y2="202.0" stroke="#0B4F58" stroke-width="2.8"/><line fill="none" x1="78.0" y1="172.0" x2="228.0" y2="172.0" stroke="#5B6E73" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="232" cy="172" r="4.5" fill="#C05621"/><rect x="170" y="202" width="124" height="30" rx="14" fill="#F4C8A6" stroke="#C05621" stroke-width="2"/><text x="232.0" y="222.0" text-anchor="middle" fill="#C05621" font-weight="700">lentera 15 kg</text><text x="300.0" y="164.0" text-anchor="middle" fill="#12333A">tali mendatar</text><line fill="none" x1="80.0" y1="78.0" x2="80.0" y2="170.0" stroke="#5B6E73" stroke-width="1.4"/><polygon points="80.0,78.0 76.5,87.0 83.5,87.0" fill="#5B6E73"/><polygon points="80.0,170.0 76.5,161.0 83.5,161.0" fill="#5B6E73"/><text x="72.0" y="129.0" text-anchor="end" fill="#12333A">1,5 m</text><text x="176.0" y="114.0" text-anchor="start" fill="#12333A" transform="rotate(36.9 176.0 114.0)">2,5 m</text><text x="222.0" y="194.0" text-anchor="end" fill="#12333A" font-weight="700">simpul</text><text x="392.0" y="272.0" text-anchor="end" fill="#5B6E73">gambar tidak berskala</text></svg></div></div>
+<p class="perintah">Tentukan Benar atau Salah untuk setiap pernyataan berikut berdasarkan informasi di atas!</p>
+<table class="bs"><thead><tr><th class="c">No</th><th>Pernyataan</th><th class="c">Benar atau Salah</th></tr></thead><tbody>
+<tr><td class="c no">I</td><td class="nyata"><label for="s25p1">Tali miring menanggung tegangan 200 N.</label></td><td class="c"><select id="s25p1" name="s25p1" aria-label="Soal 25, pernyataan I"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">II</td><td class="nyata"><label for="s25p2">Tali mendatar menanggung tegangan 150 N, sama dengan berat lentera.</label></td><td class="c"><select id="s25p2" name="s25p2" aria-label="Soal 25, pernyataan II"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+<tr><td class="c no">III</td><td class="nyata"><label for="s25p3">Tegangan pada tali mendatar lebih kecil daripada pada tali miring.</label></td><td class="c"><select id="s25p3" name="s25p3" aria-label="Soal 25, pernyataan III"><option value="">— pilih —</option><option value="B">Benar</option><option value="S">Salah</option></select></td></tr>
+</tbody></table>
+<div class="tandai"><label for="ragu-s25"><input type="checkbox" id="ragu-s25" name="ragu-s25" value="1"> Tandai ragu-ragu</label></div>
+</div></article>
+</div>
+</section>
+</div>
+</main>
+<div class="bawah">
+<div id="navpanel" hidden><div class="kisi"><button type="button" class="navnum" id="nav-s1" data-soal="s1" aria-label="Soal 1, belum dijawab">1</button><button type="button" class="navnum" id="nav-s2" data-soal="s2" aria-label="Soal 2, belum dijawab">2</button><button type="button" class="navnum" id="nav-s3" data-soal="s3" aria-label="Soal 3, belum dijawab">3</button><button type="button" class="navnum" id="nav-s4" data-soal="s4" aria-label="Soal 4, belum dijawab">4</button><button type="button" class="navnum" id="nav-s5" data-soal="s5" aria-label="Soal 5, belum dijawab">5</button><button type="button" class="navnum" id="nav-s6" data-soal="s6" aria-label="Soal 6, belum dijawab">6</button><button type="button" class="navnum" id="nav-s7" data-soal="s7" aria-label="Soal 7, belum dijawab">7</button><button type="button" class="navnum" id="nav-s8" data-soal="s8" aria-label="Soal 8, belum dijawab">8</button><button type="button" class="navnum" id="nav-s9" data-soal="s9" aria-label="Soal 9, belum dijawab">9</button><button type="button" class="navnum" id="nav-s10" data-soal="s10" aria-label="Soal 10, belum dijawab">10</button><button type="button" class="navnum" id="nav-s11" data-soal="s11" aria-label="Soal 11, belum dijawab">11</button><button type="button" class="navnum" id="nav-s12" data-soal="s12" aria-label="Soal 12, belum dijawab">12</button><button type="button" class="navnum" id="nav-s13" data-soal="s13" aria-label="Soal 13, belum dijawab">13</button><button type="button" class="navnum" id="nav-s14" data-soal="s14" aria-label="Soal 14, belum dijawab">14</button><button type="button" class="navnum" id="nav-s15" data-soal="s15" aria-label="Soal 15, belum dijawab">15</button><button type="button" class="navnum" id="nav-s16" data-soal="s16" aria-label="Soal 16, belum dijawab">16</button><button type="button" class="navnum" id="nav-s17" data-soal="s17" aria-label="Soal 17, belum dijawab">17</button><button type="button" class="navnum" id="nav-s18" data-soal="s18" aria-label="Soal 18, belum dijawab">18</button><button type="button" class="navnum" id="nav-s19" data-soal="s19" aria-label="Soal 19, belum dijawab">19</button><button type="button" class="navnum" id="nav-s20" data-soal="s20" aria-label="Soal 20, belum dijawab">20</button><button type="button" class="navnum" id="nav-s21" data-soal="s21" aria-label="Soal 21, belum dijawab">21</button><button type="button" class="navnum" id="nav-s22" data-soal="s22" aria-label="Soal 22, belum dijawab">22</button><button type="button" class="navnum" id="nav-s23" data-soal="s23" aria-label="Soal 23, belum dijawab">23</button><button type="button" class="navnum" id="nav-s24" data-soal="s24" aria-label="Soal 24, belum dijawab">24</button><button type="button" class="navnum" id="nav-s25" data-soal="s25" aria-label="Soal 25, belum dijawab">25</button></div>
+<div class="keterangan"><span><i style="background:#F1F5F6"></i>belum dijawab</span><span><i style="background:#0B4F58"></i>sudah dijawab</span><span><i style="background:#E9B308"></i>ditandai ragu-ragu</span></div></div>
+<div class="bungkus">
+<div id="bilah"><span></span></div>
+<div class="baris-bawah"><span id="hitung">0 dari 25 soal dijawab</span><span id="jam" role="timer" aria-live="off">--:--</span>
+<button type="button" class="tombol sekunder" id="tbl-nomor" disabled>Nomor soal</button>
+<button type="button" class="tombol sekunder" id="tbl-periksa" disabled>Periksa kelengkapan</button>
+<button type="button" class="tombol" id="tbl-selesai" disabled>Selesai</button></div>
+<div id="pesan" role="status"></div>
+</div>
+</div>
+<script>
+(function(){ "use strict";
+  var GESER = 7;
+  var KUNCI_NUM = {};
+  var KUNCI_PIL = {
+    "s1": "J",
+    "s2": "L",
+    "s3": "K",
+    "s4": "IJL",
+    "s5": "ZII",
+    "s6": "I",
+    "s7": "H",
+    "s8": "J",
+    "s9": "J",
+    "s10": "L",
+    "s11": "J",
+    "s12": "I",
+    "s13": "IL",
+    "s14": "IZI",
+    "s15": "H",
+    "s16": "HJL",
+    "s17": "IIZ",
+    "s18": "I",
+    "s19": "H",
+    "s20": "L",
+    "s21": "K",
+    "s22": "K",
+    "s23": "HIKL",
+    "s24": "HK",
+    "s25": "ZZI"
+  };
+  var BENTUK = {
+    "s1": "pg",
+    "s2": "pg",
+    "s3": "pg",
+    "s4": "pgk",
+    "s5": "bs",
+    "s6": "pg",
+    "s7": "pg",
+    "s8": "pg",
+    "s9": "pg",
+    "s10": "pg",
+    "s11": "pg",
+    "s12": "pg",
+    "s13": "pgk",
+    "s14": "bs",
+    "s15": "pg",
+    "s16": "pgk",
+    "s17": "bs",
+    "s18": "pg",
+    "s19": "pg",
+    "s20": "pg",
+    "s21": "pg",
+    "s22": "pg",
+    "s23": "pgk",
+    "s24": "pgk",
+    "s25": "bs"
+  };
+  var URUT = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25"];
+  var BAGIAN = [{"kode": "ST1", "nama": "Vektor gaya: penjumlahan dan penguraian komponen", "ids": ["s1", "s2", "s3", "s4", "s5"]}, {"kode": "ST2", "nama": "Hukum Newton: gaya neto, percepatan, dan aksi–reaksi", "ids": ["s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17"]}, {"kode": "ST3", "nama": "Analisis gaya pada struktur: momen gaya dan kesetimbangan", "ids": ["s18", "s19", "s20", "s21", "s22", "s23", "s24", "s25"]}];
+  var PEMBAHASAN = {
+    "s1": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'ylz|s{hu'/q|tsho'}lr{vy0'rlk|h'nh\u0080h'{hypr'\u0080hun'ilrlyqh'whkh'{p{pr'rhp{'kp'zpzp'klwhu'yhrp{3'khsht'rpsvul~{vu'/rU05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'\\u{|r'k|h'nh\u0080h'\u0080hun'zhspun'{lnhr's|y|z'/{pt|y'khu'|{hyh03'ylz|s{hu'kpop{|un'klunhu'{lvylth'W\u0080{ohnvyhzA'Y'D'\u2221/MCz|iE8C6z|iE\u00b9'2'MCz|iE9C6z|iE\u00b903'klunhu'Y'D'ilzhy'ylz|s{hu'/rU03'MCz|iE8C6z|iE'D'nh\u0080h'rl'{pt|y'/rU03'khu'MCz|iE9C6z|iE'D'nh\u0080h'rl'|{hyh'/rU05'Nh\u0080h'hkhsho'}lr{vy3'zlopunnh'ilzhy'k|h'nh\u0080h'\u0080hun'hyhou\u0080h'ilyilkh'{pkhr'ivslo'kpq|tshorhu'ilnp{|'zhqh5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'yhrp{'tlt|h{'9;'wl{hr'rlyhtih5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'yhrp{'\u0080hun'kp{hypr3'{l{hwp'ylz|s{hu'nh\u0080h'ohu\u0080h'kp{lu{|rhu'vslo'ilzhy'khu'hyho'rlk|h'nh\u0080h'{hyprB'q|tsho'wl{hr'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'nh\u0080h'rl'{pt|y'MCz|iE8C6z|iE'D'<'rU'khu'nh\u0080h'rl'|{hyh'MCz|iE9C6z|iE'D'89'rU'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pt|y'khu'|{hyh'zhspun'{lnhr's|y|z'/z|k|{'@7\u00b703'zlopunnh'W\u0080{ohnvyhz'khwh{'kpwhrhp3'khu'rlk|h'nh\u0080h'z|kho'tlthrhp'zh{|hu'\u0080hun'zhth'/rU03'qhkp'{pkhr'hkh'\u0080hun'wlys|'kp|iho'h{h|'kp{|y|urhu'slipo'k|s|5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'Y'D'\u2221/<\u00b9'2'89\u00b905C6spECspECiEWlu\u0080lslzhphuAC6iE'R|hkyh{rhuA'<\u00b9'D'9<'khu'89\u00b9'D'8;;5'Q|tshorhuA'9<'2'8;;'D'8=@5'[hypr'hrhyA'\u22218=@'D'8:'rU5'Ihukpunrhu'klunhu'vwzp'>'\u0080hun'shopy'khyp'tlun|yhunrhu'ilzhy'rlk|h'nh\u0080h'/89'\u2219'<0'zlvsho4vsho'zlnhypz'khu'ilysh~huhu'hyho3'vwzp'?3<'\u0080hun'shopy'khyp'tlyh{h4yh{hrhu'rlk|h'nh\u0080h3'vwzp'8>'\u0080hun'shopy'khyp'tluq|tshorhu'ilzhy'rlk|h'nh\u0080h'/<'2'890'zlvsho4vsho'zlhyho3'khu'vwzp'=7'\u0080hun'shopy'khyp'tlunhsprhu'rlk|h'nh\u0080h'/<'\u00de'8905C6spECspECiERlzptw|shu'qh~hihuAC6iE'ilzhy'ylz|s{hu'nh\u0080h'{hypr'whkh'yhrp{'hkhsho'8:'rU3'\u0080hrup'CiEvwzp'JC6iE5C6spEC6vsE",
+    "s2": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'rvtwvulu'tlukh{hy'khyp'nh\u0080h'{hypr'{hsp'rlylr3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Wlun|yhphu'nh\u0080hA'ipsh'z|k|{'\u03bf'kp|r|y'khyp'nhypz'}ly{prhs3'rvtwvulu'tlukh{hy'MCz|iE\u007fC6z|iE'D'M'zpu'\u03bf'khu'rvtwvulu'{lnhr'MCz|iE\u0080C6z|iE'D'M'jvz'\u03bf3'klunhu'M'D'{lnhunhu'{hsp'/U0'khu'\u03bf'D'z|k|{'{hsp'{lyohkhw'nhypz'}ly{prhs5'Rvtwvulu'\u0080hun'ilyzlilyhunhu'klunhu'z|k|{'tlthrhp'zpu|z3'khu'rvtwvulu'\u0080hun'ilyptwp{'klunhu'nhypz'hj|hu'}ly{prhs'tlthrhp'rvzpu|z5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'shu{hp'k|h'ilyhkh'<'t'kp'h{hz'{huho5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'ily|wh'|r|yhu'{punnp'whkh'wlrlyqhhu'tlunlylr3'{l{hwp'rvtwvulu'nh\u0080h'ohu\u0080h'ilynhu{|un'whkh'ilzhy'nh\u0080h'khu'z|k|{B'{punnp'shu{hp'{pkhr'thz|r'rl'y|t|z'wlun|yhphu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'{lnhunhu'{hsp'M'D'8<7'U3'z|k|{'{lyohkhw'nhypz'}ly{prhs'\u03bf'D'<:\u00b73'zly{h'zpu'<:\u00b7'D'73?'khu'jvz'<:\u00b7'D'73='kpzli|{'shunz|un'whkh'z{pt|s|z5'Z|k|{u\u0080h'kp|r|y'khyp'nhypz'}ly{prhs3'i|rhu'khyp'ipkhun'kh{hy3'zlopunnh'rvtwvulu'tlukh{hy'\u0080hun'kp{hu\u0080hrhu'tlthrhp'zpu|z5'[pkhr'hkh'kh{h'\u0080hun'wlys|'kp|iho'zh{|huu\u0080h5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'MCz|iE\u007fC6z|iE'D'8<7'\u00de'zpu'<:\u00b7'D'8<7'\u00de'73?5C6spECspECiEWlu\u0080lslzhphuAC6iE'MCz|iE\u007fC6z|iE'D'8<7'\u00de'73?'D'897'U5'WltlyprzhhuA'MCz|iE\u0080C6z|iE'D'8<7'\u00de'73='D'@7'U3'khu'897\u00b9'2'@7\u00b9'D'8;5;77'2'?5877'D'995<77'D'8<7\u00b95'Ihukpunrhu'klunhu'vwzp'>9'\u0080hun'shopy'khyp'tlunhsprhu'zpu|z'klunhu'rvzpu|z'/8<7'\u00de'73?'\u00de'73=03'vwzp'><'\u0080hun'shopy'khyp'tltihnp'nh\u0080h'tluqhkp'k|h'rvtwvulu'zhth'ilzhy3'vwzp'@7'\u0080hun'shopy'khyp'tlthrhp'rvzpu|z3'\u0080hp{|'tlunhunnhw'z|k|{'kp|r|y'khyp'ipkhun'kh{hy3'khu'vwzp'@='\u0080hun'shopy'khyp'tlunr|hkyh{rhu'zpu|z'/8<7'\u00de'73?\u00b905C6spECspECiERlzptw|shu'qh~hihuAC6iE'rvtwvulu'tlukh{hy'nh\u0080h'{hypr'whkh'{hsp'hkhsho'897'U3'\u0080hrup'CiEvwzp'LC6iE5C6spEC6vsE",
+    "s3": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'rvtwvulu'ilyh{'rhy|un'\u0080hun'zlhyho'klunhu'whwhu3'\u0080hp{|'ihnphu'ilyh{'\u0080hun'tluhypr'rhy|un'tlu|y|up'whwhu3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Whkh'ipkhun'tpypun3'ilyh{'^'D't'n'kp|yhprhu'tluqhkp'rvtwvulu'zlqhqhy'ipkhun'^Cz|iE\u222cC6z|iE'D'^'zpu'\u03bf'khu'rvtwvulu'{lnhr's|y|z'ipkhun'^Cz|iE\u22acC6z|iE'D'^'jvz'\u03bf3'klunhu'\u03bf'D'z|k|{'rltpypunhu'{lyohkhw'nhypz'tlukh{hy5'Whkh'zlnp{pnh'zpr|4zpr|'\u0080hun'kpilu{|r'whwhu3'{punnp3'khu'hshz3'zpu'\u03bf'D'{punnp'\u00fe'whuqhun'whwhu5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'ihr'{y|r'ilyrhwhzp{hz':'{vu5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{y|r'{ltwh{'rhy|un'kpt|h{3'{l{hwp'\u0080hun'kp{hu\u0080hrhu'ohu\u0080h'rvtwvulu'CpEilyh{C6pE'zh{|'rhy|unB'rhwhzp{hz'ihr'{pkhr'thz|r'rl'wlun|yhphu'ilyh{5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'rhy|un'=7'rn3'whuqhun'whwhu'93<'t3'{punnp'|q|un'h{hz'937't3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'K|h'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'ilyh{'rhy|un'^'D't'n'D'=7'\u00de'87'D'=77'U'/z{pt|s|z'ohu\u0080h'tltilyp'thzzh03'khu'zpu'\u03bf'D'{punnp'\u00fe'whuqhun'whwhu'D'937'\u00fe'93<'D'73?'/z{pt|s|z'{pkhr'tltilyp'z|k|{'th|w|u'upshp'zpu|z05C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'^Cz|iE\u222cC6z|iE'D'=77'\u00de'73?5C6spECspECiEWlu\u0080lslzhphuAC6iE'^Cz|iE\u222cC6z|iE'D'=77'\u00de'73?'D';?7'U5'WltlyprzhhuA'hshz'whwhu'D'\u2221/93<\u00b9'\u2219'937\u00b90'D'\u2221939<'D'83<'t3'zlopunnh'jvz'\u03bf'D'83<'\u00fe'93<'D'73='khu'^Cz|iE\u22acC6z|iE'D'=77'\u00de'73='D':=7'UB';?7\u00b9'2':=7\u00b9'D'9:75;77'2'89@5=77'D':=75777'D'=77\u00b95'Ihukpunrhu'klunhu'vwzp';?'\u0080hun'shopy'khyp's|wh'tlunhsprhu'wlyjlwh{hu'nyh}p{hzp'/=7'\u00de'73?03'vwzp':=7'\u0080hun'shopy'khyp'tlthrhp'rvzpu|z'zlopunnh'\u0080hun'{lyop{|un'rvtwvulu'{lnhr's|y|z'whwhu3'vwzp':?;'\u0080hun'shopy'khyp'tlunr|hkyh{rhu'zpu|z'/=77'\u00de'73?\u00b903'khu'vwzp'=77'\u0080hun'shopy'khyp'tlthrhp'zls|y|o'ilyh{'{huwh'tlun|yhprhuu\u0080h5C6spECspECiERlzptw|shu'qh~hihuAC6iE'rvtwvulu'ilyh{'rhy|un'\u0080hun'zlqhqhy'whwhu'hkhsho';?7'U3'\u0080hrup'CiEvwzp'KC6iE5C6spEC6vsE",
+    "s4": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'zhqh'\u0080hun'iluhy'{lu{hun'hyho'ylz|s{hu3'rvtwvulu'nh\u0080h'tlzpu3'rvtwvulu'{pt|y'ylz|s{hu3'khu'ilzhy'ylz|s{hu'khyp'rl{pnh'nh\u0080h'tlukh{hy'whkh'wvu{vu5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'\\yhprhu'nh\u0080h'\u0080hun'tpypunA'MCz|iE\u007fC6z|iE'D'M'jvz'\u03bf'khu'MCz|iE\u0080C6z|iE'D'M'zpu'\u03bf3'klunhu'\u03bf'kp|r|y'khyp'hyho'{pt|y5'Q|tshorhu'rvtwvulu'zlwhuqhun'{phw'z|ti|'/{pt|y'khu'|{hyh'wvzp{pm3'ihyh{'khu'zlsh{hu'ulnh{pm0A'YCz|iE\u007fC6z|iE'D'\u03aaMCz|iE\u007fC6z|iE'khu'YCz|iE\u0080C6z|iE'D'\u03aaMCz|iE\u0080C6z|iE5'Ilzhy'ylz|s{hu'Y'D'\u2221/YCz|iE\u007fC6z|iE\u00b9'2'YCz|iE\u0080C6z|iE\u00b90'khu'hyhou\u0080h'{hu'\u03b8'D'YCz|iE\u0080C6z|iE'\u00fe'YCz|iE\u007fC6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'thzzh'wvu{vu';77'rn5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'wvu{vu'\u0080hun'kprluhp'nh\u0080h3'{l{hwp'ylz|s{hu'ohu\u0080h'kpq|tshorhu'khyp'nh\u0080h4nh\u0080h'\u0080hun'kprl{ho|pB'thzzh'ihy|'kpwhrhp'ipsh'\u0080hun'kpjhyp'wlyjlwh{hu3'khu'{pkhr'hkh'wlyu\u0080h{hhu'{lu{hun'wlyjlwh{hu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'nh\u0080h'tlzpu'877'U'whkh'<:\u00b7'khyp'{pt|y'rl'|{hyh3'nh\u0080h'hy|z'<9'U'rl'ihyh{3'nh\u0080h'hunpu'=<'U'rl'zlsh{hu3'zly{h'zpu'<:\u00b7'D'73?'khu'jvz'<:\u00b7'D'73='kpzli|{'shunz|un'whkh'z{pt|s|z5'Rvtwvulu'nh\u0080h'tlzpu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhu'khyp'ilzhy'nh\u0080h'khu'z|k|{u\u0080hA'MCz|iE8\u007fC6z|iE'D'877'\u00de'73='D'=7'U'rl'{pt|y'khu'MCz|iE8\u0080C6z|iE'D'877'\u00de'73?'D'?7'U'rl'|{hyh5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'YCz|iE\u007fC6z|iE'D'=7'\u2219'<9B'YCz|iE\u0080C6z|iE'D'?7'\u2219'=<B'Y'D'\u2221/YCz|iE\u007fC6z|iE\u00b9'2'YCz|iE\u0080C6z|iE\u00b905C6spECspECiEWlu\u0080lslzhphuAC6iE'YCz|iE\u007fC6z|iE'D'=7'\u2219'<9'D'?'U'rl'{pt|y'/hy|z'tlu|q|'ihyh{3'qhkp'ily{hukh'ulnh{pm05'YCz|iE\u0080C6z|iE'D'?7'\u2219'=<'D'8<'U'rl'|{hyh'/hunpu'tlu|q|'zlsh{hu3'qhkp'ily{hukh'ulnh{pm05'Y'D'\u2221/?\u00b9'2'8<\u00b90'D'\u2221/=;'2'99<0'D'\u22219?@'D'8>'U5'HyhoA'{hu'\u03b8'D'8<'\u00fe'?'\u224f'83@3'zlopunnh'\u03b8'zlrp{hy'=9\u00b7'khyp'{pt|y'tlu|q|'|{hyh5'Vwzp'HA'nh\u0080h'tlzpu'ilyhyho'<:\u00b7'khyp'{pt|y'/{hu'<:\u00b7'D';'\u00fe':'\u224f'83:03'zlkhunrhu'ylz|s{hu'ilyhyho'zlrp{hy'=9\u00b7'khyp'{pt|y3'qhkp'rlk|hu\u0080h'{pkhr'zlhyho'khu'wlyu\u0080h{hhu'CiEzhshoC6iE5'Vwzp'IA'MCz|iE8\u007fC6z|iE'D'=7'U'khu'MCz|iE8\u0080C6z|iE'D'?7'U3'qhkp'CiEiluhyC6iE5'Vwzp'JA'YCz|iE\u007fC6z|iE'D'?'U3'qhkp'CiEiluhyC6iE5'Vwzp'KA'877'2'<9'2'=<'D'98>'U'ohu\u0080h'ilyshr|'ipsh'rl{pnh'nh\u0080h'zlnhypz'khu'zlhyhoB'kp'zpup'hyhou\u0080h'ilyilkh'zlopunnh'ilzhy'ylz|s{hu'8>'U3'qhkp'CiEzhshoC6iE5'Vwzp'LA'Y'D'8>'U3'qhkp'CiEiluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyu\u0080h{hhu'\u0080hun'iluhy'hkhsho'CiEvwzp'I3'J3'khu'LC6iEB'vwzp'H'khu'K'zhsho5C6spEC6vsE",
+    "s5": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'\u0080hun'iluhy'khu'thuh'\u0080hun'zhsho'{lu{hun'ilzhy'ylz|s{hu3'hyho'ylz|s{hu3'khu'ylz|s{hu'ipsh'thzzh'{lywhs'kp|iho5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Ilyh{'^'D't'n'ilrlyqh'}ly{prhs'rl'ih~ho'khu'kvyvunhu'hunpu'MCz|iEhC6z|iE'ilrlyqh'tlukh{hy3'zlopunnh'rlk|hu\u0080h'zhspun'{lnhr's|y|z5'Ilzhy'ylz|s{hu'Y'D'\u2221/^\u00b9'2'MCz|iEhC6z|iE\u00b905'Z|k|{'ylz|s{hu'{lyohkhw'nhypz'}ly{prhs'\u03cd'tltlu|op'{hu'\u03cd'D'MCz|iEhC6z|iE'\u00fe'^3'\u0080hp{|'zpzp'kp'zlilyhun'z|k|{'kpihnp'zpzp'\u0080hun'ilyptwp{'klunhu'nhypz'}ly{prhs5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'|r|yhu'{lywhs':37't'\u00de'937't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{lywhs'\u0080hun'qh{|o3'{l{hwp'rlk|h'nh\u0080h'z|kho'kpilyprhu'zljhyh'shunz|un'/ilyh{'khyp'thzzh3'hunpu'?7'U0B'|r|yhu'{lywhs'{pkhr'thz|r'rl'wluq|tshohu'rlk|h'nh\u0080h5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'=37'rn3'kvyvunhu'hunpu'?7'U3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'Zh{|'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhuA'ilyh{'{lywhs'^'D't'n'D'=37'\u00de'87'D'=7'U'/z{pt|s|z'ohu\u0080h'tltilyp'thzzh05'\\u{|r'wlyu\u0080h{hhu'PPP3'ilyh{'{lywhs'8<'rn'q|nh'ohy|z'kpop{|unA'^'D'8<'\u00de'87'D'8<7'U5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'wlyu\u0080h{hhu'PA'Y'D'\u2221/=7\u00b9'2'?7\u00b90B'wlyu\u0080h{hhu'PPA'{hu'\u03cd'D'?7'\u00fe'=7B'wlyu\u0080h{hhu'PPPA'Y'D'\u2221/8<7\u00b9'2'?7\u00b905C6spECspECiEWlu\u0080lslzhphuAC6iE'Wlyu\u0080h{hhu'PA'Y'D'\u2221/:5=77'2'=5;770'D'\u2221875777'D'877'U3'i|rhu'8;7'U'/hunrh'8;7'shopy'khyp'tluq|tshorhu'ilzhy'rlk|h'nh\u0080h3'=7'2'?73'zlvsho4vsho'zlhyho0B'qhkp'CiEZhshoC6iE5'Wlyu\u0080h{hhu'PPA'{hu'\u03cd'D'?7'\u00fe'=7'D';'\u00fe':3'zlopunnh'\u03cd'D'<:\u00b7'{lyohkhw'nhypz'}ly{prhs'/:>\u00b7'hkhsho'z|k|{u\u0080h'{lyohkhw'nhypz'tlukh{hy0B'qhkp'CiEIluhyC6iE5'Wlyu\u0080h{hhu'PPPA'Y'D'\u2221/995<77'2'=5;770'D'\u22219?5@77'D'8>7'UB'qhkp'CiEIluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'P'Zhsho3'PP'Iluhy3'PPP'Iluhy'/wvsh'Z-ukhzoBI-ukhzoBI05C6spEC6vsE",
+    "s6": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyjlwh{hu'{yvsp'vih{'\u0080hun'kpkvyvun'klunhu'nh\u0080h'ul{v'{ly{lu{|3'khsht'tl{ly'wly'zlrvu'r|hkyh{'/t6z\u00b905C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'O|r|t'PP'Ul~{vuA'\u03aaM'D't'h3'zlopunnh'h'D'\u03aaM'\u00fe't3'klunhu'h'D'wlyjlwh{hu'/t6z\u00b903'\u03aaM'D'nh\u0080h'ul{v'/U03'khu't'D'thzzh'ilukh'/rn05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'svyvun'zlwhuqhun'?7't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'nlyhrhu'{yvsp3'{l{hwp'wlyjlwh{hu'ohu\u0080h'kp{lu{|rhu'vslo'nh\u0080h'ul{v'khu'thzzhB'whuqhun'svyvun'{pkhr'thz|r'rl'O|r|t'PP'Ul~{vu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'{yvsp't'D'<7'rn'khu'nh\u0080h'ul{v'\u03aaM'D'89<'U'kpzli|{'shunz|un'whkh'z{pt|s|z5'Nh\u0080h'ul{v'z|kho'tly|whrhu'q|tsho'zlt|h'nh\u0080h'whkh'{yvsp3'zlhyho'nlyhr3'zlopunnh'{pkhr'hkh'nh\u0080h'shpu'\u0080hun'wlys|'kpq|tshorhu'h{h|'kpr|yhunrhu3'khu'zh{|huu\u0080h'z|kho'ul~{vu'khu'rpsvnyht5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'h'D'89<'\u00fe'<75C6spECspECiEWlu\u0080lslzhphuAC6iE'h'D'89<'\u00fe'<7'D'93<'t6z\u00b95'Ihukpunrhu'klunhu'vwzp'73;'\u0080hun'shopy'khyp'tltihspr'wltihnphu'/<7'\u00fe'89<03'vwzp'><'\u0080hun'shopy'khyp'tlun|yhunrhu'thzzh'khyp'nh\u0080h'/89<'\u2219'<703'vwzp'8><'\u0080hun'shopy'khyp'tluq|tshorhu'nh\u0080h'khu'thzzh'/89<'2'<703'khu'vwzp'=59<7'\u0080hun'shopy'khyp'tlunhsprhu'nh\u0080h'klunhu'thzzh'/89<'\u00de'<705C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyjlwh{hu'{yvsp'vih{'hkhsho'93<'t6z\u00b93'\u0080hrup'CiEvwzp'IC6iE5C6spEC6vsE",
+    "s7": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'rvlmpzplu'nlzlr'rpul{pr'hu{hyh'whsl{'khu'shu{hp'/ipshunhu'{huwh'zh{|hu05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Rlshq|hu'{l{hw'whkh'spu{hzhu's|y|z'ilyhy{p'wlyjlwh{hu'uvs3'zlopunnh'nh\u0080h'ul{v'uvsA'nh\u0080h'{hypr'tlukh{hy'zhth'ilzhy'klunhu'nh\u0080h'nlzlr'rpul{pr3'M'D'mCz|iErC6z|iE5'Nh\u0080h'nlzlr'rpul{pr'mCz|iErC6z|iE'D'\u03c3Cz|iErC6z|iE'U3'khu'whkh'shu{hp'kh{hy'{huwh'nh\u0080h'{lnhr'shpu'U'D't'n5'Qhkp'\u03c3Cz|iErC6z|iE'D'M'\u00fe'/t'n05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'shu{hp'whiypr'ily|wh'zltlu'zlwhuqhun'9<'t5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'shu{hp'{ltwh{'whsl{'ilynlzly3'{l{hwp'rvlmpzplu'nlzlr'ohu\u0080h'kp{lu{|rhu'vslo'wlyihukpunhu'nh\u0080h'nlzlr'khu'nh\u0080h'uvythsB'whuqhun'shu{hp'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'whsl{'t'D';7'rn3'nh\u0080h'{hypr'M'D'?7'U3'n'D'87't6z\u00b93'khu'rlshq|hu'{l{hw'whkh'spu{hzhu's|y|z'kpzli|{'shunz|un'whkh'z{pt|s|z5'Rhyluh'rlshq|hu'{l{hw3'nh\u0080h'nlzlr'rpul{pr'zhth'klunhu'nh\u0080h'{hypr3'khu'rhyluh'shu{hp'kh{hy'klunhu'{hsp'tlukh{hy3'nh\u0080h'uvyths'zhth'klunhu'ilyh{'whsl{5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'U'D';7'\u00de'87B'\u03c3Cz|iErC6z|iE'D'?7'\u00fe'U5C6spECspECiEWlu\u0080lslzhphuAC6iE'Nh\u0080h'uvythsA'U'D';7'\u00de'87'D';77'U5'Rvlmpzplu'nlzlrA'\u03c3Cz|iErC6z|iE'D'?7'\u00fe';77'D'7395'Ihukpunrhu'klunhu'vwzp'73<'\u0080hun'shopy'khyp'tltihnp'thzzh'klunhu'nh\u0080h'{hypr'/;7'\u00fe'?703'vwzp'937'\u0080hun'shopy'khyp'tltihnp'nh\u0080h'{hypr'klunhu'thzzh'{huwh'tlunhsprhu'n'/?7'\u00fe';703'vwzp'?37'\u0080hun'shopy'khyp'tltihnp'nh\u0080h'{hypr'klunhu'n'zhqh'/?7'\u00fe'8703'khu'vwzp':5977'\u0080hun'shopy'khyp'tlunhsprhu'nh\u0080h'{hypr'klunhu'thzzh'/?7'\u00de';705C6spECspECiERlzptw|shu'qh~hihuAC6iE'rvlmpzplu'nlzlr'rpul{pr'hu{hyh'whsl{'khu'shu{hp'hkhsho'7393'\u0080hrup'CiEvwzp'HC6iE5C6spEC6vsE",
+    "s8": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyjlwh{hu'nlyvihr'\u0080hun'kpkvyvun'tlsh~hu'nh\u0080h'nlzlr'qhshu3'khsht'tl{ly'wly'zlrvu'r|hkyh{'/t6z\u00b905C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'O|r|t'PP'Ul~{vu'whkh'nlyhr's|y|zA'\u03aaM'D't'h5'Nh\u0080h'kvyvun'khu'nh\u0080h'nlzlr'zlnhypz'{l{hwp'ilysh~huhu'hyho3'zlopunnh'\u03aaM'D'M'\u2219'm'khu'h'D'/M'\u2219'm0'\u00fe't3'klunhu'M'D'nh\u0080h'kvyvun'/U03'm'D'nh\u0080h'nlzlr'/U03'khu't'D'thzzh'nlyvihr'ilzly{h't|h{huu\u0080h'/rn05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'wyv\u0080lr'tlujhr|w';?'y|tho5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{ltwh{'nlyvihr'ilrlyqh3'{l{hwp'wlyjlwh{hu'ohu\u0080h'kp{lu{|rhu'vslo'nh\u0080h'ul{v'khu'thzzhB'q|tsho'y|tho'{pkhr'thz|r'rl'O|r|t'PP'Ul~{vu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'nh\u0080h'kvyvun'M'D'<77'U3'thzzh't'D'977'rn3'khu'nh\u0080h'nlzlr'm'D'877'U'kpzli|{'shunz|un'whkh'z{pt|s|z5'Nh\u0080h'nlzlr'ilysh~huhu'klunhu'nh\u0080h'kvyvun3'zlopunnh'ohy|z'kpr|yhunrhu3'khu'zlt|h'ilzhyhu'z|kho'tlthrhp'zh{|hu'ul~{vu'khu'rpsvnyht5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'h'D'/<77'\u2219'8770'\u00fe'9775C6spECspECiEWlu\u0080lslzhphuAC6iE'Nh\u0080h'ul{vA'<77'\u2219'877'D';77'U5'Wlyjlwh{huA'h'D';77'\u00fe'977'D'937't6z\u00b95'Ihukpunrhu'klunhu'vwzp'73<'\u0080hun'shopy'khyp'tltihnp'nh\u0080h'nlzlr'klunhu'thzzh'/877'\u00fe'97703'vwzp'73?'\u0080hun'shopy'khyp'tltihnp'nh\u0080h'ul{v'klunhu'nh\u0080h'kvyvun'/;77'\u00fe'<770'hspo4hspo'klunhu'thzzh3'vwzp'93<'\u0080hun'shopy'khyp'tls|whrhu'nh\u0080h'nlzlr'/<77'\u00fe'97703'khu'vwzp':37'\u0080hun'shopy'khyp'tluq|tshorhu'nh\u0080h'kvyvun'khu'nh\u0080h'nlzlr'//<77'2'8770'\u00fe'97705C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyjlwh{hu'nlyvihr'hkhsho'937't6z\u00b93'\u0080hrup'CiEvwzp'JC6iE5C6spEC6vsE",
+    "s9": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'nh\u0080h'rvu{hr'\u0080hun'kprlyqhrhu'wl{p'wly{hth'whkh'wl{p'rlk|h3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Rlk|h'wl{p'ilynlyhr'ilyzhth'klunhu'wlyjlwh{hu'\u0080hun'zhthA'h'D'M'\u00fe'/tCz|iE8C6z|iE'2'tCz|iE9C6z|iE05'Wl{p'rlk|h'kpwlyjlwh{'ohu\u0080h'vslo'nh\u0080h'rvu{hr'U3'zlopunnh'U'D'tCz|iE9C6z|iE'h5'Tlu|y|{'O|r|t'PPP'Ul~{vu3'nh\u0080h'wl{p'wly{hth'whkh'wl{p'rlk|h'zhth'ilzhy'khu'ilysh~huhu'hyho'klunhu'nh\u0080h'wl{p'rlk|h'whkh'wl{p'wly{hth5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'shu{hp'whiypr'zlwhuqhun'=7't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{ltwh{'wl{p'ilynlyhr3'{l{hwp'nh\u0080h'rvu{hr'kp{lu{|rhu'vslo'nh\u0080h'kvyvun'khu'thzzh'rlk|h'wl{pB'whuqhun'shu{hp'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'wl{p'wly{hth'tCz|iE8C6z|iE'D';7'rn3'thzzh'wl{p'rlk|h'tCz|iE9C6z|iE'D'97'rn3'nh\u0080h'kvyvun'M'D'8<7'U3'khu'shu{hp'spjpu'/{huwh'nlzlrhu0'kpzli|{'shunz|un'whkh'z{pt|s|z5'Zlt|h'nh\u0080h'z|kho'tlthrhp'zh{|hu'ul~{vu'khu'thzzh'rpsvnyht3'zlopunnh'{pkhr'hkh'\u0080hun'wlys|'kp|iho5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'h'D'8<7'\u00fe'/;7'2'970B'U'D'97'\u00de'h5C6spECspECiEWlu\u0080lslzhphuAC6iE'Wlyjlwh{hu'ilyzhthA'h'D'8<7'\u00fe'=7'D'93<'t6z\u00b95'Nh\u0080h'rvu{hrA'U'D'97'\u00de'93<'D'<7'U5'WltlyprzhhuA'nh\u0080h'ul{v'whkh'wl{p'wly{hth'D'8<7'\u2219'<7'D'877'U3'khu';7'\u00de'93<'D'877'U3'jvjvr5'Ihukpunrhu'klunhu'vwzp'97'\u0080hun'shopy'khyp'tlthrhp'thzzh'wl{p'rlk|h'zlihnhp'nh\u0080h'rvu{hr3'vwzp';7'\u0080hun'shopy'khyp'tlthrhp'thzzh'wl{p'wly{hth'zlihnhp'nh\u0080h'rvu{hr3'vwzp'><'\u0080hun'shopy'khyp'tlunhunnhw'nh\u0080h'kvyvun'{lyihnp'k|h'zhth'ilzhy3'khu'vwzp'877'\u0080hun'shopy'khyp'tlunop{|un'nh\u0080h'ul{v'whkh'wl{p'wly{hth'/;7'\u00de'93<0'hspo4hspo'nh\u0080h'whkh'wl{p'rlk|h5C6spECspECiERlzptw|shu'qh~hihuAC6iE'nh\u0080h'rvu{hr'hu{hyh'rlk|h'wl{p'hkhsho'<7'U3'\u0080hrup'CiEvwzp'JC6iE5C6spEC6vsE",
+    "s10": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'{lnhunhu'{hsp'\u0080hun'tluno|i|unrhu'rlk|h'rhy|un'zlshth'ilynlyhr3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'\\u{|r'rh{yvs'spjpu'khu'{hsp'ypunhu3'{lnhunhu'{hsp'zhth'kp'rlk|h'zpzp5'[|spz'O|r|t'PP'Ul~{vu'|u{|r'{phw'rhy|un'klunhu'hyho'nlyhr'zlihnhp'hyho'wvzp{pmA'rhy|un'ilyh{'tCz|iE8C6z|iE'n'\u2219'['D'tCz|iE8C6z|iE'h'khu'rhy|un'ypunhu'['\u2219'tCz|iE9C6z|iE'n'D'tCz|iE9C6z|iE'h5'Q|tshorhu'rlk|hu\u0080hA'h'D'/tCz|iE8C6z|iE'\u2219'tCz|iE9C6z|iE0'n'\u00fe'/tCz|iE8C6z|iE'2'tCz|iE9C6z|iE03'shs|'['D'tCz|iE9C6z|iE'/n'2'h05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'tluhyh'sh{pohu'zl{punnp'89't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{ltwh{'{hsp'kpwhzhun3'{l{hwp'{lnhunhu'{hsp'{pkhr'ilynhu{|un'whkh'{punnp'tluhyh'zlshth'{hsp'{pkhr'tlshy'khu'{pkhr'ilythzzhB'{punnp'tluhyh'{pkhr'thz|r'rl'O|r|t'PP'Ul~{vu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'rhy|un'>37'rn'khu':37'rn'zly{h'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'K|h'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'nh\u0080h'ul{v'wlunnlyhr'zpz{lt3'\u0080hp{|'zlspzpo'ilyh{'/>37'\u2219':370'\u00de'87'D';7'U3'khu'wlyjlwh{hu'zpz{lt'h'D';7'\u00fe'/>37'2':370'D';7'\u00fe'87'D';37't6z\u00b9'/z{pt|s|z'{pkhr'tltilyp'wlyjlwh{hu05C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'['D':37'\u00de'/87'2';3705C6spECspECiEWlu\u0080lslzhphuAC6iE'['D':37'\u00de'8;'D';9'U5'Wltlyprzhhu'klunhu'rhy|un'ilyh{A'>37'\u00de'87'\u2219'['D'>37'\u00de';373'\u0080hp{|'>7'\u2219'['D'9?3'zlopunnh'['D';9'U5'Ihukpunrhu'klunhu'vwzp'89'\u0080hun'shopy'khyp'tlthrhp'tCz|iE9C6z|iE'h'/:37'\u00de';3703'\u0080hp{|'tls|whrhu'ilyh{'rhy|un'ypunhu3'vwzp'9?'\u0080hun'shopy'khyp'tlthrhp'tCz|iE8C6z|iE'h'/>37'\u00de';3703'vwzp':7'\u0080hun'shopy'khyp'tlu\u0080hthrhu'{lnhunhu'klunhu'ilyh{'rhy|un'ypunhu'/:37'\u00de'8703'khu'vwzp';7'\u0080hun'shopy'khyp'tlthrhp'zlspzpo'ilyh{'/;7'U0'zlihnhp'{lnhunhu5C6spECspECiERlzptw|shu'qh~hihuAC6iE'{lnhunhu'{hsp'zlshth'rhy|un'ilynlyhr'hkhsho';9'U3'\u0080hrup'CiEvwzp'LC6iE5C6spEC6vsE",
+    "s11": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyjlwh{hu'rlyl{h's|uj|y'\u0080hun'kp{hypr'klunhu'{hsp'tpypun'kp'h{hz'zhsq|3'khsht'tl{ly'wly'zlrvu'r|hkyh{'/t6z\u00b905C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'\\yhprhu'nh\u0080h'{hyprA'rvtwvulu'tlukh{hy'M'jvz'\u03bf'khu'rvtwvulu'{lnhr'M'zpu'\u03bf'\u0080hun'pr|{'tlunhunrh{'rlyl{h's|uj|y5'Hyho'{lnhr'zlptihun3'U'2'M'zpu'\u03bf'D't'n3'zlopunnh'U'D't'n'\u2219'M'zpu'\u03bf5'Nh\u0080h'nlzlr'rpul{pr'm'D'\u03c3Cz|iErC6z|iE'U5'Hyho'tlukh{hy'/O|r|t'PP'Ul~{vu0A'M'jvz'\u03bf'\u2219'm'D't'h5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'{hsp'zlwhuqhun'93<'t5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{hsp'wluhypr3'{l{hwp'rvtwvulu'nh\u0080h'ohu\u0080h'kp{lu{|rhu'vslo'ilzhy'nh\u0080h'khu'z|k|{u\u0080hB'whuqhun'{hsp'{pkhr'thz|r'rl'wlun|yhphu'th|w|u'O|r|t'PP'Ul~{vu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh':7'rn3'nh\u0080h'{hypr'8<7'U3'z|k|{':>\u00b73'\u03c3Cz|iErC6z|iE'D'7383'zpu':>\u00b7'D'73=3'jvz':>\u00b7'D'73?3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'Nh\u0080h'uvyths'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'rhyluh'{hsp'tluhypr'tpypun'rl'h{hz3'U'D't'n'\u2219'M'zpu'\u03bf'D':7'\u00de'87'\u2219'8<7'\u00de'73='D':77'\u2219'@7'D'987'U3'i|rhu'zlrhkhy'ilyh{':77'U5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'8<7'\u00de'73?'\u2219'738'\u00de'987'D':7'\u00de'h5C6spECspECiEWlu\u0080lslzhphuAC6iE'Rvtwvulu'tlukh{hyA'8<7'\u00de'73?'D'897'U5'Nh\u0080h'nlzlrA'm'D'738'\u00de'987'D'98'U5'Nh\u0080h'ul{v'tlukh{hyA'897'\u2219'98'D'@@'U5'Wlyjlwh{huA'h'D'@@'\u00fe':7'D':3:'t6z\u00b95'Ihukpunrhu'klunhu'vwzp'93>'\u0080hun'shopy'khyp'tluhtihorhu'rvtwvulu'{lnhr'whkh'nh\u0080h'uvyths'/U'D':77'2'@7'D':@7'U3'nlzlrhu':@'U3'nh\u0080h'ul{v'?8'U03'vwzp':37'\u0080hun'shopy'khyp'tlunhtips'nh\u0080h'uvyths'zhth'klunhu'ilyh{':77'U'/nlzlrhu':7'U3'nh\u0080h'ul{v'@7'U03'vwzp';37'\u0080hun'shopy'khyp'tls|whrhu'nh\u0080h'nlzlr'/897'\u00fe':703'khu'vwzp';3:'\u0080hun'shopy'khyp'tlthrhp'zls|y|o'nh\u0080h'{hypr'8<7'U'zlihnhp'nh\u0080h'tlukh{hy'//8<7'\u2219'980'\u00fe':705C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyjlwh{hu'rlyl{h's|uj|y'hkhsho':3:'t6z\u00b93'\u0080hrup'CiEvwzp'JC6iE5C6spEC6vsE",
+    "s12": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'wlyjlwh{hu'wlthpu'\u0080hun'tlukvyvun'ylrhuu\u0080h3'khsht'tl{ly'wly'zlrvu'r|hkyh{'/t6z\u00b905C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'O|r|t'PPP'Ul~{vuA'nh\u0080h'hrzp'khu'ylhrzp'zhth'ilzhy3'ilysh~huhu'hyho3'khu'ilrlyqh'whkh'ilukh'\u0080hun'ilyilkh3'zlopunnh'ylrhu'tlukvyvun'ihspr'wlthpu'klunhu'nh\u0080h'8;7'U5'O|r|t'PP'Ul~{vu'whkh'wlthpu'p{|A'h'D'M'\u00fe't3'klunhu'M'D'nh\u0080h'ylhrzp'khyp'ylrhu'/U0'khu't'D'thzzh'wlthpu'\u0080hun'tlukvyvun'/rn05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'nlshunnhun'ily|r|yhu'=7't'\u00de':7't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{ltwh{'rlqhkphu3'{l{hwp'wlyjlwh{hu'hrpih{'kvyvunhu'hu{hywlthpu'kp{lu{|rhu'vslo'nh\u0080h'kvyvun'khu'thzzh'thzpun4thzpunB'|r|yhu'nlshunnhun'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'wlthpu'wlukvyvun'>7'rn3'thzzh'ylrhu'<7'rn3'khu'nh\u0080h'kvyvun'8;7'U'kpzli|{'shunz|un'whkh'z{pt|s|z5'Lz'kphunnhw'spjpu'khu'nh\u0080h'shpu'kphihprhu3'zlopunnh'zh{|4zh{|u\u0080h'nh\u0080h'tlukh{hy'whkh'wlthpu'wlukvyvun'hkhsho'nh\u0080h'ylhrzp'khyp'ylrhuu\u0080h5'Zh{|hu'z|kho'ul~{vu'khu'rpsvnyht5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'h'D'8;7'\u00fe'>75C6spECspECiEWlu\u0080lslzhphuAC6iE'h'D'8;7'\u00fe'>7'D'937't6z\u00b93'ilysh~huhu'hyho'klunhu'kvyvunhu5'Zlihnhp'wltihukpun3'ylrhu'<7'rn'kpwlyjlwh{'8;7'\u00fe'<7'D'93?'t6z\u00b95'Ihukpunrhu'klunhu'vwzp'7'\u0080hun'shopy'khyp'hunnhwhu'iho~h'ohu\u0080h'\u0080hun'kpkvyvun'\u0080hun'tlulypth'nh\u0080h'zlopunnh'wlukvyvun'{l{hw'kpht3'vwzp'93?'\u0080hun'shopy'khyp'tlthrhp'thzzh'ylrhu'/8;7'\u00fe'<70'hspo4hspo'thzzh'wlukvyvun3'vwzp';3?'\u0080hun'shopy'khyp'tluq|tshorhu'rlk|h'wlyjlwh{hu'/937'2'93?03'khu'vwzp'8;7'\u0080hun'shopy'khyp'tlu\u0080li|{'nh\u0080h'zlihnhp'wlyjlwh{hu5C6spECspECiERlzptw|shu'qh~hihuAC6iE'ilzhy'wlyjlwh{hu'wlthpu'\u0080hun'tlukvyvun'hkhsho'937't6z\u00b93'\u0080hrup'CiEvwzp'IC6iE5C6spEC6vsE",
+    "s13": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'zhqh'\u0080hun'iluhy'{lu{hun'thzzh'khu'nh\u0080h'uvyths'whkh'wlun|uq|un'zlshth'spm{'kpwlyjlwh{'uhpr3'ilynlyhr'klunhu'rlshq|hu'{l{hw3'khu'kpwlyshtih{5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'O|r|t'PP'Ul~{vu'whkh'hyho'{lnhr'/rl'h{hz'wvzp{pm0A'U'\u2219't'n'D't'h3'zlopunnh'U'D't'/n'2'h05'Wlyjlwh{hu'h'D'\u039b}'\u00fe'\u039b{3'ilyupshp'wvzp{pm'ipsh'rlshq|hu'rl'h{hz'ily{htiho'khu'ulnh{pm'ipsh'ilyr|yhun5'Whkh'rlshq|hu'{l{hw'h'D'7'khu'U'D't'n5'Thzzh'hkhsho'zpmh{'ilukh'khu'{pkhr'ily|iho'vslo'nlyhr'spm{5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'tluhyh'tltpsprp'?='shu{hp5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'ihun|uhu'{ltwh{'spm{'ilyhkh3'{l{hwp'nh\u0080h'uvyths'whkh'zh{|'wlun|uq|un'ohu\u0080h'kp{lu{|rhu'vslo'thzzhu\u0080h'khu'wlyjlwh{hu'spm{B'q|tsho'shu{hp'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'wlun|uq|un'<7'rn3'n'D'87't6z\u00b93'zly{h'wly|ihohu'rlshq|hu'khu'~hr{|'{phw'mhzl'kpzli|{'shunz|un'whkh'z{pt|s|z5'Wlyjlwh{hu'{phw'mhzl'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhu'khyp'wly|ihohu'rlshq|hu'khu'~hr{|u\u0080hA'mhzl'wly{hth'hCz|iE8C6z|iE'D'/:37'\u2219'70'\u00fe'937'D'283<'t6z\u00b9B'mhzl'rlk|h'hCz|iE9C6z|iE'D'7B'mhzl'rl{pnh'hCz|iE:C6z|iE'D'/7'\u2219':370'\u00fe':37'D'\u2219837't6z\u00b95C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'UCz|iE8C6z|iE'D'<7'\u00de'/87'2'83<0B'UCz|iE9C6z|iE'D'<7'\u00de'87B'UCz|iE:C6z|iE'D'<7'\u00de'/87'\u2219'83705C6spECspECiEWlu\u0080lslzhphuAC6iE'UCz|iE8C6z|iE'D'<7'\u00de'883<'D'<><'UB'UCz|iE9C6z|iE'D'<7'\u00de'87'D'<77'UB'UCz|iE:C6z|iE'D'<7'\u00de'@'D';<7'U5'Vwzp'HA'thzzh'wlun|uq|un'{l{hw'<7'rnB'hunrh'<>3<'rn'ohu\u0080hsho'ihjhhu'<><'U'\u0080hun'kpihnp'n3'qhkp'wlyu\u0080h{hhu'CiEzhshoC6iE5'Vwzp'IA'UCz|iE8C6z|iE'D'<><'U3'qhkp'CiEiluhyC6iE5'Vwzp'JA'whkh'rlshq|hu'{l{hw'{l{hw'ilrlyqh'ilyh{'<77'U'rl'ih~ho'khu'nh\u0080h'uvyths'<77'U'rl'h{hzB'rlk|hu\u0080h'zhspun'tluphkhrhu'zlopunnh'nh\u0080h'ul{v'uvs3'i|rhu'{pkhr'hkh'nh\u0080h3'qhkp'CiEzhshoC6iE5'Vwzp'KA'UCz|iE:C6z|iE'D';<7'U3'i|rhu'<<7'U'/hunrh'<<7'shopy'khyp'tlthrhp'n'2'837'D'883'zlvsho4vsho'spm{'kpwlyjlwh{'rl'h{hz03'qhkp'CiEzhshoC6iE5'Vwzp'LA'UCz|iE:C6z|iE'D';<7'U3'qhkp'CiEiluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyu\u0080h{hhu'\u0080hun'iluhy'hkhsho'CiEvwzp'I'khu'LC6iEB'vwzp'H3'J3'khu'K'zhsho5C6spEC6vsE",
+    "s14": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'\u0080hun'iluhy'khu'thuh'\u0080hun'zhsho'{lu{hun'wlyjlwh{hu'yhunrhphu3'{lnhunhu'rhils'wluno|i|un3'khu'nlyhr'nlyvihr'zlz|kho'rhils'w|{|z5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'[yhr{vy'khu'nlyvihr'ilynlyhr'ilyzhth'klunhu'wlyjlwh{hu'\u0080hun'zhthA'h'D'/M'\u2219'YCz|iE{yhr{vyC6z|iE'\u2219'YCz|iEnlyvihrC6z|iE0'\u00fe'/tCz|iE{yhr{vyC6z|iE'2'tCz|iEnlyvihrC6z|iE05'\\u{|r'nlyvihr'zhqhA'['\u2219'YCz|iEnlyvihrC6z|iE'D'tCz|iEnlyvihrC6z|iE'h3'zlopunnh'['D'YCz|iEnlyvihrC6z|iE'2'tCz|iEnlyvihrC6z|iE'h5'O|r|t'P'Ul~{vuA'ilukh'\u0080hun'ilynlyhr'{ly|z'ilynlyhr's|y|z'ilyh{|yhu'ipsh'nh\u0080h'ul{vu\u0080h'uvs3'khu'ihy|'tlshtih{'ipsh'hkh'nh\u0080h'ul{v'\u0080hun'ilysh~huhu'klunhu'hyho'nlyhru\u0080h5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'qhshu'rli|u'zlwhuqhun'9'rt5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'spu{hzhu'yhunrhphu3'{l{hwp'wlyjlwh{hu'khu'{lnhunhu'rhils'kp{lu{|rhu'vslo'nh\u0080h3'ohtih{hu3'khu'thzzhB'whuqhun'qhshu'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'{yhr{vy'85977'rn3'thzzh'nlyvihr'?77'rn3'nh\u0080h'kvyvun';5777'U3'ohtih{hu'{yhr{vy'=77'U3'khu'ohtih{hu'nlyvihr';77'U'kpzli|{'shunz|un'whkh'z{pt|s|z5'K|h'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhuA'nh\u0080h'ul{v'whkh'yhunrhphu'D';5777'\u2219'=77'\u2219';77'D':5777'U3'khu'wlyjlwh{hu'ilyzhth'h'D':5777'\u00fe'/85977'2'?770'D'83<'t6z\u00b95C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'wlyu\u0080h{hhu'PA'h'D'/;5777'\u2219'=77'\u2219';770'\u00fe'/85977'2'?770B'wlyu\u0080h{hhu'PPA'['D';77'2'?77'\u00de'hB'wlyu\u0080h{hhu'PPPA'wlyshtih{hu'D';77'\u00fe'?775C6spECspECiEWlu\u0080lslzhphuAC6iE'Wlyu\u0080h{hhu'PA'h'D':5777'\u00fe'95777'D'83<'t6z\u00b9B'qhkp'CiEIluhyC6iE5'Wlyu\u0080h{hhu'PPA'['D';77'2'?77'\u00de'83<'D';77'2'85977'D'85=77'U3'i|rhu'85977'U'/hunrh'85977'shopy'khyp'tls|whrhu'ohtih{hu'nlyvihr3'?77'\u00de'83<0B'qhkp'CiEZhshoC6iE5'Wlyu\u0080h{hhu'PPPA'zlzhh{'zl{lsho'rhils'w|{|z3'nlyvihr'thzpo'ilynlyhr'rl'klwhu'rhyluh'rlsltihthuu\u0080h'/O|r|t'P'Ul~{vu0B'ohu\u0080h'ohtih{hu';77'U'\u0080hun'rlt|kphu'tltwlyshtih{u\u0080h'klunhu'wlyshtih{hu';77'\u00fe'?77'D'73<'t6z\u00b93'zlopunnh'nlyvihr'{pkhr'ilyolu{p'zlrl{prhB'qhkp'CiEIluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'P'Iluhy3'PP'Zhsho3'PPP'Iluhy'/wvsh'I-ukhzoBZ-ukhzoBI05C6spEC6vsE",
+    "s15": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'wlyjlwh{hu'rlyhuqhun'zlzhh{'zl{lsho't|shp'{lyhunrh{'vslo'klylr3'khsht'tl{ly'wly'zlrvu'r|hkyh{'/t6z\u00b905C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'K|h'nh\u0080h'{lnhr'ilrlyqhA'ilyh{'^'D't'n'rl'ih~ho'khu'nh\u0080h'{hypr'rhils'['rl'h{hz5'O|r|t'PP'Ul~{vu'/rl'h{hz'wvzp{pm0A'\u03aaM'D'['\u2219'^'D't'h3'zlopunnh'h'D'/['\u2219't'n0'\u00fe't5'[hukh'wvzp{pm'ilyhy{p'wlyjlwh{hu'rl'h{hz3'\u0080hp{|'rlyhuqhun'ilynlyhr'uhpr'thrpu'jlwh{5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'shu{hp'qltih{hu'ilyhkh'8?'t'kp'h{hz'wlyt|rhhu'hpy5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'{ltwh{'rlyhuqhun'kphunrh{3'{l{hwp'wlyjlwh{hu'zlzhh{'kp{lu{|rhu'vslo'nh\u0080h4nh\u0080h'\u0080hun'ilrlyqh'whkh'zhh{'p{|B'rl{punnphu'shu{hp'{pkhr'thz|r'rl'O|r|t'PP'Ul~{vu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'rlyhuqhun';<7'rn3'nh\u0080h'{hypr'rhils'<5;77'U3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'Ilyh{'rlyhuqhun'ilysh~huhu'hyho'klunhu'{hyprhu'rhils3'zlopunnh'ohy|z'kpr|yhunrhu'khyp'nh\u0080h'{hypr3'khu'zlt|h'ilzhyhu'z|kho'tlthrhp'zh{|hu'ul~{vu'khu'rpsvnyht5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'h'D'/<5;77'\u2219';<7'\u00de'870'\u00fe';<75C6spECspECiEWlu\u0080lslzhphuAC6iE'Nh\u0080h'ul{vA'<5;77'\u2219';5<77'D'@77'U'rl'h{hz5'Wlyjlwh{huA'h'D'@77'\u00fe';<7'D'937't6z\u00b9'rl'h{hz5'Ihukpunrhu'klunhu'vwzp'87'\u0080hun'shopy'khyp'tlunhunnhw'rlyhuqhun'ilynlyhr'klunhu'wlyjlwh{hu'nyh}p{hzp'/h'D'n03'vwzp'89'\u0080hun'shopy'khyp'tls|whrhu'ilyh{'/<5;77'\u00fe';<703'vwzp'99'\u0080hun'shopy'khyp'tluq|tshorhu'ilyh{'khu'nh\u0080h'{hypr'//<5;77'2';5<770'\u00fe';<703'khu'vwzp'@77'\u0080hun'shopy'khyp'tlu\u0080li|{'nh\u0080h'ul{v'zlihnhp'wlyjlwh{hu'{huwh'tltihnpu\u0080h'klunhu'thzzh5C6spECspECiERlzptw|shu'qh~hihuAC6iE'ilzhy'wlyjlwh{hu'rlyhuqhun'zlzhh{'zl{lsho't|shp'{lyhunrh{'hkhsho'937't6z\u00b93'\u0080hrup'CiEvwzp'HC6iE5C6spEC6vsE",
+    "s16": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'zhqh'\u0080hun'iluhy'{lu{hun'nh\u0080h'uvyths3'nh\u0080h'nlzlr'\u0080hun'ilrlyqh3'nh\u0080h'nlzlr'z{h{pz'thrzpt|t3'khu'rlhkhhu'rv{hr'kp'h{hz'shukhzhu'tpypun5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Whkh'ipkhun'tpypun'ilyz|k|{'\u03bfA'nh\u0080h'uvyths'U'D't'n'jvz'\u03bf'khu'rvtwvulu'ilyh{'zlqhqhy'ipkhun'^Cz|iE\u222cC6z|iE'D't'n'zpu'\u03bf5'Zlshth'ilukh'kpht3'nh\u0080h'nlzlr'z{h{pz'\u0080hun'ilrlyqh'zhth'ilzhy'klunhu'^Cz|iE\u222cC6z|iE3'khu'ilukh'ihy|'tls|uj|y'ipsh'^Cz|iE\u222cC6z|iE'tlslipop'nh\u0080h'nlzlr'z{h{pz'thrzpt|t'mCz|iEz3thrzC6z|iE'D'\u03c3Cz|iEzC6z|iE'U5'Z|k|{'kpihjh'khyp'zlnp{pnh'shukhzhuA'zpu'\u03bf'D'{punnp'\u00fe'whuqhun'khu'jvz'\u03bf'D'hshz'\u00fe'whuqhun5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'rvlmpzplu'nlzlr'rpul{pr'73:5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'ilyrhp{hu'klunhu'nlzlrhu'rv{hr3'{l{hwp'rv{hr'kpht'zlopunnh'\u0080hun'ilywlyhu'hkhsho'nlzlrhu'z{h{pzB'rvlmpzplu'nlzlr'rpul{pr'ihy|'kpwhrhp'ipsh'rv{hr'z|kho'tls|uj|y5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'<7'rn3'whuqhun'shukhzhu'893<'t3'{punnp':3<'t3'\u03c3Cz|iEzC6z|iE'D'73;3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pnh'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhuA'ilyh{'^'D't'n'D'<7'\u00de'87'D'<77'UB'hshz'shukhzhu'D'\u2221/893<\u00b9'\u2219':3<\u00b90'D'\u22218;;'D'8937't'zlopunnh'zpu'\u03bf'D':3<'\u00fe'893<'D'739?'khu'jvz'\u03bf'D'8937'\u00fe'893<'D'73@=B'zly{h'nh\u0080h'uvyths'U'D'^'jvz'\u03bf'D'<77'\u00de'73@='D';?7'U5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'U'D'<77'\u00de'73@=B'^Cz|iE\u222cC6z|iE'D'<77'\u00de'739?B'mCz|iEz3thrzC6z|iE'D'73;'\u00de'U5C6spECspECiEWlu\u0080lslzhphuAC6iE'U'D';?7'UB'^Cz|iE\u222cC6z|iE'D'<77'\u00de'739?'D'8;7'UB'mCz|iEz3thrzC6z|iE'D'73;'\u00de';?7'D'8@9'U5'Rhyluh'8;7'U'slipo'rljps'khypwhkh'8@9'U3'rv{hr'{l{hw'kpht'khu'nh\u0080h'nlzlr'\u0080hun'ilrlyqh'zhth'klunhu'8;7'U5'Ipsh'thzzh'kpspwh{k|hrhu'tluqhkp'877'rnA'^Cz|iE\u222cC6z|iE'D'9?7'U'khu'mCz|iEz3thrzC6z|iE'D'73;'\u00de'@=7'D':?;'U3'zlopunnh'9?7'U'slipo'rljps'khypwhkh':?;'U'khu'rv{hr'{l{hw'kpht5'Vwzp'HA'U'D';?7'U3'qhkp'CiEiluhyC6iE5'Vwzp'IA'nh\u0080h'nlzlr'\u0080hun'ilrlyqh'8;7'U'/zhth'klunhu'^Cz|iE\u222cC6z|iE03'i|rhu'8@9'U'\u0080hun'ohu\u0080h'tly|whrhu'ih{hz'thrzpt|t3'qhkp'CiEzhshoC6iE5'Vwzp'JA'mCz|iEz3thrzC6z|iE'D'8@9'U3'qhkp'CiEiluhyC6iE5'Vwzp'KA'^Cz|iE\u222cC6z|iE'khu'mCz|iEz3thrzC6z|iE'zhth4zhth'zlihukpun'klunhu'thzzh3'zlopunnh'rv{hr'877'rn'{l{hw'kpht'khu'wlyu\u0080h{hhu'CiEzhshoC6iE5'Vwzp'LA'8;7'U'slipo'rljps'khypwhkh'8@9'U3'qhkp'CiEiluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyu\u0080h{hhu'\u0080hun'iluhy'hkhsho'CiEvwzp'H3'J3'khu'LC6iEB'vwzp'I'khu'K'zhsho5C6spEC6vsE",
+    "s17": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'\u0080hun'iluhy'khu'thuh'\u0080hun'zhsho'{lu{hun'nh\u0080h'ul{v3'wlyjlwh{hu3'khu'hrpih{'ily{htihou\u0080h'thzzh'whkh'olsprvw{ly'\u0080hun'ihy|'slwhz'shukhz5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'K|h'nh\u0080h'}ly{prhs'ilrlyqhA'nh\u0080h'hunrh{'['rl'h{hz'khu'ilyh{'^'D't'n'rl'ih~ho5'O|r|t'PP'Ul~{vu'/rl'h{hz'wvzp{pm0A'h'D'/['\u2219't'n0'\u00fe't5'Ipsh'['D't'n3'nh\u0080h'ul{v'uvs'khu'olsprvw{ly'{pkhr'kpwlyjlwh{B'ipsh'['slipo'ilzhy'khypwhkh't'n3'olsprvw{ly'kpwlyjlwh{'rl'h{hzB'ipsh'slipo'rljps3'olsprvw{ly'kpwlyjlwh{'rl'ih~ho5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'ihspun4ihspun'ilykphtl{ly'88't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'olsprvw{ly3'{l{hwp'wlyjlwh{hu'ohu\u0080h'kp{lu{|rhu'vslo'nh\u0080h'hunrh{3'ilyh{3'khu'thzzhB'kphtl{ly'ihspun4ihspun'{pkhr'thz|r'rl'O|r|t'PP'Ul~{vu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'85777'rn3'nh\u0080h'hunrh{'895<77'U3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'Zh{|'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhuA'ilyh{'olsprvw{ly'^'D't'n'D'85777'\u00de'87'D'875777'U'/z{pt|s|z'ohu\u0080h'tltilyp'thzzh05'\\u{|r'wlyu\u0080h{hhu'PPP3'ilyh{'olsprvw{ly'85<77'rn'q|nh'ohy|z'kpop{|unA'^'D'85<77'\u00de'87'D'8<5777'U5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'wlyu\u0080h{hhu'PA'\u03aaM'D'895<77'\u2219'875777B'wlyu\u0080h{hhu'PPA'h'D'95<77'\u00fe'85777B'wlyu\u0080h{hhu'PPPA'\u03aaM'D'895<77'\u2219'8<57775C6spECspECiEWlu\u0080lslzhphuAC6iE'Wlyu\u0080h{hhu'PA'nh\u0080h'ul{v'D'895<77'\u2219'875777'D'95<77'U'rl'h{hzB'qhkp'CiEIluhyC6iE5'Wlyu\u0080h{hhu'PPA'h'D'95<77'\u00fe'85777'D'93<'t6z\u00b9'rl'h{hzB'qhkp'CiEIluhyC6iE5'Wlyu\u0080h{hhu'PPPA'ilyh{'8<5777'U'slipo'ilzhy'khypwhkh'nh\u0080h'hunrh{'895<77'U3'zlopunnh'nh\u0080h'hunrh{'{pkhr'j|r|w'|u{|r'tlunhunrh{'olsprvw{lyA'zlspzpou\u0080h'895<77'\u2219'8<5777'D'\u221995<77'U'/rl'ih~ho05'Olsprvw{ly'{pkhr'khwh{'uhpr'klunhu'wlyjlwh{hu'93<'t6z\u00b9B'kp'olspwhk'ph'{l{hw'kpht'kp'{huho3'khu'ipsh'z|kho'kp'|khyh'ph'kpwlyjlwh{'rl'ih~ho'zlrp{hy'83>'t6z\u00b9'/95<77'\u00fe'85<770B'qhkp'CiEZhshoC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'P'Iluhy3'PP'Iluhy3'PPP'Zhsho'/wvsh'I-ukhzoBI-ukhzoBZ05C6spEC6vsE",
+    "s18": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'tvtlu'nh\u0080h'\u0080hun'kprlyqhrhu'{hunhu'wluqhnh'{lyohkhw'lunzls'zlihnhp'wvyvz'w|{hy3'khsht'ul~{vu'tl{ly'/U\u00bet05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Tvtlu'nh\u0080h'\u03cb'D'y'M'zpu'\u03bf3'klunhu'y'D'qhyhr'khyp'wvyvz'/lunzls0'rl'{p{pr'rlyqh'nh\u0080h'/t03'M'D'ilzhy'nh\u0080h'/U03'khu'\u03bf'D'z|k|{'hu{hyh'nh\u0080h'khu'nhypz'khyp'wvyvz'rl'{p{pr'rlyqh'nh\u0080h5'Ilu{|r'zl{hyh'\u03cb'D'MCz|iE\u22acC6z|iE'y'tlu|uq|rrhu'iho~h'ohu\u0080h'rvtwvulu'nh\u0080h'\u0080hun'{lnhr's|y|z'kh|u'wpu{|'\u0080hun'tlt|{hy'wpu{|5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'{punnp'kh|u'wpu{|'937't5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'wpu{|'\u0080hun'kpkvyvun3'{l{hwp'tvtlu'nh\u0080h'ohu\u0080h'kp{lu{|rhu'vslo'nh\u0080h3'slunhu3'khu'z|k|{u\u0080hB'{punnp'wpu{|'{pkhr'thz|r'rl'y|t|z5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'qhyhr'{p{pr'kvyvun'khyp'lunzls'y'D'<7'jt3'nh\u0080h'M'D'<7'U3'z|k|{'\u03bf'D'<:\u00b7'{lyohkhw'kh|u'wpu{|3'zly{h'zpu'<:\u00b7'D'73?'khu'jvz'<:\u00b7'D'73='kpzli|{'shunz|un'whkh'z{pt|s|z5'Qhyhr'ohy|z'kp|iho'rl'tl{ly'slipo'k|s|A'<7'jt'D'73<7't5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'\u03cb'D'73<7'\u00de'<7'\u00de'zpu'<:\u00b7'D'73<7'\u00de'<7'\u00de'73?5C6spECspECiEWlu\u0080lslzhphuAC6iE'\u03cb'D'73<7'\u00de'<7'\u00de'73?'D'9<'\u00de'73?'D'97'U\u00bet5'Ihukpunrhu'klunhu'vwzp'8<'\u0080hun'shopy'khyp'tlthrhp'rvzpu|z'/73<7'\u00de'<7'\u00de'73=03'vwzp'9<'\u0080hun'shopy'khyp'tls|whrhu'mhr{vy'zpu|z'/73<7'\u00de'<703'vwzp'95777'\u0080hun'shopy'khyp'{pkhr'tlun|iho'<7'jt'tluqhkp'73<7't'/<7'\u00de'<7'\u00de'73?03'khu'vwzp'95<77'\u0080hun'shopy'khyp'{pkhr'tlun|iho'zh{|hu'zlrhspn|z'tls|whrhu'zpu|z'/<7'\u00de'<705C6spECspECiERlzptw|shu'qh~hihuAC6iE'ilzhy'tvtlu'nh\u0080h'\u0080hun'ilrlyqh'whkh'kh|u'wpu{|'hkhsho'97'U\u00bet3'\u0080hrup'CiEvwzp'IC6iE5C6spEC6vsE",
+    "s19": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'qhyhr'rlyhuqhun'rhuhu'khyp'iho|'/{p{pr'{|tw|0'hnhy'wpr|shu'tlukh{hy'khu'kpht3'khsht'tl{ly'/t05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Z\u0080hyh{'rlzl{ptihunhu'yv{hzpA'q|tsho'tvtlu'nh\u0080h'{lyohkhw'{p{pr'{|tw|'zhth'klunhu'uvs3'zlopunnh'tvtlu'\u0080hun'tlt|{hy'rl'zh{|'hyho'zhth'klunhu'tvtlu'\u0080hun'tlt|{hy'rl'hyho'zlihspru\u0080h5'Rhyluh'thzzh'wpr|shu'kphihprhu3'tvtlu'{phw'rlyhuqhun'hkhsho'ilyh{'rhsp'slunhuA'tCz|iE8C6z|iE'n'yCz|iE8C6z|iE'D'tCz|iE9C6z|iE'n'yCz|iE9C6z|iE3'zlopunnh'yCz|iE9C6z|iE'D'tCz|iE8C6z|iE'yCz|iE8C6z|iE'\u00fe'tCz|iE9C6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'wpr|shu'p{|'whuqhunu\u0080h'83?'t5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'wpr|shu'\u0080hun'kpwpr|s3'{l{hwp'tvtlu'ohu\u0080h'kp{pti|srhu'vslo'ilyh{'{phw'rlyhuqhun'khu'qhyhru\u0080h'rl'iho|B'whuqhun'wpr|shu'{pkhr'thz|r'rl'wlyzhthhu'rlzl{ptihunhu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'rlyhuqhun'rpyp'tCz|iE8C6z|iE'D'9;'rn3'slunhuu\u0080h'yCz|iE8C6z|iE'D'73=7't3'thzzh'rlyhuqhun'rhuhu'tCz|iE9C6z|iE'D':='rn3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'Thzzh'wpr|shu'kphihprhu3'qhkp'ohu\u0080h'rlk|h'rlyhuqhun'\u0080hun'tlupti|srhu'tvtlu3'khu'zlt|h'qhyhr'z|kho'khsht'tl{ly5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'9;'\u00de'87'\u00de'73=7'D':='\u00de'87'\u00de'yCz|iE9C6z|iE5C6spECspECiEWlu\u0080lslzhphuAC6iE'Tvtlu'rlyhuqhun'rpypA'9;7'\u00de'73=7'D'8;;'U\u00bet5'Thrh'yCz|iE9C6z|iE'D'8;;'\u00fe':=7'D'73;'t5'Ihukpunrhu'klunhu'vwzp'73='\u0080hun'shopy'khyp'tlu\u0080hthrhu'qhyhr'rlk|h'rlyhuqhun3'vwzp'73@'\u0080hun'shopy'khyp'tltihspr'wlyihukpunhu'/:='\u00de'73=7'\u00fe'9;03'vwzp'8;3;'\u0080hun'shopy'khyp'tlthrhp'ohzps'rhsp'9;'\u00de'73=7'zlihnhp'qhyhr'{huwh'tltihnpu\u0080h'klunhu'thzzh'rlyhuqhun'rhuhu3'khu'vwzp'8;;'\u0080hun'shopy'khyp'tlthrhp'tvtlu'rlyhuqhun'rpyp'/8;;'U\u00bet0'zlihnhp'qhyhr'{huwh'tltihnpu\u0080h'klunhu'ilyh{'rlyhuqhun'rhuhu5C6spECspECiERlzptw|shu'qh~hihuAC6iE'qhyhr'rlyhuqhun'rhuhu'khyp'iho|'hkhsho'73;'t3'\u0080hrup'CiEvwzp'HC6iE5C6spEC6vsE",
+    "s20": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'nh\u0080h'{|tw|hu'\u0080hun'kprlyqhrhu'wvukhzp'H'whkh'ihsvr3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Ihsvr'kpht3'zlopunnh'rlzl{ptihunhu'yv{hzp'khu'{yhuzshzp'ilyshr|5'Wpspo'{|tw|hu'I'zlihnhp'wvyvz'hnhy'nh\u0080h'{|tw|hu'I'{pkhr'ilytvtluA'UCz|iEHC6z|iE'\u00de'S'D'^Cz|iEihsvrC6z|iE'\u00de'/S'\u00fe'90'2'^Cz|iE{|rhunC6z|iE'\u00de'/S'\u2219'\u007f03'klunhu'S'D'whuqhun'ihsvr3'\u007f'D'qhyhr'{|rhun'khyp'H3'khu'w|zh{'thzzh'ihsvr'zlyhnht'ilyhkh'kp'{lunhou\u0080h5'Ilyh{'ihsvr'ilrlyqh'kp'w|zh{'thzzhu\u0080h5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'wluhtwhun'ihsvr'97'jt'\u00de'8<'jt5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'ily|wh'|r|yhu'ihsvr3'{l{hwp'ihsvr'kpwlyshr|rhu'zlihnhp'ih{hun'zlopunnh'|r|yhu'wluhtwhunu\u0080h'{pkhr'thz|r'rl'wlyzhthhu'tvtlu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'whuqhun'ihsvr'?37't3'qhyhr'{|rhun'khyp'H'937't3'thzzh'ihsvr';7'rn3'thzzh'{|rhun'=7'rn3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pnh'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhuA'ilyh{'ihsvr'^Cz|iEiC6z|iE'D';7'\u00de'87'D';77'U'khu'ilyh{'{|rhun'^Cz|iE{C6z|iE'D'=7'\u00de'87'D'=77'U'/z{pt|s|z'ohu\u0080h'tltilyp'thzzh03'zly{h'sl{hr'w|zh{'thzzh'ihsvr'kp'{lunho3'\u0080hp{|'?37'\u00fe'9'D';37't'khyp'{phw'|q|un3'zlopunnh'qhyhr'{|rhun'khyp'I'hkhsho'?37'\u2219'937'D'=37't5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'UCz|iEHC6z|iE'\u00de'?37'D';77'\u00de';37'2'=77'\u00de'=375C6spECspECiEWlu\u0080lslzhphuAC6iE'Tvtlu'{lyohkhw'IA';77'\u00de';37'D'85=77'U\u00bet'khu'=77'\u00de'=37'D':5=77'U\u00bet3'q|tshou\u0080h'<5977'U\u00bet5'Thrh'UCz|iEHC6z|iE'D'<5977'\u00fe'?37'D'=<7'U5'WltlyprzhhuA'UCz|iEHC6z|iE'2'UCz|iEIC6z|iE'D';77'2'=77'D'85777'U'zlopunnh'UCz|iEIC6z|iE'D'85777'\u2219'=<7'D':<7'U3'khu'tvtlu'{lyohkhw'HA':<7'\u00de'?37'D'95?77'U\u00bet'D';77'\u00de';37'2'=77'\u00de'937'D'85=77'2'859775'Ihukpunrhu'klunhu'vwzp'977'\u0080hun'shopy'khyp'tls|whrhu'ilyh{'{|rhun'/;77'\u00de';37'\u00fe'?3703'vwzp':<7'\u0080hun'shopy'khyp'tlu|rhy'{|tw|hu'zlopunnh'\u0080hun'{lyop{|un'nh\u0080h'kp'I3'vwzp';<7'\u0080hun'shopy'khyp'tls|whrhu'ilyh{'ihsvr'/=77'\u00de'=37'\u00fe'?3703'khu'vwzp'<77'\u0080hun'shopy'khyp'tltihnp'{v{hs'ilyh{'85777'U'zhth'yh{h'whkh'rlk|h'{|tw|hu5C6spECspECiERlzptw|shu'qh~hihuAC6iE'nh\u0080h'{|tw|hu'kp'H'hkhsho'=<7'U3'\u0080hrup'CiEvwzp'LC6iE5C6spEC6vsE",
+    "s21": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'nh\u0080h'rl'h{hz'\u0080hun'kprlyqhrhu'wvyvz'whkh'slunhu'jyhul'hnhy'slunhu'{l{hw'tlukh{hy'khu'kpht3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Rlzl{ptihunhu'yv{hzp'{lyohkhw'wvyvzA'tvtlu'ilyh{'slunhu'/ilrlyqh'kp'w|zh{'thzzhu\u0080h0'zhth'klunhu'tvtlu'ilyh{'ilihu'wlu\u0080lptihun3'^Cz|iEwC6z|iE'yCz|iEwC6z|iE'D'^Cz|iEjC6z|iE'yCz|iEjC6z|iE5'Rlzl{ptihunhu'{yhuzshzpA'nh\u0080h'wvyvz'U'D'^Cz|iEwC6z|iE'2'^Cz|iEjC6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'slunhu'kpjh{'r|upun'khu'op{ht'zljhyh'ilynhu{phu5'Ohs'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'slunhu'\u0080hun'kp{puqh|3'{l{hwp'jh{'{pkhr'tlun|iho'thzzh'th|w|u'sl{hr'nh\u0080hB'ph'{pkhr'thz|r'rl'wlyzhthhu'rlzl{ptihunhu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'whuqhun'slunhu'@37't3'thzzh'slunhu':7'rn3'qhyhr'wvyvz'khyp'whunrhs'83<'t3'qhyhr'ilihu'wlu\u0080lptihun'khyp'wvyvz'83<'t3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pnh'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'ilyh{'slunhu'^Cz|iEwC6z|iE'D':7'\u00de'87'D':77'UB'qhyhr'w|zh{'thzzh'slunhu'khyp'wvyvz'D'@37'\u00fe'9'\u2219'83<'D';3<'\u2219'83<'D':37't'/w|zh{'thzzh'ih{hun'zlyhnht'kp'{lunhou\u0080h3';3<'t'khyp'whunrhs0B'khu'ilyh{'ilihu'wlu\u0080lptihun'^Cz|iEjC6z|iE3'\u0080hun'thzzhu\u0080h'{pkhr'kpilyprhu'khu'kpjhyp'khyp'rlzl{ptihunhu'tvtlu5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE':77'\u00de':37'D'^Cz|iEjC6z|iE'\u00de'83<B'U'D':77'2'^Cz|iEjC6z|iE5C6spECspECiEWlu\u0080lslzhphuAC6iE'Tvtlu'slunhuA':77'\u00de':37'D'@77'U\u00bet3'zlopunnh'^Cz|iEjC6z|iE'D'@77'\u00fe'83<'D'=77'U'/thzzh'ilihu'wlu\u0080lptihun'=7'rn05'Nh\u0080h'wvyvzA'U'D':77'2'=77'D'@77'U5'Ihukpunrhu'klunhu'vwzp'@7'\u0080hun'shopy'khyp'tluq|tshorhu'thzzh'/:7'2'=70'{huwh'tlunhsprhu'n3'vwzp':77'\u0080hun'shopy'khyp'tlunop{|un'ilyh{'slunhu'zhqh3'vwzp'=77'\u0080hun'shopy'khyp'tlunop{|un'ilyh{'ilihu'wlu\u0080lptihun'zhqh3'khu'vwzp'85977'\u0080hun'shopy'khyp'tlthrhp'qhyhr';3<'t'/zl{lunho'khyp'whuqhun'{v{hs0'zlihnhp'qhyhr'w|zh{'thzzh'slunhu'khyp'wvyvz'zlopunnh'^Cz|iEjC6z|iE'D'@77'U5C6spECspECiERlzptw|shu'qh~hihuAC6iE'nh\u0080h'rl'h{hz'\u0080hun'kprlyqhrhu'wvyvz'whkh'slunhu'hkhsho'@77'U3'\u0080hrup'CiEvwzp'KC6iE5C6spEC6vsE",
+    "s22": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'ilzhy'{lnhunhu'whkh'thzpun4thzpun'yhu{hp'\u0080hun'tluhohu'nvun3'khsht'ul~{vu'/U05C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Nvun'kpht'zlopunnh'nh\u0080h'ul{v'uvs5'Rlk|h'yhu{hp'zptl{ypz3'qhkp'rvtwvulu'tlukh{hy'rlk|h'{lnhunhu'zhspun'tluphkhrhu3'zlkhunrhu'rvtwvulu'{lnhr'rlk|hu\u0080h'tluhohu'ilyh{A'9'['zpu'\u03bf'D't'n3'klunhu'\u03bf'D'z|k|{'{phw'yhu{hp'{lyohkhw'nhypz'tlukh{hy5'Whkh'zlnp{pnh'zpr|4zpr|'yhu{hp3'zpu'\u03bf'D'wlu|y|uhu'{lnhr'\u00fe'whuqhun'yhu{hp5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'yhu{hp'kpshwpzp'jh{'op{ht5'Ohs'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'yhu{hp'wlu\u0080hunnh'nvun3'{l{hwp'{lnhunhu'yhu{hp'ohu\u0080h'kp{lu{|rhu'vslo'ilyh{'nvun'khu'z|k|{'yhu{hpB'shwpzhu'jh{'{pkhr'thz|r'rl'wlyzhthhu'rlzl{ptihunhu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'nvun'9;'rn3'qhyhr'hu{hy{phun':37't3'qhyhr'{p{pr'nhu{|un'kp'ih~ho'rhp{'937't3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pnh'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'ilyh{'nvun'^'D'9;'\u00de'87'D'9;7'UB'whuqhun'{phw'yhu{hp'D'\u2221/83<\u00b9'2'937\u00b90'D'93<'t'/tlukh{hy':37'\u00fe'9'D'83<'t'khu'tlu|y|u'937't0B'zly{h'zpu'\u03bf'D'937'\u00fe'93<'D'73?5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'9'\u00de'['\u00de'73?'D'9;75C6spECspECiEWlu\u0080lslzhphuAC6iE'83='['D'9;73'zlopunnh'['D'9;7'\u00fe'83='D'8<7'U5'Wltlyprzhhu'hyho'tlukh{hyA'['jvz'\u03bf'D'8<7'\u00de'73='D'@7'U'kp'{phw'zpzp3'ilzhyu\u0080h'zhth'khu'zhspun'tluphkhrhu5'Ihukpunrhu'klunhu'vwzp'>9'\u0080hun'shopy'khyp'tlunhsprhu'zl{lunho'ilyh{'klunhu'rvzpu|z'/897'\u00de'73=03'vwzp'@='\u0080hun'shopy'khyp'tlunhsprhu'zl{lunho'ilyh{'klunhu'zpu|z'/897'\u00de'73?03'vwzp'897'\u0080hun'shopy'khyp'tls|whrhu'z|k|{'yhu{hp'/9;7'\u00fe'903'khu'vwzp'977'\u0080hun'shopy'khyp'tlu|rhy'zpu|z'klunhu'rvzpu|z'/897'\u00fe'73=05C6spECspECiERlzptw|shu'qh~hihuAC6iE'{lnhunhu'whkh'thzpun4thzpun'yhu{hp'hkhsho'8<7'U3'\u0080hrup'CiEvwzp'KC6iE5C6spEC6vsE",
+    "s23": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'zhqh'\u0080hun'iluhy'{lu{hun'nh\u0080h'{hunhu'whkh'wlnhunhu3'nh\u0080h'uvyths'whkh'yvkh3'zly{h'wly|ihohu'nh\u0080h'{hunhu'ipsh't|h{hu'h{h|'sl{hr'{hunhu'kp|iho5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Nlyvihr'kpht3'zlopunnh'q|tsho'tvtlu'{lyohkhw'wvyvz'yvkh'zhth'klunhu'uvsA'^'yCz|iE~C6z|iE'D'M'yCz|iE{C6z|iE3'klunhu'^'D'ilyh{'whzpy'/U03'yCz|iE~C6z|iE'D'qhyhr'w|zh{'thzzh'whzpy'khyp'wvyvz'yvkh'/t03'M'D'nh\u0080h'{hunhu'whkh'wlnhunhu'/U03'khu'yCz|iE{C6z|iE'D'qhyhr'wlnhunhu'khyp'wvyvz'yvkh'/t05'Nh\u0080h'uvyths'whkh'yvkh'tluhohu'zpzh'ilyh{A'U'D'^'\u2219'M'/thzzh'nlyvihr'rvzvun'kphihprhu05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'yvkh'nlyvihr'ilykphtl{ly';7'jt5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'yvkh'\u0080hun'tluqhkp'wvyvz3'{l{hwp'rlzl{ptihunhu'ohu\u0080h'kp{lu{|rhu'vslo'ilyh{'khu'slunhu'kp'rlk|h'zpzp'wvyvz'yvkhB'kphtl{ly'yvkh'{pkhr'thz|r'rl'wlyzhthhu'tvtlu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'whzpy';?'rn3'qhyhr'whzpy'khyp'wvyvz'73<7't3'qhyhr'wlnhunhu'khyp'wvyvz'83<7't3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pnh'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'ilyh{'whzpy'^'D';?'\u00de'87'D';?7'U'/z{pt|s|z'ohu\u0080h'tltilyp'thzzh0B'nh\u0080h'{hunhu'M'\u0080hun'kpjhyp'khyp'rlzl{ptihunhu'tvtlu'{lyohkhw'wvyvz'yvkhB'khu'nh\u0080h'uvyths'yvkh'U'\u0080hun'kpjhyp'khyp'rlzl{ptihunhu'nh\u0080h'{lnhr5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE';?7'\u00de'73<7'D'M'\u00de'83<7B'U'D';?7'\u2219'M5C6spECspECiEWlu\u0080lslzhphuAC6iE'Tvtlu'whzpyA';?7'\u00de'73<7'D'9;7'U\u00bet3'zlopunnh'M'D'9;7'\u00fe'83<7'D'8=7'U5'Nh\u0080h'uvyths'yvkhA'U'D';?7'\u2219'8=7'D':97'U5'Ipsh't|h{hu'9;'rn'/ilyh{'9;7'U0A'M'D'9;7'\u00de'73<7'\u00fe'83<7'D'?7'U5'Ipsh'wlnhunhu'kpwlnhun'whkh'937't'khyp'wvyvz'klunhu't|h{hu';?'rnA'M'D'9;7'\u00fe'937'D'897'U5'Vwzp'HA'M'D'8=7'U3'qhkp'CiEiluhyC6iE5'Vwzp'IA'U'D':97'U3'qhkp'CiEiluhyC6iE5'Vwzp'JA'{hunhu'{pkhr'tluhunn|un'zls|y|o'ilyh{'rhyluh'yvkh'tluhohu'zlihnphuB';?7'U'ohu\u0080hsho'ilyh{'whzpy3'i|rhu'nh\u0080h'{hunhu3'qhkp'CiEzhshoC6iE5'Vwzp'KA'M'D'?7'U3'qhkp'CiEiluhyC6iE5'Vwzp'LA'M'D'897'U3'qhkp'CiEiluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyu\u0080h{hhu'\u0080hun'iluhy'hkhsho'CiEvwzp'H3'I3'K3'khu'LC6iEB'vwzp'J'zhsho5C6spEC6vsE",
+    "s24": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'zhqh'\u0080hun'iluhy'{lu{hun'nh\u0080h'uvyths'{huho3'nh\u0080h'uvyths'kpukpun3'nh\u0080h'nlzlr'{huho3'khu'tvtlu'ilyh{'nhsho5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Nhsho'kphtA'\u03aaM'D'7'khu'\u03aa\u03cb'D'75'Kpukpun'spjpu'ohu\u0080h'tltilyp'nh\u0080h'uvyths'tlukh{hy'UCz|iEkC6z|iEB'{huho'tltilyp'nh\u0080h'uvyths'{lnhr'UCz|iEsC6z|iE'khu'nh\u0080h'nlzlr'tlukh{hy'm5'Hyho'{lnhrA'UCz|iEsC6z|iE'D'^5'Hyho'tlukh{hyA'm'D'UCz|iEkC6z|iE5'Tvtlu'{lyohkhw'|q|un'ih~hoA'UCz|iEkC6z|iE'\u00de'o'D'^'\u00de'/h'\u00fe'903'klunhu'o'D'{punnp'|q|un'h{hz3'h'D'qhyhr'tlukh{hy'|q|un'ih~ho'khyp'kpukpun3'khu'ilyh{'nhsho'zlyhnht'ilrlyqh'kp'{lunho'nhsho5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'nhsho'tltpsprp'89'y|hz5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'ilu{|r'nhsho3'{l{hwp'nh\u0080h4nh\u0080h'whkh'nhsho'ohu\u0080h'kp{lu{|rhu'vslo'ilyh{3'whuqhun3'khu'wvzpzpu\u0080hB'q|tsho'y|hz'{pkhr'thz|r'rl'wlyzhthhu'rlzl{ptihunhu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'whuqhun'nhsho'=37't3'thzzh'9;'rn3'{punnp'|q|un'h{hz';3?'t3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'K|h'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'khu'ohy|z'kp{|y|urhuA'ilyh{'nhsho'^'D'9;'\u00de'87'D'9;7'U3'khu'qhyhr'tlukh{hy'|q|un'ih~ho'khyp'kpukpun'h'D'\u2221/=37\u00b9'\u2219';3?\u00b90'D'\u2221893@='D':3='t3'zlopunnh'slunhu'ilyh{'{lyohkhw'|q|un'ih~ho'D':3='\u00fe'9'D'83?'t5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'UCz|iEkC6z|iE'\u00de';3?'D'9;7'\u00de'83?B'UCz|iEsC6z|iE'D'9;7B'm'D'UCz|iEkC6z|iE5C6spECspECiEWlu\u0080lslzhphuAC6iE'Tvtlu'ilyh{'{lyohkhw'|q|un'ih~hoA'9;7'\u00de'83?'D';:9'U\u00bet5'Thrh'UCz|iEkC6z|iE'D';:9'\u00fe';3?'D'@7'U5'Nh\u0080h'uvyths'{huho'UCz|iEsC6z|iE'D'^'D'9;7'U'khu'nh\u0080h'nlzlr'{huho'm'D'UCz|iEkC6z|iE'D'@7'U5'Vwzp'HA'UCz|iEsC6z|iE'D'9;7'U3'zhth'klunhu'ilyh{'nhsho3'qhkp'CiEiluhyC6iE5'Vwzp'IA'UCz|iEkC6z|iE'D'@7'U3'i|rhu'9;7'U'/hunrh'9;7'shopy'khyp'tlu\u0080hthrhu'nh\u0080h'kpukpun'klunhu'ilyh{'nhsho03'qhkp'CiEzhshoC6iE5'Vwzp'JA'm'D'@7'U3'i|rhu'::7'U'/hunrh'::7'shopy'khyp'tluq|tshorhu'nh\u0080h'uvyths'{huho'khu'nh\u0080h'uvyths'kpukpun'whkhohs'rlk|hu\u0080h'zhspun'{lnhr's|y|z03'qhkp'CiEzhshoC6iE5'Vwzp'KA'UCz|iEkC6z|iE'D'@7'U3'qhkp'CiEiluhyC6iE5'Vwzp'LA'tvtlu'ilyh{'{lyohkhw'|q|un'ih~ho';:9'U\u00bet3'i|rhu'85;;7'U\u00bet'/hunrh'85;;7'shopy'khyp'tlthrhp'whuqhun'nhsho'=37't'zlihnhp'slunhu03'qhkp'CiEzhshoC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'wlyu\u0080h{hhu'\u0080hun'iluhy'hkhsho'CiEvwzp'H'khu'KC6iEB'vwzp'I3'J3'khu'L'zhsho5C6spEC6vsE",
+    "s25": "CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhuAC6iE'wlyu\u0080h{hhu'thuh'\u0080hun'iluhy'khu'thuh'\u0080hun'zhsho'{lu{hun'{lnhunhu'{hsp'tpypun3'{lnhunhu'{hsp'tlukh{hy3'khu'wlyihukpunhu'rlk|hu\u0080h5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhuAC6iE'Zptw|s'kpht3'zlopunnh'nh\u0080h'ul{v'whkh'zptw|s'uvs5'Hyho'{lnhrA'rvtwvulu'{lnhr'{hsp'tpypun'tluhohu'ilyh{3'[Cz|iE9C6z|iE'zpu'\u03bf'D'^5'Hyho'tlukh{hyA'rvtwvulu'tlukh{hy'{hsp'tpypun'kpptihunp'{hsp'tlukh{hy3'[Cz|iE8C6z|iE'D'[Cz|iE9C6z|iE'jvz'\u03bf5'Z|k|{'\u03bf'kp|r|y'khyp'nhypz'tlukh{hyA'zpu'\u03bf'D'{punnp'rhp{'\u00fe'whuqhun'{hsp'khu'jvz'\u03bf'D'qhyhr'tlukh{hy'\u00fe'whuqhun'{hsp5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu0AC6iE'slu{lyh'ilykphtl{ly';7'jt5'Hunrh'p{|'{lyhzh'ylsl}hu'rhyluh'tlu\u0080hunr|{'slu{lyh'\u0080hun'kpnhu{|un3'{l{hwp'nh\u0080h4nh\u0080h'whkh'zptw|s'ohu\u0080h'kp{lu{|rhu'vslo'ilyh{'slu{lyh'khu'z|k|{'{hspB'kphtl{ly'slu{lyh'{pkhr'thz|r'rl'wlyzhthhu'rlzl{ptihunhu5C6spECspECiEPklu{pmprhzp'kh{hAC6iE'thzzh'slu{lyh'8<'rn3'whuqhun'{hsp'tpypun'93<'t3'{punnp'rhp{'83<'t3'khu'n'D'87't6z\u00b9'kpzli|{'shunz|un'whkh'z{pt|s|z5'[pnh'ilzhyhu'CiE{pkhrC6iE'kpilyprhu'zlihnhp'hunrh'zphw'whrhp'khu'ohy|z'kp{|y|urhuA'ilyh{'slu{lyh'^'D'8<'\u00de'87'D'8<7'UB'zpu'\u03bf'D'83<'\u00fe'93<'D'73=B'khu'jvz'\u03bf'D'937'\u00fe'93<'D'73?3'rhyluh'qhyhr'tlukh{hy'rhp{'khyp'zptw|s'\u2221/93<\u00b9'\u2219'83<\u00b90'D'937't5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|shAC6iE'wlyu\u0080h{hhu'PA'[Cz|iE9C6z|iE'\u00de'73='D'8<7B'wlyu\u0080h{hhu'PPA'[Cz|iE8C6z|iE'D'[Cz|iE9C6z|iE'\u00de'73?B'wlyu\u0080h{hhu'PPPA'ihukpunrhu'[Cz|iE8C6z|iE'klunhu'[Cz|iE9C6z|iE5C6spECspECiEWlu\u0080lslzhphuAC6iE'Wlyu\u0080h{hhu'PA'[Cz|iE9C6z|iE'D'8<7'\u00fe'73='D'9<7'U3'i|rhu'977'U'/hunrh'977'hkhsho'{lnhunhu'{hsp'tlukh{hy0B'qhkp'CiEZhshoC6iE5'Wlyu\u0080h{hhu'PPA'[Cz|iE8C6z|iE'D'9<7'\u00de'73?'D'977'U3'i|rhu'8<7'U'/8<7'U'ohu\u0080hsho'ilyh{'slu{lyh3'whkhohs'{hsp'tlukh{hy'{pkhr'tluhohu'ilyh{'zljhyh'shunz|un0B'qhkp'CiEZhshoC6iE5'Wlyu\u0080h{hhu'PPPA'[Cz|iE8C6z|iE'D'977'U'slipo'rljps'khypwhkh'[Cz|iE9C6z|iE'D'9<7'UB'qhkp'CiEIluhyC6iE5C6spECspECiERlzptw|shu'qh~hihuAC6iE'P'Zhsho3'PP'Zhsho3'PPP'Iluhy'/wvsh'Z-ukhzoBZ-ukhzoBI05C6spEC6vsE"
+  };
+  var REVIEW = {
+    "s1": "CwENhi|unrhu'k|h'nh\u0080h'\u0080hun'zhspun'{lnhr's|y|z'klunhu'CiE{lvylth'W\u0080{ohnvyhzC6iE3'i|rhu'klunhu'wluq|tshohu'h{h|'wlun|yhunhu'iphzh5'Ohzpsu\u0080h'zlshs|'slipo'rljps'khypwhkh'q|tsho'ilzhy'rlk|h'nh\u0080h'{l{hwp'slipo'ilzhy'khypwhkh'nh\u0080h'\u0080hun'{lyilzhy3'khu'hyhou\u0080h'{lysl{hr'kp'hu{hyh'rlk|h'nh\u0080h5C6wE",
+    "s2": "CwEZlils|t'tlun|yhprhu'nh\u0080h3'{lu{|rhu'CiEnhypz'hj|hu'z|k|{u\u0080hC6iE5'Z|k|{'khyp'nhypz'}ly{prhs'tlti|h{'rvtwvulu'tlukh{hy'tlthrhp'zpu|zB'z|k|{'khyp'nhypz'tlukh{hy'tlti|h{u\u0080h'tlthrhp'rvzpu|z5'K|h'rvtwvulu'\u0080hun'{lnhr's|y|z'zlshs|'tltlu|op'M\u00b9'D'MCz|iE\u007fC6z|iE\u00b9'2'MCz|iE\u0080C6z|iE\u00b93'zlopunnh'ohzps'khwh{'kpwlyprzh'klunhu'W\u0080{ohnvyhz5C6wE",
+    "s3": "CwEWhkh'ipkhun'tpypun3'rvtwvulu'ilyh{'\u0080hun'CiEzlqhqhyC6iE'ipkhun'tlthrhp'CiEzpu|zC6iE'z|k|{'rltpypunhu3'zlkhunrhu'rvtwvulu'\u0080hun'CiE{lnhr's|y|zC6iE'ipkhun'tlthrhp'CiErvzpu|zC6iE5'Ipsh'z|k|{'{pkhr'kpilyprhu3'zpu|zu\u0080h'kpihjh'khyp'wlyihukpunhu'zpzp'zlnp{pnh3'\u0080hp{|'{punnp'\u00fe'whuqhun'whwhu5'Ilyh{'ohy|z'kpop{|un'khyp'thzzh'slipo'k|s|'/^'D't'n05C6wE",
+    "s4": "CwE\\yhprhu'slipo'k|s|'nh\u0080h'\u0080hun'{pkhr'zlqhqhy'z|ti|3'shs|'q|tshorhu'rvtwvulu'zlqlupz'klunhu'{hukh'zlz|hp'hyho5'Ylz|s{hu'kpop{|un'khyp'rvtwvulu'{v{hs'klunhu'CiEW\u0080{ohnvyhzC6iE3'khu'hyhou\u0080h'khyp'CiE{hu'\u03b8'D'YCz|iE\u0080C6z|iE'\u00fe'YCz|iE\u007fC6z|iEC6iE5'K|h'}lr{vy'ohu\u0080h'zlhyho'ipsh'wlyihukpunhu'rvtwvuluu\u0080h'zhthB'tluq|tshorhu'ilzhy'nh\u0080h'ohu\u0080h'iluhy'ipsh'zlt|h'nh\u0080h'zlnhypz'khu'zlhyho5C6wE",
+    "s5": "CwEIlyh{'/}ly{prhs0'khu'kvyvunhu'hunpu'/tlukh{hy0'zhspun'{lnhr's|y|z3'zlopunnh'ylz|s{huu\u0080h'kpop{|un'klunhu'CiEW\u0080{ohnvyhzC6iE3'i|rhu'kpq|tshorhu5'Hyhou\u0080h'kpihjh'khyp'CiE{hu'\u03cd'D'zpzp'zlilyhun'\u00fe'zpzp'\u0080hun'ilyptwp{C6iE'klunhu'nhypz'hj|hu5'Ipsh'thzzh'ily|iho3'ilyh{'ohy|z'kpop{|un'|shun3'zlkhunrhu'kvyvunhu'hunpu'{l{hw5C6wE",
+    "s6": "CwEWlyjlwh{hu'hkhsho'CiEnh\u0080h'ul{v'kpihnp'thzzhC6iE'/h'D'\u03aaM'\u00fe't05'Nh\u0080h'\u0080hun'slipo'ilzhy'tlunohzpsrhu'wlyjlwh{hu'\u0080hun'slipo'ilzhy3'khu'thzzh'\u0080hun'slipo'ilzhy'tlunohzpsrhu'wlyjlwh{hu'\u0080hun'slipo'rljps5'Whuqhun'spu{hzhu'{pkhr'pr|{'tlulu{|rhu'wlyjlwh{hu5C6wE",
+    "s7": "CwERlshq|hu'{l{hw'whkh'spu{hzhu's|y|z'ilyhy{p'CiEnh\u0080h'ul{v'uvsC6iE'/O|r|t'P'Ul~{vu03'zlopunnh'nh\u0080h'{hypr'zhth'klunhu'nh\u0080h'nlzlr5'Rvlmpzplu'nlzlr'hkhsho'CiEwlyihukpunhu'nh\u0080h'nlzlr'{lyohkhw'nh\u0080h'uvythsC6iE3'khu'whkh'shu{hp'kh{hy'nh\u0080h'uvyths'zhth'klunhu'ilyh{'/t'n03'i|rhu'thzzh5C6wE",
+    "s8": "CwENh\u0080h'nlzlr'CiEtlsh~huC6iE'nlyhr3'zlopunnh'nh\u0080h'ul{v'hkhsho'CiEzlspzpoC6iE'nh\u0080h'kvyvun'khu'nh\u0080h'nlzlr5'Wlyjlwh{hu'kpop{|un'khyp'nh\u0080h'ul{v'kpihnp'zls|y|o'thzzh'\u0080hun'kpnlyhrrhu'/nlyvihr'ilzly{h't|h{huu\u0080h03'i|rhu'khyp'nh\u0080h'kvyvun'zhqh5C6wE",
+    "s9": "CwEIlukh'\u0080hun'ilyzlu{|ohu'khu'ilynlyhr'ilyzhth'tltpsprp'CiEwlyjlwh{hu'\u0080hun'zhthC6iE3'\u0080hun'kpjhyp'khyp'zls|y|o'zpz{lt'/M'\u00fe'q|tsho'thzzh05'Nh\u0080h'rvu{hr'kpjhyp'klunhu'tlupuqh|'CiEzh{|'ilukh'zhqhC6iEA'ilukh'\u0080hun'kpkvyvun'ohu\u0080h'kpwlyjlwh{'vslo'nh\u0080h'rvu{hr3'zlopunnh'U'D't'h'|u{|r'ilukh'p{|5'Nh\u0080h'hrzp'khu'ylhrzp'zhth'ilzhy'{l{hwp'ilrlyqh'whkh'ilukh'\u0080hun'ilyilkh5C6wE",
+    "s10": "CwEWhkh'k|h'ilukh'\u0080hun'kpo|i|unrhu'{hsp'tlshs|p'rh{yvs3'CiEwlyjlwh{hu'zpz{ltC6iE'kpjhyp'slipo'k|s|'khyp'zlspzpo'ilyh{'kpihnp'q|tsho'thzzh5'[lnhunhu'{hsp'shs|'kpjhyp'klunhu'tlupuqh|'CiEzh{|'ilukhC6iE5'[lnhunhu'slipo'ilzhy'khypwhkh'ilyh{'ilukh'\u0080hun'uhpr'khu'slipo'rljps'khypwhkh'ilyh{'ilukh'\u0080hun'{|y|uB'ph'i|rhu'zlspzpo'ilyh{'khu'i|rhu'ilyh{'zhsho'zh{|'ilukh5C6wE",
+    "s11": "CwEIpsh'nh\u0080h'{hypr'CiEtpypun'rl'h{hzC6iE3'rvtwvulu'{lnhru\u0080h'tlun|yhunp'nh\u0080h'uvyths'/U'D't'n'\u2219'M'zpu'\u03bf03'zlopunnh'nh\u0080h'nlzlr'slipo'rljps'khypwhkh'\u03c3't'n5'Ohu\u0080h'CiErvtwvulu'tlukh{hyC6iE'/M'jvz'\u03bf0'\u0080hun'tlsh~hu'nlzlrhu'khu'tlunohzpsrhu'wlyjlwh{hu5'\\y|{hu'rlyqhu\u0080hA'|yhprhu'nh\u0080h3'jhyp'U3'op{|un'nlzlrhu3'shs|'{lyhwrhu'\u03aaM'D't'h5C6wE",
+    "s12": "CwENh\u0080h'hrzp'khu'ylhrzp'CiEzhth'ilzhyC6iE'{l{hwp'ilrlyqh'whkh'CiEilukh'\u0080hun'ilyilkhC6iE3'qhkp'rlk|hu\u0080h'{pkhr'zhspun'tluphkhrhu5'Wlukvyvun'pr|{'kpwlyjlwh{'vslo'nh\u0080h'ylhrzpB'wlyjlwh{huu\u0080h'CiEslipo'rljpsC6iE'ipsh'thzzhu\u0080h'slipo'ilzhy'/h'D'M'\u00fe't05C6wE",
+    "s13": "CwEIhjhhu'{ptihunhu'hkhsho'CiEnh\u0080h'uvythsC6iE3'i|rhu'thzzh5'Zhh{'wlyjlwh{hu'rl'h{hz3'U'slipo'ilzhy'khypwhkh'ilyh{'/U'D't'/n'2'h00B'zhh{'rlshq|hu'{l{hw3'U'zhth'klunhu'ilyh{B'zhh{'kpwlyshtih{'rl{prh'uhpr3'wlyjlwh{hu'rl'ih~ho'zlopunnh'U'slipo'rljps'khypwhkh'ilyh{5'CiEWlyjlwh{hu'uvs'i|rhu'ilyhy{p'{huwh'nh\u0080hC6iE3'tlshpurhu'nh\u0080h'ul{v'uvs5C6wE",
+    "s14": "CwEWlyjlwh{hu'ilyzhth'kpjhyp'khyp'CiEzls|y|o'zpz{ltC6iE'/nh\u0080h'ul{v'\u00fe'q|tsho'thzzh03'zlkhunrhu'{lnhunhu'rhils'kpjhyp'klunhu'tlupuqh|'CiEzh{|'ilukhC6iE'khu'CiEtlu\u0080ly{hrhu'ohtih{huu\u0080hC6iE5'Zl{lsho'nh\u0080h'wluhypr'opshun3'ilukh'{pkhr'ilyolu{p'zlrl{prhA'ph'{ly|z'ilynlyhr'rhyluh'rlsltihthu'khu'tlshtih{'ohu\u0080h'vslo'nh\u0080h'ohtih{'\u0080hun'{lyzpzh5C6wE",
+    "s15": "CwEWlyjlwh{hu'ilukh'\u0080hun'kp{hypr'rl'h{hz'kp{lu{|rhu'vslo'CiEzlspzpo'{hyprhu'khu'ilyh{C6iE3'i|rhu'vslo'{hyprhu'zhqh5'Ipsh'{hyprhu'slipo'ilzhy'khypwhkh'ilyh{3'ilukh'kpwlyjlwh{'rl'h{hzB'ipsh'zhth3'wlyjlwh{huu\u0080h'uvsB'ipsh'slipo'rljps3'ilukh'kpwlyjlwh{'rl'ih~ho5C6wE",
+    "s16": "CwEWhkh'ilukh'CiEkphtC6iE'kp'ipkhun'tpypun3'nh\u0080h'nlzlr'\u0080hun'ilrlyqh'zhth'klunhu'CiErvtwvulu'ilyh{'zlqhqhy'ipkhunC6iE3'i|rhu'klunhu'upshp'thrzpt|tu\u0080h'/\u03c3Cz|iEzC6z|iE'U05'Ilukh'ihy|'tls|uj|y'ipsh'rvtwvulu'p{|'tlshtwh|p'nlzlrhu'z{h{pz'thrzpt|t5'Rhyluh'rlk|hu\u0080h'zlihukpun'klunhu'thzzh3'tlun|iho'thzzh'{pkhr'tlun|iho'hwhrho'ilukh'tls|uj|y5C6wE",
+    "s17": "CwEWlyjlwh{hu'}ly{prhs'kp{lu{|rhu'vslo'CiEzlspzpo'nh\u0080h'hunrh{'khu'ilyh{C6iE3'kpihnp'thzzh5'Tluhtiho'thzzh'tluhtiho'ilyh{B'ipsh'ilyh{'tlshtwh|p'nh\u0080h'hunrh{3'nh\u0080h'ul{v'ilyihspr'rl'ih~ho'khu'ilukh'{pkhr'shnp'uhpr5'Ilyh{'zlshs|'kpop{|un'khyp'thzzh'/^'D't'n05C6wE",
+    "s18": "CwETvtlu'nh\u0080h'ilynhu{|un'whkh'CiEnh\u0080h3'slunhu3'khu'z|k|{'kp'hu{hyh'rlk|hu\u0080hC6iE'/\u03cb'D'y'M'zpu'\u03bf05'Nh\u0080h'\u0080hun'zlhyho'klunhu'nhypz'khyp'wvyvz'{pkhr'tlt|{hy3'zlkhunrhu'nh\u0080h'\u0080hun'{lnhr's|y|z'tlt|{hy'whspun'lmlr{pm5'\\iho'qhyhr'rl'CiEtl{lyC6iE'zlils|t'tlunop{|un'z|wh\u0080h'zh{|hu'ohzpsu\u0080h'U\u00bet5C6wE",
+    "s19": "CwEWhkh'rlzl{ptihunhu'yv{hzp3'CiEilihu'\u0080hun'slipo'ilyh{'k|k|r'slipo'klrh{'rl'{p{pr'{|tw|C6iEA'ohzps'rhsp'ilyh{'khu'qhyhr'kp'rlk|h'zpzp'ohy|z'zhth'/tCz|iE8C6z|iE'yCz|iE8C6z|iE'D'tCz|iE9C6z|iE'yCz|iE9C6z|iE'ipsh'n'zhth05'Wlyprzh'ohzpsu\u0080hA'qhyhr'rlyhuqhun'\u0080hun'slipo'ilyh{'ohy|z'slipo'rljps'khypwhkh'qhyhr'rlyhuqhun'\u0080hun'slipo'ypunhu5C6wE",
+    "s20": "CwEWhkh'ih{hun'klunhu'k|h'{|tw|hu3'wpspo'CiEwvyvz'kp'zhsho'zh{|'{|tw|huC6iE'z|wh\u0080h'nh\u0080h'{|tw|hu'p{|'{pkhr'ilytvtlu3'shs|'whrhp'\u03aa\u03cb'D'75'CiEIlyh{'ih{hun'zlyhnht'ilrlyqh'kp'{lunhou\u0080hC6iE5'Ilihu'\u0080hun'slipo'klrh{'rl'z|h{|'{|tw|hu'tlti|h{'{|tw|hu'p{|'tluhunn|un'nh\u0080h'slipo'ilzhyB'wlyprzh'ohzps'klunhu'q|tsho'rlk|h'nh\u0080h'{|tw|hu'zhth'klunhu'{v{hs'ilyh{5C6wE",
+    "s21": "CwEWhkh'ih{hun'\u0080hun'ilyw|{hy'whkh'wvyvz3'CiEqhyhr'ilyh{'ih{hun'zlyhnht'kp|r|y'khyp'wvyvz'rl'{lunho'ih{hunC6iE3'i|rhu'khyp'|q|un'khu'i|rhu'zl{lunho'whuqhun'{v{hs5'Rlzl{ptihunhu'tvtlu'tltilyp'nh\u0080h'ilihu'wlu\u0080lptihun3'shs|'CiEnh\u0080h'wvyvz'tluhunn|un'q|tsho'zlt|h'ilyh{C6iE'/rlzl{ptihunhu'nh\u0080h'{lnhr05C6wE",
+    "s22": "CwEWhkh'ilukh'\u0080hun'kpnhu{|un'klunhu'k|h'{hsp'zptl{ypz3'CiErvtwvulu'{lnhrC6iE'rlk|h'{lnhunhu'tluhohu'ilyh{'/9'['zpu'\u03bf'D'^03'zlkhunrhu'rvtwvulu'tlukh{hyu\u0080h'zhspun'tluphkhrhu5'Rhyluh'zpu'\u03bf'slipo'rljps'khypwhkh'83'CiE{lnhunhu'{phw'{hsp'slipo'ilzhy'khypwhkh'zl{lunho'ilyh{C6iE3'khu'thrpu'shukhp'{hspu\u0080h'thrpu'ilzhy'{lnhunhuu\u0080h5C6wE",
+    "s23": "CwEWhkh'nlyvihr'zvyvun3'CiEwvyvz'yvkh'tluqhkp'{p{pr'w|{hyC6iE5'Nh\u0080h'{hunhu'slipo'rljps'khypwhkh'ilyh{'t|h{hu'rhyluh'slunhuu\u0080h'slipo'whuqhun'/^'yCz|iE~C6z|iE'D'M'yCz|iE{C6z|iE03'khu'CiEzpzh'ilyh{'kp{hunn|un'yvkhC6iE5'Tlunnlzly'{hunhu'tluqh|op'wvyvz'h{h|'tlun|yhunp't|h{hu'tltwlyrljps'nh\u0080h'{hunhu'\u0080hun'kpwlys|rhu5C6wE",
+    "s24": "CwEWhkh'ilukh'\u0080hun'ilyzhukhy'whkh'CiEkpukpun'spjpuC6iE3'kpukpun'ohu\u0080h'tltilyp'nh\u0080h'tlukh{hy3'zlopunnh'nh\u0080h'uvyths'{huho'zhth'klunhu'ilyh{'khu'nh\u0080h'nlzlr'{huho'zhth'klunhu'nh\u0080h'kpukpun5'Nh\u0080h'kpukpun'kpjhyp'khyp'CiErlzl{ptihunhu'tvtlu'{lyohkhw'|q|un'ih~hoC6iE3'klunhu'slunhu'ilyh{'zhth'klunhu'zl{lunho'qhyhr'tlukh{hy3'i|rhu'whuqhun'nhsho5C6wE",
+    "s25": "CwEWhkh'zptw|s'{pnh'{hsp3'CiErvtwvulu'{lnhr'{hsp'tpypun'tluhohu'ilyh{C6iE'/[Cz|iE9C6z|iE'zpu'\u03bf'D'^03'zlkhunrhu'CiErvtwvulu'tlukh{hyu\u0080h'kpptihunp'{hsp'tlukh{hyC6iE'/[Cz|iE8C6z|iE'D'[Cz|iE9C6z|iE'jvz'\u03bf05'[hsp'tpypun'zlshs|'tluhunn|un'{lnhunhu'slipo'ilzhy'khypwhkh'{hsp'tlukh{hy'khu'slipo'ilzhy'khypwhkh'ilyh{'ipsh'z|k|{u\u0080h'r|yhun'khyp'@7\u00b75C6wE"
+  };
+  var JUDUL = {
+    "pb": "Wltihohzhu",
+    "rv": "Yl}pl~'Rvuzlw"
+  };
+  function buka(s){ var o = "", i; for (i = 0; i < s.length; i++) o += String.fromCharCode(s.charCodeAt(i) - GESER); return o; }
+  var TOTAL = Object.keys(KUNCI_NUM).length + Object.keys(KUNCI_PIL).length;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var elMenit = $("menit"), elTenggat = $("tenggat"), elSetup = $("setup"), elSoal = $("soal"), elTirai = $("tirai"),
+      elHasil = $("hasil"), elNav = $("navpanel"), elBilah = $("bilah"), elHitung = $("hitung"), elJam = $("jam"), elPesan = $("pesan"),
+      tblMulai = $("tbl-mulai"), tblNomor = $("tbl-nomor"), tblPeriksa = $("tbl-periksa"), tblSelesai = $("tbl-selesai");
+  var timer = null;
+
+  /* ---------- pembaca bilangan: 3,6 · 3.6 · 18.000 · 18000 · 1.234,5 ---------- */
+  function bacaBilangan(t){
+    var s = String(t).replace(/\s+/g, ""), a, b, d;
+    if (s === "") return null;
+    if (/^-?\d{1,3}([.,]\d{3})+$/.test(s)) s = s.replace(/[.,]/g, "");
+    else {
+      a = s.lastIndexOf("."); b = s.lastIndexOf(",");
+      if (a > -1 && b > -1) { d = Math.max(a, b); s = s.slice(0, d).replace(/[.,]/g, "") + "." + s.slice(d + 1); }
+      else s = s.replace(",", ".");
+    }
+    if (!/^-?\d*\.?\d+$/.test(s)) return null;
+    return parseFloat(s);
+  }
+
+  /* ---------- membaca jawaban langsung dari elemen form ---------- */
+  function jawaban(id){
+    var b = BENTUK[id], i, e, r, v = [];
+    if (b === "pg") { e = document.querySelector('input[name="' + id + '"]:checked'); return e ? e.value : ""; }
+    if (b === "pgk") {
+      r = document.querySelectorAll('input[name="' + id + '"]:checked');
+      for (i = 0; i < r.length; i++) v.push(r[i].value);
+      v.sort(); return v.join("");
+    }
+    for (i = 1; i <= 3; i++) { e = $(id + "p" + i); if (!e || String(e.value).trim() === "") return ""; v.push(e.value); }
+    return v.join("");
+  }
+  function status(id){
+    var i, e, n = 0;
+    if (BENTUK[id] === "bs") {
+      for (i = 1; i <= 3; i++) { e = $(id + "p" + i); if (e && String(e.value).trim() !== "") n++; }
+      return n === 3 ? "penuh" : (n > 0 ? "sebagian" : "kosong");
+    }
+    return jawaban(id) !== "" ? "penuh" : "kosong";
+  }
+  function nilaiButir(id){
+    var b = BENTUK[id], k = buka(KUNCI_PIL[id]), i, e, n = 0;
+    if (b === "pg") return jawaban(id) === k ? 1 : 0;
+    if (b === "pgk") {
+      var dipilih = jawaban(id);
+      for (i = 0; i < k.length; i++) if (dipilih.indexOf(k.charAt(i)) > -1) n++;
+      return n / k.length;
+    }
+    for (i = 1; i <= 3; i++) {
+      e = $(id + "p" + i);
+      if (e && String(e.value).trim() === k.charAt(i - 1)) n++;
+    }
+    return n / 3;
+  }
+  function hitungNilai(){
+    var id, benar = 0, el, v;
+    for (id in KUNCI_PIL) benar += nilaiButir(id);
+    for (id in KUNCI_NUM) {
+      el = $(id); v = el ? bacaBilangan(el.value) : null;
+      if (v !== null && Math.abs(v - KUNCI_NUM[id][0]) <= KUNCI_NUM[id][1]) benar += 1;
+    }
+    return Math.round((benar / TOTAL) * 100);
+  }
+  window.hitungNilai = hitungNilai;
+
+  /* ---------- kemajuan, panel nomor, penanda ragu ---------- */
+  function gulirKe(el){ if (el && typeof el.scrollIntoView === "function") { try { el.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (x) { try { el.scrollIntoView(); } catch (y) {} } } }
+  function perbarui(){
+    var i, id, s, ragu, n = 0, nav, kar, ops, w;
+    for (i = 0; i < URUT.length; i++) {
+      id = URUT[i]; s = status(id); ragu = $("ragu-" + id).checked;
+      if (s === "penuh") n++;
+      nav = $("nav-" + id); kar = $("kartu-" + id);
+      nav.className = "navnum" + (ragu ? " ragu" : (s === "penuh" ? " isi" : ""));
+      nav.setAttribute("aria-label", "Soal " + (i + 1) + ", " + (ragu ? "ditandai ragu-ragu" : (s === "penuh" ? "sudah dijawab" : (s === "sebagian" ? "belum dijawab, baru terisi sebagian" : "belum dijawab"))));
+      kar.classList.toggle("k-ragu", ragu);
+      kar.classList.toggle("k-isi", !ragu && s === "penuh");
+      if (s === "penuh") kar.classList.remove("kosong");
+    }
+    ops = document.querySelectorAll(".opsi input");
+    for (i = 0; i < ops.length; i++) ops[i].parentNode.classList.toggle("dipilih", ops[i].checked);
+    w = URUT.length ? (n / URUT.length) * 100 : 0;
+    if (elBilah.firstElementChild) elBilah.firstElementChild.style.width = w + "%";
+    elHitung.textContent = n + " dari " + URUT.length + " soal dijawab";
+    return n;
+  }
+  function belumLengkap(){
+    var kosong = [], sebagian = [], i, s;
+    for (i = 0; i < URUT.length; i++) { s = status(URUT[i]); if (s === "kosong") kosong.push(i + 1); else if (s === "sebagian") sebagian.push(i + 1); }
+    return { kosong: kosong, sebagian: sebagian };
+  }
+  function periksa(){
+    var b = belumLengkap(), i, id, kar, pertama = null, ragu = [], bagian = [];
+    for (i = 0; i < URUT.length; i++) {
+      id = URUT[i]; kar = $("kartu-" + id);
+      if (status(id) === "penuh") kar.classList.remove("kosong");
+      else { kar.classList.add("kosong"); if (!pertama) pertama = kar; }
+      if ($("ragu-" + id).checked) ragu.push(i + 1);
+    }
+    elPesan.className = "";
+    if (b.kosong.length || b.sebagian.length) {
+      if (b.kosong.length) bagian.push("belum dijawab: nomor " + b.kosong.join(", "));
+      if (b.sebagian.length) bagian.push("Benar–Salah belum lengkap ketiga pernyataannya: nomor " + b.sebagian.join(", "));
+      elPesan.className = "awas";
+      elPesan.textContent = "Masih ada yang perlu kamu isi — " + bagian.join("; ") + ".";
+      gulirKe(pertama);
+    } else if (ragu.length) {
+      elPesan.textContent = "Semua soal sudah terisi. Periksa lagi soal yang kamu tandai ragu-ragu: nomor " + ragu.join(", ") + ".";
+    } else {
+      elPesan.textContent = "Semua soal sudah terisi dan tidak ada yang ditandai ragu-ragu.";
+    }
+  }
+
+  /* ---------- waktu: tenggat tinggal di elemen form tersembunyi ---------- */
+  function sisaMs(){ var t = parseFloat(elTenggat.value); return isFinite(t) ? t - Date.now() : 0; }
+  function tulisJam(ms){
+    var d = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(d / 3600), m = Math.floor((d % 3600) / 60), s = d % 60;
+    var t = (h > 0 ? h + ":" : "") + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+    elJam.textContent = t;
+    elJam.className = d <= 0 ? "habis" : (d <= 300 ? "sedikit" : "");
+  }
+  function tik(){
+    var ms = sisaMs();
+    tulisJam(ms);
+    if (ms <= 0) kunci(true, "waktu");
+  }
+  function jalankanJam(){ if (timer) clearInterval(timer); tik(); timer = setInterval(tik, 250); }
+  function nyalakanTombol(){ tblNomor.disabled = false; tblPeriksa.disabled = false; tblSelesai.disabled = false; }
+  function tampilSoal(){ elSetup.hidden = true; elSoal.hidden = false; nyalakanTombol(); }
+
+  function mulai(){
+    var m = bacaBilangan(elMenit.value);
+    if (m === null || m < 1 || m > 300) {
+      elPesan.className = "awas";
+      elPesan.textContent = "Isi lama pengerjaan dengan angka 1 sampai 300 menit.";
+      elMenit.focus();
+      return;
+    }
+    elPesan.className = ""; elPesan.textContent = "";
+    elTenggat.value = String(Date.now() + m * 60000);
+    tampilSoal();
+    jalankanJam();
+    perbarui();
+    gulirKe($("kartu-" + URUT[0]));
+  }
+
+  /* ---------- mengunci tanpa disabled ---------- */
+  function terkunciSekarang(){ return elSoal.classList.contains("terkunci"); }
+  ["click", "keydown", "mousedown"].forEach(function(tipe){
+    elSoal.addEventListener(tipe, function(e){
+      var t, tag;
+      if (!terkunciSekarang()) return;
+      if (tipe === "keydown" && (e.key === "Tab" || e.key === "Shift")) return;
+      t = e.target; tag = t && t.tagName;
+      if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA" || tag === "LABEL") { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  });
+
+  function kunci(gulir, alasan){
+    var tersimpan;
+    if (timer) { clearInterval(timer); timer = null; }
+    elSoal.classList.add("terkunci");
+    tersimpan = perbarui();
+    elTirai.hidden = false;
+    if (alasan === "waktu") {
+      elTirai.className = "habis";
+      elTirai.textContent = "Waktu habis. Lembar terkunci dan jawabanmu tetap tersimpan: " + tersimpan + " dari " + URUT.length + " soal terisi.";
+    } else {
+      elTirai.className = "";
+      elTirai.textContent = "Lembar terkunci. " + tersimpan + " dari " + URUT.length + " soal tersimpan.";
+    }
+    elNav.hidden = true;
+    tblSelesai.disabled = true;
+    tulisJam(0);
+    tampilkanHasil();
+    if (gulir) gulirKe(elTirai);
+  }
+
+  /* ---------- panel hasil: nilai, penguasaan, pembahasan, review ---------- */
+  function tampilkanHasil(){
+    var pertama = $("kartu-" + URUT[0]), i, j, id, f, kls, teks, penuh = 0, skor, baris = "", g, jumlah, p, html, kar, isi, d;
+    if (pertama.querySelector(".umpan")) { elHasil.hidden = false; return; }
+    skor = hitungNilai();
+    for (i = 0; i < URUT.length; i++) {
+      id = URUT[i]; f = nilaiButir(id);
+      if (f === 1) { penuh++; kls = "ok"; teks = "Jawabanmu benar"; }
+      else if (f === 0) { kls = "no"; teks = "Jawabanmu belum tepat"; }
+      else { kls = "sebagian"; teks = "Benar sebagian — " + Math.round(f * 100) + " % dari poin soal ini"; }
+      html = '<div class="feedback-head"><span class="result-pill ' + kls + '">' + teks + '</span></div>';
+      html += '<div class="panel pembahasan"><h3>' + buka(JUDUL.pb) + '</h3>' + buka(PEMBAHASAN[id]) + '</div>';
+      html += '<div class="panel review"><h3>' + buka(JUDUL.rv) + '</h3>' + buka(REVIEW[id]) + '</div>';
+      kar = $("kartu-" + id); isi = kar.querySelector(".soal-isi");
+      d = document.createElement("div"); d.className = "umpan"; d.innerHTML = html;
+      isi.appendChild(d);
+    }
+    for (g = 0; g < BAGIAN.length; g++) {
+      jumlah = 0;
+      for (j = 0; j < BAGIAN[g].ids.length; j++) jumlah += nilaiButir(BAGIAN[g].ids[j]);
+      p = Math.round(jumlah / BAGIAN[g].ids.length * 100);
+      baris += "<tr><td><b>" + BAGIAN[g].kode + "</b> · " + BAGIAN[g].nama + "</td><td class=\"r\" data-l=\"Perolehan\">" + (Math.round(jumlah * 100) / 100).toString().replace(".", ",") + " dari " + BAGIAN[g].ids.length + " soal</td><td class=\"r\" data-l=\"Penguasaan\">" + p + " %</td></tr>";
+    }
+    elHasil.innerHTML = '<h2>Nilai akhir</h2><div class="skor-besar"><span id="skor">' + skor + '</span></div>' +
+      '<p class="ket" id="hasil-ket">dari 100 · ' + penuh + ' dari ' + TOTAL + ' soal terjawab penuh</p>' +
+      '<table class="penguasaan" id="tabel-penguasaan"><thead><tr><th>Bagian</th><th class="r">Perolehan</th><th class="r">Penguasaan</th></tr></thead><tbody>' + baris + '</tbody></table>' +
+      '<p class="catatan">Bacalah pembahasan soal yang belum tepat. Yang perlu kamu cari adalah langkah tempat jalanmu berbelok, bukan jawaban akhirnya.</p>';
+    elHasil.hidden = false;
+  }
+
+  /* ---------- tombol dan peristiwa ---------- */
+  tblMulai.addEventListener("click", mulai);
+  tblNomor.addEventListener("click", function(){ elNav.hidden = !elNav.hidden; });
+  tblPeriksa.addEventListener("click", periksa);
+  tblSelesai.addEventListener("click", function(){
+    var b = belumLengkap(), n = b.kosong.length + b.sebagian.length, t;
+    t = (n > 0 ? "Masih ada " + n + " soal yang belum lengkap. " : "") + "Akhiri lembar sekarang? Jawabanmu tidak dapat diubah lagi.";
+    if (!window.confirm(t)) return;
+    kunci(true, "selesai");
+  });
+  elNav.addEventListener("click", function(e){
+    var t = e.target, id;
+    while (t && t !== elNav && !(t.getAttribute && t.getAttribute("data-soal"))) t = t.parentNode;
+    if (!t || t === elNav) return;
+    id = t.getAttribute("data-soal");
+    gulirKe($("kartu-" + id));
+    elNav.hidden = true;
+  });
+  document.addEventListener("input", perbarui);
+  document.addEventListener("change", perbarui);
+
+  /* ---------- awal: lanjutkan bila tenggat sudah tersimpan ---------- */
+  perbarui();
+  if (elTenggat.value) {
+    tampilSoal();
+    if (sisaMs() <= 0) kunci(false, "waktu"); else jalankanJam();
+  }
+})();
+</script>
+
+<!-- pelapor FIMS: memakai mesin CBT yang sudah ada, hanya meneruskan skornya -->
+<script id="fims-lapor">
+(function(){ "use strict";
+  if (window.parent === window) return;              /* dibuka sendiri: tetap lembar biasa */
+  var tbl = document.getElementById("tbl-selesai");
+  if (!tbl) return;
+  tbl.addEventListener("click", function(){
+    setTimeout(function(){
+      try {
+        var n = (typeof window.hitungNilai === "function") ? Math.round(window.hitungNilai()) : 0;
+        if (!isFinite(n) || n < 0) n = 0; if (n > 100) n = 100;
+        parent.postMessage({ fims: "skor", skor: n }, "*");
+      } catch (e) {}
+    }, 400);                                          /* beri waktu mesin CBT merampungkan nilainya */
+  });
+})();
+</script>
+</body>
+</html>

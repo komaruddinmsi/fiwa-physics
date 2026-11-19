@@ -1,0 +1,11 @@
+{
+  "kode": "F.MEK.2",
+  "judul": "Gaya & gerak pada peristiwa sehari-hari",
+  "teks": "Mengaitkan hubungan antara gaya dan gerak (Hukum Newton) pada peristiwa yang terjadi dalam kehidupan sehari-hari.",
+  "bloom": "C4",
+  "urutan_ajar": 2,
+  "prasyarat": [
+    "f-mek-1-pra"
+  ],
+  "ambang": 75
+}

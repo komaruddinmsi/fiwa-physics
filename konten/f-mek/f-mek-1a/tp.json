@@ -1,0 +1,11 @@
+{
+  "kode": "F.MEK.1a",
+  "judul": "Hukum Newton sebagai sebab dan akibat",
+  "teks": "Menjelaskan hubungan gaya dan gerak (Hukum Newton), serta mencontohkannya pada peristiwa baru.",
+  "bloom": "C2",
+  "urutan_ajar": 3,
+  "prasyarat": [
+    "f-mek-2"
+  ],
+  "ambang": 75
+}

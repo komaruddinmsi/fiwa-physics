@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worksheet Fisika F.MEK.1-pra — Dua Soal Latihan</title>
+<style>
+:root{--tosca0:#073B44;--tosca:#0B4F58;--tosca2:#17A2AF;--tosca3:#6FCFD8;--toscaB:#E3F5F6;--oranye:#C05621;--oranye2:#E27A2E;--oranyeB:#FDEBDD;--kuning:#E9B308;--kuningB:#FEF6DA;--tinta:#12333A;--abu:#6A7F84;--abuB:#F1F5F6;--putih:#fff;--hijau:#1F7A4D;--hijauB:#E6F4EC;--merah:#B32B2B;--merahB:#FBEAEA}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#F6FAFB;color:var(--tinta);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;padding-bottom:130px}
+.halaman{max-width:920px;margin:0 auto;padding:0 14px}
+.kepala{position:relative;overflow:hidden;background:linear-gradient(110deg,var(--tosca0),var(--tosca),var(--tosca3));color:#fff;padding:30px 22px 26px;border-bottom:5px solid;border-image:linear-gradient(90deg,var(--kuning),var(--oranye)) 1}
+.kepala::before{content:"";position:absolute;right:-60px;top:-70px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.10)}
+.kepala::after{content:"";position:absolute;right:70px;bottom:-90px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kepala .baris-kecil{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.92;position:relative;z-index:1}
+.kepala h1{font-size:28px;line-height:1.2;margin:8px 0 6px;position:relative;z-index:1}
+.kepala p{margin:0;max-width:640px;font-size:15.5px;opacity:.96;position:relative;z-index:1}
+.kartu-identitas,.panel-aturan,.bagian,.ringkasan{background:var(--putih);border:1px solid #D7E6E8;border-radius:14px;margin:18px 0}
+.kartu-identitas{padding:16px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kartu-identitas label{display:block;font-size:13px;color:var(--abu);margin-bottom:3px}
+input[type=text],select,textarea{width:100%;font:inherit;color:var(--tinta);background:#fff;border:2px solid #D7E6E8;border-radius:9px;padding:9px 11px}
+input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--tosca2);box-shadow:0 0 0 3px rgba(23,162,175,.18)}
+.panel-aturan{background:var(--kuningB);border-left:7px solid var(--kuning);padding:14px 20px}
+.panel-aturan b{color:#8A6604}
+.panel-aturan ol{margin:6px 0 0;padding-left:22px}
+.panel-aturan li{margin:4px 0}
+.bagian{overflow:hidden}
+.bagian>.pita{background:linear-gradient(110deg,var(--tosca0),var(--tosca),var(--tosca2));color:#fff;padding:13px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.lencana{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:2px 12px;font-size:13px;font-weight:700;letter-spacing:.04em}
+.pita h2{font-size:18.5px;margin:0;line-height:1.3}
+.isi-bagian{padding:6px 16px 16px}
+.kartu-soal{border:1px solid #D7E6E8;border-radius:12px;margin:14px 0;overflow:hidden;background:#fff}
+.kartu-soal>h3{margin:0;background:var(--toscaB);color:var(--tosca0);font-size:15.5px;padding:8px 14px;border-bottom:1px solid #D7E6E8}
+.dalam-soal{padding:12px 14px}
+.naskah{background:var(--abuB);border-left:5px solid var(--tosca);border-radius:6px;padding:11px 14px;margin:0 0 10px}
+.arah{background:var(--kuningB);border-left:5px solid var(--kuning);border-radius:6px;padding:8px 12px;margin:0 0 10px;font-size:15px}
+.catatan{font-size:14px;color:var(--abu);margin:0 0 10px}
+.gambar-buku{border:2px dashed var(--tosca3);border-radius:8px;padding:8px 12px;margin:0 0 12px;font-size:14.5px;color:var(--tosca)}
+.isian-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 16px}
+.isian-grid .lebar{grid-column:1/-1}
+.isian label,.lebar label{display:block;font-size:14.5px;margin-bottom:4px}
+.sat{color:var(--abu);font-size:13.5px;white-space:nowrap}
+.bantu{display:block;color:var(--abu);font-size:12.8px;margin-top:3px}
+.terisi{border-color:var(--tosca2)!important;background:#F7FDFD}
+.kosong{border-color:var(--oranye2)!important;background:var(--oranyeB)!important}
+.guru-lencana{display:inline-block;background:var(--oranye);color:#fff;border-radius:999px;font-size:11.5px;font-weight:700;padding:1px 9px;margin-left:6px;vertical-align:middle;letter-spacing:.03em}
+.guru-isian textarea{min-height:92px;border-color:var(--oranye2)}
+.guru-isian input[type=text]{border-color:var(--oranye2)}
+table.klas{width:100%;border-collapse:collapse;margin:4px 0 6px;font-size:15px}
+table.klas th{background:var(--tosca);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+table.klas td{padding:8px 10px;border-bottom:1px solid #D7E6E8;vertical-align:middle}
+table.klas tr:nth-child(even) td{background:var(--abuB)}
+.bilah-bawah{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:3px solid var(--tosca2);box-shadow:0 -4px 14px rgba(7,59,68,.12);padding:9px 14px 11px;z-index:50}
+.bilah-dalam{max-width:920px;margin:0 auto}
+.jalur{height:9px;background:#DCE9EB;border-radius:99px;overflow:hidden}
+.isi-jalur{height:100%;width:0;background:linear-gradient(90deg,var(--tosca2),var(--kuning));border-radius:99px;transition:width .25s}
+.bilah-baris{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:7px}
+.hitung{font-weight:700;color:var(--tosca)}
+button.periksa{font:inherit;font-weight:700;background:var(--oranye);color:#fff;border:0;border-radius:9px;padding:8px 16px;cursor:pointer}
+button.periksa:hover{background:var(--oranye2)}
+.pesan{flex:1 1 100%;font-size:14px;color:var(--abu);min-height:1.2em}
+@media (max-width:640px){
+ body{font-size:15.5px;padding-bottom:140px}
+ .kepala h1{font-size:23px}
+ .isian-grid{grid-template-columns:1fr}
+ table.klas,table.klas tbody,table.klas tr,table.klas td{display:block;width:100%}
+ table.klas thead{display:none}
+ table.klas caption{display:block;width:100%}
+ table.klas tr{border-bottom:2px solid #D7E6E8;padding:6px 0}
+ table.klas td{border:0;padding:4px 10px}
+ .bilah-baris{gap:8px}
+}
+
+.lipat-tombol{position:absolute;top:-16px;right:16px;z-index:2;background:#fff;color:#0B4F58;
+ border:1px solid #D7E6E8;border-bottom:none;border-radius:9px 9px 0 0;padding:4px 13px;cursor:pointer;
+ font:600 12px 'Segoe UI',Arial,sans-serif;box-shadow:0 -3px 10px rgba(0,0,0,.07)}
+.lipat-tombol:hover{background:#E3F5F6}
+body.bilah-lipat .bilah-bawah #fims-salah,body.bilah-lipat .bilah-bawah .pesan{display:none}
+body.bilah-lipat.ada-kirim .bilah-bawah .hitung,
+body.bilah-lipat.ada-kirim .bilah-bawah button:not(.fims-aksi){display:none}
+body.bilah-lipat.ada-kirim .bilah-bawah .bilah-baris{justify-content:flex-end}
+body.bilah-lipat .bilah-bawah{padding-top:8px;padding-bottom:10px}
+body.bilah-lipat .bilah-bawah .jalur{height:7px}
+body.bilah-lipat .bilah-bawah button.fims-aksi{padding:6px 17px;font-size:12.5px}
+button.selesai{font:inherit;font-weight:700;background:#0B4F58;color:#fff;border:0;border-radius:9px;padding:8px 16px;cursor:pointer}
+button.selesai:hover{background:#073B44}
+#fims-salah{background:#FDEBDD;border:1px solid #E27A2E;border-left:6px solid #C05621;border-radius:10px;
+ padding:11px 14px;margin:12px 0 0;max-height:30vh;overflow:auto;font-size:14.6px}
+#fims-salah b{color:#C05621}
+#fims-salah .nomor{display:inline-block;background:#fff;border:1px solid #E27A2E;color:#C05621;border-radius:999px;
+ padding:3px 12px;margin:5px 6px 0 0;font-weight:700;font-size:13.4px;cursor:pointer}
+#fims-salah .nomor:hover{background:#C05621;color:#fff}
+.disorot,.kartu-soal.disorot{outline:3px solid #E27A2E;outline-offset:3px;border-radius:12px}
+#fims-kabar{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:#E6F4EC;color:#1F7A4D;
+ border:1px solid #1F7A4D;font:600 15px 'Segoe UI',Arial,sans-serif}
+@media print{.lipat-tombol{display:none!important}}
+</style>
+</head>
+<body>
+<header class="kepala"><div class="baris-kecil">Fisika · Fase F · SMA kelas 11–12 · F.MEK.1-pra</div><h1>Dua Soal Latihan — Operasi Vektor: Penjumlahan dan Penguraian Komponen</h1><p>Kerjakan sendiri, satu per satu, dari Modul Konsep F.MEK.1-pra. Tiap bagian punya dua soal.</p></header>
+<main class="halaman">
+<section class="kartu-identitas"><div><label for="nama">Nama lengkap</label><input type="text" id="nama" name="nama" autocomplete="name"></div><div><label for="kelas">Kelas</label><input type="text" id="kelas" name="kelas"></div><div><label for="tanggal">Tanggal</label><input type="text" id="tanggal" name="tanggal"></div></section>
+<section class="panel-aturan"><b>Cara mengisi</b><ol><li>Bilangan boleh memakai koma atau titik; keduanya diterima.</li><li>Tulis angkanya saja, tanpa satuan — satuannya sudah tercetak di sebelah kotak.</li><li>Kalau jawabannya negatif, jangan lupa tanda minus; pada besaran berarah, tanda adalah setengah dari jawaban.</li><li>Kotak bertanda “dibaca guru” tidak dinilai otomatis, tetapi tetap diisi.</li><li>Arah positif sudah ditetapkan pada tiap soal supaya jawaban seluruh kelas dapat dibandingkan.</li><li>Jawabanmu tersimpan begitu kamu berpindah ke kotak berikutnya. Kamu boleh menutup halaman dan melanjutkannya nanti.</li></ol></section>
+<section class="bagian" id="bagian-K1-1"><div class="pita"><span class="lencana">K1.1</span><h2>Menjumlah dua panah: arah ikut menentukan</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K1-1-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Seorang pendaki berjalan 24 m ke timur, lalu 7 m ke utara. Gambar kedua langkah sebagai panah yang disambung. Laporkan jarak lurus pendaki dari titik awal, arahnya terhadap timur, dan bandingkan dengan jarak yang ia tempuh.</div>
+<div class="gambar-buku">✎ Di bukumu: gambar kedua langkah sebagai panah yang disambung. Gambar tidak dinilai otomatis; gurumu melihatnya saat berkeliling.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k11s1a">Pada gambar panah yang disambung, panah mana yang menyatakan jarak lurus pendaki dari titik awal?</label><select id="k11s1a" name="k11s1a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Jumlah panjang kedua panah yang disambung</option><option value="B">B. Panah dari titik awal langsung ke titik akhir</option><option value="C">C. Panah ke timur saja, karena bagian itu yang terpanjang</option><option value="D">D. Selisih panjang kedua panah</option></select></div>
+<div class="isian"><label for="k11s1b">Jarak lurus pendaki dari titik awal <span class="sat">(m)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k11s1b" name="k11s1b" data-isian="1"></div>
+<div class="isian"><label for="k11s1c">Arah jarak lurus itu terhadap timur <span class="sat">(°)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k11s1c" name="k11s1c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k11s1d">Jarak yang ditempuh pendaki <span class="sat">(m)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k11s1d" name="k11s1d" data-isian="1"></div>
+<div class="isian lebar"><label for="k11s1e">Dibanding jarak yang ditempuh, jarak lurus itu:</label><select id="k11s1e" name="k11s1e" data-isian="1"><option value="">— pilih —</option><option value="besar">lebih besar</option><option value="kecil">lebih kecil</option><option value="sama">sama besar</option></select></div>
+<div class="isian"><label for="k11s1f">Jarak lurus dibagi jarak yang ditempuh <span class="sat">(kali)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k11s1f" name="k11s1f" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai dua angka di belakang koma.</span></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K1-1-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Dua tali menarik satu patok pada arah yang saling tegak lurus. Tali pertama menarik dengan 20 N dan tarikan gabungannya terukur 29 N. Seorang murid menyimpulkan tali kedua menarik dengan 29 − 20 = 9 N. Katakan mengapa kesimpulan itu keliru, lalu laporkan tarikan tali kedua yang benar.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k11s2a">Mengapa kesimpulan 29 − 20 = 9 N itu keliru?</label><select id="k11s2a" name="k11s2a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Tarikan gabungan adalah jumlah kedua tarikan, jadi tali kedua harus lebih besar dari tarikan gabungan.</option><option value="B">B. Tarikan gabungan dan tarikan tali pertama adalah dua sisi siku-siku, dan tali kedua adalah sisi miringnya.</option><option value="C">C. Murid itu tidak keliru: pada tali yang tegak lurus, besar tarikan kedua memang selisih dari tarikan gabungan dan tarikan pertama.</option><option value="D">D. Kedua tali tegak lurus, jadi tarikan gabungan adalah sisi miring dari segitiga siku-siku; kuadratnya sama dengan jumlah kuadrat kedua tarikan, bukan selisih besarnya.</option></select></div>
+<div class="isian"><label for="k11s2b">Tarikan tali kedua yang benar <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k11s2b" name="k11s2b" data-isian="1"></div>
+</div>
+</div></article>
+</div></section>
+<section class="bagian" id="bagian-K1-2"><div class="pita"><span class="lencana">K1.2</span><h2>Menguraikan satu panah: dari miring menjadi mendatar dan tegak</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K1-2-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Sebuah gaya 120 N bekerja pada benda dengan sudut 60° terhadap sumbu mendatar. Gambar segitiga komponennya, lalu laporkan komponen mendatar dan komponen tegaknya, dan periksa hasilmu dengan Pythagoras.</div>
+<p class="catatan">Pakai nilai sinus dan kosinus langsung dari kalkulator, tanpa dibulatkan lebih dulu; bulatkan hanya hasil akhirnya.</p>
+<div class="gambar-buku">✎ Di bukumu: gambar segitiga komponennya. Gambar tidak dinilai otomatis; gurumu melihatnya saat berkeliling.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k12s1a">Pada segitiga komponen, sisi miring menyatakan:</label><select id="k12s1a" name="k12s1a" data-isian="1"><option value="">— pilih —</option><option value="A">A. gaya 120 N itu sendiri</option><option value="B">B. komponen mendatar ditambah komponen tegak</option><option value="C">C. komponen yang menempel pada sudut itu</option><option value="D">D. selisih komponen mendatar dan komponen tegak</option></select></div>
+<div class="isian"><label for="k12s1b">Komponen mendatar gaya <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s1b" name="k12s1b" data-isian="1"></div>
+<div class="isian"><label for="k12s1c">Komponen tegak gaya <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s1c" name="k12s1c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian lebar"><label for="k12s1d">Hasil Pythagoras dari kedua komponenmu dibanding gaya semula:</label><select id="k12s1d" name="k12s1d" data-isian="1"><option value="">— pilih —</option><option value="A">A. sama dengan jumlah kedua komponen</option><option value="B">B. lebih kecil dari gaya semula, karena komponen selalu lebih pendek</option><option value="C">C. sama dengan gaya semula, dalam batas pembulatan</option><option value="D">D. lebih besar dari gaya semula, karena dua sisi dijumlahkan dulu</option></select></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K1-2-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Sebuah gaya 90 N membentuk sudut 20° terhadap garis tegak. Seorang murid menulis komponen mendatarnya 90cos 20° = 84,6 N. Katakan mengapa penulisan itu salah, lalu laporkan komponen mendatar dan komponen tegak yang benar.</div>
+<p class="catatan">Pakai nilai sinus dan kosinus langsung dari kalkulator, tanpa dibulatkan lebih dulu; bulatkan hanya hasil akhirnya.</p>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k12s2a">Mengapa penulisan 90 cos 20° untuk komponen mendatar itu salah?</label><select id="k12s2a" name="k12s2a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Komponen mendatar selalu memakai cosinus, apa pun sudutnya; yang keliru hanya pembulatan angkanya.</option><option value="B">B. Kalkulator berada pada mode yang salah, sehingga nilai cosinus 20° meleset.</option><option value="C">C. Sudut 20° diukur dari garis tegak, jadi komponen mendatar berhadapan dengan sudut itu dan memakai sinus.</option><option value="D">D. Sudut 20° diukur dari garis tegak, jadi komponen tegak yang berhadapan dengan sudut itu dan memakai sinus.</option></select></div>
+<div class="isian"><label for="k12s2b">Komponen mendatar yang benar <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s2b" name="k12s2b" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k12s2c">Komponen tegak yang benar <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s2c" name="k12s2c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+</div>
+</div></article>
+</div></section>
+<section class="bagian" id="bagian-K2-1"><div class="pita"><span class="lencana">K2.1</span><h2>Menjumlah panah sembarang arah lewat komponen</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K2-1-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Dua gaya bekerja pada satu titik. Gaya pertama 60 N pada 35° di atas sumbu mendatar, gaya kedua 45 N pada 15° di bawah sumbu mendatar. Laporkan komponen mendatar dan tegak jumlahnya, lalu besar dan arah jumlah itu.</div>
+<p class="catatan">Pakai nilai sinus dan kosinus langsung dari kalkulator, tanpa dibulatkan lebih dulu; bulatkan hanya hasil akhirnya.</p>
+<div class="isian-grid">
+<div class="isian"><label for="k21s1a">Komponen mendatar jumlah kedua gaya <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s1a" name="k21s1a" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k21s1b">Komponen tegak jumlah kedua gaya <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s1b" name="k21s1b" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k21s1c">Besar jumlah kedua gaya <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s1c" name="k21s1c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k21s1d">Sudut jumlah itu terhadap sumbu mendatar <span class="sat">(°)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s1d" name="k21s1d" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian lebar"><label for="k21s1e">Jumlah itu mengarah:</label><select id="k21s1e" name="k21s1e" data-isian="1"><option value="">— pilih —</option><option value="atas">di atas sumbu mendatar</option><option value="bawah">di bawah sumbu mendatar</option><option value="pas">tepat sepanjang sumbu mendatar</option></select></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K2-1-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Sebuah soal memberi dua komponen jumlah, 40 N mendatar dan 25 N tegak. Seorang murid menulis besar jumlahnya 65 N. Katakan mengapa angka itu tidak mungkin benar, lalu laporkan besar dan arah yang benar.</div>
+<p class="catatan">Jangan membulatkan perbandingan komponen sebelum mencari sudutnya; bulatkan hanya hasil akhirnya.</p>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k21s2a">Mengapa angka 65 N tidak mungkin benar?</label><select id="k21s2a" name="k21s2a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Kedua komponen saling tegak lurus, jadi besar jumlahnya adalah sisi miring dan selalu lebih kecil dari jumlah kedua komponen.</option><option value="B">B. Besar jumlah memang jumlah kedua komponen, tetapi 65 N salah dibulatkan.</option><option value="C">C. Besar jumlah harus sama dengan komponen yang lebih besar saja.</option><option value="D">D. Besar jumlah harus lebih besar dari 65 N, karena dua komponen yang tegak lurus saling menguatkan.</option></select></div>
+<div class="isian"><label for="k21s2b">Besar jumlah yang benar <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s2b" name="k21s2b" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k21s2c">Arah jumlah itu terhadap komponen mendatar <span class="sat">(°)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s2c" name="k21s2c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+</div>
+</div></article>
+</div></section>
+<section class="bagian" id="bagian-K2-2"><div class="pita"><span class="lencana">K2.2</span><h2>Memilih sumbu: sejajar dan tegak lurus bidang</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K2-2-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Sebuah peti berat 450 N berada di bidang miring dengan sudut 15°. Gambar segitiga berat dengan sumbu sejajar dan tegak lurus bidang. Laporkan komponen berat yang sejajar bidang dan yang tegak lurus bidang.</div>
+<p class="catatan">Pakai nilai sinus dan kosinus langsung dari kalkulator, tanpa dibulatkan lebih dulu; bulatkan hanya hasil akhirnya.</p>
+<div class="gambar-buku">✎ Di bukumu: gambar segitiga berat dengan sumbu sejajar dan tegak lurus bidang. Gambar tidak dinilai otomatis; gurumu melihatnya saat berkeliling.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k22s1a">Sumbu mana yang dipilih pada segitiga berat itu?</label><select id="k22s1a" name="k22s1a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Satu sumbu mendatar dan satu sumbu tegak, seperti biasa</option><option value="B">B. Dua sumbu sejajar bidang, supaya perhitungannya paling mudah</option><option value="C">C. Satu sumbu tegak lurus bidang dan satu sumbu mendatar</option><option value="D">D. Satu sumbu sejajar bidang dan satu sumbu tegak lurus bidang</option></select></div>
+<div class="isian"><label for="k22s1b">Komponen berat yang sejajar bidang <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k22s1b" name="k22s1b" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k22s1c">Komponen berat yang tegak lurus bidang <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k22s1c" name="k22s1c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K2-2-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Peti yang sama kini diletakkan di bidang dengan sudut 40°. Tanpa menghitung, katakan komponen mana yang bertambah dan mana yang berkurang dibanding soal sebelumnya, dan alasannya. Lalu laporkan kedua komponen yang baru dan periksa dengan Pythagoras.</div>
+<p class="catatan">Pakai nilai sinus dan kosinus langsung dari kalkulator, tanpa dibulatkan lebih dulu; bulatkan hanya hasil akhirnya.</p>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k22s2a">Tanpa menghitung: komponen mana yang bertambah?</label><select id="k22s2a" name="k22s2a" data-isian="1"><option value="">— pilih —</option><option value="sejajar">komponen sejajar bidang</option><option value="tegaklurus">komponen tegak lurus bidang</option><option value="keduanya">kedua komponen</option><option value="tidakada">tidak ada yang bertambah</option></select></div>
+<div class="isian lebar"><label for="k22s2b">Alasan perubahan itu:</label><select id="k22s2b" name="k22s2b" data-isian="1"><option value="">— pilih —</option><option value="A">A. Komponen sejajar memakai cosinus sudut bidang, jadi ia mengecil bila bidang makin curam.</option><option value="B">B. Komponen sejajar berhadapan dengan sudut bidang dan memakai sinus yang membesar bila sudut membesar; komponen tegak lurus memakai cosinus yang mengecil.</option><option value="C">C. Berat peti bertambah ketika bidangnya lebih curam, sehingga kedua komponen ikut bertambah.</option><option value="D">D. Komponen tegak lurus bidang memakai sinus yang membesar, jadi ia yang bertambah.</option></select></div>
+<div class="isian"><label for="k22s2c">Komponen berat yang sejajar bidang, pada 40° <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k22s2c" name="k22s2c" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian"><label for="k22s2d">Komponen berat yang tegak lurus bidang, pada 40° <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k22s2d" name="k22s2d" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai satu angka di belakang koma.</span></div>
+<div class="isian lebar"><label for="k22s2e">Hasil Pythagoras dari kedua komponen baru dibanding berat peti:</label><select id="k22s2e" name="k22s2e" data-isian="1"><option value="">— pilih —</option><option value="A">A. sama dengan jumlah kedua komponen</option><option value="B">B. sama dengan berat peti, dalam batas pembulatan</option><option value="C">C. lebih kecil dari berat peti, karena komponen selalu lebih pendek</option><option value="D">D. lebih besar dari berat peti, karena sudutnya lebih besar</option></select></div>
+</div>
+</div></article>
+</div></section>
+</main>
+<div class="bilah-bawah"><div class="bilah-dalam"><div class="jalur"><div class="isi-jalur" id="isi-jalur"></div></div><div class="bilah-baris"><span class="hitung" id="hitung-teks">0 dari 0 isian dijawab</span><button type="button" class="periksa" id="btn_periksa">Periksa kelengkapan</button> <button type="button" class="selesai" id="btn_selesai">Selesai</button></div><div class="pesan" id="pesan" role="status" aria-live="polite"></div></div></div>
+
+<script>window.FIMS_KUNCI = {"num": {"k11s1b": [25.0, 0.2], "k11s1c": [16.3, 0.2], "k11s1d": [31.0, 0.2], "k11s1f": [0.81, 0.05], "k11s2b": [21.0, 0.2], "k12s1b": [60.0, 0.2], "k12s1c": [103.9, 1.5], "k12s2b": [30.8, 0.2], "k12s2c": [84.6, 0.2], "k21s1a": [92.6, 0.2], "k21s1b": [22.8, 0.2], "k21s1c": [95.4, 0.2], "k21s1d": [13.8, 0.2], "k21s2b": [47.2, 0.2], "k21s2c": [32.0, 0.2], "k22s1b": [116.5, 1.5], "k22s1c": [434.7, 1.5], "k22s2c": [289.3, 1.5], "k22s2d": [344.7, 1.5]}, "pil": {"k11s1a": "B", "k11s1e": "kecil", "k11s2a": "D", "k12s1a": "A", "k12s1d": "C", "k12s2a": "C", "k21s1e": "atas", "k21s2a": "A", "k22s1a": "D", "k22s2a": "sejajar", "k22s2b": "B", "k22s2e": "B"}};</script>
+<script src="../../../../assets/fims-shim.js"></script>
+</body>
+</html>
