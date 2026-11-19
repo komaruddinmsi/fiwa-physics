@@ -93,6 +93,57 @@ const kodeBaru = () => {
   return [...crypto.getRandomValues(new Uint8Array(6))].map(n => huruf[n % huruf.length]).join('');
 };
 
+/* ---------- lembar: isian dokumen per murid ----------
+   Setiap dokumen yang bisa diisi murid (lembar kerja, soal, simulasi PRI UIN, dst.) menyimpan isian dan skornya
+   di sini, satu baris per (murid, dokumen). "kunci" = alamat berkas tanpa awalan "/" dan tanpa ".html".
+   Tabel dibuat sendiri pada pemakaian pertama, jadi tidak ada migrasi wajib. */
+const KUNCI_SAH = /^[A-Za-z0-9][A-Za-z0-9._\-\/]{0,198}$/;
+const kunciSah = k => typeof k === 'string' && KUNCI_SAH.test(k) && !k.includes('..') && !k.includes('//');
+const lembarSiap = new WeakSet();
+async function pastikanLembar(DB) {
+  if (lembarSiap.has(DB)) return;
+  await DB.prepare(
+    'CREATE TABLE IF NOT EXISTS lembar (' +
+    ' email TEXT NOT NULL, kunci TEXT NOT NULL, data TEXT NOT NULL,' +
+    ' skor REAL, selesai INTEGER NOT NULL DEFAULT 0, terisi INTEGER, total INTEGER,' +
+    ' epoch INTEGER NOT NULL DEFAULT 0, diubah INTEGER NOT NULL, oleh TEXT,' +
+    ' PRIMARY KEY (email, kunci))').run();
+  await DB.prepare('CREATE INDEX IF NOT EXISTS lembar_kunci ON lembar (kunci)').run();
+  lembarSiap.add(DB);
+}
+const angkaAtauNull = (x, mak, bulat) => {
+  if (x === null || x === undefined || x === '') return null;
+  x = Number(x);
+  if (!isFinite(x)) return null;
+  x = Math.max(0, Math.min(mak, x));
+  return bulat ? Math.round(x) : Math.round(x * 10) / 10;
+};
+const BATAS_LEMBAR = 60000;        // karakter JSON per dokumen
+const BATAS_DOKUMEN = 400;         // dokumen tersimpan per murid
+
+/* Menghapus hasil SATU tahapan dari data progres TP (diubah di tempat). Mengembalikan {dulu} atau {galat}. */
+function bukaTahapan(d, id) {
+  d.ev = d.ev || {};
+  if (id === 'S14') {
+    const arr = Array.isArray(d.s14) ? d.s14 : [];
+    if (!arr.length) return { galat: 'S14 belum punya hasil tercatat.' };
+    const copot = arr.pop(); d.s14 = arr;
+    const dulu = { hasil: copot.hasil || null, waktu: copot.waktu || null };
+    if (copot.hasil === 'gagal') {                 // gagal tadi sempat memajukan jadwal dari nol; kembalikan
+      const g = [...arr].reverse().find(x => x.hasil === 'gagal');
+      if (g) d.s14Mulai = (g.waktu || 0) + 1; else delete d.s14Mulai;
+    }
+    return { dulu };
+  }
+  const ev = d.ev[id];
+  const adaTier = id === 'S12' && d.tier;
+  if (!ev && !adaTier) return { galat: 'Tahapan ini belum punya hasil tercatat.' };
+  const dulu = { skor: ev && ev.skor != null ? ev.skor : null, waktu: ev && ev.waktu ? ev.waktu : null };
+  if (id === 'S12') { dulu.tier = d.tier || null; d.tier = null; }
+  delete d.ev[id];
+  return { dulu };
+}
+
 /* ---------- perute ---------- */
 export async function onRequest(ctx) {
   const { request, env, params } = ctx;
@@ -296,8 +347,10 @@ export async function onRequest(ctx) {
       if (!sasaran) return json({ galat: 'Anggota tidak ditemukan.' }, 404);
       if (sasaran.peran === 'owner' || (!!owner && email === owner))
         return json({ galat: 'Akun pemilik tidak dapat dihapus.' }, 400);
+      await pastikanLembar(DB);
       await DB.batch([
         DB.prepare('DELETE FROM progres WHERE email = ?').bind(email),
+        DB.prepare('DELETE FROM lembar WHERE email = ?').bind(email),
         DB.prepare('DELETE FROM anggota WHERE email = ?').bind(email)
       ]);
       return json({ ok: true, email });
@@ -307,8 +360,13 @@ export async function onRequest(ctx) {
     if (rute === 'progres' && metode === 'GET') {
       if (!aktif) return json({ galat: 'Belum masuk.' }, 401);
       const r = await DB.prepare('SELECT tp, data, diubah FROM progres WHERE email = ?').bind(aktif.email).all();
-      const tp = {};
-      for (const row of r.results || []) { try { tp[row.tp] = JSON.parse(row.data); } catch {} }
+      const tp = {}, epoch = {};
+      for (const row of r.results || []) {
+        try { tp[row.tp] = JSON.parse(row.data); epoch[row.tp] = Number(tp[row.tp].epoch) || 0; } catch {}
+      }
+      // ?epoch=1: hanya nomor generasi tiap TP — murah, dipakai peramban murid untuk mengecek
+      // apakah guru mengubah sesuatu sejak terakhir ia menyinkron.
+      if (new URL(request.url).searchParams.get('epoch') === '1') return json({ epoch });
       return json({ tp });
     }
 
@@ -318,12 +376,107 @@ export async function onRequest(ctx) {
       if (!aktif) return json({ galat: 'Belum masuk.' }, 401);
       const b = await badan();
       const tp = b.tp || {};
-      const perintah = Object.entries(tp).slice(0, 200).map(([slug, data]) =>
-        DB.prepare('INSERT INTO progres (email, tp, data, diubah) VALUES (?,?,?,?) ' +
-                   'ON CONFLICT(email, tp) DO UPDATE SET data = excluded.data, diubah = excluded.diubah')
-          .bind(aktif.email, String(slug).slice(0, 80), JSON.stringify(data).slice(0, 20000), kini()));
+      /* Pengaman terhadap data usang. Setiap kali guru mengubah progres muridnya (menilai, atau
+         mereset satu dokumen) nomor "epoch" TP itu naik. Peramban murid yang masih memegang salinan
+         lama membawa epoch lama; kirimannya ditolak dan ia diberi salinan terbaru. Tanpa ini, tab murid
+         yang kebetulan masih terbuka akan menimpa reset guru dengan data sebelum reset. "epoch" dan
+         "reset" milik peladen: nilai dari peramban tidak dipercaya. */
+      const ada = {};
+      const sudah = await DB.prepare('SELECT tp, data FROM progres WHERE email = ?').bind(aktif.email).all();
+      for (const row of sudah.results || []) { try { ada[row.tp] = JSON.parse(row.data); } catch {} }
+      const usang = {};
+      const perintah = [];
+      for (const [slugMentah, data] of Object.entries(tp).slice(0, 200)) {
+        const slug = String(slugMentah).slice(0, 80);
+        const lama = ada[slug] || null;
+        const e0 = lama ? Number(lama.epoch) || 0 : 0;
+        const e1 = data && typeof data === 'object' ? Number(data.epoch) || 0 : 0;
+        if (lama && e1 < e0) { usang[slug] = lama; continue; }
+        const baru = (data && typeof data === 'object') ? { ...data } : {};
+        if (e0) baru.epoch = e0; else delete baru.epoch;
+        if (lama && lama.reset) baru.reset = lama.reset; else delete baru.reset;
+        perintah.push(
+          DB.prepare('INSERT INTO progres (email, tp, data, diubah) VALUES (?,?,?,?) ' +
+                     'ON CONFLICT(email, tp) DO UPDATE SET data = excluded.data, diubah = excluded.diubah')
+            .bind(aktif.email, slug, JSON.stringify(baru).slice(0, 20000), kini()));
+      }
       if (perintah.length) await DB.batch(perintah);
-      return json({ ok: true, jumlah: perintah.length });
+      return json({ ok: true, jumlah: perintah.length, usang });
+    }
+
+    /* ---- lembar: isian & skor satu dokumen, per akun murid ---- */
+    if (rute === 'lembar' && metode === 'GET') {
+      if (!aktif) return json({ galat: 'Belum masuk.' }, 401);
+      const kunci = new URL(request.url).searchParams.get('kunci') || '';
+      if (!kunciSah(kunci)) return json({ galat: 'Kunci dokumen tidak sah.' }, 400);
+      // Guru dan pemilik hanya melihat-lihat dokumen: tidak ada yang disimpan atas nama mereka.
+      if (isGuru) return json({ simpan: false, peran: aktif.peran, ada: false, epoch: 0 });
+      await pastikanLembar(DB);
+      const r = await DB.prepare(
+        'SELECT data, skor, selesai, terisi, total, epoch, diubah FROM lembar WHERE email = ? AND kunci = ?'
+      ).bind(aktif.email, kunci).first();
+      if (!r) return json({ simpan: true, ada: false, epoch: 0 });
+      if (new URL(request.url).searchParams.get('epoch') === '1') return json({ simpan: true, ada: true, epoch: r.epoch || 0 });
+      let data = {}; try { data = JSON.parse(r.data) || {}; } catch {}
+      return json({ simpan: true, ada: true, epoch: r.epoch || 0, data, skor: r.skor, selesai: r.selesai ? 1 : 0,
+                    terisi: r.terisi, total: r.total, diubah: r.diubah });
+    }
+
+    /* PUT biasa; POST dari navigator.sendBeacon saat tab ditutup. */
+    if (rute === 'lembar' && (metode === 'PUT' || metode === 'POST')) {
+      if (!aktif) return json({ galat: 'Belum masuk.' }, 401);
+      const b = await badan();
+      if (isGuru) return json({ ok: true, simpan: false });
+      if (!kunciSah(b.kunci)) return json({ galat: 'Kunci dokumen tidak sah.' }, 400);
+      if (!b.data || typeof b.data !== 'object' || Array.isArray(b.data))
+        return json({ galat: 'Isi dokumen tidak sah.' }, 400);
+      await pastikanLembar(DB);
+      const lama = await DB.prepare('SELECT data, epoch FROM lembar WHERE email = ? AND kunci = ?')
+        .bind(aktif.email, b.kunci).first();
+      const e0 = lama ? Number(lama.epoch) || 0 : 0;
+      // Pengaman data usang, sama seperti pada progres: bila guru membuka ulang dokumen ini, nomor epoch naik,
+      // dan tab murid yang masih memegang isian lama ditolak (ia diminta memuat ulang).
+      if (lama && (Number(b.epoch) || 0) < e0) return json({ usang: true, epoch: e0 });
+      if (!lama) {
+        const n = await DB.prepare('SELECT COUNT(*) AS n FROM lembar WHERE email = ?').bind(aktif.email).first();
+        if (n && n.n >= BATAS_DOKUMEN) return json({ galat: 'Terlalu banyak dokumen tersimpan.' }, 429);
+      }
+      const baru = { ...b.data };
+      delete baru.reset;                                           // milik peladen
+      if (lama) { try { const dl = JSON.parse(lama.data); if (dl && dl.reset) baru.reset = dl.reset; } catch {} }
+      const teks = JSON.stringify(baru);
+      if (teks.length > BATAS_LEMBAR) return json({ galat: 'Isian terlalu besar untuk disimpan.' }, 413);
+      const t = kini();
+      await DB.prepare(
+        'INSERT INTO lembar (email, kunci, data, skor, selesai, terisi, total, epoch, diubah, oleh) VALUES (?,?,?,?,?,?,?,?,?,?) ' +
+        'ON CONFLICT(email, kunci) DO UPDATE SET data = excluded.data, skor = excluded.skor, selesai = excluded.selesai, ' +
+        'terisi = excluded.terisi, total = excluded.total, diubah = excluded.diubah'
+      ).bind(aktif.email, b.kunci, teks, angkaAtauNull(b.skor, 1000, false), b.selesai ? 1 : 0,
+             angkaAtauNull(b.terisi, 100000, true), angkaAtauNull(b.total, 100000, true), e0, t, aktif.nama || null).run();
+      return json({ ok: true, epoch: e0, diubah: t });
+    }
+
+    /* ---- guru: ringkasan dokumen isian satu murid ---- */
+    if (rute === 'guru/lembar' && metode === 'GET') {
+      if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
+      const murid = rapi(new URL(request.url).searchParams.get('murid'));
+      if (!murid) return json({ galat: 'Murid tidak disebut.' }, 400);
+      if (!isOwner) {
+        const ikat = await DB.prepare('SELECT 1 AS a FROM bimbing WHERE guru = ? AND murid = ?')
+          .bind(aktif.email, murid).first();
+        if (!ikat) return json({ galat: 'Murid ini bukan bimbingan Anda.' }, 403);
+      }
+      await pastikanLembar(DB);
+      const r = await DB.prepare(
+        'SELECT kunci, data, skor, selesai, terisi, total, epoch, diubah FROM lembar WHERE email = ? ORDER BY diubah DESC LIMIT 500'
+      ).bind(murid).all();
+      const lembar = (r.results || []).map(x => {
+        let d = {}; try { d = JSON.parse(x.data) || {}; } catch {}
+        const adaIsi = !!((d.f && Object.keys(d.f).length) || d.x != null || x.selesai || x.skor != null);
+        return { kunci: x.kunci, skor: x.skor, selesai: x.selesai ? 1 : 0, terisi: x.terisi, total: x.total,
+                 epoch: x.epoch || 0, diubah: x.diubah, adaIsi, reset: d.reset || null };
+      });
+      return json({ lembar });
     }
 
     /* ---- papan kelas: seluruh siswa, hanya untuk guru ---- */
@@ -449,13 +602,14 @@ export async function onRequest(ctx) {
       if (tahapan === 'S8') {
         const skor = Number(b.skor);
         if (!isFinite(skor) || skor < 0 || skor > 100) return json({ galat: 'Skor harus 0–100.' }, 400);
-        d.ev.S8 = { ...(d.ev.S8 || {}), skor: Math.round(skor), oleh: aktif.email, pada: kini() };
+        d.ev.S8 = { ...(d.ev.S8 || {}), skor: Math.round(skor), oleh: aktif.nama || 'Guru', pada: kini() };
       } else {
         const tier = Number(b.tier);
         if (!Number.isInteger(tier) || tier < 1 || tier > 4) return json({ galat: 'Tier harus 1–4.' }, 400);
         d.tier = tier;
-        d.ev.S12 = { ...(d.ev.S12 || {}), oleh: aktif.email, pada: kini() };
+        d.ev.S12 = { ...(d.ev.S12 || {}), oleh: aktif.nama || 'Guru', pada: kini() };
       }
+      d.epoch = (Number(d.epoch) || 0) + 1;   // salinan murid yang usang tidak boleh menimpa nilai ini
 
       await DB.prepare(
         'INSERT INTO progres (email, tp, data, diubah, oleh) VALUES (?,?,?,?,?) ' +
@@ -463,6 +617,86 @@ export async function onRequest(ctx) {
       ).bind(murid, slug, JSON.stringify(d).slice(0, 20000), kini(), aktif.email).run();
 
       return json({ ok: true, murid, tp: slug, tahapan, data: d });
+    }
+
+    /* Guru membuka ulang SATU dokumen murid. Hanya hasil dokumen itu yang dihapus: skor/tanda selesai
+       (S12: juga tier-nya; S14: hasil pengulangan terakhir) dan/atau isian lembarnya. Tahapan lain dan
+       TP-nya tetap utuh. Murid bisa langsung mengerjakan ulang. Siapa pun yang boleh menilai muridnya
+       boleh mereset.
+       Dua cara menunjuk dokumen: (tp + tahapan) untuk S1–S14, dan/atau "kunci" untuk dokumen isian
+       (lapis L1–L4, paket, tahapan). Bila keduanya diberikan, keduanya dibuka ulang sekaligus. */
+    if (rute === 'guru/reset' && metode === 'POST') {
+      if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
+      const b = await badan();
+      const murid = rapi(b.murid), slug = String(b.tp || '').slice(0, 80);
+      const id = String(b.tahapan || '').toUpperCase().replace(/([BC])$/, c => c.toLowerCase());
+      const kunci = (b.kunci === undefined || b.kunci === null) ? '' : String(b.kunci);
+      const alasan = String(b.alasan || '').replace(/\s+/g, ' ').trim().slice(0, 160);
+      const SAH = ['S1', 'S2', 'S2b', 'S2c', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10', 'S11', 'S12', 'S13', 'S14'];
+      const adaTahapan = !!slug && SAH.includes(id);
+      if (!murid || (!adaTahapan && !kunci))
+        return json({ galat: 'Permintaan tidak lengkap: murid serta tahapan atau dokumen wajib diisi.' }, 400);
+      if (kunci && !kunciSah(kunci)) return json({ galat: 'Kunci dokumen tidak sah.' }, 400);
+
+      if (!isOwner) {
+        const ikat = await DB.prepare('SELECT 1 AS a FROM bimbing WHERE guru = ? AND murid = ?')
+          .bind(aktif.email, murid).first();
+        if (!ikat) return json({ galat: 'Murid ini bukan bimbingan Anda.' }, 403);
+      }
+
+      const perintah = [];
+      let dataTP = null, adaLembar = false;
+
+      // (a) hasil tahapan pada progres TP
+      if (adaTahapan) {
+        const baris = await DB.prepare('SELECT data FROM progres WHERE email = ? AND tp = ?').bind(murid, slug).first();
+        if (!baris) {
+          if (!kunci) return json({ galat: 'Murid ini belum punya progres pada TP tersebut.' }, 404);
+        } else {
+          let d = {}; try { d = JSON.parse(baris.data) || {}; } catch {}
+          const r = bukaTahapan(d, id);
+          if (r.galat) {
+            if (!kunci) return json({ galat: r.galat }, 400);
+          } else {
+            // Catatan untuk guru dan murid. Hanya nama tampilan, tidak pernah surel (surel pemilik dirahasiakan).
+            const catatan = Array.isArray(d.reset) ? d.reset : [];
+            catatan.push({ t: id, pada: Date.now(), nama: aktif.nama || 'Guru', alasan, dulu: r.dulu });
+            d.reset = catatan.slice(-15);
+            d.epoch = (Number(d.epoch) || 0) + 1;
+            dataTP = d;
+            perintah.push(DB.prepare(
+              'INSERT INTO progres (email, tp, data, diubah, oleh) VALUES (?,?,?,?,?) ' +
+              'ON CONFLICT(email, tp) DO UPDATE SET data = excluded.data, diubah = excluded.diubah, oleh = excluded.oleh'
+            ).bind(murid, slug, JSON.stringify(d).slice(0, 20000), kini(), aktif.email));
+          }
+        }
+      }
+
+      // (b) isian lembar: diganti batu nisan {reset:{...}} dan epoch dinaikkan
+      if (kunci) {
+        await pastikanLembar(DB);
+        const l = await DB.prepare('SELECT data, skor, selesai, terisi, total, epoch FROM lembar WHERE email = ? AND kunci = ?')
+          .bind(murid, kunci).first();
+        if (l) {
+          let dl = {}; try { dl = JSON.parse(l.data) || {}; } catch {}
+          const adaIsi = !!((dl.f && Object.keys(dl.f).length) || dl.x != null || l.selesai || l.skor != null);
+          if (adaIsi) {
+            const nisan = { reset: { pada: Date.now(), nama: aktif.nama || 'Guru', alasan,
+                                     dulu: { skor: l.skor, terisi: l.terisi, total: l.total, selesai: l.selesai ? 1 : 0 } } };
+            perintah.push(DB.prepare(
+              'UPDATE lembar SET data = ?, skor = NULL, selesai = 0, terisi = 0, epoch = ?, diubah = ?, oleh = ? WHERE email = ? AND kunci = ?'
+            ).bind(JSON.stringify(nisan), (Number(l.epoch) || 0) + 1, kini(), aktif.email, murid, kunci));
+            adaLembar = true;
+          }
+        }
+      }
+
+      if (!perintah.length)
+        return json({ galat: 'Dokumen ini belum punya hasil atau isian tersimpan, jadi tidak ada yang perlu dibuka ulang.' }, 400);
+      await DB.batch(perintah);
+
+      return json({ ok: true, murid, tp: slug || null, tahapan: adaTahapan ? id : null, kunci: kunci || null,
+                    data: dataTP, lembar: adaLembar });
     }
 
     return json({ galat: 'Jalur tidak dikenal: ' + rute }, 404);
