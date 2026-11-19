@@ -10,10 +10,15 @@
 const NAMA_KUKI = 'fims_sesi';
 
 // Awalan jalur yang hanya boleh dibuka anggota aktif.
-const DIJAGA = ['/konten/', '/aset-f-use/', '/media-f-use/', '/katalog.json',
-                '/skema.sql', '/skema-ringkas.sql', '/migrasi-sandi.sql', '/PANDUAN-AKUN.md', '/PANDUAN-MEDIA.md'];
+// Pola /aset-* dan /media-* dipakai supaya topik baru ikut terjaga
+// tanpa perlu menyunting berkas ini setiap kali.
+const DIJAGA = ['/konten/', '/katalog.json',
+                '/skema.sql', '/skema-ringkas.sql', '/migrasi-sandi.sql',
+                '/PANDUAN-AKUN.md', '/PANDUAN-MEDIA.md'];
+const POLA = [/^\/aset-[a-z0-9.-]+\//i, /^\/media-[a-z0-9.-]+\//i];
 
-const dijaga = jalur => DIJAGA.some(a => jalur === a || jalur.startsWith(a));
+const dijaga = jalur =>
+  DIJAGA.some(a => jalur === a || jalur.startsWith(a)) || POLA.some(r => r.test(jalur));
 
 async function tandaTangan(isi, rahasia) {
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(rahasia),

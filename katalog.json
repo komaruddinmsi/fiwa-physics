@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-18T07:42:54.946Z",
+  "dibuat": "2026-11-19T00:59:40.104Z",
   "topik": [
     {
       "slug": "f-use",
@@ -183,6 +183,349 @@
             "S14": {
               "berkas": "konten/f-use/f-use-1/S14/index.html",
               "judul": "Latihan Selang-Seling — Usaha dan Energi"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "slug": "f-mek",
+      "kode": "F.MEK",
+      "nama": "Mekanika: Gaya & Gerak",
+      "mapel": "Fisika",
+      "fase": "F",
+      "jalur": "TKA",
+      "urutan": 3,
+      "tahapan": {
+        "L1": {
+          "berkas": "konten/f-mek/L1/index.html",
+          "judul": "Kuis Blok"
+        },
+        "L2": {
+          "berkas": "konten/f-mek/L2/index.html",
+          "judul": "Muara Topik"
+        },
+        "L3": {
+          "berkas": "konten/f-mek/L3/index.html",
+          "judul": "Worksheet CBT Fisika — Mekanika (Paket 2)",
+          "latihan": {
+            "berkas": "konten/f-mek/L3/latihan.html",
+            "judul": "Latihan TKA Fisika — Mekanika: Vektor Gaya, Hukum Newton, dan Kesetimbangan"
+          }
+        },
+        "L4": {
+          "berkas": "konten/f-mek/L4/index.html",
+          "judul": "Tantangan Mata Pelajaran"
+        }
+      },
+      "tp": [
+        {
+          "slug": "f-mek-1-pra",
+          "kode": "F.MEK.1-pra",
+          "judul": "Operasi vektor: penjumlahan & penguraian komponen",
+          "teks": "Menerapkan operasi vektor: penjumlahan dan penguraian komponen.",
+          "bloom": "C3",
+          "urutan_ajar": 1,
+          "prasyarat": [],
+          "ambang": 75,
+          "tahapan": {
+            "S1": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S1/index.html",
+              "judul": "Peta &amp; Janji"
+            },
+            "S2": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S2/index.html",
+              "judul": "Gerbang Prasyarat"
+            },
+            "S2b": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S2b/index.html",
+              "judul": "Penguatan Prasyarat"
+            },
+            "S2c": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S2c/index.html",
+              "judul": "Remediasi Prasyarat"
+            },
+            "S3": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S3/index.html",
+              "judul": "Pemantik &amp; Prakonsepsi"
+            },
+            "S4": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S4/index.html",
+              "judul": "Penyajian Konsep Awal"
+            },
+            "S5": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S5/index.html",
+              "judul": "Pembahasan Prakonsepsi"
+            },
+            "S6": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S6/index.html",
+              "judul": "Inti Terbimbing"
+            },
+            "S7": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S7/index.html",
+              "judul": "Worksheet Fisika F.MEK.1-pra — Dua Soal Latihan"
+            },
+            "S8": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S8/index.html",
+              "judul": "Gerbang Formatif Kelas"
+            },
+            "S9": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S9/index.html",
+              "judul": "Diferensiasi T1–T4"
+            },
+            "S10": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S10/index.html",
+              "judul": "Konsolidasi &amp; Jangkar"
+            },
+            "S11": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S11/index.html",
+              "judul": "Latihan Bertingkat"
+            },
+            "S12": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S12/index.html",
+              "judul": "Tugas Kinerja"
+            },
+            "S13": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S13/index.html",
+              "judul": "Gerbang Ketuntasan TP"
+            },
+            "S14": {
+              "berkas": "konten/f-mek/f-mek-1-pra/S14/index.html",
+              "judul": "Pengulangan Berjarak"
+            }
+          }
+        },
+        {
+          "slug": "f-mek-2",
+          "kode": "F.MEK.2",
+          "judul": "Gaya & gerak pada peristiwa sehari-hari",
+          "teks": "Mengaitkan hubungan antara gaya dan gerak (Hukum Newton) pada peristiwa yang terjadi dalam kehidupan sehari-hari.",
+          "bloom": "C4",
+          "urutan_ajar": 2,
+          "prasyarat": [
+            "f-mek-1-pra"
+          ],
+          "ambang": 75,
+          "tahapan": {
+            "S1": {
+              "berkas": "konten/f-mek/f-mek-2/S1/index.html",
+              "judul": "Peta &amp; Janji"
+            },
+            "S2": {
+              "berkas": "konten/f-mek/f-mek-2/S2/index.html",
+              "judul": "Gerbang Prasyarat"
+            },
+            "S2b": {
+              "berkas": "konten/f-mek/f-mek-2/S2b/index.html",
+              "judul": "Penguatan Prasyarat"
+            },
+            "S2c": {
+              "berkas": "konten/f-mek/f-mek-2/S2c/index.html",
+              "judul": "Remediasi Prasyarat"
+            },
+            "S3": {
+              "berkas": "konten/f-mek/f-mek-2/S3/index.html",
+              "judul": "Pemantik &amp; Prakonsepsi"
+            },
+            "S4": {
+              "berkas": "konten/f-mek/f-mek-2/S4/index.html",
+              "judul": "Penyajian Konsep Awal"
+            },
+            "S5": {
+              "berkas": "konten/f-mek/f-mek-2/S5/index.html",
+              "judul": "Pembahasan Prakonsepsi"
+            },
+            "S6": {
+              "berkas": "konten/f-mek/f-mek-2/S6/index.html",
+              "judul": "Inti Terbimbing"
+            },
+            "S7": {
+              "berkas": "konten/f-mek/f-mek-2/S7/index.html",
+              "judul": "Worksheet Fisika F.MEK.2 — Dua Soal Latihan"
+            },
+            "S8": {
+              "berkas": "konten/f-mek/f-mek-2/S8/index.html",
+              "judul": "Gerbang Formatif Kelas"
+            },
+            "S9": {
+              "berkas": "konten/f-mek/f-mek-2/S9/index.html",
+              "judul": "Diferensiasi T1–T4"
+            },
+            "S10": {
+              "berkas": "konten/f-mek/f-mek-2/S10/index.html",
+              "judul": "Konsolidasi &amp; Jangkar"
+            },
+            "S11": {
+              "berkas": "konten/f-mek/f-mek-2/S11/index.html",
+              "judul": "Latihan Bertingkat"
+            },
+            "S12": {
+              "berkas": "konten/f-mek/f-mek-2/S12/index.html",
+              "judul": "Tugas Kinerja"
+            },
+            "S13": {
+              "berkas": "konten/f-mek/f-mek-2/S13/index.html",
+              "judul": "Gerbang Ketuntasan TP"
+            },
+            "S14": {
+              "berkas": "konten/f-mek/f-mek-2/S14/index.html",
+              "judul": "Pengulangan Berjarak"
+            }
+          }
+        },
+        {
+          "slug": "f-mek-1a",
+          "kode": "F.MEK.1a",
+          "judul": "Hukum Newton sebagai sebab dan akibat",
+          "teks": "Menjelaskan hubungan gaya dan gerak (Hukum Newton), serta mencontohkannya pada peristiwa baru.",
+          "bloom": "C2",
+          "urutan_ajar": 3,
+          "prasyarat": [
+            "f-mek-2"
+          ],
+          "ambang": 75,
+          "tahapan": {
+            "S1": {
+              "berkas": "konten/f-mek/f-mek-1a/S1/index.html",
+              "judul": "Peta &amp; Janji"
+            },
+            "S2": {
+              "berkas": "konten/f-mek/f-mek-1a/S2/index.html",
+              "judul": "Gerbang Prasyarat"
+            },
+            "S2b": {
+              "berkas": "konten/f-mek/f-mek-1a/S2b/index.html",
+              "judul": "Penguatan Prasyarat"
+            },
+            "S2c": {
+              "berkas": "konten/f-mek/f-mek-1a/S2c/index.html",
+              "judul": "Remediasi Prasyarat"
+            },
+            "S3": {
+              "berkas": "konten/f-mek/f-mek-1a/S3/index.html",
+              "judul": "Pemantik &amp; Prakonsepsi"
+            },
+            "S4": {
+              "berkas": "konten/f-mek/f-mek-1a/S4/index.html",
+              "judul": "Penyajian Konsep Awal"
+            },
+            "S5": {
+              "berkas": "konten/f-mek/f-mek-1a/S5/index.html",
+              "judul": "Pembahasan Prakonsepsi"
+            },
+            "S6": {
+              "berkas": "konten/f-mek/f-mek-1a/S6/index.html",
+              "judul": "Inti Terbimbing"
+            },
+            "S7": {
+              "berkas": "konten/f-mek/f-mek-1a/S7/index.html",
+              "judul": "Worksheet Fisika F.MEK.1a — Dua Soal Latihan"
+            },
+            "S8": {
+              "berkas": "konten/f-mek/f-mek-1a/S8/index.html",
+              "judul": "Gerbang Formatif Kelas"
+            },
+            "S9": {
+              "berkas": "konten/f-mek/f-mek-1a/S9/index.html",
+              "judul": "Diferensiasi T1–T4"
+            },
+            "S10": {
+              "berkas": "konten/f-mek/f-mek-1a/S10/index.html",
+              "judul": "Konsolidasi &amp; Jangkar"
+            },
+            "S11": {
+              "berkas": "konten/f-mek/f-mek-1a/S11/index.html",
+              "judul": "Latihan Bertingkat"
+            },
+            "S12": {
+              "berkas": "konten/f-mek/f-mek-1a/S12/index.html",
+              "judul": "Tugas Kinerja"
+            },
+            "S13": {
+              "berkas": "konten/f-mek/f-mek-1a/S13/index.html",
+              "judul": "Gerbang Ketuntasan TP"
+            },
+            "S14": {
+              "berkas": "konten/f-mek/f-mek-1a/S14/index.html",
+              "judul": "Pengulangan Berjarak"
+            }
+          }
+        },
+        {
+          "slug": "f-mek-1b",
+          "kode": "F.MEK.1b",
+          "judul": "Menganalisis struktur lewat gaya: momen & komponen",
+          "teks": "Menganalisis hubungan gerak dan gaya serta pemanfaatannya untuk menjelaskan fenomena alam, desain, atau rekayasa struktur.",
+          "bloom": "C4",
+          "urutan_ajar": 4,
+          "prasyarat": [
+            "f-mek-1a"
+          ],
+          "ambang": 75,
+          "tahapan": {
+            "S1": {
+              "berkas": "konten/f-mek/f-mek-1b/S1/index.html",
+              "judul": "Peta &amp; Janji"
+            },
+            "S2": {
+              "berkas": "konten/f-mek/f-mek-1b/S2/index.html",
+              "judul": "Gerbang Prasyarat"
+            },
+            "S2b": {
+              "berkas": "konten/f-mek/f-mek-1b/S2b/index.html",
+              "judul": "Penguatan Prasyarat"
+            },
+            "S2c": {
+              "berkas": "konten/f-mek/f-mek-1b/S2c/index.html",
+              "judul": "Remediasi Prasyarat"
+            },
+            "S3": {
+              "berkas": "konten/f-mek/f-mek-1b/S3/index.html",
+              "judul": "Pemantik &amp; Prakonsepsi"
+            },
+            "S4": {
+              "berkas": "konten/f-mek/f-mek-1b/S4/index.html",
+              "judul": "Penyajian Konsep Awal"
+            },
+            "S5": {
+              "berkas": "konten/f-mek/f-mek-1b/S5/index.html",
+              "judul": "Pembahasan Prakonsepsi"
+            },
+            "S6": {
+              "berkas": "konten/f-mek/f-mek-1b/S6/index.html",
+              "judul": "Inti Terbimbing"
+            },
+            "S7": {
+              "berkas": "konten/f-mek/f-mek-1b/S7/index.html",
+              "judul": "Worksheet Fisika F.MEK.1b — Dua Soal Latihan"
+            },
+            "S8": {
+              "berkas": "konten/f-mek/f-mek-1b/S8/index.html",
+              "judul": "Gerbang Formatif Kelas"
+            },
+            "S9": {
+              "berkas": "konten/f-mek/f-mek-1b/S9/index.html",
+              "judul": "Diferensiasi T1–T4"
+            },
+            "S10": {
+              "berkas": "konten/f-mek/f-mek-1b/S10/index.html",
+              "judul": "Konsolidasi &amp; Jangkar"
+            },
+            "S11": {
+              "berkas": "konten/f-mek/f-mek-1b/S11/index.html",
+              "judul": "Latihan Bertingkat"
+            },
+            "S12": {
+              "berkas": "konten/f-mek/f-mek-1b/S12/index.html",
+              "judul": "Tugas Kinerja"
+            },
+            "S13": {
+              "berkas": "konten/f-mek/f-mek-1b/S13/index.html",
+              "judul": "Gerbang Ketuntasan TP"
+            },
+            "S14": {
+              "berkas": "konten/f-mek/f-mek-1b/S14/index.html",
+              "judul": "Pengulangan Berjarak"
             }
           }
         }

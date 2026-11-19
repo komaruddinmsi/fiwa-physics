@@ -57,6 +57,9 @@ const EN = {
 "Tuntas": "Mastered",
 " Stabil": " Stable",
 "Kurikulum Nasional · persiapan TKA": "Indonesian national curriculum · TKA preparation",
+"OSN · pembinaan olimpiade fisika": "OSN · physics olympiad training",
+"Seleksi sekolah hingga nasional": "From school selection to the national round",
+"PHYSICS OLYMPIAD": "PHYSICS OLYMPIAD",
 "Kelas 9–10 · jalur internasional": "Grades 9–10 · international track",
 "Kelas 11–12 · jalur internasional": "Grades 11–12 · international track",
 "Fase E–F · jalur nasional": "Phases E–F · national track",
@@ -225,7 +228,9 @@ const JALUR = [
   { slug:'as-a',  kode:'AS/A',  nama:'PHYSICS AS/A',  teks:'Cambridge AS &amp; A Level Physics 9702',
     sub:'Kelas 11–12 · jalur internasional', cocok:/^(as\/?-?a([\s-]?level)?|a[\s-]?level|as)$/i },
   { slug:'tka',   kode:'TKA',   nama:'PHYSICS TKA',   teks:'Kurikulum Nasional · persiapan TKA',
-    sub:'Fase E–F · jalur nasional', cocok:/^tka$/i }
+    sub:'Fase E–F · jalur nasional', cocok:/^tka$/i },
+  { slug:'olimpiade', kode:'OSN', nama:'PHYSICS OLYMPIAD', teks:'OSN &middot; pembinaan olimpiade fisika',
+    sub:'Seleksi sekolah hingga nasional', cocok:/^(olimpiade|olympiad|osn|ksn)$/i }
 ];
 const FASE = ['Fase 0 · Pra-KBM', 'Fase 1 · KBM', 'Fase 2 · Pasca-KBM'];
 const STATUS = ['Belum Mulai', 'Siap', 'Mencoba', 'Akrab', 'Mahir', 'Tuntas'];
