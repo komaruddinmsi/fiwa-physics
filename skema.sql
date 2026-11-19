@@ -37,3 +37,15 @@ CREATE TABLE IF NOT EXISTS pengaturan (
   kunci TEXT PRIMARY KEY,
   nilai TEXT NOT NULL
 );
+
+-- Pembimbingan: satu murid boleh punya banyak guru, satu guru banyak murid.
+-- Hanya pemilik situs yang mengubah isinya.
+CREATE TABLE IF NOT EXISTS bimbing (
+  guru   TEXT NOT NULL,                -- surel akun berperan 'guru'
+  murid  TEXT NOT NULL,                -- surel akun berperan 'siswa'
+  dibuat INTEGER NOT NULL,
+  oleh   TEXT,                         -- surel pemilik yang menetapkan
+  PRIMARY KEY (guru, murid)
+);
+
+CREATE INDEX IF NOT EXISTS bimbing_murid ON bimbing (murid);

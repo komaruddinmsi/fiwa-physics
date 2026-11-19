@@ -168,3 +168,71 @@ D1 pada paket gratis memberi 5 juta pembacaan dan 100 ribu penulisan per hari. U
 | Laman masuk tidak muncul sama sekali | Folder `functions/` belum ikut terunggah ke GitHub |
 
 Untuk melihat galat yang sebenarnya: **Workers & Pages → fiwa-physics → Deployments → penerbitan terakhir → Functions → Real-time logs**.
+
+---
+
+## Pembimbingan murid–guru dan penilaian
+
+Ditambahkan 19 November 2026.
+
+### Sekali jalan: siapkan tabelnya
+
+Buka **Console D1** di dasbor Cloudflare, lalu jalankan isi `migrasi-bimbing.sql`
+**satu pernyataan tiap kali tombol kirim ditekan**. Console D1 hanya menjalankan
+satu perintah per kiriman; menempelkan seluruh berkas sekaligus tidak
+menjalankan apa pun dan tidak memberi pesan galat.
+
+Ada tiga pernyataan: membuat tabel `bimbing`, membuat indeksnya, dan menambah
+kolom `oleh` pada tabel `progres`. Pernyataan ketiga akan menolak dengan pesan
+`duplicate column name` bila kolomnya sudah ada — itu aman, lanjutkan saja.
+
+### Siapa mengatur apa
+
+| Peran | Yang dilihat | Yang bisa diubah |
+|---|---|---|
+| **Pemilik** | seluruh murid, seluruh pasangan bimbingan | menetapkan guru mana saja untuk tiap murid; menilai murid mana pun |
+| **Guru** | hanya murid bimbingannya | menilai murid bimbingannya |
+| **Siswa** | dirinya sendiri | — |
+
+Hubungannya **banyak ke banyak**: satu murid boleh punya beberapa guru, satu
+guru boleh membimbing banyak murid. Yang menetapkan hanya pemilik situs.
+
+### Cara pemilik mengatur pembimbing
+
+Laman **Anggota** → tabel **Akun siswa** → tombol **Atur pembimbing** pada baris
+murid. Centang guru yang membimbing, lalu **Simpan pembimbing**. Daftarnya
+dikirim utuh, jadi mencabut centang berarti mencabut pembimbingan.
+
+Bila seorang murid diubah perannya menjadi guru, atau akunnya ditolak, seluruh
+baris pembimbingannya ikut dibuang supaya papan guru tidak menyisakan nama lama.
+
+### Bagaimana guru tahu apa yang perlu dinilai
+
+Panel guru (`#guru`) punya bagian **Butuh penilaian**: daftar murid × TP ×
+tahapan yang menunggu nilai, yang paling lama menunggu di atas. Isinya dua
+macam:
+
+| Tahapan | Menunggu apa | Syarat masuk antrean |
+|---|---|---|
+| **S12** Tugas Kinerja | tier T1–T4 | murid sudah menandai bukti terkirim, tier masih kosong |
+| **S8** Gerbang Formatif Kelas | skor 0–100 | murid sudah lulus S2 (≥80) dan menyelesaikan S4, skor S8 belum masuk |
+
+Guru mengetik nilainya langsung di baris antrean, lalu **Simpan**. Nilainya
+ditulis ke progres murid beserta catatan siapa yang menilai dan kapan, pada
+`ev.S8.oleh` / `ev.S12.oleh` dan kolom `progres.oleh`.
+
+Di bawahnya, **Papan posisi** menampilkan posisi tiap murid pada seluruh TP —
+untuk guru hanya murid bimbingannya, untuk pemilik seluruh murid.
+
+### Batas yang dijaga di sisi server
+
+Semuanya diperiksa ulang di API, bukan hanya disembunyikan di tampilan:
+
+- guru tidak dapat menilai murid yang bukan bimbingannya (403);
+- guru tidak dapat mengatur pembimbing (403);
+- siswa tidak dapat membuka antrean maupun papan (403);
+- hanya S8 dan S12 yang boleh dinilai guru — tahapan lain ditolak;
+- skor dibatasi 0–100, tier 1–4;
+- pembimbing hanya boleh ditetapkan untuk akun berperan siswa, dan hanya akun
+  guru atau pemilik yang aktif yang boleh menjadi pembimbing. Surel lain dalam
+  permintaan dibuang dan dikembalikan pada medan `ditolak`.
