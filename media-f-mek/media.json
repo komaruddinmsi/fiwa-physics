@@ -322,7 +322,7 @@
       },
       {
         "tipe": "simulasi",
-        "judul": "Mengerem kereta cepat (buatan sendiri)",
+        "judul": "Mengerem kereta cepat",
         "berkas": "media-f-mek/simulasi/rem-kereta-cepat.html",
         "catatan": "Geser kecepatan dari 175 ke 350 km/jam dan bandingkan jarak berhentinya."
       },
@@ -333,7 +333,7 @@
       },
       {
         "tipe": "bacaan",
-        "judul": "Gaya dan gerak di sekitarmu (buatan sendiri)",
+        "judul": "Gaya dan gerak di sekitarmu",
         "berkas": "media-f-mek/bacaan/bacaan-f-mek-1-pra.html",
         "catatan": "Bacaan ringan untuk menemani pembuka."
       }
