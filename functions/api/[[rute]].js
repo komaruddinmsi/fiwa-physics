@@ -248,6 +248,16 @@ export async function onRequest(ctx) {
       if (status === 'aktif' && wajibKode && !kode) kode = kodeBaru();
       await DB.prepare('UPDATE anggota SET status = ?, peran = ?, nama = ?, kode = ?, diputus = ?, oleh = ? WHERE email = ?')
         .bind(status || a.status, peran || a.peran, nama === null ? a.nama : nama, kode, kini(), aktif.email, email).run();
+
+      // Peran berubah atau akun dinonaktifkan: buang baris pembimbingan yang
+      // sudah tidak bermakna, supaya papan guru tidak menampilkan sisa lama.
+      try {
+        const peranBaru = peran || a.peran, statusBaru = status || a.status;
+        if (peranBaru !== 'siswa' || statusBaru !== 'aktif')
+          await DB.prepare('DELETE FROM bimbing WHERE murid = ?').bind(email).run();
+        if (!['guru', 'owner'].includes(peranBaru) || statusBaru !== 'aktif')
+          await DB.prepare('DELETE FROM bimbing WHERE guru = ?').bind(email).run();
+      } catch {}
       let menunggu = 0;
       try {
         const c = await DB.prepare("SELECT COUNT(*) AS n FROM anggota WHERE status = 'menunggu'").first();
@@ -319,17 +329,140 @@ export async function onRequest(ctx) {
     /* ---- papan kelas: seluruh siswa, hanya untuk guru ---- */
     if (rute === 'papan' && metode === 'GET') {
       if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
-      const r = await DB.prepare(
-        "SELECT a.email, a.nama, a.kelas, p.tp, p.data FROM anggota a " +
-        "LEFT JOIN progres p ON p.email = a.email " +
-        "WHERE a.status = 'aktif' AND a.peran = 'siswa' ORDER BY a.nama, a.email"
-      ).all();
+      const semua = isOwner && new URL(request.url).searchParams.get('semua') !== '0';
+      const r = semua
+        ? await DB.prepare(
+            "SELECT a.email, a.nama, a.kelas, p.tp, p.data FROM anggota a " +
+            "LEFT JOIN progres p ON p.email = a.email " +
+            "WHERE a.status = 'aktif' AND a.peran = 'siswa' ORDER BY a.nama, a.email").all()
+        : await DB.prepare(
+            "SELECT a.email, a.nama, a.kelas, p.tp, p.data FROM anggota a " +
+            "JOIN bimbing b ON b.murid = a.email AND b.guru = ? " +
+            "LEFT JOIN progres p ON p.email = a.email " +
+            "WHERE a.status = 'aktif' AND a.peran = 'siswa' ORDER BY a.nama, a.email").bind(aktif.email).all();
       const murid = {};
       for (const row of r.results || []) {
         const m = murid[row.email] || (murid[row.email] = { email: row.email, nama: row.nama, kelas: row.kelas, tp: {} });
         if (row.tp) { try { m.tp[row.tp] = JSON.parse(row.data); } catch {} }
       }
       return json({ murid: Object.values(murid) });
+    }
+
+    /* ---------- pembimbingan: murid ↔ guru, banyak ke banyak ---------- */
+
+    // Daftar pasangan. Pemilik melihat semuanya; guru hanya muridnya sendiri.
+    if (rute === 'bimbing' && metode === 'GET') {
+      if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
+      const r = isOwner
+        ? await DB.prepare('SELECT guru, murid FROM bimbing').all()
+        : await DB.prepare('SELECT guru, murid FROM bimbing WHERE guru = ?').bind(aktif.email).all();
+      const guru = await DB.prepare(
+        "SELECT email, nama FROM anggota WHERE peran IN ('guru','owner') AND status = 'aktif' ORDER BY nama, email"
+      ).all();
+      return json({ pasangan: r.results || [], guru: guru.results || [] });
+    }
+
+    // Menetapkan seluruh daftar guru untuk SATU murid sekaligus.
+    // Dikirim utuh supaya tidak ada keadaan setengah tersimpan.
+    if (rute === 'bimbing/atur' && metode === 'POST') {
+      if (!isOwner) return json({ galat: 'Hanya pemilik situs yang mengatur pembimbing.' }, 403);
+      const b = await badan();
+      const murid = rapi(b.murid);
+      if (!murid) return json({ galat: 'Murid tidak disebut.' }, 400);
+      const m = await DB.prepare("SELECT peran, status FROM anggota WHERE email = ?").bind(murid).first();
+      if (!m) return json({ galat: 'Murid tidak ditemukan.' }, 404);
+      if (m.peran !== 'siswa') return json({ galat: 'Pembimbing hanya untuk akun siswa.' }, 400);
+
+      const minta = [...new Set((Array.isArray(b.guru) ? b.guru : []).map(rapi).filter(Boolean))].slice(0, 50);
+      let sah = [];
+      if (minta.length) {
+        const tanda = minta.map(() => '?').join(',');
+        const g = await DB.prepare(
+          `SELECT email FROM anggota WHERE email IN (${tanda}) AND status = 'aktif' AND peran IN ('guru','owner')`
+        ).bind(...minta).all();
+        sah = (g.results || []).map(x => x.email);
+      }
+      const tolak = minta.filter(e => !sah.includes(e));
+
+      const perintah = [DB.prepare('DELETE FROM bimbing WHERE murid = ?').bind(murid)];
+      for (const g of sah) {
+        perintah.push(DB.prepare('INSERT INTO bimbing (guru, murid, dibuat, oleh) VALUES (?,?,?,?)')
+          .bind(g, murid, kini(), aktif.email));
+      }
+      await DB.batch(perintah);
+      return json({ ok: true, murid, guru: sah, ditolak: tolak });
+    }
+
+    /* ---------- penilaian oleh guru ---------- */
+
+    // Antrean: apa saja yang menunggu nilai guru.
+    // Pemilik melihat seluruh murid; guru hanya murid bimbingannya.
+    if (rute === 'guru/antrean' && metode === 'GET') {
+      if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
+      const r = isOwner
+        ? await DB.prepare(
+            "SELECT a.email, a.nama, a.kelas, p.tp, p.data, p.diubah FROM anggota a " +
+            "JOIN progres p ON p.email = a.email " +
+            "WHERE a.status = 'aktif' AND a.peran = 'siswa'").all()
+        : await DB.prepare(
+            "SELECT a.email, a.nama, a.kelas, p.tp, p.data, p.diubah FROM anggota a " +
+            "JOIN bimbing b ON b.murid = a.email AND b.guru = ? " +
+            "JOIN progres p ON p.email = a.email " +
+            "WHERE a.status = 'aktif' AND a.peran = 'siswa'").bind(aktif.email).all();
+
+      const antre = [];
+      for (const row of r.results || []) {
+        let d; try { d = JSON.parse(row.data); } catch { continue; }
+        const ev = (d && d.ev) || {};
+        const sk = id => (ev[id] && ev[id].skor != null) ? ev[id].skor : null;
+        const dasar = { email: row.email, nama: row.nama, kelas: row.kelas, tp: row.tp, diubah: row.diubah };
+        // S12 Tugas Kinerja: murid sudah mengirim bukti, tier belum diisi guru.
+        if (ev.S12 && !d.tier) antre.push({ ...dasar, tahapan: 'S12', minta: 'tier' });
+        // S8 Gerbang Formatif Kelas: murid sudah lulus S4, skor gerbang belum masuk.
+        if (ev.S4 && sk('S2') != null && sk('S2') >= 80 && sk('S8') == null)
+          antre.push({ ...dasar, tahapan: 'S8', minta: 'skor' });
+      }
+      antre.sort((x, y) => (x.diubah || 0) - (y.diubah || 0));
+      return json({ antrean: antre.slice(0, 500), jumlah: antre.length });
+    }
+
+    // Guru menuliskan nilai ke progres muridnya.
+    if (rute === 'guru/nilai' && metode === 'POST') {
+      if (!isGuru) return json({ galat: 'Khusus guru.' }, 403);
+      const b = await badan();
+      const murid = rapi(b.murid), slug = String(b.tp || '').slice(0, 80);
+      const tahapan = String(b.tahapan || '').toUpperCase();
+      if (!murid || !slug || !['S8', 'S12'].includes(tahapan))
+        return json({ galat: 'Permintaan tidak lengkap. Tahapan yang dapat dinilai guru hanya S8 dan S12.' }, 400);
+
+      if (!isOwner) {
+        const ikat = await DB.prepare('SELECT 1 AS a FROM bimbing WHERE guru = ? AND murid = ?')
+          .bind(aktif.email, murid).first();
+        if (!ikat) return json({ galat: 'Murid ini bukan bimbingan Anda.' }, 403);
+      }
+
+      const baris = await DB.prepare('SELECT data FROM progres WHERE email = ? AND tp = ?').bind(murid, slug).first();
+      let d = { ev: {}, tier: null, s14: [], riwayat: [] };
+      if (baris) { try { d = JSON.parse(baris.data) || d; } catch {} }
+      d.ev = d.ev || {};
+
+      if (tahapan === 'S8') {
+        const skor = Number(b.skor);
+        if (!isFinite(skor) || skor < 0 || skor > 100) return json({ galat: 'Skor harus 0–100.' }, 400);
+        d.ev.S8 = { ...(d.ev.S8 || {}), skor: Math.round(skor), oleh: aktif.email, pada: kini() };
+      } else {
+        const tier = Number(b.tier);
+        if (!Number.isInteger(tier) || tier < 1 || tier > 4) return json({ galat: 'Tier harus 1–4.' }, 400);
+        d.tier = tier;
+        d.ev.S12 = { ...(d.ev.S12 || {}), oleh: aktif.email, pada: kini() };
+      }
+
+      await DB.prepare(
+        'INSERT INTO progres (email, tp, data, diubah, oleh) VALUES (?,?,?,?,?) ' +
+        'ON CONFLICT(email, tp) DO UPDATE SET data = excluded.data, diubah = excluded.diubah, oleh = excluded.oleh'
+      ).bind(murid, slug, JSON.stringify(d).slice(0, 20000), kini(), aktif.email).run();
+
+      return json({ ok: true, murid, tp: slug, tahapan, data: d });
     }
 
     return json({ galat: 'Jalur tidak dikenal: ' + rute }, 404);
