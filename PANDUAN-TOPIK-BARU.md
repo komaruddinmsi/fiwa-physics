@@ -437,7 +437,7 @@ Syarat isi:
 "topik": {
   "PEMBUKA": [
     { "tipe": "video",    "judul": "…", "yt": "KODE_YOUTUBE" },
-    { "tipe": "simulasi", "judul": "… (buatan sendiri)",
+    { "tipe": "simulasi", "judul": "…",
       "berkas": "media-f-xyz/simulasi/namanya.html" },
     { "tipe": "audio",    "judul": "Pembuka topik — dibacakan", "naskah": "…" },
     { "tipe": "bacaan",   "judul": "…", "berkas": "media-f-xyz/bacaan/namanya.html" }
