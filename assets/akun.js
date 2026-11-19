@@ -100,6 +100,16 @@ const EN = {
 "Pemilik": "Owner",
 "Mode tampilan": "View mode",
 "Anggota": "Members",
+"Pembimbing": "Mentors",
+"Atur pembimbing": "Set mentors",
+"Pembimbing %s": "Mentors for %s",
+"Centang guru yang membimbing murid ini. Satu murid boleh punya beberapa guru, dan satu guru boleh membimbing banyak murid.": "Tick the teachers who mentor this student. A student may have several teachers, and a teacher may mentor many students.",
+"Belum ada akun guru yang aktif.": "No active teacher accounts yet.",
+"Belum ada": "None yet",
+"Simpan pembimbing": "Save mentors",
+"Batal": "Cancel",
+"Gagal menyimpan pembimbing.": "Could not save the mentors.",
+"Memuat daftar guru…": "Loading the teacher list…",
 "%s anggota menunggu persetujuan": "%s members awaiting approval",
 "1 anggota menunggu persetujuan": "1 member awaiting approval",
 "Keluar": "Sign out",
@@ -417,8 +427,14 @@ document.addEventListener('visibilitychange', () => {
 });
 
 FIMS.papan = () => API('papan');
+/* Dibuka untuk app.js: antrean penilaian dan penyimpanan nilai oleh guru. */
+FIMS.API = (jalur, opsi) => API(jalur, opsi);
 
 /* ---------- panel anggota ---------- */
+/* Dipakai bersama oleh penggambar tabel dan pendengar klik yang tetap.
+   Diperbarui setiap kali daftar anggota dimuat ulang. */
+let _daftarGuru = [], _bimbingan = {};
+
 FIMS.halAnggota = async function () {
   const app = $('#app');
   app.innerHTML = `<div class="stack" data-akun-layar><div class="crumbs"><a href="#">${t('Beranda')}</a> / ${t('Anggota')}</div>
@@ -434,13 +450,28 @@ FIMS.halAnggota = async function () {
   r.anggota.forEach(a => (kelompok[a.status] || kelompok.ditolak).push(a));
   FIMS.setMenunggu(kelompok.menunggu.length);
 
+  /* Pembimbingan: satu murid boleh punya beberapa guru, satu guru banyak murid.
+     Dimuat sekali di sini, lalu dipakai oleh setiap baris siswa. */
+  const rb = await API('bimbing').catch(() => ({}));
+  _daftarGuru = rb.guru || [];
+  const namaGuru = e => { const g = _daftarGuru.find(x => x.email === e); return (g && g.nama) || e; };
+  _bimbingan = {};                            // murid -> [surel guru]
+  (rb.pasangan || []).forEach(x => (_bimbingan[x.murid] = _bimbingan[x.murid] || []).push(x.guru));
+  const namaPembimbing = email => {
+    const d = _bimbingan[email] || [];
+    return d.length ? d.map(g => `<span class="cip">${esc(namaGuru(g))}</span>`).join(' ')
+                    : `<span class="muted">${t('Belum ada')}</span>`;
+  };
+
   const baris = a => `<tr data-email="${esc(a.email)}">
       <td class="l"><b class="nm-teks">${esc(a.nama || '—')}</b><br><span class="mono muted">${esc(a.email)}</span></td>
       <td>${a.peran === 'owner' ? t('Pemilik') : a.peran === 'guru' ? t('Guru') : t('Siswa')}</td>
       <td>${tgl(a.dibuat)}</td>
       <td>${tgl(a.terakhir)}</td>
       <td>${a.kode ? `<span class="mono">${esc(a.kode)}</span>` : '—'}</td>
+      ${a.peran === 'siswa' ? `<td class="l bimb-sel">${namaPembimbing(a.email)}</td>` : ''}
       <td class="l">
+        ${a.peran === 'siswa' ? `<button class="btn ghost kecil" data-bimbing="1">${t('Atur pembimbing')}</button>` : ''}
         <button class="btn ghost kecil" data-nama="1">${t('Ubah nama')}</button>
         <button class="btn ghost kecil" data-sandi="1">${t('Ubah sandi')}</button>
         ${a.peran !== 'owner' ? `
@@ -450,8 +481,8 @@ FIMS.halAnggota = async function () {
         <button class="btn ghost kecil bahaya" data-hapus="1">${t('Hapus')}</button>
       ` : `<span class="muted">${t('Peran dan akses pemilik tidak dapat diubah')}</span>`}</td></tr>`;
 
-  const tabelKecil = (daftar, kosong) => daftar.length
-    ? `<div class="scroll"><table><tr><th class="l">${t('Anggota')}</th><th>${t('Peran')}</th><th>${t('Daftar')}</th><th>${t('Terakhir')}</th><th>${t('Kode')}</th><th class="l">${t('Tindakan')}</th></tr>
+  const tabelKecil = (daftar, kosong, siswa) => daftar.length
+    ? `<div class="scroll"><table><tr><th class="l">${t('Anggota')}</th><th>${t('Peran')}</th><th>${t('Daftar')}</th><th>${t('Terakhir')}</th><th>${t('Kode')}</th>${siswa ? `<th class="l">${t('Pembimbing')}</th>` : ''}<th class="l">${t('Tindakan')}</th></tr>
         ${daftar.map(baris).join('')}</table></div>`
     : `<p class="muted" style="margin:0">${kosong}</p>`;
 
@@ -464,9 +495,9 @@ FIMS.halAnggota = async function () {
       <h2>${judul} <span class="mcacah">${daftar.length}</span></h2>
       ${catatan ? `<p class="muted" style="margin:0">${catatan}</p>` : ''}
       <h3 class="mjudul">${t('Akun guru')} <span class="mcacah">${guru.length}</span></h3>
-      ${tabelKecil(guru, t('Belum ada akun guru.'))}
+      ${tabelKecil(guru, t('Belum ada akun guru.'), false)}
       <h3 class="mjudul">${t('Akun siswa')} <span class="mcacah">${siswa.length}</span></h3>
-      ${tabelKecil(siswa, t('Belum ada akun siswa.'))}
+      ${tabelKecil(siswa, t('Belum ada akun siswa.'), true)}
     </section>`;
   };
 
@@ -478,11 +509,43 @@ FIMS.halAnggota = async function () {
     ${tabel(t('Aktif'), kelompok.aktif)}
     ${tabel(t('Ditolak'), kelompok.ditolak)}</div>`;
 
+  /* Satu pendengar tetap untuk seluruh panel. Dahulu dipasang dengan
+     { once: true } dan dipasang ulang di tiap cabang; akibatnya klik apa pun
+     yang tidak cocok — mencentang kotak, misalnya — ikut mencopot pendengarnya
+     dan panel berhenti menanggapi. */
   function pasangKlik() {
+  if (app.dataset.klikTerpasang) return;
+  app.dataset.klikTerpasang = '1';
   app.addEventListener('click', async ev => {
-    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus],[data-nama],[data-simpan-nama],[data-batal-nama],[data-sandi],[data-simpan-sandi],[data-batal-sandi]');
+    const b = ev.target.closest('[data-putus],[data-peran],[data-hapus],[data-nama],[data-simpan-nama],[data-batal-nama],[data-sandi],[data-simpan-sandi],[data-batal-sandi],[data-bimbing],[data-simpan-bimbing],[data-batal-bimbing]');
     if (!b) return;
     const email = b.closest('tr').dataset.email;
+
+    /* Mengatur guru pembimbing seorang murid. Daftarnya dikirim utuh, bukan
+       satu-satu, supaya tidak ada keadaan setengah tersimpan bila jaringan putus. */
+    if (b.dataset.bimbing) {
+      const sel = b.closest('tr').querySelector('.bimb-sel');
+      if (!sel || sel.querySelector('.bimb-atur')) { pasangKlik(); return; }
+      const kini = _bimbingan[email] || [];
+      sel.innerHTML = _daftarGuru.length
+        ? `<div class="bimb-atur">
+             <p class="muted" style="margin:0 0 .4rem">${t('Centang guru yang membimbing murid ini. Satu murid boleh punya beberapa guru, dan satu guru boleh membimbing banyak murid.')}</p>
+             ${_daftarGuru.map(g => `<label class="bimb-baris"><input type="checkbox" value="${esc(g.email)}"${kini.includes(g.email) ? ' checked' : ''}> ${esc(g.nama || g.email)} <span class="mono muted">${esc(g.email)}</span></label>`).join('')}
+             <div class="row" style="gap:.4rem;margin-top:.5rem">
+               <button class="btn kecil" data-simpan-bimbing="1">${t('Simpan pembimbing')}</button>
+               <button class="btn ghost kecil" data-batal-bimbing="1">${t('Batal')}</button></div></div>`
+        : `<span class="muted">${t('Belum ada akun guru yang aktif.')}</span>`;
+      pasangKlik(); return;
+    }
+    if (b.dataset.batalBimbing) { FIMS.halAnggota(); return; }
+    if (b.dataset.simpanBimbing) {
+      const kotak = [...b.closest('.bimb-atur').querySelectorAll('input[type=checkbox]')];
+      const pilih = kotak.filter(k => k.checked).map(k => k.value);
+      b.disabled = true;
+      const rb2 = await API('bimbing/atur', { method: 'POST', body: JSON.stringify({ murid: email, guru: pilih }) });
+      if (!rb2.ok) { b.disabled = false; alert(rb2.galat || t('Gagal menyimpan pembimbing.')); pasangKlik(); return; }
+      FIMS.halAnggota(); return;
+    }
 
     /* Menyetel ulang kata sandi anggota. Sandi lama tidak dapat dibaca siapa pun,
        termasuk pemilik situs — yang ada hanyalah menggantinya dengan yang baru. */
@@ -566,7 +629,7 @@ FIMS.halAnggota = async function () {
     if (!r2.ok) { b.disabled = false; alert(r2.galat || t('Gagal menyimpan.')); pasangKlik(); return; }
     if (r2.menunggu !== undefined) FIMS.setMenunggu(r2.menunggu);
     FIMS.halAnggota();
-  }, { once: true });
+  });
   }
   pasangKlik();
 };

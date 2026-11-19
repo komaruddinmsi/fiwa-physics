@@ -7,6 +7,20 @@
 
 /* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
 const EN = {
+"Butuh penilaian": "Awaiting grading",
+"Memuat antrean penilaian…": "Loading the grading queue…",
+"Tidak ada yang menunggu penilaianmu.": "Nothing is awaiting your grading.",
+"Tidak dapat memuat antrean penilaian.": "Could not load the grading queue.",
+"Murid di bawah ini sudah sampai pada tahapan yang nilainya diisi guru. Yang paling lama menunggu berada di atas.": "The students below have reached a stage whose score is entered by a teacher. The longest waiting are at the top.",
+"Tahapan": "Stage",
+"Menunggu sejak": "Waiting since",
+"Nilai": "Grade",
+"Skor 0–100": "Score 0–100",
+"Simpan": "Save",
+"Tersimpan.": "Saved.",
+"Gagal menyimpan nilai.": "Could not save the grade.",
+"Skor harus 0–100.": "The score must be 0–100.",
+"Hanya murid bimbinganmu yang tampil di sini. Pemilik situs melihat seluruh murid.": "Only your own mentees appear here. The site owner sees every student.",
 "Fenomena Dunia Nyata": "Real-World Phenomena",
 "Mulai dari sini": "Start here",
 "Lihat dulu untuk apa semua ini dipakai, sebelum masuk ke tujuan pembelajaran pertama.": "See what all of this is for before entering the first learning objective.",
@@ -805,6 +819,9 @@ function halGuru() {
   const geser = db.opsi.geser || 0;
   return `<div class="stack"><div><div class="eyebrow">${tr('Papan guru')}</div><h1>${tr('Kelengkapan & posisi')}</h1></div>
     <section class="panel stack"><h2>${tr('Kelengkapan tahapan')}</h2><p class="muted" style="margin:0">${tr('✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}</section>
+    <section class="panel stack"><h2>${tr('Butuh penilaian')}</h2>
+      <p class="muted" style="margin:0">${tr('Murid di bawah ini sudah sampai pada tahapan yang nilainya diisi guru. Yang paling lama menunggu berada di atas.')} ${tr('Hanya murid bimbinganmu yang tampil di sini. Pemilik situs melihat seluruh murid.')}</p>
+      <div id="antrean-nilai"><p class="muted" style="margin:0">${tr('Memuat antrean penilaian…')}</p></div></section>
     <section class="panel stack"><h2>${tr('Papan posisi')}</h2><p class="muted" style="margin:0">${tr('Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.')}</p>${papan}
       <div id="papan-kelas"><p class="muted" style="margin:0">${tr('Memuat papan kelas…')}</p></div></section>
     <section class="panel stack"><h2>${tr('Simulasi waktu')}</h2><p class="muted" style="margin:0">${trf('Untuk uji alur kuis tertunda (H+2) dan pengulangan (H+14). Sekarang digeser %s hari.', geser)}</p>
@@ -950,6 +967,57 @@ function isiPapanKelas() {
       `</tr>`;
     w2.innerHTML = `<div class="scroll"><table><tr><th class="l">${tr('Murid')} <span class="mcacah">${r.murid.length}</span></th>` +
       tps.map(tp => `<th class="mono">${esc(tp.kode)}</th>`).join('') + `</tr>${r.murid.map(baris).join('')}</table></div>`;
+  }).catch(() => {});
+
+  muatAntrean();
+}
+
+/* Antrean penilaian guru: S12 menunggu tier, S8 menunggu skor gerbang kelas. */
+function muatAntrean() {
+  const w = document.getElementById('antrean-nilai');
+  if (!w || !(window.FIMS && FIMS.aku && FIMS.aku.guru)) return;
+  const judulTP = slug => { const tp = semuaTP().find(x => x.slug === slug); return tp ? tp.kode : slug; };
+  const tgl = d => d ? new Date(d * 1000).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) : '—';
+
+  FIMS.API('guru/antrean').then(r => {
+    const w2 = document.getElementById('antrean-nilai'); if (!w2) return;
+    if (!r.antrean) { w2.innerHTML = `<p class="muted" style="margin:0">${esc(r.galat || tr('Tidak dapat memuat antrean penilaian.'))}</p>`; return; }
+    if (!r.antrean.length) { w2.innerHTML = `<p class="muted" style="margin:0">${tr('Tidak ada yang menunggu penilaianmu.')}</p>`; return; }
+    w2.innerHTML = `<div class="scroll"><table><tr>
+        <th class="l">${tr('Murid')} <span class="mcacah">${r.antrean.length}</span></th>
+        <th class="l">${tr('Tujuan Pembelajaran')}</th><th>${tr('Tahapan')}</th>
+        <th>${tr('Menunggu sejak')}</th><th class="l">${tr('Nilai')}</th></tr>` +
+      r.antrean.map((x, i) => `<tr data-antre="${i}">
+        <td class="l">${esc(x.nama || x.email.split('@')[0])}<br><span class="mono muted" style="font-size:.78em">${esc(x.email)}</span></td>
+        <td class="l mono">${esc(judulTP(x.tp))}</td>
+        <td class="mono">${esc(x.tahapan)}</td>
+        <td>${tgl(x.diubah)}</td>
+        <td class="l nilai-sel">${x.minta === 'tier'
+          ? `<select class="nilai-isi" aria-label="Tier"><option value="">T?</option><option value="1">T1</option><option value="2">T2</option><option value="3">T3</option><option value="4">T4</option></select>`
+          : `<input class="nilai-isi" type="number" min="0" max="100" step="1" placeholder="${tr('Skor 0–100')}" aria-label="${tr('Skor 0–100')}">`}
+          <button class="btn kecil" data-simpan-nilai="${i}">${tr('Simpan')}</button></td></tr>`).join('') +
+      `</table></div>`;
+
+    w2.addEventListener('click', async ev => {
+      const b = ev.target.closest('[data-simpan-nilai]'); if (!b) return;
+      const x = r.antrean[+b.dataset.simpanNilai]; if (!x) return;
+      const isi = b.closest('.nilai-sel').querySelector('.nilai-isi');
+      const v = String(isi.value || '').trim();
+      if (!v) { isi.focus(); return; }
+      const badan = { murid: x.email, tp: x.tp, tahapan: x.tahapan };
+      if (x.minta === 'tier') badan.tier = Number(v);
+      else {
+        const n = Number(v);
+        if (!isFinite(n) || n < 0 || n > 100) { alert(tr('Skor harus 0–100.')); isi.focus(); return; }
+        badan.skor = n;
+      }
+      b.disabled = true;
+      const r2 = await FIMS.API('guru/nilai', { method: 'POST', body: JSON.stringify(badan) });
+      if (!r2.ok) { b.disabled = false; alert(r2.galat || tr('Gagal menyimpan nilai.')); return; }
+      const tr0 = b.closest('tr');
+      tr0.querySelector('.nilai-sel').innerHTML = `<span class="muted">${tr('Tersimpan.')}</span>`;
+      tr0.classList.add('sudah');
+    }, { once: false });
   }).catch(() => {});
 }
 

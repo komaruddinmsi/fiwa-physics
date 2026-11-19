@@ -330,3 +330,13 @@ body:not(.guru) .akun-tautan{display:none}
 .akun-tautan{position:relative}
 .lencana{display:inline-flex;align-items:center;justify-content:center;min-width:1.25rem;height:1.25rem;margin-left:.4rem;padding:0 .35rem;border-radius:999px;background:#e5484d;color:#fff;font-size:.72rem;font-weight:700;line-height:1;vertical-align:text-top}
 .lencana[hidden]{display:none}
+
+/* pengatur pembimbing di panel anggota */
+.cip{display:inline-block;padding:.1rem .45rem;margin:.1rem .15rem .1rem 0;border:1px solid var(--line);border-radius:999px;font-size:.78rem;white-space:nowrap}
+.bimb-atur{min-width:22rem;max-width:28rem}
+.bimb-baris{display:block;padding:.2rem 0;font-size:.85rem;cursor:pointer}
+.bimb-baris input{margin-right:.4rem}
+
+/* antrean penilaian guru */
+.nilai-isi{width:6.5rem;margin-right:.35rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;font-size:.85rem}
+tr.sudah{opacity:.55}
