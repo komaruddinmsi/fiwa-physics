@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worksheet Fisika F.MEK.2 — Dua Soal Latihan</title>
+<style>
+:root{--tosca0:#073B44;--tosca:#0B4F58;--tosca2:#17A2AF;--tosca3:#6FCFD8;--toscaB:#E3F5F6;--oranye:#C05621;--oranye2:#E27A2E;--oranyeB:#FDEBDD;--kuning:#E9B308;--kuningB:#FEF6DA;--tinta:#12333A;--abu:#6A7F84;--abuB:#F1F5F6;--putih:#fff;--hijau:#1F7A4D;--hijauB:#E6F4EC;--merah:#B32B2B;--merahB:#FBEAEA}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#F6FAFB;color:var(--tinta);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;font-size:16px;line-height:1.55;padding-bottom:130px}
+.halaman{max-width:920px;margin:0 auto;padding:0 14px}
+.kepala{position:relative;overflow:hidden;background:linear-gradient(110deg,var(--tosca0),var(--tosca),var(--tosca3));color:#fff;padding:30px 22px 26px;border-bottom:5px solid;border-image:linear-gradient(90deg,var(--kuning),var(--oranye)) 1}
+.kepala::before{content:"";position:absolute;right:-60px;top:-70px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.10)}
+.kepala::after{content:"";position:absolute;right:70px;bottom:-90px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kepala .baris-kecil{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.92;position:relative;z-index:1}
+.kepala h1{font-size:28px;line-height:1.2;margin:8px 0 6px;position:relative;z-index:1}
+.kepala p{margin:0;max-width:640px;font-size:15.5px;opacity:.96;position:relative;z-index:1}
+.kartu-identitas,.panel-aturan,.bagian,.ringkasan{background:var(--putih);border:1px solid #D7E6E8;border-radius:14px;margin:18px 0}
+.kartu-identitas{padding:16px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kartu-identitas label{display:block;font-size:13px;color:var(--abu);margin-bottom:3px}
+input[type=text],select,textarea{width:100%;font:inherit;color:var(--tinta);background:#fff;border:2px solid #D7E6E8;border-radius:9px;padding:9px 11px}
+input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--tosca2);box-shadow:0 0 0 3px rgba(23,162,175,.18)}
+.panel-aturan{background:var(--kuningB);border-left:7px solid var(--kuning);padding:14px 20px}
+.panel-aturan b{color:#8A6604}
+.panel-aturan ol{margin:6px 0 0;padding-left:22px}
+.panel-aturan li{margin:4px 0}
+.bagian{overflow:hidden}
+.bagian>.pita{background:linear-gradient(110deg,var(--tosca0),var(--tosca),var(--tosca2));color:#fff;padding:13px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.lencana{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:2px 12px;font-size:13px;font-weight:700;letter-spacing:.04em}
+.pita h2{font-size:18.5px;margin:0;line-height:1.3}
+.isi-bagian{padding:6px 16px 16px}
+.kartu-soal{border:1px solid #D7E6E8;border-radius:12px;margin:14px 0;overflow:hidden;background:#fff}
+.kartu-soal>h3{margin:0;background:var(--toscaB);color:var(--tosca0);font-size:15.5px;padding:8px 14px;border-bottom:1px solid #D7E6E8}
+.dalam-soal{padding:12px 14px}
+.naskah{background:var(--abuB);border-left:5px solid var(--tosca);border-radius:6px;padding:11px 14px;margin:0 0 10px}
+.arah{background:var(--kuningB);border-left:5px solid var(--kuning);border-radius:6px;padding:8px 12px;margin:0 0 10px;font-size:15px}
+.catatan{font-size:14px;color:var(--abu);margin:0 0 10px}
+.gambar-buku{border:2px dashed var(--tosca3);border-radius:8px;padding:8px 12px;margin:0 0 12px;font-size:14.5px;color:var(--tosca)}
+.isian-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 16px}
+.isian-grid .lebar{grid-column:1/-1}
+.isian label,.lebar label{display:block;font-size:14.5px;margin-bottom:4px}
+.sat{color:var(--abu);font-size:13.5px;white-space:nowrap}
+.bantu{display:block;color:var(--abu);font-size:12.8px;margin-top:3px}
+.terisi{border-color:var(--tosca2)!important;background:#F7FDFD}
+.kosong{border-color:var(--oranye2)!important;background:var(--oranyeB)!important}
+.guru-lencana{display:inline-block;background:var(--oranye);color:#fff;border-radius:999px;font-size:11.5px;font-weight:700;padding:1px 9px;margin-left:6px;vertical-align:middle;letter-spacing:.03em}
+.guru-isian textarea{min-height:92px;border-color:var(--oranye2)}
+.guru-isian input[type=text]{border-color:var(--oranye2)}
+table.klas{width:100%;border-collapse:collapse;margin:4px 0 6px;font-size:15px}
+table.klas th{background:var(--tosca);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
+table.klas td{padding:8px 10px;border-bottom:1px solid #D7E6E8;vertical-align:middle}
+table.klas tr:nth-child(even) td{background:var(--abuB)}
+.bilah-bawah{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:3px solid var(--tosca2);box-shadow:0 -4px 14px rgba(7,59,68,.12);padding:9px 14px 11px;z-index:50}
+.bilah-dalam{max-width:920px;margin:0 auto}
+.jalur{height:9px;background:#DCE9EB;border-radius:99px;overflow:hidden}
+.isi-jalur{height:100%;width:0;background:linear-gradient(90deg,var(--tosca2),var(--kuning));border-radius:99px;transition:width .25s}
+.bilah-baris{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:7px}
+.hitung{font-weight:700;color:var(--tosca)}
+button.periksa{font:inherit;font-weight:700;background:var(--oranye);color:#fff;border:0;border-radius:9px;padding:8px 16px;cursor:pointer}
+button.periksa:hover{background:var(--oranye2)}
+.pesan{flex:1 1 100%;font-size:14px;color:var(--abu);min-height:1.2em}
+@media (max-width:640px){
+ body{font-size:15.5px;padding-bottom:140px}
+ .kepala h1{font-size:23px}
+ .isian-grid{grid-template-columns:1fr}
+ table.klas,table.klas tbody,table.klas tr,table.klas td{display:block;width:100%}
+ table.klas thead{display:none}
+ table.klas caption{display:block;width:100%}
+ table.klas tr{border-bottom:2px solid #D7E6E8;padding:6px 0}
+ table.klas td{border:0;padding:4px 10px}
+ .bilah-baris{gap:8px}
+}
+</style>
+</head>
+<body>
+<header class="kepala"><div class="baris-kecil">Fisika · Fase F · SMA kelas 11–12 · F.MEK.2</div><h1>Dua Soal Latihan — Hukum Newton dalam Peristiwa Sehari-hari: Mengaitkan Gaya dan Gerak</h1><p>Kerjakan sendiri, satu per satu, dari Modul Konsep F.MEK.2. Tiap bagian punya dua soal.</p></header>
+<main class="halaman">
+<section class="kartu-identitas"><div><label for="nama">Nama lengkap</label><input type="text" id="nama" name="nama" autocomplete="name"></div><div><label for="kelas">Kelas</label><input type="text" id="kelas" name="kelas"></div><div><label for="tanggal">Tanggal</label><input type="text" id="tanggal" name="tanggal"></div></section>
+<section class="panel-aturan"><b>Cara mengisi</b><ol><li>Bilangan boleh memakai koma atau titik; keduanya diterima.</li><li>Tulis angkanya saja, tanpa satuan — satuannya sudah tercetak di sebelah kotak.</li><li>Kalau jawabannya negatif, jangan lupa tanda minus; pada besaran berarah, tanda adalah setengah dari jawaban.</li><li>Kotak bertanda “dibaca guru” tidak dinilai otomatis, tetapi tetap diisi.</li><li>Arah positif sudah ditetapkan pada tiap soal supaya jawaban seluruh kelas dapat dibandingkan.</li><li>Jawabanmu tersimpan begitu kamu berpindah ke kotak berikutnya. Kamu boleh menutup halaman dan melanjutkannya nanti.</li></ol></section>
+<section class="bagian" id="bagian-K1-1"><div class="pita"><span class="lencana">K1.1</span><h2>Gaya nyata: hanya yang punya pemberi</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K1-1-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Sebuah kerikil baru lepas dari ketapel dan sedang terbang mendatar. Hambatan udara diabaikan. Gambar diagram gayanya, tulis pemberi tiap panah, dan tulis satu kalimat mengapa tidak ada panah ke depan.</div>
+<div class="gambar-buku">✎ Di bukumu: gambar diagram gayanya, dan tulis pemberi tiap panah. Gambar tidak dinilai otomatis; gurumu melihatnya saat berkeliling.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k11s1a">Panah apa saja yang ada pada diagram gaya kerikil itu?</label><select id="k11s1a" name="k11s1a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Satu panah ke bawah dan satu panah ke depan yang membawa kerikil</option><option value="B">B. Satu panah ke bawah, yaitu berat kerikil</option><option value="C">C. Satu panah ke bawah dan satu panah hambatan udara ke belakang</option><option value="D">D. Tidak ada panah sama sekali, karena kerikil sedang melayang</option></select></div>
+<div class="isian lebar"><label for="k11s1b">Siapa pemberi panah berat itu?</label><select id="k11s1b" name="k11s1b" data-isian="1"><option value="">— pilih —</option><option value="A">A. Ketapel, yang baru saja melepas kerikil</option><option value="B">B. Udara di sekitar kerikil</option><option value="C">C. Kerikil itu sendiri</option><option value="D">D. Bumi, yang menarik kerikil ke bawah</option></select></div>
+<div class="isian lebar"><label for="k11s1c">Mengapa tidak ada panah ke depan?</label><select id="k11s1c" name="k11s1c" data-isian="1"><option value="">— pilih —</option><option value="A">A. Tidak ada benda yang sedang menyentuh atau menarik kerikil ke depan; ketapel sudah lepas.</option><option value="B">B. Kecepatan ke depan itu sudah termasuk gaya ke depan, jadi tidak perlu digambar tersendiri.</option><option value="C">C. Gaya ke depan ada tetapi sangat kecil, jadi dibulatkan menjadi nol.</option><option value="D">D. Kerikil harus punya gaya ke depan, karena ia bergerak ke depan.</option></select></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K1-1-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Seorang murid menggambar diagram gaya sebuah batu yang sedang jatuh bebas. Ia menulis dua panah ke bawah: berat, dan satu lagi bertuliskan kecepatan. Katakan panah mana yang harus dihapus, dan alasanmu.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k11s2a">Panah mana yang harus dihapus?</label><select id="k11s2a" name="k11s2a" data-isian="1"><option value="">— pilih —</option><option value="berat">panah berat</option><option value="kecepatan">panah bertuliskan kecepatan</option><option value="keduanya">kedua panah</option><option value="tidakada">tidak ada yang dihapus</option></select></div>
+<div class="isian lebar"><label for="k11s2b">Alasan panah itu dihapus:</label><select id="k11s2b" name="k11s2b" data-isian="1"><option value="">— pilih —</option><option value="A">A. Kecepatan adalah gaya, tetapi satu panah ke bawah sudah cukup mewakili batu.</option><option value="B">B. Dua panah ke arah yang sama harus digabung menjadi satu panah.</option><option value="C">C. Kecepatan tidak punya pemberi: ia bukan gaya, jadi tidak digambar pada diagram gaya.</option><option value="D">D. Berat tidak punya pemberi, sedangkan kecepatan punya pemberi, yaitu batu itu sendiri.</option></select></div>
+</div>
+</div></article>
+</div></section>
+<section class="bagian" id="bagian-K1-2"><div class="pita"><span class="lencana">K1.2</span><h2>Gaya neto: jumlah gaya menentukan keadaan gerak</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K1-2-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Sebuah kereta luncur ditarik dua tali searah ke kanan, masing-masing 45 N dan 30 N, sedangkan es menggesek 20 N ke kiri. Tulis arah positif yang kamu pilih, gaya neto dengan arahnya, dan keadaan kecepatannya.</div>
+<div class="arah"><b>Arah positif untuk soal ini sudah ditetapkan:</b> ke kanan.</div>
+<p class="catatan">Karena arah positif sudah ditetapkan, kamu tidak perlu menuliskannya lagi.</p>
+<div class="isian-grid">
+<div class="isian"><label for="k12s1a">Gaya neto kereta luncur <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s1a" name="k12s1a" data-isian="1"></div>
+<div class="isian lebar"><label for="k12s1b">Keadaan kecepatan kereta luncur:</label><select id="k12s1b" name="k12s1b" data-isian="1"><option value="">— pilih —</option><option value="A">A. Kereta luncur diam, karena gaya-gayanya saling menghapus.</option><option value="B">B. Kecepatannya tetap, karena tarikan dan gesekan sama-sama dihitung sebagai gaya yang bekerja.</option><option value="C">C. Kecepatannya berubah, karena gaya neto tidak nol.</option><option value="D">D. Kecepatannya tetap, karena gaya netonya nol.</option></select></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K1-2-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Seorang pekerja mendorong gerobak di lantai datar dengan dorongan 26 N, dan gerobak bergerak lurus dengan kecepatan tetap. Seorang murid menulis gaya neto gerobak 26 N karena gerobak didorong. Katakan mengapa tulisan itu keliru, lalu laporkan gaya neto dan besar gesekan lantai.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k12s2a">Mengapa tulisan murid tentang gaya neto gerobak itu keliru?</label><select id="k12s2a" name="k12s2a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Gerobak bergerak dengan kecepatan tetap, jadi gaya netonya nol: gesekan lantai mengimbangi dorongan.</option><option value="B">B. Gaya neto tidak mungkin nol, karena gerobaknya bergerak; gaya neto nol hanya untuk benda diam.</option><option value="C">C. Gaya neto adalah dorongan ditambah gesekan, jadi nilainya lebih besar dari dorongan.</option><option value="D">D. Tulisan itu tidak keliru: gerobak yang didorong selalu punya gaya neto sebesar dorongannya.</option></select></div>
+<div class="isian"><label for="k12s2b">Gaya neto gerobak <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s2b" name="k12s2b" data-isian="1"></div>
+<div class="isian"><label for="k12s2c">Besar gesekan lantai <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k12s2c" name="k12s2c" data-isian="1"></div>
+</div>
+</div></article>
+</div></section>
+<section class="bagian" id="bagian-K2-1"><div class="pita"><span class="lencana">K2.1</span><h2>Percepatan: gaya neto dibagi massa</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K2-1-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Sebuah gerobak sampah bermassa 60 kg ditarik 140 N ke kanan oleh seutas tali mendatar, sedangkan lantai menggesek 80 N. Tulis gaya neto dengan arahnya, percepatan dengan arahnya, dan apakah kecepatannya bertambah atau berkurang.</div>
+<div class="arah"><b>Arah positif untuk soal ini sudah ditetapkan:</b> ke kanan.</div>
+<p class="catatan">Anggap gerobak mulai dari diam atau sedang bergerak ke kanan.</p>
+<div class="isian-grid">
+<div class="isian"><label for="k21s1a">Gaya neto gerobak <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s1a" name="k21s1a" data-isian="1"></div>
+<div class="isian"><label for="k21s1b">Percepatan gerobak <span class="sat">(m/s²)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s1b" name="k21s1b" data-isian="1"></div>
+<div class="isian lebar"><label for="k21s1c">Kecepatan gerobak:</label><select id="k21s1c" name="k21s1c" data-isian="1"><option value="">— pilih —</option><option value="bertambah">bertambah</option><option value="berkurang">berkurang</option><option value="tetap">tetap</option></select></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K2-1-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Pada gerobak yang sama, tali dilepas sementara gerobak bergerak ke kanan. Seorang murid menulis: “gaya neto sekarang nol, sehingga gerobak berhenti seketika.” Tulis percepatan gerobak yang benar sesudah tali dilepas dan keadaan geraknya, lalu jelaskan di mana kekeliruan murid itu.</div>
+<div class="arah"><b>Arah positif untuk soal ini sudah ditetapkan:</b> ke kanan.</div>
+<div class="isian-grid">
+<div class="isian"><label for="k21s2a">Percepatan gerobak sesudah tali dilepas <span class="sat">(m/s²)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k21s2a" name="k21s2a" data-isian="1"><span class="bantu">Bulatkan hasil hitunganmu sampai dua angka di belakang koma.</span></div>
+<div class="isian lebar"><label for="k21s2b">Keadaan gerak gerobak sesudah tali dilepas:</label><select id="k21s2b" name="k21s2b" data-isian="1"><option value="">— pilih —</option><option value="A">A. Gerobak berhenti seketika, karena dorongannya sudah hilang.</option><option value="B">B. Gerobak terus bergerak ke kanan dengan kecepatan yang sama, karena tali sudah lepas.</option><option value="C">C. Gerobak makin cepat ke kanan, karena percepatannya ke kanan.</option><option value="D">D. Gerobak melambat bertahap ke kanan sampai berhenti.</option></select></div>
+<div class="isian lebar"><label for="k21s2c">Di mana kekeliruan murid itu?</label><select id="k21s2c" name="k21s2c" data-isian="1"><option value="">— pilih —</option><option value="A">A. Gerobak memang berhenti seketika, tetapi penyebabnya gesekan yang terlalu besar, bukan gaya neto nol.</option><option value="B">B. Gaya neto tidak nol: tali lepas, tetapi gesekan tetap ada, sehingga gerobak melambat bertahap dan tidak berhenti seketika.</option><option value="C">C. Gaya neto sesudah tali dilepas adalah 140 N ke kiri, jadi gerobak berhenti lalu bergerak ke kiri.</option><option value="D">D. Gaya neto memang nol karena gesekan ikut hilang bersama tali, jadi gerobak tetap bergerak dengan kecepatan sama.</option></select></div>
+</div>
+</div></article>
+</div></section>
+<section class="bagian" id="bagian-K2-2"><div class="pita"><span class="lencana">K2.2</span><h2>Pasangan aksi dan reaksi: dua benda, bukan satu</h2></div><div class="isi-bagian">
+<article class="kartu-soal" id="soal-K2-2-1"><h3>Soal 1</h3><div class="dalam-soal">
+<div class="naskah">Sebuah pot bermassa 4,0 kg diam di atas rak. Sebut dua gaya pada pot dan besarnya, lalu sebut pasangan tiap gaya itu beserta benda tempat pasangan itu bekerja.</div>
+<p class="catatan">Gunakan g = 10 m/s² seperti pada Modul.</p>
+<div class="isian-grid">
+<div class="isian"><label for="k22s1a">Berat pot <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k22s1a" name="k22s1a" data-isian="1"></div>
+<div class="isian"><label for="k22s1b">Gaya normal dari rak pada pot <span class="sat">(N)</span></label><input type="text" inputmode="decimal" autocomplete="off" id="k22s1b" name="k22s1b" data-isian="1"></div>
+<div class="isian lebar"><label for="k22s1c">Pasangan dari gaya berat pot, dan benda tempat pasangan itu bekerja:</label><select id="k22s1c" name="k22s1c" data-isian="1"><option value="">— pilih —</option><option value="A">A. Gaya normal dari rak, bekerja pada pot, karena sama besar dan berlawanan arah</option><option value="B">B. Tarikan pot pada Bumi, bekerja pada Bumi</option><option value="C">C. Tarikan Bumi pada pot, bekerja pada pot, hanya arahnya dibalik</option><option value="D">D. Tekanan pot pada rak, bekerja pada rak</option></select></div>
+<div class="isian lebar"><label for="k22s1d">Pasangan dari gaya normal pada pot, dan benda tempat pasangan itu bekerja:</label><select id="k22s1d" name="k22s1d" data-isian="1"><option value="">— pilih —</option><option value="A">A. Gaya berat pot, bekerja pada pot, karena sama besar dan berlawanan arah</option><option value="B">B. Tekanan rak pada lantai, bekerja pada lantai</option><option value="C">C. Tarikan pot pada Bumi, bekerja pada Bumi</option><option value="D">D. Tekanan pot pada rak, bekerja pada rak</option></select></div>
+</div>
+</div></article>
+<article class="kartu-soal" id="soal-K2-2-2"><h3>Soal 2</h3><div class="dalam-soal">
+<div class="naskah">Seorang murid menggambar dua panah sama panjang dan berlawanan arah pada satu kotak yang diam, lalu menulis: “keduanya pasangan aksi dan reaksi karena sama besar dan berlawanan.” Katakan mengapa tulisan itu keliru, dan sebut pasangan yang sebenarnya dari salah satu panah itu.</div>
+<div class="isian-grid">
+<div class="isian lebar"><label for="k22s2a">Mengapa tulisan murid itu keliru?</label><select id="k22s2a" name="k22s2a" data-isian="1"><option value="">— pilih —</option><option value="A">A. Kedua panah bekerja pada satu benda, yaitu kotak itu; pasangan aksi dan reaksi bekerja pada dua benda yang berbeda.</option><option value="B">B. Kedua panah tidak mungkin pasangan karena sama panjang; pasangan aksi dan reaksi selalu berbeda besar bila massa bendanya berbeda.</option><option value="C">C. Dua panah sama panjang harus ditulis sebagai satu panah gaya neto.</option><option value="D">D. Tulisan itu tidak keliru: kedua panah memang pasangan aksi dan reaksi, sebab sama besar dan berlawanan arah.</option></select></div>
+<div class="isian lebar"><label for="k22s2b">Pasangan sebenarnya dari salah satu panah itu selalu bekerja pada:</label><select id="k22s2b" name="k22s2b" data-isian="1"><option value="">— pilih —</option><option value="A">A. kotak yang sama, hanya arahnya berlawanan</option><option value="B">B. lantai tempat kotak berada, apa pun pemberi panah itu</option><option value="C">C. benda pemberi panah itu, bukan pada kotak</option><option value="D">D. dua benda sekaligus, termasuk kotak</option></select></div>
+</div>
+</div></article>
+</div></section>
+</main>
+<div class="bilah-bawah"><div class="bilah-dalam"><div class="jalur"><div class="isi-jalur" id="isi-jalur"></div></div><div class="bilah-baris"><span class="hitung" id="hitung-teks">0 dari 0 isian dijawab</span><button type="button" class="periksa" id="tombol-periksa">Periksa kelengkapan</button></div><div class="pesan" id="pesan" role="status" aria-live="polite"></div></div></div>
+<script>
+(function(){ "use strict";
+var KUNCI_NUM = {"k12s1a": [55.0, 0.2], "k12s2b": [0.0, 0.05], "k12s2c": [26.0, 0.2], "k21s1a": [60.0, 0.2], "k21s1b": [1.0, 0.05], "k21s2a": [-1.33, 0.05], "k22s1a": [40.0, 0.2], "k22s1b": [40.0, 0.2]};
+var KUNCI_PIL = {"k11s1a": "B", "k11s1b": "D", "k11s1c": "A", "k11s2a": "kecepatan", "k11s2b": "C", "k12s1b": "C", "k12s2a": "A", "k21s1c": "bertambah", "k21s2b": "D", "k21s2c": "B", "k22s1c": "B", "k22s1d": "D", "k22s2a": "A", "k22s2b": "C"};
+var IDS_NUM = Object.keys(KUNCI_NUM);
+var IDS_PIL = Object.keys(KUNCI_PIL);
+var TOTAL = IDS_NUM.length + IDS_PIL.length;
+
+function bacaAngka(teks){
+  if (teks === null || teks === undefined) return null;
+  var s = String(teks).replace(/\u2212/g, "-").replace(/\s+/g, "");
+  if (s === "") return null;
+  if (/^-?\d{1,3}([.,]\d{3})+$/.test(s)) {
+    s = s.replace(/[.,]/g, "");
+  } else {
+    var ada = s.indexOf(".") >= 0 && s.indexOf(",") >= 0;
+    if (ada) {
+      var terakhir = Math.max(s.lastIndexOf("."), s.lastIndexOf(","));
+      var kepala = s.slice(0, terakhir).replace(/[.,]/g, "");
+      s = kepala + "." + s.slice(terakhir + 1);
+    } else {
+      s = s.replace(",", ".");
+    }
+  }
+  if (!/^-?\d*\.?\d+$/.test(s)) return null;
+  var v = parseFloat(s);
+  return isFinite(v) ? v : null;
+}
+
+function cermin(el){
+  if (!el || !el.tagName) return;
+  var tag = el.tagName.toLowerCase();
+  if (tag === "input") {
+    var t = (el.getAttribute("type") || "text").toLowerCase();
+    if (t === "checkbox" || t === "radio") {
+      if (el.checked) el.setAttribute("checked", "checked"); else el.removeAttribute("checked");
+    } else {
+      el.setAttribute("value", el.value);
+    }
+  } else if (tag === "textarea") {
+    el.textContent = el.value;
+  } else if (tag === "select") {
+    var opsi = el.options;
+    for (var i = 0; i < opsi.length; i++) {
+      if (opsi[i].selected) opsi[i].setAttribute("selected", "selected");
+      else opsi[i].removeAttribute("selected");
+    }
+  }
+}
+function cerminSemua(){
+  var daftar = document.querySelectorAll("input, select, textarea");
+  for (var i = 0; i < daftar.length; i++) cermin(daftar[i]);
+}
+
+function hitungNilai(){
+  cerminSemua();
+  var benar = 0, i, el, v, k;
+  for (i = 0; i < IDS_NUM.length; i++) {
+    el = document.getElementById(IDS_NUM[i]);
+    if (!el) continue;
+    v = bacaAngka(el.value);
+    k = KUNCI_NUM[IDS_NUM[i]];
+    if (v !== null && Math.abs(v - k[0]) <= k[1] + 1e-9) benar++;
+  }
+  for (i = 0; i < IDS_PIL.length; i++) {
+    el = document.getElementById(IDS_PIL[i]);
+    if (!el) continue;
+    if (String(el.value).trim() === KUNCI_PIL[IDS_PIL[i]]) benar++;
+  }
+  return Math.round((benar / TOTAL) * 100);
+}
+window.hitungNilai = hitungNilai;
+
+function daftarIsian(){ return document.querySelectorAll("[data-isian]"); }
+function terisi(el){ return String(el.value).trim() !== ""; }
+
+function perbarui(){
+  var d = daftarIsian(), n = d.length, x = 0, i;
+  for (i = 0; i < n; i++) {
+    if (terisi(d[i])) { x++; d[i].classList.add("terisi"); d[i].classList.remove("kosong"); }
+    else d[i].classList.remove("terisi");
+  }
+  var jalur = document.getElementById("isi-jalur");
+  var teks = document.getElementById("hitung-teks");
+  if (jalur) jalur.style.width = (n ? Math.round(100 * x / n) : 0) + "%";
+  if (teks) teks.textContent = x + " dari " + n + " isian dijawab";
+}
+
+function periksaKelengkapan(){
+  cerminSemua();
+  var d = daftarIsian(), kosong = [], i;
+  for (i = 0; i < d.length; i++) {
+    if (!terisi(d[i])) { d[i].classList.add("kosong"); kosong.push(d[i]); }
+    else d[i].classList.remove("kosong");
+  }
+  var pesan = document.getElementById("pesan");
+  if (kosong.length) {
+    if (pesan) pesan.textContent = "Masih ada " + kosong.length + " isian yang kosong. Isian kosong pertama sudah ditandai oranye.";
+    try { kosong[0].scrollIntoView({behavior: "smooth", block: "center"}); } catch (e) { kosong[0].scrollIntoView(); }
+    try { kosong[0].focus({preventScroll: true}); } catch (e2) {}
+  } else if (pesan) {
+    pesan.textContent = "Semua isian sudah terisi. Pekerjaanmu tersimpan dan siap dikumpulkan.";
+  }
+  perbarui();
+}
+
+document.addEventListener("input", function(ev){ cermin(ev.target); perbarui(); });
+document.addEventListener("change", function(ev){ cermin(ev.target); perbarui(); });
+document.addEventListener("blur", function(ev){ cermin(ev.target); }, true);
+window.addEventListener("beforeunload", cerminSemua);
+window.addEventListener("pagehide", cerminSemua);
+document.addEventListener("visibilitychange", cerminSemua);
+var tombol = document.getElementById("tombol-periksa");
+if (tombol) tombol.addEventListener("click", periksaKelengkapan);
+cerminSemua();
+perbarui();
+})();
+</script>
+</body>
+</html>
