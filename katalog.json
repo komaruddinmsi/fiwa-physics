@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-19T12:22:26.539Z",
+  "dibuat": "2026-11-19T15:07:03.673Z",
   "topik": [
     {
       "slug": "pri-uin-smp",
@@ -383,6 +383,66 @@
           "bentuk": "Isian angka · 40 kotak",
           "ringkas": "Bagian dan bobotnya sama dengan Final Versi 1, angka dan konteks soalnya berbeda.",
           "catatan": "Isian angka · tanpa satuan. Desimal boleh koma atau titik. Selisih pembulatan sekitar 0,5% masih diterima. Tiap kotak dinilai sendiri, jadi satu kotak keliru tidak menjatuhkan kotak lain.",
+          "urutan": 999
+        }
+      ],
+      "tahapan": {},
+      "tp": []
+    },
+    {
+      "slug": "kumpulan-ebook",
+      "kode": "E-BOOK",
+      "nama": "Kumpulan E-Book",
+      "mapel": "Fisika",
+      "fase": "",
+      "jalur": "Olimpiade",
+      "urutan": 3,
+      "jenis": "paket",
+      "ringkas": "Buku pegangan dan buku rujukan untuk pembinaan olimpiade fisika, dengan peta bab ke bidang OSN dan cara memakainya.",
+      "tahap": [
+        {
+          "kode": "karya",
+          "nama": "Karya Pembina FIWA",
+          "urutan": 1
+        },
+        {
+          "kode": "rujukan",
+          "nama": "Buku Rujukan",
+          "urutan": 2
+        }
+      ],
+      "paket": [
+        {
+          "slug": "modul-praktis-master-fisika",
+          "berkas": "konten/kumpulan-ebook/paket/modul-praktis-master-fisika.html",
+          "judul": "Modul Praktis Master Fisika — Konsep, Penurunan Rumus, dan Ilustrasi Visual",
+          "tahap": "karya",
+          "soal": null,
+          "bentuk": "E-book PDF · Indonesia",
+          "ringkas": "Komaruddin, S.Si., M.Si., Gr. Buku pegangan pembinaan olimpiade.",
+          "catatan": "30 bab",
+          "urutan": 999
+        },
+        {
+          "slug": "fundamentals-of-physics-halliday",
+          "berkas": "konten/kumpulan-ebook/paket/fundamentals-of-physics-halliday.html",
+          "judul": "Fundamentals of Physics — Extended, 10th Edition",
+          "tahap": "rujukan",
+          "soal": null,
+          "bentuk": "E-book PDF · Inggris",
+          "ringkas": "David Halliday, Robert Resnick, Jearl Walker. Buku teks fisika dasar universitas yang menjadi rujukan baku pembinaan OSN.",
+          "catatan": "44 bab",
+          "urutan": 999
+        },
+        {
+          "slug": "introduction-to-classical-mechanics-morin",
+          "berkas": "konten/kumpulan-ebook/paket/introduction-to-classical-mechanics-morin.html",
+          "judul": "Introduction to Classical Mechanics — With Problems and Solutions",
+          "tahap": "rujukan",
+          "soal": null,
+          "bentuk": "E-book PDF · Inggris",
+          "ringkas": "David Morin. Rujukan mekanika paling dihormati untuk pembinaan olimpiade tingkat lanjut.",
+          "catatan": "14 bab",
           "urutan": 999
         }
       ],

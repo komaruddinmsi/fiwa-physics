@@ -380,6 +380,43 @@ Memeriksa bahwa elemen `<iframe>` ada **tidak membuktikan apa pun**. Buka
 bingkainya dan pastikan isinya benar-benar termuat — jumlah soal, tombol
 "Mulai mengerjakan", dan hasil penilaian setelah "Selesai" ditekan.
 
+### 8.7 · Contoh kedua: Kumpulan E-Book
+
+Topik `konten/kumpulan-ebook/` juga berjenis paket, tetapi halamannya
+dihasilkan oleh `alat/ebook.py`, bukan disalin. Tiap buku adalah satu entri
+di daftar `BUKU` pada berkas itu. Kunci `pdf` berisi **daftar bagian**: satu
+bagian = satu berkas PDF di `aset-ebook/`.
+
+Halaman yang dihasilkan memuat: data buku, panel baca PDF (pemilih bagian,
+buka di tab baru, unduh), cara memakainya untuk pembinaan, peta bab ke bidang
+OSN, dan daftar bab. Bila entri punya `bab_hal` (nomor halaman PDF awal tiap
+bab), judul bab bisa diklik dan panel baca langsung melompat ke halamannya.
+Sampai berkas diunggah, panel menampilkan keterangan "Berkas PDF belum
+diunggah", bukan bingkai kosong.
+
+**Batas teknis: 25 MiB per berkas** (Cloudflare Pages; batas unggah lewat web
+GitHub juga 25 MB). PDF yang lebih besar dipotong dulu:
+
+```
+cd alat
+python3 pecah-pdf.py SUMBER.pdf ../aset-ebook/nama-buku 1-282 283-634 635-1035 1036-1450
+```
+
+Alat itu menulis `nama-buku-1.pdf`, `-2.pdf`, ..., masing-masing dioptimalkan
+untuk web dan punya bookmark sendiri (hanya bab di bagian itu, nomor halaman
+sudah disesuaikan). Rentang memakai nomor halaman PDF, bukan nomor cetak buku.
+Lalu daftarkan tiap bagian di `pdf` (`berkas`, `label`, `awal`, `akhir`).
+Contoh lengkap: entri Halliday (1.450 halaman, 4 bagian).
+
+Hak cipta: buku milik penerbit tetap berhak cipta penerbitnya. Berkas di
+`aset-ebook/` dapat dibuka oleh siapa pun yang tahu alamatnya, tidak hanya
+anggota yang sudah masuk, karena berkas statis Cloudflare Pages tidak melewati
+pemeriksaan login. Bila repositori GitHub bersifat publik, berkasnya terbuka
+untuk umum. Pilihan ini ada pada pemilik situs.
+
+Menambah buku: tambahkan satu entri di `BUKU`, taruh PDF-nya di jalur yang
+disebut, jalankan `cd alat && python3 ebook.py`, lalu `cd .. && node build.js`.
+
 ---
 
 ## 9 · ATURAN WAJIB · halaman pembuka "Fenomena Dunia Nyata"
