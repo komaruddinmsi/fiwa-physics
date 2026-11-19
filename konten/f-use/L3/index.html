@@ -621,22 +621,36 @@ document.addEventListener("DOMContentLoaded", function(){
     if (pesan){ pesan.className = "pesan"; pesan.textContent = URUT.length + " soal tersimpan."; }
   });
 
-  /* pemulihan saat halaman dimuat ulang */
-  var t = document.getElementById("tenggat");
-  if (t && t.value){
-    bukaLembar();
-    perbarui();
-    var sudah = document.getElementById("rincian") && document.getElementById("rincian").value;
-    var sisa = parseInt(t.value, 10) - Date.now();
-    if (sudah){
-      kunciLembar(sisa > 0 ? "Lembar ini sudah kamu kumpulkan." : "Waktu habis. Lembar ini sudah terkunci.", false);
-      tickJam();
-    } else if (sisa > 0){
-      mulaiJam();
-    } else {
-      kunciLembar("Waktu habis. Lembar ini sudah terkunci.", false);
+  /* penyimpanan per akun (assets/fims-simpan.js): isian, waktu mulai, dan rincian hasil ikut tersimpan */
+  var kunciLembarAsli = kunciLembar;
+  kunciLembar = function(){ var r = kunciLembarAsli.apply(this, arguments); try { if (window.FIMS_LEMBAR) window.FIMS_LEMBAR.lapor(); } catch (e) {} return r; };
+  window.FIMS_RINGKAS = function(){
+    var n = 0, i, r = document.getElementById("rincian");
+    for (i = 0; i < URUT.length; i++) if (statusButir(URUT[i]) === "penuh") n++;
+    return { terisi: n, total: URUT.length, selesai: !!(r && r.value) };
+  };
+
+  /* pemulihan saat halaman dimuat ulang (dipanggil lagi oleh fims-simpan.js sesudah isian akun dipulihkan) */
+  function pulihkanLembar(){
+    var t = document.getElementById("tenggat");
+    if (t && t.value){
+      if (timerId){ clearInterval(timerId); timerId = null; }
+      bukaLembar();
+      perbarui();
+      var sudah = document.getElementById("rincian") && document.getElementById("rincian").value;
+      var sisa = parseInt(t.value, 10) - Date.now();
+      if (sudah){
+        kunciLembar(sisa > 0 ? "Lembar ini sudah kamu kumpulkan." : "Waktu habis. Lembar ini sudah terkunci.", false);
+        tickJam();
+      } else if (sisa > 0){
+        mulaiJam();
+      } else {
+        kunciLembar("Waktu habis. Lembar ini sudah terkunci.", false);
+      }
     }
   }
+  window.FIMS_PULIHKAN = pulihkanLembar;
+  pulihkanLembar();
 });
 cerminSemua();
 
@@ -923,5 +937,6 @@ body.bilah-lipat .bilah-bawah button.selesai{padding:6px 17px; font-size:12.5px;
 })();
 </script>
 
+<script src="../../../assets/fims-simpan.js"></script>
 </body>
 </html>
