@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paket Soal Simulasi Olimpiade Fisika · Versi 2</title>
+<style>
+:root{--tosca0:#073B44;--tosca:#0B4F58;--tosca2:#17A2AF;--tosca3:#6FCFD8;--toscaB:#E3F5F6;--oranye:#C05621;--oranye2:#E27A2E;--oranyeB:#FDEBDD;--kuning:#E9B308;--kuningB:#FEF6DA;--tinta:#12333A;--abu:#6A7F84;--abuB:#F1F5F6;--putih:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F6FAFB;color:var(--tinta);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;padding-bottom:140px}
+.kepala{position:relative;overflow:hidden;background:linear-gradient(110deg,var(--tosca0),var(--tosca) 55%,var(--tosca2));color:var(--putih);padding:30px 20px 26px;border-bottom:5px solid var(--kuning);border-image:linear-gradient(90deg,var(--kuning),var(--oranye2)) 1}
+.kepala::before,.kepala::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.kepala::before{width:260px;height:260px;right:-70px;top:-110px}
+.kepala::after{width:150px;height:150px;right:120px;bottom:-90px}
+.kepala .isi{max-width:880px;margin:0 auto;position:relative;z-index:1}
+.kepala .meta{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85;margin:0 0 6px}
+.kepala h1{font-size:28px;line-height:1.2;margin:0}
+.kepala .jelas{margin:0;opacity:.92}
+.kepala .guru{margin:6px 0 0;font-size:13px;opacity:.8}
+.bungkus{max-width:880px;margin:0 auto;padding:0 16px}
+main.bungkus{padding-top:20px}
+.kartu{background:var(--putih);border-radius:12px;padding:18px 20px;margin:0 0 16px;box-shadow:0 1px 3px rgba(7,59,68,.08)}
+.identitas{border:1.5px solid var(--tosca3);display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.identitas label,.waktu label{display:block;font-size:13px;font-weight:600;color:var(--tosca);margin-bottom:4px}
+.identitas input,.waktu input[type=text]{width:100%;padding:9px 11px;border:1.5px solid #D7E6E8;border-radius:8px;font:inherit;color:var(--tinta);background:var(--putih)}
+.identitas input:focus,.waktu input:focus,select:focus{outline:3px solid var(--tosca3);outline-offset:1px}
+.waktu{border-left:6px solid var(--tosca)}
+.waktu .baris{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.waktu .baris>div{flex:0 0 200px}
+.waktu .catatan{margin:10px 0 0;font-size:14px;color:var(--abu)}
+button{font:inherit;cursor:pointer;border-radius:8px;border:0;padding:10px 16px;font-weight:600}
+#tbl-mulai{background:var(--tosca);color:var(--putih)}
+#tbl-mulai:hover{background:var(--tosca0)}
+.aturan{background:var(--kuningB);border-left:6px solid var(--kuning)}
+.aturan h2{margin:0 0 8px;font-size:18px;color:#8A6604}
+.aturan ol{margin:0;padding-left:22px}
+.aturan li{margin:4px 0}
+.aturan b{color:#8A6604}
+.bagian{margin:0 0 22px;border-radius:12px;overflow:hidden;background:#FBFDFD;border:1px solid #D7E6E8}
+.bagian-kep{background:linear-gradient(110deg,var(--tosca),var(--tosca2));color:var(--putih);padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bagian-kep h2{margin:0;font-size:18px;flex:1}
+.lencana{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:2px 10px;font-size:12px;letter-spacing:.1em;font-weight:700}
+.rentang{font-size:13px;opacity:.9}
+.bagian-isi{padding:14px}
+.soal{background:var(--putih);border:1.5px solid #D7E6E8;border-radius:12px;margin:0 0 14px;overflow:hidden;scroll-margin-top:12px}
+.soal-kep{background:var(--toscaB);padding:8px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.soal-no{font-weight:700;color:var(--tosca)}
+.soal-bentuk{font-size:13px;color:var(--abu)}
+.soal.k-isi .soal-kep{background:var(--tosca)}
+.soal.k-isi .soal-no,.soal.k-isi .soal-bentuk{color:var(--putih)}
+.soal.k-ragu .soal-kep{background:var(--kuning)}
+.soal.k-ragu .soal-no,.soal.k-ragu .soal-bentuk{color:var(--tinta)}
+.soal.kosong{border-color:var(--oranye2);box-shadow:0 0 0 3px var(--oranyeB)}
+.soal-isi{padding:14px}
+.naskah{background:var(--abuB);border-left:4px solid var(--tosca2);border-radius:6px;padding:10px 14px;margin:0 0 12px}
+.naskah p{margin:6px 0}
+.naskah svg{display:block;margin:8px auto}
+.perintah{font-size:13px;color:var(--abu);margin:0 0 6px}
+.opsi{list-style:none;margin:0;padding:0}
+.opsi li{margin:0 0 8px}
+.opsi label{display:flex;gap:10px;align-items:flex-start;border:1.5px solid #D7E6E8;border-radius:10px;padding:10px 12px;cursor:pointer;background:var(--putih);transition:border-color .15s,background .15s}
+.opsi label:hover{border-color:var(--tosca3)}
+.opsi input{margin-top:5px;accent-color:var(--tosca);flex:0 0 auto}
+.opsi label:has(input:checked){border-color:var(--tosca);background:var(--toscaB)}
+.opsi .huruf{font-weight:700;color:var(--tosca)}
+.ragu{border-top:1.5px dashed #D7E6E8;margin-top:12px;padding-top:10px;font-size:14px;color:var(--oranye)}
+.ragu input{accent-color:var(--oranye);margin-right:6px}
+#tirai{background:#FBE2E2;color:#9B2C2C;border:2px solid #9B2C2C;border-radius:12px;padding:14px 16px;margin:0 0 16px;font-weight:600}
+#soal.terkunci .soal-isi input,#soal.terkunci .soal-isi select,#soal.terkunci .opsi label,#soal.terkunci .ragu{opacity:.62;pointer-events:none}
+#hasil{background:var(--putih);border:2px solid var(--tosca);border-radius:12px;padding:18px 20px;margin:0 0 18px}
+#hasil h2{margin:0 0 6px;color:var(--tosca);font-size:18px}
+#hasil .skor{font-size:56px;font-weight:800;line-height:1;color:var(--tosca);font-variant-numeric:tabular-nums}
+#hasil .ket{color:var(--abu);margin:4px 0 12px}
+#hasil table{width:100%;border-collapse:collapse;font-size:14px}
+#hasil th{background:var(--tosca);color:var(--putih);text-align:left;padding:7px 9px}
+#hasil td{border-bottom:1px solid #D7E6E8;padding:7px 9px}
+#hasil .cat{font-size:14px;margin:12px 0 0;color:var(--tinta)}
+.umpan{margin-top:14px}
+.feedback-head{margin-bottom:8px}
+.result-pill{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px}
+.result-pill.ok{background:var(--toscaB);color:var(--tosca);border:1.5px solid var(--tosca)}
+.result-pill.no{background:var(--oranyeB);color:var(--oranye);border:1.5px solid var(--oranye)}
+.result-pill.sebagian{background:var(--kuningB);color:#8A6604;border:1.5px solid var(--kuning)}
+.panel{border-radius:10px;padding:10px 14px;margin:0 0 10px;font-size:15px}
+.panel h3{margin:0 0 6px;font-size:15px}
+.panel.pembahasan{background:var(--abuB);border-left:4px solid var(--tosca)}
+.panel.pembahasan h3{color:var(--tosca)}
+.panel.pembahasan ol{margin:0;padding-left:20px}
+.panel.pembahasan li{margin:3px 0}
+.panel.review{background:var(--kuningB);border-left:4px solid var(--kuning)}
+.panel.review h3{color:#8A6604}
+.panel.review p{margin:0}
+.bawah{position:fixed;left:0;right:0;bottom:0;background:var(--putih);border-top:2px solid var(--tosca3);box-shadow:0 -2px 10px rgba(7,59,68,.12);z-index:50}
+.bawah>.bungkus{padding:10px 16px}
+#navpanel{max-height:48vh;overflow-y:auto;border-bottom:1px solid #D7E6E8;padding:12px 16px;background:#FBFDFD}
+.kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px;max-width:848px;margin:0 auto}
+.navnum{background:var(--abuB);border:1.5px solid #D7E6E8;color:var(--tinta);padding:8px 0;font-variant-numeric:tabular-nums}
+.navnum.isi{background:var(--tosca);border-color:var(--tosca);color:var(--putih)}
+.navnum.ragu{background:var(--kuning);border-color:var(--kuning);color:var(--tinta)}
+.legenda{max-width:848px;margin:8px auto 0;font-size:13px;color:var(--abu);display:flex;gap:14px;flex-wrap:wrap}
+.legenda span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1px solid #D7E6E8;background:var(--abuB)}
+.legenda .l-isi::before{background:var(--tosca)}
+.legenda .l-ragu::before{background:var(--kuning)}
+.baris-bawah{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.kemajuan{flex:1 1 220px}
+.trek{height:10px;background:var(--abuB);border-radius:999px;overflow:hidden}
+#bilah{height:100%;width:0;background:linear-gradient(90deg,var(--tosca),var(--tosca2) 80%,var(--kuning));transition:width .25s}
+#hitung{font-size:13px;color:var(--abu)}
+#jam{font-size:22px;font-weight:800;color:var(--tosca);font-variant-numeric:tabular-nums;min-width:86px;text-align:center}
+#jam.sedikit{color:var(--oranye)}
+#jam.habis{color:#9B2C2C}
+.tombol{display:flex;gap:8px;flex-wrap:wrap}
+#tbl-nomor{background:var(--toscaB);color:var(--tosca)}
+#tbl-periksa{background:var(--kuningB);color:#8A6604}
+#tbl-selesai{background:var(--oranye);color:var(--putih)}
+.tombol button:disabled{opacity:.45;cursor:not-allowed}
+#pesan{font-size:14px;margin:6px 0 0;min-height:1.2em;color:var(--tosca)}
+#pesan.awas{color:var(--oranye);font-weight:600}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:640px){
+body{padding-bottom:150px;font-size:15px}
+.kepala h1{font-size:22px}
+.identitas{grid-template-columns:1fr}
+.waktu .baris>div{flex:1 1 100%}
+#jam{font-size:18px}
+.tombol{width:100%}
+.tombol button{flex:1;padding:9px 6px;font-size:14px}
+#hasil .skor{font-size:44px}
+#hasil table,#hasil thead,#hasil tbody,#hasil tr,#hasil td{display:block}
+#hasil thead{display:none}
+#hasil tr{border:1px solid #D7E6E8;border-radius:8px;margin:0 0 8px;padding:6px}
+#hasil td{border:0;padding:2px 6px}
+#hasil td::before{content:attr(data-kol) ": ";font-weight:600;color:var(--tosca)}
+}
+</style>
+</head>
+<body>
+<header class="kepala"><div class="isi">
+<h1>Paket Soal Simulasi Olimpiade Fisika</h1>
+</div></header>
+<main class="bungkus">
+<section class="kartu identitas" aria-label="Identitas">
+<div><label for="nama">Nama lengkap</label><input type="text" id="nama" name="nama" autocomplete="name"></div>
+<div><label for="kelas">Kelas</label><input type="text" id="kelas" name="kelas"></div>
+<div><label for="tanggal">Tanggal</label><input type="text" id="tanggal" name="tanggal" placeholder="hh/bb/tttt"></div>
+</section>
+<section class="kartu waktu" id="setup" aria-label="Pengaturan waktu">
+<div class="baris">
+<div><label for="menit">Lama pengerjaan <i>(menit)</i></label><input type="text" id="menit" name="menit" inputmode="numeric" value="120"></div>
+<button type="button" id="tbl-mulai">Mulai mengerjakan</button>
+</div>
+<p class="catatan">Soal tampil sesudah kamu menekan Mulai. Jangan menutup tab ini selama mengerjakan.</p>
+<input type="hidden" id="tenggat" name="tenggat" value="">
+</section>
+<section class="kartu aturan" aria-label="Aturan">
+<h2>Aturan mengerjakan</h2>
+<ol>
+<li>Hitung mundur berjalan sejak tombol <b>Mulai</b> ditekan. Sisa waktu tampil di bilah bawah, dan lembar ini terkunci sendiri ketika waktunya habis.</li>
+<li>Semua soal pada paket ini berbentuk <i>pilihan ganda</i>: pilih satu jawaban.</li>
+<li>Tiap soal bernilai sama. <b>Tidak ada pengurangan nilai</b> untuk jawaban salah atau kosong &mdash; jadi jangan ada yang kamu kosongkan.</li>
+<li><b>Kalkulator tidak dipakai.</b> Angka yang kamu perlukan seluruhnya tertulis di dalam soal.</li>
+<li>Kotak <b>Tandai ragu-ragu</b> hanya penanda untuk dirimu sendiri dan tidak dinilai. Tombol <b>Periksa kelengkapan</b> memeriksa soal yang belum terisi &mdash; bukan benar atau salahnya.</li>
+<li>Waktumu 120 menit untuk 30 soal: rata-rata 4 menit per soal.</li>
+</ol>
+</section>
+<div id="soal" hidden>
+<div id="tirai" role="alert" hidden></div>
+<section id="hasil" hidden aria-live="polite"></section>
+<section class="bagian" aria-label="Bagian Pengukuran"><div class="bagian-kep"><span class="lencana">PGK</span><h2>Pengukuran</h2><span class="rentang">Soal 1</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s1">
+<div class="soal-kep"><span class="soal-no">Soal 1</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Tebal sebuah balok kayu diukur satu kali dengan jangka sorong. Kedudukan skalanya tampak pada gambar.</p><svg viewBox="0 0 320 200" style="width:100%;height:auto;max-width:420px" role="img" xmlns="http://www.w3.org/2000/svg"><title>Jangka sorong: angka nol nonius terletak antara 23 mm dan 24 mm skala utama; garis nonius ke-6 berimpit dengan garis skala utama</title><rect x="0" y="0" width="320" height="200" fill="#FFFFFF"/><rect x="10" y="60" width="300" height="40" fill="#E3F5F6" stroke="#0B4F58" stroke-width="1.5"/><rect x="105" y="100" width="150" height="34" fill="#F1F5F6" stroke="#0B4F58" stroke-width="1.5"/><g stroke="#12333A" stroke-width="1.4"><line x1="20" y1="100" x2="20" y2="84"/><line x1="32" y1="100" x2="32" y2="90"/><line x1="44" y1="100" x2="44" y2="90"/><line x1="56" y1="100" x2="56" y2="90"/><line x1="68" y1="100" x2="68" y2="90"/><line x1="80" y1="100" x2="80" y2="78"/><line x1="92" y1="100" x2="92" y2="90"/><line x1="104" y1="100" x2="104" y2="90"/><line x1="116" y1="100" x2="116" y2="90"/><line x1="128" y1="100" x2="128" y2="90"/><line x1="140" y1="100" x2="140" y2="84"/><line x1="152" y1="100" x2="152" y2="90"/><line x1="164" y1="100" x2="164" y2="90"/><line x1="176" y1="100" x2="176" y2="90"/><line x1="188" y1="100" x2="188" y2="90"/><line x1="200" y1="100" x2="200" y2="78"/><line x1="212" y1="100" x2="212" y2="90"/><line x1="224" y1="100" x2="224" y2="90"/><line x1="236" y1="100" x2="236" y2="90"/><line x1="248" y1="100" x2="248" y2="90"/><line x1="260" y1="100" x2="260" y2="84"/><line x1="272" y1="100" x2="272" y2="90"/><line x1="284" y1="100" x2="284" y2="90"/><line x1="296" y1="100" x2="296" y2="90"/><line x1="123.2" y1="104" x2="123.2" y2="122"/><line x1="134.0" y1="104" x2="134.0" y2="115"/><line x1="144.8" y1="104" x2="144.8" y2="115"/><line x1="155.6" y1="104" x2="155.6" y2="115"/><line x1="166.4" y1="104" x2="166.4" y2="115"/><line x1="177.2" y1="104" x2="177.2" y2="122"/><line x1="188.0" y1="104" x2="188.0" y2="115"/><line x1="198.8" y1="104" x2="198.8" y2="115"/><line x1="209.6" y1="104" x2="209.6" y2="115"/><line x1="220.4" y1="104" x2="220.4" y2="115"/><line x1="231.2" y1="104" x2="231.2" y2="122"/></g><g fill="#12333A" font-size="13" font-family="sans-serif" text-anchor="middle"><text x="80" y="52">2</text><text x="200" y="52">3</text><text x="123.2" y="130" font-size="10">0</text><text x="177.2" y="130" font-size="10">5</text><text x="231.2" y="130" font-size="10">10</text></g><line x1="188" y1="140" x2="188" y2="152" stroke="#C05621" stroke-width="2"/><text x="188" y="166" fill="#C05621" font-size="12" font-weight="700" font-family="sans-serif" text-anchor="middle">berimpit</text><text x="160" y="184" fill="#12333A" font-size="11" font-family="sans-serif" text-anchor="middle">Skala utama dalam cm (garis kecil = 1 mm).</text><text x="160" y="198" fill="#12333A" font-size="11" font-family="sans-serif" text-anchor="middle">Nonius 10 bagian; nst = 0,1 mm.</text></svg><p>Ketidakpastian pengukuran tunggal diambil setengah nilai skala terkecil alat. Penulisan laporan hasil pengukuran yang benar beserta banyak angka pentingnya adalah ….</p></div>
+<p class="perintah" id="per-s1">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s1">
+<li><label for="s1A"><input type="radio" name="s1" id="s1A" value="A"><span><span class="huruf">A.</span> (23,6 &plusmn; 0,1) mm; hasilnya memiliki 3 angka penting</span></label></li>
+<li><label for="s1B"><input type="radio" name="s1" id="s1B" value="B"><span><span class="huruf">B.</span> (23,06 &plusmn; 0,05) mm; hasilnya memiliki 4 angka penting</span></label></li>
+<li><label for="s1C"><input type="radio" name="s1" id="s1C" value="C"><span><span class="huruf">C.</span> (23,60 &plusmn; 0,05) mm; hasilnya memiliki 4 angka penting</span></label></li>
+<li><label for="s1D"><input type="radio" name="s1" id="s1D" value="D"><span><span class="huruf">D.</span> (23,60 &plusmn; 0,05) mm; hasilnya memiliki 3 angka penting</span></label></li>
+<li><label for="s1E"><input type="radio" name="s1" id="s1E" value="E"><span><span class="huruf">E.</span> (29,00 &plusmn; 0,05) mm; hasilnya memiliki 4 angka penting</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s1"><input type="checkbox" id="ragu-s1" name="ragu-s1" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Vektor"><div class="bagian-kep"><span class="lencana">VEK</span><h2>Vektor</h2><span class="rentang">Soal 2&ndash;3</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s2">
+<div class="soal-kep"><span class="soal-no">Soal 2</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Tiga gaya sama besar, masing-masing 10 N, bekerja pada satu titik. Arahnya membentuk sudut 0&deg;, 120&deg;, dan 240&deg; terhadap sumbu x positif. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s2">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s2">
+<li><label for="s2A"><input type="radio" name="s2" id="s2A" value="A"><span><span class="huruf">A.</span> resultan ketiga gaya nol; bila gaya bersudut 240&deg; dilepas, resultannya 10 N searah 60&deg;</span></label></li>
+<li><label for="s2B"><input type="radio" name="s2" id="s2B" value="B"><span><span class="huruf">B.</span> resultan ketiga gaya 30 N; bila gaya bersudut 240&deg; dilepas, resultannya 20 N searah 60&deg;</span></label></li>
+<li><label for="s2C"><input type="radio" name="s2" id="s2C" value="C"><span><span class="huruf">C.</span> resultan ketiga gaya nol; bila gaya bersudut 240&deg; dilepas, resultannya 20 N searah 60&deg;</span></label></li>
+<li><label for="s2D"><input type="radio" name="s2" id="s2D" value="D"><span><span class="huruf">D.</span> resultan ketiga gaya 10 N; bila gaya bersudut 240&deg; dilepas, resultannya 10 N searah 60&deg;</span></label></li>
+<li><label for="s2E"><input type="radio" name="s2" id="s2E" value="E"><span><span class="huruf">E.</span> resultan ketiga gaya nol; bila gaya bersudut 240&deg; dilepas, resultannya 10&radic;3 N searah 60&deg;</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s2"><input type="checkbox" id="ragu-s2" name="ragu-s2" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s3">
+<div class="soal-kep"><span class="soal-no">Soal 3</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Balok 8 kg di atas lantai licin ditarik gaya 50 N yang membentuk sudut 37&deg; di atas horizontal (sin 37&deg; = 0,6; cos 37&deg; = 0,8). g = 10 m/s&sup2;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s3">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s3">
+<li><label for="s3A"><input type="radio" name="s3" id="s3A" value="A"><span><span class="huruf">A.</span> percepatan balok 6,25 m/s&sup2;, dan gaya normal lantai 50 N</span></label></li>
+<li><label for="s3B"><input type="radio" name="s3" id="s3B" value="B"><span><span class="huruf">B.</span> percepatan balok 5 m/s&sup2;, dan gaya normal lantai 80 N</span></label></li>
+<li><label for="s3C"><input type="radio" name="s3" id="s3C" value="C"><span><span class="huruf">C.</span> percepatan balok 3,75 m/s&sup2;, dan gaya normal lantai 110 N</span></label></li>
+<li><label for="s3D"><input type="radio" name="s3" id="s3D" value="D"><span><span class="huruf">D.</span> percepatan balok 5 m/s&sup2;, dan gaya normal lantai 110 N</span></label></li>
+<li><label for="s3E"><input type="radio" name="s3" id="s3E" value="E"><span><span class="huruf">E.</span> percepatan balok 5 m/s&sup2;, dan gaya normal lantai 50 N</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s3"><input type="checkbox" id="ragu-s3" name="ragu-s3" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Mekanika"><div class="bagian-kep"><span class="lencana">MEK</span><h2>Mekanika</h2><span class="rentang">Soal 4&ndash;6</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s4">
+<div class="soal-kep"><span class="soal-no">Soal 4</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Bola ditendang dari tanah dengan kelajuan 20 m/s pada sudut elevasi 53&deg; (sin 53&deg; = 0,8; cos 53&deg; = 0,6). g = 10 m/s&sup2;. Bola kedua ditendang dengan kelajuan sama pada sudut 37&deg;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s4">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s4">
+<li><label for="s4A"><input type="radio" name="s4" id="s4A" value="A"><span><span class="huruf">A.</span> jangkauan bola pertama 38,4 m; bola kedua jangkauannya lebih jauh karena sudutnya lebih kecil</span></label></li>
+<li><label for="s4B"><input type="radio" name="s4" id="s4B" value="B"><span><span class="huruf">B.</span> jangkauan bola pertama 38,4 m; bola kedua jangkauannya sama, tetapi tinggi maksimumnya lebih rendah</span></label></li>
+<li><label for="s4C"><input type="radio" name="s4" id="s4C" value="C"><span><span class="huruf">C.</span> jangkauan bola pertama 40 m; bola kedua jangkauannya sama, tetapi tinggi maksimumnya lebih rendah</span></label></li>
+<li><label for="s4D"><input type="radio" name="s4" id="s4D" value="D"><span><span class="huruf">D.</span> jangkauan bola pertama 38,4 m; tinggi maksimum kedua bola sama, yaitu 12,8 m</span></label></li>
+<li><label for="s4E"><input type="radio" name="s4" id="s4E" value="E"><span><span class="huruf">E.</span> jangkauan bola pertama 19,2 m; bola kedua jangkauannya sama, tetapi tinggi maksimumnya lebih rendah</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s4"><input type="checkbox" id="ragu-s4" name="ragu-s4" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s5">
+<div class="soal-kep"><span class="soal-no">Soal 5</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Bola 0,5 kg diikat tali sepanjang 1 m dan diputar pada lintasan lingkaran vertikal. Di titik terendah kelajuannya 6 m/s, dan di titik tertinggi 4 m/s. g = 10 m/s&sup2;. Tegangan tali di titik terendah dan di titik tertinggi berturut-turut adalah ….</p></div>
+<p class="perintah" id="per-s5">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s5">
+<li><label for="s5A"><input type="radio" name="s5" id="s5A" value="A"><span><span class="huruf">A.</span> 13 N dan 13 N</span></label></li>
+<li><label for="s5B"><input type="radio" name="s5" id="s5B" value="B"><span><span class="huruf">B.</span> 23 N dan 13 N</span></label></li>
+<li><label for="s5C"><input type="radio" name="s5" id="s5C" value="C"><span><span class="huruf">C.</span> 18 N dan 8 N</span></label></li>
+<li><label for="s5D"><input type="radio" name="s5" id="s5D" value="D"><span><span class="huruf">D.</span> 23 N dan 3 N</span></label></li>
+<li><label for="s5E"><input type="radio" name="s5" id="s5E" value="E"><span><span class="huruf">E.</span> 13 N dan 3 N</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s5"><input type="checkbox" id="ragu-s5" name="ragu-s5" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s6">
+<div class="soal-kep"><span class="soal-no">Soal 6</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah bola pejal dan sebuah silinder pejal bermassa dan berjari-jari sama dilepas bersamaan dari puncak bidang miring setinggi 1,75 m. Keduanya menggelinding tanpa tergelincir. g = 10 m/s&sup2;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s6">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s6">
+<li><label for="s6A"><input type="radio" name="s6" id="s6A" value="A"><span><span class="huruf">A.</span> silinder pejal tiba lebih dahulu, karena momen inersianya lebih besar</span></label></li>
+<li><label for="s6B"><input type="radio" name="s6" id="s6B" value="B"><span><span class="huruf">B.</span> bola pejal tiba lebih dahulu, dengan kelajuan 5 m/s di dasar bidang</span></label></li>
+<li><label for="s6C"><input type="radio" name="s6" id="s6C" value="C"><span><span class="huruf">C.</span> keduanya tiba bersamaan, dengan kelajuan &radic;35 m/s di dasar bidang</span></label></li>
+<li><label for="s6D"><input type="radio" name="s6" id="s6D" value="D"><span><span class="huruf">D.</span> bola pejal tiba lebih dahulu, dengan kelajuan &radic;35 m/s di dasar bidang</span></label></li>
+<li><label for="s6E"><input type="radio" name="s6" id="s6E" value="E"><span><span class="huruf">E.</span> silinder pejal tiba lebih dahulu, dengan kelajuan 5 m/s di dasar bidang</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s6"><input type="checkbox" id="ragu-s6" name="ragu-s6" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Getaran dan Gelombang"><div class="bagian-kep"><span class="lencana">GEL</span><h2>Getaran dan Gelombang</h2><span class="rentang">Soal 7&ndash;9</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s7">
+<div class="soal-kep"><span class="soal-no">Soal 7</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Gelombang stasioner pada tali berujung bebas memenuhi y = 0,04 cos (5&pi;x) sin (20&pi;t), dengan x diukur dari ujung bebas (meter) dan t dalam sekon. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s7">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s7">
+<li><label for="s7A"><input type="radio" name="s7" id="s7A" value="A"><span><span class="huruf">A.</span> cepat rambat gelombang penyusunnya 4 m/s, dan simpul kedua berjarak 0,2 m dari ujung bebas</span></label></li>
+<li><label for="s7B"><input type="radio" name="s7" id="s7B" value="B"><span><span class="huruf">B.</span> cepat rambat gelombang penyusunnya 0,25 m/s, dan simpul kedua berjarak 0,3 m dari ujung bebas</span></label></li>
+<li><label for="s7C"><input type="radio" name="s7" id="s7C" value="C"><span><span class="huruf">C.</span> cepat rambat gelombang penyusunnya 4 m/s, dan simpul kedua berjarak 0,1 m dari ujung bebas</span></label></li>
+<li><label for="s7D"><input type="radio" name="s7" id="s7D" value="D"><span><span class="huruf">D.</span> cepat rambat gelombang penyusunnya 2 m/s, dan simpul kedua berjarak 0,3 m dari ujung bebas</span></label></li>
+<li><label for="s7E"><input type="radio" name="s7" id="s7E" value="E"><span><span class="huruf">E.</span> cepat rambat gelombang penyusunnya 4 m/s, dan simpul kedua berjarak 0,3 m dari ujung bebas</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s7"><input type="checkbox" id="ragu-s7" name="ragu-s7" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s8">
+<div class="soal-kep"><span class="soal-no">Soal 8</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah sirene diam memancarkan bunyi 680 Hz. Seorang pengendara motor bergerak 20 m/s, mula-mula mendekati sirene lalu, sesudah melewatinya, menjauhi sirene. Cepat rambat bunyi 340 m/s. Frekuensi yang didengar pengendara saat mendekat dan saat menjauh berturut-turut adalah ….</p></div>
+<p class="perintah" id="per-s8">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s8">
+<li><label for="s8A"><input type="radio" name="s8" id="s8A" value="A"><span><span class="huruf">A.</span> 640 Hz dan 720 Hz</span></label></li>
+<li><label for="s8B"><input type="radio" name="s8" id="s8B" value="B"><span><span class="huruf">B.</span> 700 Hz dan 660 Hz</span></label></li>
+<li><label for="s8C"><input type="radio" name="s8" id="s8C" value="C"><span><span class="huruf">C.</span> 720 Hz dan 640 Hz</span></label></li>
+<li><label for="s8D"><input type="radio" name="s8" id="s8D" value="D"><span><span class="huruf">D.</span> 720 Hz dan 680 Hz</span></label></li>
+<li><label for="s8E"><input type="radio" name="s8" id="s8E" value="E"><span><span class="huruf">E.</span> 680 Hz dan 680 Hz</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s8"><input type="checkbox" id="ragu-s8" name="ragu-s8" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s9">
+<div class="soal-kep"><span class="soal-no">Soal 9</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Pada jarak tertentu, taraf intensitas bunyi sebuah mesin 60 dB. Di sebuah pabrik, 100 mesin identik menyala bersama. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s9">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s9">
+<li><label for="s9A"><input type="radio" name="s9" id="s9A" value="A"><span><span class="huruf">A.</span> pada jarak yang sama taraf intensitasnya 80 dB; bila pengamat mundur ke jarak 10 kali semula, taraf intensitasnya 60 dB</span></label></li>
+<li><label for="s9B"><input type="radio" name="s9" id="s9B" value="B"><span><span class="huruf">B.</span> pada jarak yang sama taraf intensitasnya 6000 dB; bila pengamat mundur ke jarak 10 kali semula, taraf intensitasnya 600 dB</span></label></li>
+<li><label for="s9C"><input type="radio" name="s9" id="s9C" value="C"><span><span class="huruf">C.</span> pada jarak yang sama taraf intensitasnya 160 dB; bila pengamat mundur ke jarak 10 kali semula, taraf intensitasnya 140 dB</span></label></li>
+<li><label for="s9D"><input type="radio" name="s9" id="s9D" value="D"><span><span class="huruf">D.</span> pada jarak yang sama taraf intensitasnya 80 dB; bila pengamat mundur ke jarak 10 kali semula, taraf intensitasnya 70 dB</span></label></li>
+<li><label for="s9E"><input type="radio" name="s9" id="s9E" value="E"><span><span class="huruf">E.</span> pada jarak yang sama taraf intensitasnya 80 dB; bila pengamat mundur ke jarak 10 kali semula, taraf intensitasnya 8 dB</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s9"><input type="checkbox" id="ragu-s9" name="ragu-s9" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Optik"><div class="bagian-kep"><span class="lencana">OPT</span><h2>Optik</h2><span class="rentang">Soal 10&ndash;11</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s10">
+<div class="soal-kep"><span class="soal-no">Soal 10</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah benda diletakkan 30 cm di depan cermin cekung berjari-jari kelengkungan 40 cm. Cermin itu lalu diganti cermin cembung berjari-jari kelengkungan sama, dengan benda tetap di tempatnya. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s10">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s10">
+<li><label for="s10A"><input type="radio" name="s10" id="s10A" value="A"><span><span class="huruf">A.</span> cermin cekung membentuk bayangan maya, tegak, 2 kali; cermin cembung membentuk bayangan nyata, terbalik, 0,4 kali</span></label></li>
+<li><label for="s10B"><input type="radio" name="s10" id="s10B" value="B"><span><span class="huruf">B.</span> cermin cekung membentuk bayangan nyata, terbalik, 0,5 kali; cermin cembung membentuk bayangan maya, tegak, 0,4 kali</span></label></li>
+<li><label for="s10C"><input type="radio" name="s10" id="s10C" value="C"><span><span class="huruf">C.</span> cermin cekung membentuk bayangan nyata, terbalik, 2 kali; cermin cembung membentuk bayangan maya, tegak, 2 kali</span></label></li>
+<li><label for="s10D"><input type="radio" name="s10" id="s10D" value="D"><span><span class="huruf">D.</span> cermin cekung membentuk bayangan nyata, terbalik, 2 kali; cermin cembung membentuk bayangan maya, tegak, 0,4 kali</span></label></li>
+<li><label for="s10E"><input type="radio" name="s10" id="s10E" value="E"><span><span class="huruf">E.</span> cermin cekung membentuk bayangan nyata, terbalik, 2 kali; cermin cembung membentuk bayangan maya, tegak, 0,6 kali</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s10"><input type="checkbox" id="ragu-s10" name="ragu-s10" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s11">
+<div class="soal-kep"><span class="soal-no">Soal 11</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Seberkas cahaya merambat di dalam kaca berindeks bias &radic;2 menuju bidang batas kaca&ndash;udara. Dua sinar datang dengan sudut 30&deg; dan 60&deg; terhadap garis normal. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s11">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s11">
+<li><label for="s11A"><input type="radio" name="s11" id="s11A" value="A"><span><span class="huruf">A.</span> sudut kritisnya 45&deg;; kedua sinar keluar ke udara dengan sudut bias lebih besar daripada sudut datangnya</span></label></li>
+<li><label for="s11B"><input type="radio" name="s11" id="s11B" value="B"><span><span class="huruf">B.</span> sudut kritisnya 60&deg;; sinar 30&deg; keluar dengan sudut bias 45&deg;, sedangkan sinar 60&deg; merambat sejajar bidang batas</span></label></li>
+<li><label for="s11C"><input type="radio" name="s11" id="s11C" value="C"><span><span class="huruf">C.</span> sudut kritisnya 45&deg;; sinar 30&deg; keluar dengan sudut bias 45&deg;, sedangkan sinar 60&deg; dipantulkan sempurna</span></label></li>
+<li><label for="s11D"><input type="radio" name="s11" id="s11D" value="D"><span><span class="huruf">D.</span> sudut kritisnya 45&deg;; sinar 30&deg; dipantulkan sempurna, sedangkan sinar 60&deg; keluar ke udara</span></label></li>
+<li><label for="s11E"><input type="radio" name="s11" id="s11E" value="E"><span><span class="huruf">E.</span> sudut kritisnya 30&deg;; kedua sinar dipantulkan sempurna</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s11"><input type="checkbox" id="ragu-s11" name="ragu-s11" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Listrik dan Elektrodinamika"><div class="bagian-kep"><span class="lencana">LIS</span><h2>Listrik dan Elektrodinamika</h2><span class="rentang">Soal 12&ndash;14</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s12">
+<div class="soal-kep"><span class="soal-no">Soal 12</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Dua baterai, &epsilon;<sub>1</sub> = 12 V dan &epsilon;<sub>2</sub> = 6 V (hambatan dalam diabaikan), dipasang sejajar di antara titik P dan Q. Kutub positif keduanya menghadap P, dan masing-masing dipasang seri dengan hambatan 2 &Omega;. Di antara P dan Q juga dipasang hambatan R = 2 &Omega;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s12">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s12">
+<li><label for="s12A"><input type="radio" name="s12" id="s12A" value="A"><span><span class="huruf">A.</span> arus pada R sebesar 4,5 A, dan kedua baterai sama-sama mengeluarkan arus</span></label></li>
+<li><label for="s12B"><input type="radio" name="s12" id="s12B" value="B"><span><span class="huruf">B.</span> arus pada R sebesar 3 A, dan baterai 6 V sedang diisi arus 1,5 A</span></label></li>
+<li><label for="s12C"><input type="radio" name="s12" id="s12C" value="C"><span><span class="huruf">C.</span> arus pada R sebesar 2 A, dan baterai 6 V tidak dialiri arus</span></label></li>
+<li><label for="s12D"><input type="radio" name="s12" id="s12D" value="D"><span><span class="huruf">D.</span> arus pada R sebesar 6 A, dan baterai 6 V mengeluarkan arus 3 A</span></label></li>
+<li><label for="s12E"><input type="radio" name="s12" id="s12E" value="E"><span><span class="huruf">E.</span> arus pada R sebesar 3 A, dan baterai 6 V tidak dialiri arus</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s12"><input type="checkbox" id="ragu-s12" name="ragu-s12" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s13">
+<div class="soal-kep"><span class="soal-no">Soal 13</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Lampu A bertuliskan 220 V, 100 W dan lampu B bertuliskan 220 V, 25 W dirangkai seri, lalu dihubungkan ke sumber 220 V. Hambatan lampu dianggap tetap. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s13">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s13">
+<li><label for="s13A"><input type="radio" name="s13" id="s13A" value="A"><span><span class="huruf">A.</span> lampu A menyala lebih terang, dengan daya 100 W</span></label></li>
+<li><label for="s13B"><input type="radio" name="s13" id="s13B" value="B"><span><span class="huruf">B.</span> lampu B menyala lebih terang, dengan daya 16 W</span></label></li>
+<li><label for="s13C"><input type="radio" name="s13" id="s13C" value="C"><span><span class="huruf">C.</span> lampu A menyala lebih terang, dengan daya 16 W</span></label></li>
+<li><label for="s13D"><input type="radio" name="s13" id="s13D" value="D"><span><span class="huruf">D.</span> kedua lampu sama terang, masing-masing 12,5 W</span></label></li>
+<li><label for="s13E"><input type="radio" name="s13" id="s13E" value="E"><span><span class="huruf">E.</span> lampu B menyala lebih terang, dengan daya 25 W</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s13"><input type="checkbox" id="ragu-s13" name="ragu-s13" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s14">
+<div class="soal-kep"><span class="soal-no">Soal 14</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Muatan titik Q = +4 &mu;C diam di suatu tempat. Muatan uji q = +1 &mu;C dipindahkan perlahan dari jarak 0,6 m ke jarak 0,2 m dari Q. k = 9 &times; 10&#8313; N&middot;m&sup2;/C&sup2;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s14">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s14">
+<li><label for="s14A"><input type="radio" name="s14" id="s14A" value="A"><span><span class="huruf">A.</span> potensial pada jarak 0,2 m adalah 1,8 &times; 10&#8309; V, dan usaha gaya luar +0,12 J</span></label></li>
+<li><label for="s14B"><input type="radio" name="s14" id="s14B" value="B"><span><span class="huruf">B.</span> potensial pada jarak 0,2 m adalah 1,8 &times; 10&#8309; V, dan usaha gaya luar &minus;0,12 J</span></label></li>
+<li><label for="s14C"><input type="radio" name="s14" id="s14C" value="C"><span><span class="huruf">C.</span> potensial pada jarak 0,2 m adalah 9 &times; 10&#8309; V, dan usaha gaya luar +0,12 J</span></label></li>
+<li><label for="s14D"><input type="radio" name="s14" id="s14D" value="D"><span><span class="huruf">D.</span> potensial pada jarak 0,2 m adalah 1,8 &times; 10&#8309; V, dan usaha gaya luar +0,06 J</span></label></li>
+<li><label for="s14E"><input type="radio" name="s14" id="s14E" value="E"><span><span class="huruf">E.</span> potensial pada jarak 0,2 m adalah 1,8 &times; 10&#8309; V, dan usaha gaya luar +0,18 J</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s14"><input type="checkbox" id="ragu-s14" name="ragu-s14" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Magnet dan Induksi"><div class="bagian-kep"><span class="lencana">MAG</span><h2>Magnet dan Induksi</h2><span class="rentang">Soal 15&ndash;16</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s15">
+<div class="soal-kep"><span class="soal-no">Soal 15</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Partikel bermassa 2 &times; 10&#8315;&#178;&#8310; kg dan bermuatan 1,6 &times; 10&#8315;&#185;&#8313; C masuk tegak lurus medan magnet homogen 0,5 T dengan kelajuan 4 &times; 10&#8309; m/s. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s15">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s15">
+<li><label for="s15A"><input type="radio" name="s15" id="s15A" value="A"><span><span class="huruf">A.</span> jari-jari lintasannya 10 cm; bila kelajuannya digandakan, jari-jarinya 20 cm dan periodenya menjadi dua kali</span></label></li>
+<li><label for="s15B"><input type="radio" name="s15" id="s15B" value="B"><span><span class="huruf">B.</span> jari-jari lintasannya 5 cm; bila kelajuannya digandakan, jari-jarinya 10 cm dan periodenya tetap</span></label></li>
+<li><label for="s15C"><input type="radio" name="s15" id="s15C" value="C"><span><span class="huruf">C.</span> jari-jari lintasannya 10 cm; bila kelajuannya digandakan, jari-jari dan periodenya tetap</span></label></li>
+<li><label for="s15D"><input type="radio" name="s15" id="s15D" value="D"><span><span class="huruf">D.</span> jari-jari lintasannya 10 cm; bila kelajuannya digandakan, jari-jarinya 20 cm dan periodenya tetap</span></label></li>
+<li><label for="s15E"><input type="radio" name="s15" id="s15E" value="E"><span><span class="huruf">E.</span> jari-jari lintasannya 1 cm; bila kelajuannya digandakan, jari-jarinya 2 cm dan periodenya tetap</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s15"><input type="checkbox" id="ragu-s15" name="ragu-s15" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s16">
+<div class="soal-kep"><span class="soal-no">Soal 16</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Kumparan 200 lilitan dengan luas penampang 50 cm&sup2; berada dalam medan magnet yang tegak lurus bidangnya. Medan itu berkurang dari 0,8 T menjadi 0,2 T dalam 0,1 s. Hambatan kumparan 3 &Omega;. Besar GGL induksi dan arus induksi rata-rata adalah ….</p></div>
+<p class="perintah" id="per-s16">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s16">
+<li><label for="s16A"><input type="radio" name="s16" id="s16A" value="A"><span><span class="huruf">A.</span> 0,03 V dan 0,01 A</span></label></li>
+<li><label for="s16B"><input type="radio" name="s16" id="s16B" value="B"><span><span class="huruf">B.</span> 12 V dan 4 A</span></label></li>
+<li><label for="s16C"><input type="radio" name="s16" id="s16C" value="C"><span><span class="huruf">C.</span> 6 V dan 18 A</span></label></li>
+<li><label for="s16D"><input type="radio" name="s16" id="s16D" value="D"><span><span class="huruf">D.</span> 600 V dan 200 A</span></label></li>
+<li><label for="s16E"><input type="radio" name="s16" id="s16E" value="E"><span><span class="huruf">E.</span> 6 V dan 2 A</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s16"><input type="checkbox" id="ragu-s16" name="ragu-s16" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Elektromagnetik"><div class="bagian-kep"><span class="lencana">EMG</span><h2>Elektromagnetik</h2><span class="rentang">Soal 17&ndash;18</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s17">
+<div class="soal-kep"><span class="soal-no">Soal 17</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah gelombang elektromagnetik merambat di ruang hampa dengan medan listrik maksimum 600 N/C dan frekuensi 6 &times; 10&#185;&#8308; Hz. c = 3 &times; 10&#8312; m/s. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s17">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s17">
+<li><label for="s17A"><input type="radio" name="s17" id="s17A" value="A"><span><span class="huruf">A.</span> medan magnet maksimumnya 1,8 &times; 10&#185;&#185; T, dan panjang gelombangnya 500 nm sehingga termasuk cahaya tampak</span></label></li>
+<li><label for="s17B"><input type="radio" name="s17" id="s17B" value="B"><span><span class="huruf">B.</span> medan magnet maksimumnya 2 &times; 10&#8315;&#8310; T, dan panjang gelombangnya 500 nm sehingga termasuk cahaya tampak</span></label></li>
+<li><label for="s17C"><input type="radio" name="s17" id="s17C" value="C"><span><span class="huruf">C.</span> medan magnet maksimumnya 2 &times; 10&#8315;&#8310; T, dan panjang gelombangnya 500 m sehingga termasuk gelombang radio</span></label></li>
+<li><label for="s17D"><input type="radio" name="s17" id="s17D" value="D"><span><span class="huruf">D.</span> medan magnet maksimumnya 2 &times; 10&#8315;&#8310; T, dan panjang gelombangnya 50 nm sehingga termasuk sinar ultraungu</span></label></li>
+<li><label for="s17E"><input type="radio" name="s17" id="s17E" value="E"><span><span class="huruf">E.</span> medan magnet maksimumnya 6 &times; 10&#8315;&#8310; T, dan panjang gelombangnya 500 nm sehingga termasuk cahaya tampak</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s17"><input type="checkbox" id="ragu-s17" name="ragu-s17" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s18">
+<div class="soal-kep"><span class="soal-no">Soal 18</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Rangkaian seri RLC memiliki R = 50 &Omega;, L = 0,4 H, dan C = 10 &mu;F. Rangkaian dihubungkan ke sumber AC bertegangan efektif 100 V yang frekuensi sudutnya dapat diatur. Saat terjadi resonansi, analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s18">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s18">
+<li><label for="s18A"><input type="radio" name="s18" id="s18A" value="A"><span><span class="huruf">A.</span> frekuensi sudutnya 50 rad/s, arus efektifnya 2 A, dan faktor dayanya 1</span></label></li>
+<li><label for="s18B"><input type="radio" name="s18" id="s18B" value="B"><span><span class="huruf">B.</span> frekuensi sudutnya 500 rad/s, arus efektifnya nol, dan faktor dayanya 0</span></label></li>
+<li><label for="s18C"><input type="radio" name="s18" id="s18C" value="C"><span><span class="huruf">C.</span> frekuensi sudutnya 500 rad/s, arus efektifnya 2 A, dan faktor dayanya 0</span></label></li>
+<li><label for="s18D"><input type="radio" name="s18" id="s18D" value="D"><span><span class="huruf">D.</span> frekuensi sudutnya 2500 rad/s, arus efektifnya 2 A, dan faktor dayanya 1</span></label></li>
+<li><label for="s18E"><input type="radio" name="s18" id="s18E" value="E"><span><span class="huruf">E.</span> frekuensi sudutnya 500 rad/s, arus efektifnya 2 A, dan faktor dayanya 1</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s18"><input type="checkbox" id="ragu-s18" name="ragu-s18" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Fisika Modern"><div class="bagian-kep"><span class="lencana">MOD</span><h2>Fisika Modern</h2><span class="rentang">Soal 19&ndash;20</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s19">
+<div class="soal-kep"><span class="soal-no">Soal 19</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Dalam spektrum atom hidrogen, perbandingan panjang gelombang terpanjang deret Lyman terhadap panjang gelombang terpendek deret Balmer adalah ….</p></div>
+<p class="perintah" id="per-s19">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s19">
+<li><label for="s19A"><input type="radio" name="s19" id="s19A" value="A"><span><span class="huruf">A.</span> 3 : 1</span></label></li>
+<li><label for="s19B"><input type="radio" name="s19" id="s19B" value="B"><span><span class="huruf">B.</span> 1 : 4</span></label></li>
+<li><label for="s19C"><input type="radio" name="s19" id="s19C" value="C"><span><span class="huruf">C.</span> 1 : 3</span></label></li>
+<li><label for="s19D"><input type="radio" name="s19" id="s19D" value="D"><span><span class="huruf">D.</span> 4 : 3</span></label></li>
+<li><label for="s19E"><input type="radio" name="s19" id="s19E" value="E"><span><span class="huruf">E.</span> 3 : 4</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s19"><input type="checkbox" id="ragu-s19" name="ragu-s19" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s20">
+<div class="soal-kep"><span class="soal-no">Soal 20</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Suatu unsur radioaktif berwaktu paruh 6 hari. Massa awalnya 80 g. Setelah 18 hari, analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s20">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s20">
+<li><label for="s20A"><input type="radio" name="s20" id="s20A" value="A"><span><span class="huruf">A.</span> massa yang tersisa 10 g, dan massa yang telah meluruh 70 g</span></label></li>
+<li><label for="s20B"><input type="radio" name="s20" id="s20B" value="B"><span><span class="huruf">B.</span> massa yang tersisa 26,7 g, dan massa yang telah meluruh 53,3 g</span></label></li>
+<li><label for="s20C"><input type="radio" name="s20" id="s20C" value="C"><span><span class="huruf">C.</span> massa yang tersisa 20 g, dan massa yang telah meluruh 60 g</span></label></li>
+<li><label for="s20D"><input type="radio" name="s20" id="s20D" value="D"><span><span class="huruf">D.</span> massa yang tersisa 70 g, dan massa yang telah meluruh 10 g</span></label></li>
+<li><label for="s20E"><input type="radio" name="s20" id="s20E" value="E"><span><span class="huruf">E.</span> massa yang tersisa 5 g, dan massa yang telah meluruh 75 g</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s20"><input type="checkbox" id="ragu-s20" name="ragu-s20" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Termodinamika"><div class="bagian-kep"><span class="lencana">TER</span><h2>Termodinamika</h2><span class="rentang">Soal 21&ndash;23</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s21">
+<div class="soal-kep"><span class="soal-no">Soal 21</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Suhu suatu gas ideal dinaikkan dari 27 &deg;C menjadi 327 &deg;C. Analisis perubahan energi kinetik rata-rata dan kelajuan efektif (v<sub>rms</sub>) partikelnya adalah ….</p></div>
+<p class="perintah" id="per-s21">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s21">
+<li><label for="s21A"><input type="radio" name="s21" id="s21A" value="A"><span><span class="huruf">A.</span> energi kinetik rata-rata menjadi 12,1 kali, dan v<sub>rms</sub> menjadi &radic;12,1 kali semula</span></label></li>
+<li><label for="s21B"><input type="radio" name="s21" id="s21B" value="B"><span><span class="huruf">B.</span> energi kinetik rata-rata menjadi 2 kali, dan v<sub>rms</sub> menjadi &radic;2 kali semula</span></label></li>
+<li><label for="s21C"><input type="radio" name="s21" id="s21C" value="C"><span><span class="huruf">C.</span> energi kinetik rata-rata menjadi 2 kali, dan v<sub>rms</sub> menjadi 2 kali semula</span></label></li>
+<li><label for="s21D"><input type="radio" name="s21" id="s21D" value="D"><span><span class="huruf">D.</span> energi kinetik rata-rata menjadi &radic;2 kali, dan v<sub>rms</sub> menjadi 2 kali semula</span></label></li>
+<li><label for="s21E"><input type="radio" name="s21" id="s21E" value="E"><span><span class="huruf">E.</span> energi kinetik rata-rata menjadi 4 kali, dan v<sub>rms</sub> menjadi 2 kali semula</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s21"><input type="checkbox" id="ragu-s21" name="ragu-s21" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s22">
+<div class="soal-kep"><span class="soal-no">Soal 22</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Gas menjalani siklus berbentuk persegi panjang pada diagram P&ndash;V: A(1 L; 3 &times; 10&#8309; Pa) &rarr; B(4 L; 3 &times; 10&#8309; Pa) &rarr; C(4 L; 1 &times; 10&#8309; Pa) &rarr; D(1 L; 1 &times; 10&#8309; Pa) &rarr; A. Mesin menjalani 10 siklus tiap sekon. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s22">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s22">
+<li><label for="s22A"><input type="radio" name="s22" id="s22A" value="A"><span><span class="huruf">A.</span> usaha bersih tiap siklus 900 J, dan daya mesin 9000 W</span></label></li>
+<li><label for="s22B"><input type="radio" name="s22" id="s22B" value="B"><span><span class="huruf">B.</span> usaha bersih tiap siklus 300 J, dan daya mesin 3000 W</span></label></li>
+<li><label for="s22C"><input type="radio" name="s22" id="s22C" value="C"><span><span class="huruf">C.</span> usaha bersih tiap siklus 600 J, dan daya mesin 60 W</span></label></li>
+<li><label for="s22D"><input type="radio" name="s22" id="s22D" value="D"><span><span class="huruf">D.</span> usaha bersih tiap siklus 600 J, dan daya mesin 6000 W</span></label></li>
+<li><label for="s22E"><input type="radio" name="s22" id="s22E" value="E"><span><span class="huruf">E.</span> usaha bersih tiap siklus 1200 J, dan daya mesin 12000 W</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s22"><input type="checkbox" id="ragu-s22" name="ragu-s22" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s23">
+<div class="soal-kep"><span class="soal-no">Soal 23</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Batang logam P dan Q berpanjang dan berluas penampang sama disambung ujung ke ujung. Konduktivitas termal P dua kali konduktivitas Q. Ujung bebas P dijaga 100 &deg;C dan ujung bebas Q 10 &deg;C. Setelah keadaan tunak, suhu sambungan adalah ….</p></div>
+<p class="perintah" id="per-s23">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s23">
+<li><label for="s23A"><input type="radio" name="s23" id="s23A" value="A"><span><span class="huruf">A.</span> 70 &deg;C</span></label></li>
+<li><label for="s23B"><input type="radio" name="s23" id="s23B" value="B"><span><span class="huruf">B.</span> 40 &deg;C</span></label></li>
+<li><label for="s23C"><input type="radio" name="s23" id="s23C" value="C"><span><span class="huruf">C.</span> 55 &deg;C</span></label></li>
+<li><label for="s23D"><input type="radio" name="s23" id="s23D" value="D"><span><span class="huruf">D.</span> 85 &deg;C</span></label></li>
+<li><label for="s23E"><input type="radio" name="s23" id="s23E" value="E"><span><span class="huruf">E.</span> 63 &deg;C</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s23"><input type="checkbox" id="ragu-s23" name="ragu-s23" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Energi dan Daya"><div class="bagian-kep"><span class="lencana">ENE</span><h2>Energi dan Daya</h2><span class="rentang">Soal 24&ndash;25</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s24">
+<div class="soal-kep"><span class="soal-no">Soal 24</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Mobil 1000 kg melaju dengan kelajuan tetap 20 m/s menanjak jalan bersudut &theta; (sin &theta; = 0,1). Gaya hambat total udara dan jalan 500 N. g = 10 m/s&sup2;. Daya yang dikeluarkan mesin adalah ….</p></div>
+<p class="perintah" id="per-s24">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s24">
+<li><label for="s24A"><input type="radio" name="s24" id="s24A" value="A"><span><span class="huruf">A.</span> 20 kW</span></label></li>
+<li><label for="s24B"><input type="radio" name="s24" id="s24B" value="B"><span><span class="huruf">B.</span> 10 kW</span></label></li>
+<li><label for="s24C"><input type="radio" name="s24" id="s24C" value="C"><span><span class="huruf">C.</span> 200 kW</span></label></li>
+<li><label for="s24D"><input type="radio" name="s24" id="s24D" value="D"><span><span class="huruf">D.</span> 30 kW</span></label></li>
+<li><label for="s24E"><input type="radio" name="s24" id="s24E" value="E"><span><span class="huruf">E.</span> 15 kW</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s24"><input type="checkbox" id="ragu-s24" name="ragu-s24" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s25">
+<div class="soal-kep"><span class="soal-no">Soal 25</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Benda 600 g mula-mula diam di lantai licin. Benda didorong gaya mendatar yang besarnya tetap 20 N dari x = 0 sampai x = 4 m, lalu berkurang secara linear hingga nol di x = 8 m. Analisis yang tepat pada x = 8 m adalah ….</p></div>
+<p class="perintah" id="per-s25">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s25">
+<li><label for="s25A"><input type="radio" name="s25" id="s25A" value="A"><span><span class="huruf">A.</span> usaha total gaya itu 160 J, dan kelajuan benda 20 m/s</span></label></li>
+<li><label for="s25B"><input type="radio" name="s25" id="s25B" value="B"><span><span class="huruf">B.</span> usaha total gaya itu 120 J, dan kelajuan benda 400 m/s</span></label></li>
+<li><label for="s25C"><input type="radio" name="s25" id="s25C" value="C"><span><span class="huruf">C.</span> usaha total gaya itu 120 J, dan kelajuan benda 20 m/s</span></label></li>
+<li><label for="s25D"><input type="radio" name="s25" id="s25D" value="D"><span><span class="huruf">D.</span> usaha total gaya itu 80 J, dan kelajuan benda 20 m/s</span></label></li>
+<li><label for="s25E"><input type="radio" name="s25" id="s25E" value="E"><span><span class="huruf">E.</span> usaha total gaya itu 120 J, dan kelajuan benda 10 m/s</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s25"><input type="checkbox" id="ragu-s25" name="ragu-s25" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Hukum Kekekalan Energi dan Momentum"><div class="bagian-kep"><span class="lencana">KEK</span><h2>Hukum Kekekalan Energi dan Momentum</h2><span class="rentang">Soal 26&ndash;27</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s26">
+<div class="soal-kep"><span class="soal-no">Soal 26</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah benda 3 kg yang diam meledak menjadi dua pecahan, 2 kg dan 1 kg. Pecahan 1 kg terlempar dengan kelajuan 20 m/s. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s26">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s26">
+<li><label for="s26A"><input type="radio" name="s26" id="s26A" value="A"><span><span class="huruf">A.</span> pecahan 2 kg bergerak 10 m/s berlawanan arah; energi kinetik total 300 J, dan dua pertiganya dibawa pecahan 1 kg</span></label></li>
+<li><label for="s26B"><input type="radio" name="s26" id="s26B" value="B"><span><span class="huruf">B.</span> pecahan 2 kg bergerak 10 m/s searah pecahan 1 kg; energi kinetik total 300 J</span></label></li>
+<li><label for="s26C"><input type="radio" name="s26" id="s26C" value="C"><span><span class="huruf">C.</span> pecahan 2 kg bergerak 40 m/s berlawanan arah; energi kinetik total 1800 J</span></label></li>
+<li><label for="s26D"><input type="radio" name="s26" id="s26D" value="D"><span><span class="huruf">D.</span> pecahan 2 kg bergerak 10 m/s berlawanan arah; energi kinetik total 300 J yang terbagi rata pada kedua pecahan</span></label></li>
+<li><label for="s26E"><input type="radio" name="s26" id="s26E" value="E"><span><span class="huruf">E.</span> pecahan 2 kg bergerak 10 m/s berlawanan arah; energi kinetik total 600 J</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s26"><input type="checkbox" id="ragu-s26" name="ragu-s26" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s27">
+<div class="soal-kep"><span class="soal-no">Soal 27</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Balok 0,5 kg menekan pegas berkonstanta 200 N/m sejauh 10 cm di atas lantai licin. Balok dilepas, meninggalkan pegas, lalu naik ke bidang miring licin. g = 10 m/s&sup2;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s27">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s27">
+<li><label for="s27A"><input type="radio" name="s27" id="s27A" value="A"><span><span class="huruf">A.</span> kelajuan balok setelah lepas dari pegas 4 m/s, dan tinggi maksimum di bidang miring 80 cm</span></label></li>
+<li><label for="s27B"><input type="radio" name="s27" id="s27B" value="B"><span><span class="huruf">B.</span> kelajuan balok setelah lepas dari pegas 2 m/s, dan tinggi maksimum di bidang miring 40 cm</span></label></li>
+<li><label for="s27C"><input type="radio" name="s27" id="s27C" value="C"><span><span class="huruf">C.</span> kelajuan balok setelah lepas dari pegas 2 m/s, dan tinggi maksimum di bidang miring 20 cm</span></label></li>
+<li><label for="s27D"><input type="radio" name="s27" id="s27D" value="D"><span><span class="huruf">D.</span> kelajuan balok setelah lepas dari pegas 20 m/s, dan tinggi maksimum di bidang miring 20 m</span></label></li>
+<li><label for="s27E"><input type="radio" name="s27" id="s27E" value="E"><span><span class="huruf">E.</span> kelajuan balok setelah lepas dari pegas 2 m/s, dan tinggi maksimum di bidang miring 2 cm</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s27"><input type="checkbox" id="ragu-s27" name="ragu-s27" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+<section class="bagian" aria-label="Bagian Fluida Statis dan Dinamis"><div class="bagian-kep"><span class="lencana">FLU</span><h2>Fluida Statis dan Dinamis</h2><span class="rentang">Soal 28&ndash;30</span></div><div class="bagian-isi">
+<article class="soal" id="kartu-s28">
+<div class="soal-kep"><span class="soal-no">Soal 28</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Dua kelereng sejenis dijatuhkan ke dalam oli yang sama. Jari-jari kelereng kedua dua kali jari-jari kelereng pertama. Perbandingan kecepatan terminal kelereng kedua terhadap kelereng pertama adalah ….</p></div>
+<p class="perintah" id="per-s28">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s28">
+<li><label for="s28A"><input type="radio" name="s28" id="s28A" value="A"><span><span class="huruf">A.</span> 2 kali, karena kecepatan terminal sebanding dengan jari-jari</span></label></li>
+<li><label for="s28B"><input type="radio" name="s28" id="s28B" value="B"><span><span class="huruf">B.</span> 4 kali, karena kecepatan terminal sebanding dengan kuadrat jari-jari</span></label></li>
+<li><label for="s28C"><input type="radio" name="s28" id="s28C" value="C"><span><span class="huruf">C.</span> 8 kali, karena kecepatan terminal sebanding dengan volume</span></label></li>
+<li><label for="s28D"><input type="radio" name="s28" id="s28D" value="D"><span><span class="huruf">D.</span> sama, karena benda jatuh tidak bergantung pada ukurannya</span></label></li>
+<li><label for="s28E"><input type="radio" name="s28" id="s28E" value="E"><span><span class="huruf">E.</span> setengah kali, karena gaya gesek fluida sebanding dengan jari-jari</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s28"><input type="checkbox" id="ragu-s28" name="ragu-s28" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s29">
+<div class="soal-kep"><span class="soal-no">Soal 29</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah dongkrak hidrolik memiliki penghisap kecil seluas 10 cm&sup2; dan penghisap besar seluas 500 cm&sup2;. Di atas penghisap besar terdapat mobil seberat 10 000 N. Penghisap kecil ditekan turun 50 cm. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s29">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s29">
+<li><label for="s29A"><input type="radio" name="s29" id="s29A" value="A"><span><span class="huruf">A.</span> gaya minimum pada penghisap kecil 200 N, dan mobil terangkat 50 cm</span></label></li>
+<li><label for="s29B"><input type="radio" name="s29" id="s29B" value="B"><span><span class="huruf">B.</span> gaya minimum pada penghisap kecil 500 000 N, dan mobil terangkat 1 cm</span></label></li>
+<li><label for="s29C"><input type="radio" name="s29" id="s29C" value="C"><span><span class="huruf">C.</span> gaya minimum pada penghisap kecil 2000 N, dan mobil terangkat 1 cm</span></label></li>
+<li><label for="s29D"><input type="radio" name="s29" id="s29D" value="D"><span><span class="huruf">D.</span> gaya minimum pada penghisap kecil 200 N, dan mobil terangkat 25 cm</span></label></li>
+<li><label for="s29E"><input type="radio" name="s29" id="s29E" value="E"><span><span class="huruf">E.</span> gaya minimum pada penghisap kecil 200 N, dan mobil terangkat 1 cm</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s29"><input type="checkbox" id="ragu-s29" name="ragu-s29" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+<article class="soal" id="kartu-s30">
+<div class="soal-kep"><span class="soal-no">Soal 30</span><span class="soal-bentuk">Pilihan ganda</span></div>
+<div class="soal-isi">
+<div class="naskah"><p>Sebuah tangki terbuka berisi air setinggi 5 m dari tanah. Pada dinding tangki terdapat lubang kecil setinggi 1,8 m dari tanah. g = 10 m/s&sup2;. Analisis yang tepat adalah ….</p></div>
+<p class="perintah" id="per-s30">Pilih satu jawaban.</p>
+<ul class="opsi" role="radiogroup" aria-labelledby="per-s30">
+<li><label for="s30A"><input type="radio" name="s30" id="s30A" value="A"><span><span class="huruf">A.</span> air memancar 10 m/s, dan jatuh di tanah 6 m dari dinding tangki</span></label></li>
+<li><label for="s30B"><input type="radio" name="s30" id="s30B" value="B"><span><span class="huruf">B.</span> air memancar 6 m/s, dan jatuh di tanah 3,6 m dari dinding tangki</span></label></li>
+<li><label for="s30C"><input type="radio" name="s30" id="s30C" value="C"><span><span class="huruf">C.</span> air memancar 8 m/s, dan jatuh di tanah 3,2 m dari dinding tangki</span></label></li>
+<li><label for="s30D"><input type="radio" name="s30" id="s30D" value="D"><span><span class="huruf">D.</span> air memancar 8 m/s, dan jatuh di tanah 4,8 m dari dinding tangki</span></label></li>
+<li><label for="s30E"><input type="radio" name="s30" id="s30E" value="E"><span><span class="huruf">E.</span> air memancar 8 m/s, dan jatuh di tanah 9,6 m dari dinding tangki</span></label></li>
+</ul>
+<div class="ragu"><label for="ragu-s30"><input type="checkbox" id="ragu-s30" name="ragu-s30" value="1">Tandai ragu-ragu</label></div>
+</div></article>
+</div></section>
+</div>
+</main>
+<div class="bawah">
+<div id="navpanel" hidden>
+<div class="kisi"><button type="button" class="navnum" id="nav-s1" data-soal="s1" aria-label="Soal 1, belum dijawab">1</button><button type="button" class="navnum" id="nav-s2" data-soal="s2" aria-label="Soal 2, belum dijawab">2</button><button type="button" class="navnum" id="nav-s3" data-soal="s3" aria-label="Soal 3, belum dijawab">3</button><button type="button" class="navnum" id="nav-s4" data-soal="s4" aria-label="Soal 4, belum dijawab">4</button><button type="button" class="navnum" id="nav-s5" data-soal="s5" aria-label="Soal 5, belum dijawab">5</button><button type="button" class="navnum" id="nav-s6" data-soal="s6" aria-label="Soal 6, belum dijawab">6</button><button type="button" class="navnum" id="nav-s7" data-soal="s7" aria-label="Soal 7, belum dijawab">7</button><button type="button" class="navnum" id="nav-s8" data-soal="s8" aria-label="Soal 8, belum dijawab">8</button><button type="button" class="navnum" id="nav-s9" data-soal="s9" aria-label="Soal 9, belum dijawab">9</button><button type="button" class="navnum" id="nav-s10" data-soal="s10" aria-label="Soal 10, belum dijawab">10</button><button type="button" class="navnum" id="nav-s11" data-soal="s11" aria-label="Soal 11, belum dijawab">11</button><button type="button" class="navnum" id="nav-s12" data-soal="s12" aria-label="Soal 12, belum dijawab">12</button><button type="button" class="navnum" id="nav-s13" data-soal="s13" aria-label="Soal 13, belum dijawab">13</button><button type="button" class="navnum" id="nav-s14" data-soal="s14" aria-label="Soal 14, belum dijawab">14</button><button type="button" class="navnum" id="nav-s15" data-soal="s15" aria-label="Soal 15, belum dijawab">15</button><button type="button" class="navnum" id="nav-s16" data-soal="s16" aria-label="Soal 16, belum dijawab">16</button><button type="button" class="navnum" id="nav-s17" data-soal="s17" aria-label="Soal 17, belum dijawab">17</button><button type="button" class="navnum" id="nav-s18" data-soal="s18" aria-label="Soal 18, belum dijawab">18</button><button type="button" class="navnum" id="nav-s19" data-soal="s19" aria-label="Soal 19, belum dijawab">19</button><button type="button" class="navnum" id="nav-s20" data-soal="s20" aria-label="Soal 20, belum dijawab">20</button><button type="button" class="navnum" id="nav-s21" data-soal="s21" aria-label="Soal 21, belum dijawab">21</button><button type="button" class="navnum" id="nav-s22" data-soal="s22" aria-label="Soal 22, belum dijawab">22</button><button type="button" class="navnum" id="nav-s23" data-soal="s23" aria-label="Soal 23, belum dijawab">23</button><button type="button" class="navnum" id="nav-s24" data-soal="s24" aria-label="Soal 24, belum dijawab">24</button><button type="button" class="navnum" id="nav-s25" data-soal="s25" aria-label="Soal 25, belum dijawab">25</button><button type="button" class="navnum" id="nav-s26" data-soal="s26" aria-label="Soal 26, belum dijawab">26</button><button type="button" class="navnum" id="nav-s27" data-soal="s27" aria-label="Soal 27, belum dijawab">27</button><button type="button" class="navnum" id="nav-s28" data-soal="s28" aria-label="Soal 28, belum dijawab">28</button><button type="button" class="navnum" id="nav-s29" data-soal="s29" aria-label="Soal 29, belum dijawab">29</button><button type="button" class="navnum" id="nav-s30" data-soal="s30" aria-label="Soal 30, belum dijawab">30</button></div>
+<div class="legenda"><span class="l-isi">sudah dijawab</span><span class="l-ragu">ditandai ragu-ragu</span><span>belum dijawab</span></div>
+</div>
+<div class="bungkus">
+<div class="baris-bawah">
+<div class="kemajuan"><div class="trek"><div id="bilah"></div></div><div id="hitung">0 dari 30 soal dijawab</div></div>
+<div id="jam" aria-live="off">--:--</div>
+<div class="tombol">
+<button type="button" id="tbl-nomor" aria-expanded="false" aria-controls="navpanel" disabled>Nomor soal</button>
+<button type="button" id="tbl-periksa" disabled>Periksa kelengkapan</button>
+<button type="button" id="tbl-selesai" disabled>Selesai</button>
+</div>
+</div>
+<p id="pesan" role="status"></p>
+</div>
+</div>
+<script>
+(function(){
+"use strict";
+var GESER = 7;
+function buka(s){ var o="",i; for(i=0;i<s.length;i++) o+=String.fromCharCode(s.charCodeAt(i)-GESER); return o; }
+
+var KUNCI_NUM = {};
+var KUNCI_PIL = {
+"s1":"J",
+"s2":"H",
+"s3":"L",
+"s4":"I",
+"s5":"K",
+"s6":"I",
+"s7":"L",
+"s8":"J",
+"s9":"H",
+"s10":"K",
+"s11":"J",
+"s12":"L",
+"s13":"I",
+"s14":"H",
+"s15":"K",
+"s16":"L",
+"s17":"I",
+"s18":"L",
+"s19":"J",
+"s20":"H",
+"s21":"I",
+"s22":"K",
+"s23":"H",
+"s24":"K",
+"s25":"J",
+"s26":"H",
+"s27":"J",
+"s28":"I",
+"s29":"L",
+"s30":"K"
+};
+var BENTUK = {"s1":"pg","s2":"pg","s3":"pg","s4":"pg","s5":"pg","s6":"pg","s7":"pg","s8":"pg","s9":"pg","s10":"pg","s11":"pg","s12":"pg","s13":"pg","s14":"pg","s15":"pg","s16":"pg","s17":"pg","s18":"pg","s19":"pg","s20":"pg","s21":"pg","s22":"pg","s23":"pg","s24":"pg","s25":"pg","s26":"pg","s27":"pg","s28":"pg","s29":"pg","s30":"pg"};
+var URUT = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15","s16","s17","s18","s19","s20","s21","s22","s23","s24","s25","s26","s27","s28","s29","s30"];
+var BAGIAN = [{kode:"PGK",nama:"Pengukuran",ids:["s1"]},{kode:"VEK",nama:"Vektor",ids:["s2","s3"]},{kode:"MEK",nama:"Mekanika",ids:["s4","s5","s6"]},{kode:"GEL",nama:"Getaran dan Gelombang",ids:["s7","s8","s9"]},{kode:"OPT",nama:"Optik",ids:["s10","s11"]},{kode:"LIS",nama:"Listrik dan Elektrodinamika",ids:["s12","s13","s14"]},{kode:"MAG",nama:"Magnet dan Induksi",ids:["s15","s16"]},{kode:"EMG",nama:"Elektromagnetik",ids:["s17","s18"]},{kode:"MOD",nama:"Fisika Modern",ids:["s19","s20"]},{kode:"TER",nama:"Termodinamika",ids:["s21","s22","s23"]},{kode:"ENE",nama:"Energi dan Daya",ids:["s24","s25"]},{kode:"KEK",nama:"Hukum Kekekalan Energi dan Momentum",ids:["s26","s27"]},{kode:"FLU",nama:"Fluida Statis dan Dinamis",ids:["s28","s29","s30"]}];
+var PEMBAHASAN = {
+"s1":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Wlu|spzhu'shwvyhu'\u007f'D'/\u007fCz|iE7C6z|iE'-ws|ztuB'-Kls{hB\u007f0'khu'ihu\u0080hr'hunrh'wlu{pun5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'\u007fCz|iE7C6z|iE'D'zrhsh'|{hth'zlils|t'uvs'uvup|z'2'/nhypz'uvup|z'ilyptwp{'-{ptlzB'738'tt0B'-Kls{hB\u007f'D'-myhj89B'-{ptlzB'738'tt5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Nhypz'zrhsh'|{hth'9@'tt3'{ltwh{'nhypz'uvup|z'ilyptwp{3'i|rhu'ohzps'ihjhhuB'ph'ohu\u0080h'wluhukh'rljvjvrhu5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'Uvs'uvup|z'{lysl{hr'hu{hyh'9:'tt'khu'9;'ttB'nhypz'uvup|z'rl4='ilyptwp{B'uz{'D'738'tt5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'\u007fCz|iE7C6z|iE'D'9:'2'='-{ptlzB'738'ttB'-Kls{hB\u007f'D'737<'tt5C6spECspECiEWlu\u0080lslzhphu5C6iE'\u007fCz|iE7C6z|iE'D'9:3='tt5'Rhyluh'-Kls{hB\u007f'w|u\u0080h'k|h'hunrh'kp'ilshrhun'rvth3'\u007fCz|iE7C6z|iE'kp{|spz'9:3=7'tt5'Hunrh'93':3'=3'khu'uvs'{hrzpyhu'zlt|hu\u0080h'wlu{punA';'hunrh'wlu{pun5'Vwzp'9@377'tt'rlspy|'tltihjh'nhypz'zrhsh'|{hth'\u0080hun'ilyptwp{5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Shwvyhuu\u0080h'/9:3=7'-ws|ztuB'737<0'tt'klunhu';'hunrh'wlu{pun5'Qh~hihu'J5C6spEC6vsE",
+"s2":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Ylz|s{hu'{pnh'nh\u0080h3'khu'ylz|s{hu'zlz|kho'zh{|'nh\u0080h'kpslwhz5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'YCz|iE\u007fC6z|iE'D'-ZpnthBM'jvz'-{ol{hBB'YCz|iE\u0080C6z|iE'D'-ZpnthBM'zpu'-{ol{hBB'k|h'}lr{vyA'Y-z|w9B'D'H-z|w9B'2'I-z|w9B'2'9HI'jvz'-hswohB5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'MCz|iE8C6z|iE'D'MCz|iE9C6z|iE'D'MCz|iE:C6z|iE'D'87'U'whkh'7-klnB3'897-klnB3'9;7-klnB5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'YCz|iE\u007fC6z|iE'D'87/8'-tpu|zB'-myhj89B'-tpu|zB'-myhj89B0B'YCz|iE\u0080C6z|iE'D'87/7'2'-myhj89B-yhkpjB:'-tpu|zB'-myhj89B-yhkpjB:05'[huwh'MCz|iE:C6z|iEA'Y-z|w9B'D'877'2'877'2'977'jvz'897-klnB5C6spECspECiEWlu\u0080lslzhphu5C6iE'YCz|iE\u007fC6z|iE'D'7'khu'YCz|iE\u0080C6z|iE'D'73'qhkp'ylz|s{hu'uvs5'[huwh'MCz|iE:C6z|iEA'Y-z|w9B'D'977'-tpu|zB'877'D'8773'Y'D'87'U3'hyhou\u0080h'whkh'nhypz'ihnp'7-klnB'khu'897-klnB3'\u0080hp{|'=7-klnB5'Hy{pu\u0080h'MCz|iE8C6z|iE'2'MCz|iE9C6z|iE'zhth'ilzhy'khu'ilysh~huhu'klunhu'MCz|iE:C6z|iE5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Ylz|s{hu'uvsB'{huwh'MCz|iE:C6z|iE'ylz|s{huu\u0080h'87'U'zlhyho'=7-klnB5'Qh~hihu'H5C6spEC6vsE",
+"s3":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Wlyjlwh{hu'ihsvr'khu'nh\u0080h'uvyths5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'MCz|iE\u007fC6z|iE'D'M'jvz'-{ol{hBB'MCz|iE\u0080C6z|iE'D'M'zpu'-{ol{hBB'h'D'MCz|iE\u007fC6z|iE6tB'U'D'tn'-tpu|zB'MCz|iE\u0080C6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE't'D'?'rnB'M'D'<7'UB'-{ol{hB'D':>-klnBB'shu{hp'spjpu5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'MCz|iE\u007fC6z|iE'D'<7'-{ptlzB'73?B'MCz|iE\u0080C6z|iE'D'<7'-{ptlzB'73=B'h'D';76?B'U'D'?7'-tpu|zB':75C6spECspECiEWlu\u0080lslzhphu5C6iE'MCz|iE\u007fC6z|iE'D';7'U3'MCz|iE\u0080C6z|iE'D':7'UB'h'D'<'t6z-z|w9BB'U'D'<7'U5'Rvtwvulu'{lnhr'nh\u0080h'pr|{'tlunhunrh{'ihsvr3'zlopunnh'uvyths'slipo'rljps'khypwhkh'ilyh{5'Vwzp'887'U'tluhtihorhu'rvtwvulu'{lnhr3'zlvsho'nh\u0080h'tlukvyvun'rl'ih~ho5C6spECspECiERlzptw|shu'qh~hihu5C6iE'h'D'<'t6z-z|w9B'khu'U'D'<7'U5'Qh~hihu'L5C6spEC6vsE",
+"s4":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Qhunrh|hu'ivsh'wly{hth3'zly{h'wlyihukpunhu'qhunrh|hu'khu'{punnp'rlk|h'ivsh5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Y'D'}Cz|iE7C6z|iE-z|w9B'zpu'9-{ol{hB'6'nB'oCz|iEthrzC6z|iE'D'}Cz|iE7C6z|iE-z|w9B'zpu-z|w9B-{ol{hB'6'9n5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'}Cz|iE7C6z|iE'D'97't6zB'-{ol{hBCz|iE8C6z|iE'D'<:-klnBB'-{ol{hBCz|iE9C6z|iE'D':>-klnBB'n'D'87't6z-z|w9B5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'Y'D';77'-{ptlzB'9'-{ptlzB'73?'-{ptlzB'73='6'87B'oCz|iE8C6z|iE'D';77'-{ptlzB'73=;'6'97B'oCz|iE9C6z|iE'D';77'-{ptlzB'73:='6'975C6spECspECiEWlu\u0080lslzhphu5C6iE'Y'D':?3;'t'|u{|r'rlk|h'z|k|{3'rhyluh'zpu'87=-klnB'D'zpu'>;-klnB'/<:-klnB'2':>-klnB'D'@7-klnB05'oCz|iE8C6z|iE'D'893?'tB'oCz|iE9C6z|iE'D'>39't5'Vwzp'8@39't's|wh'mhr{vy'9'whkh'zpu'9-{ol{hB5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Y'D':?3;'tB'qhunrh|hu'zhth3'{punnp'ivsh'rlk|h'slipo'ylukho5'Qh~hihu'I5C6spEC6vsE",
+"s5":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'[lnhunhu'{hsp'kp'{p{pr'{lylukho'khu'{ly{punnp5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Nh\u0080h'zlu{ypwl{hs'rl'w|zh{A'{lylukho'['-tpu|zB'tn'D't}-z|w9B6yB'{ly{punnp'['2'tn'D't}-z|w9B6y5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE't'D'73<'rnB'y'D'8'tB'}Cz|iEih~hoC6z|iE'D'='t6zB'}Cz|iEh{hzC6z|iE'D';'t6zB'tn'D'<'U5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'[Cz|iEih~hoC6z|iE'D'<'2'73<'-{ptlzB':=68B'[Cz|iEh{hzC6z|iE'D'73<'-{ptlzB'8=68'-tpu|zB'<5C6spECspECiEWlu\u0080lslzhphu5C6iE'[Cz|iEih~hoC6z|iE'D'<'2'8?'D'9:'UB'[Cz|iEh{hzC6z|iE'D'?'-tpu|zB'<'D':'U5'Kp'{p{pr'{ly{punnp'ilyh{'pr|{'tluqhkp'nh\u0080h'zlu{ypwl{hs3'zlopunnh'{hsp'ohu\u0080h'wlys|'tluhypr'zlkprp{5'Vwzp'8?'U'khu'?'U's|wh'tlthz|rrhu'ilyh{5C6spECspECiERlzptw|shu'qh~hihu5C6iE'9:'U'khu':'U5'Qh~hihu'K5C6spEC6vsE",
+"s6":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Ilukh'\u0080hun'{pih'slipo'kho|s|'khu'rlshq|hu'ivsh'kp'khzhy5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'tno'D'-myhj89Bt}-z|w9B/8'2'r03'klunhu'P'D'rtY-z|w9BB'}'D'-yhkpjB/9no6/8'2'r005'Ivsh'wlqhs'r'D'96<B'zpspukly'wlqhs'r'D'8695C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Thzzh'khu'qhyp4qhyp'{pkhr'kpwlys|rhu'rhyluh'zhspun'tlunohw|z5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'o'D'83><'tB'n'D'87't6z-z|w9BB'rCz|iEivshC6z|iE'D'73;B'rCz|iEzpspuklyC6z|iE'D'73<5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'}Cz|iEivshC6z|iE-z|w9B'D'9'-{ptlzB'87'-{ptlzB'83><'6'83;B'}Cz|iEzpspuklyC6z|iE-z|w9B'D':<'6'83<5C6spECspECiEWlu\u0080lslzhphu5C6iE'}Cz|iEivshC6z|iE-z|w9B'D'9<3'}Cz|iEivshC6z|iE'D'<'t6zB'}Cz|iEzpspuklyC6z|iE-z|w9B'-hz\u0080twB'9:3:5'Ivsh'w|u\u0080h'r'slipo'rljps3'qhkp'ihnphu'lulynp'|u{|r'yv{hzp'slipo'zlkprp{'khu'nlyhr'{yhuzshzpu\u0080h'slipo'jlwh{'zlwhuqhun'spu{hzhu5'-yhkpjB:<'t6z'hkhsho'rlshq|hu'ilukh'\u0080hun'tls|uj|y'{huwh'ilyv{hzp5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Ivsh'wlqhs'{pih'slipo'kho|s|'klunhu'}'D'<'t6z5'Qh~hihu'I5C6spEC6vsE",
+"s7":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Jlwh{'yhtih{'nlsvtihun'khu'sl{hr'zptw|s'rlk|h5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'\u0080'D'9H'jvz'/r\u007f0'zpu'/-vtlnhB{0B'}'D'-vtlnhB6rB'-shtikhB'D'9-wpB6rB'zptw|s'|q|un'ilihz'kp'\u007f'D'/9u'-tpu|zB'80-shtikhB6;5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Htwsp{|kv'737;'t'{pkhr'kpwlys|rhu5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'r'D'<-wpB'yhk6tB'-vtlnhB'D'97-wpB'yhk6zB'|q|un'ilihz'kp'\u007f'D'7'/wly|{05C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'}'D'97-wpB6<-wpBB'-shtikhB'D'9-wpB6<-wpBB'zptw|s'rlk|h'\u007f'D':-shtikhB6;5C6spECspECiEWlu\u0080lslzhphu5C6iE'}'D';'t6zB'-shtikhB'D'73;'tB'zptw|s'wly{hth'738't3'zptw|s'rlk|h'73:'t5'\\q|un'ilihz'hkhsho'wly|{3'qhkp'zptw|s'wly{hth'ilyqhyhr'-shtikhB6;'khypu\u0080h5'Vwzp'739't'tlthrhp'y|t|z'|q|un'{lyprh{5C6spECspECiERlzptw|shu'qh~hihu5C6iE'}'D';'t6zB'zptw|s'rlk|h'73:'t5'Qh~hihu'L5C6spEC6vsE",
+"s8":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Mylr|luzp'\u0080hun'kpklunhy'zhh{'tluklrh{'khu'tluqh|o5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'mCz|iEwC6z|iE'D'/}'-ws|ztuB'}Cz|iEwC6z|iE0'6'/}'-ws|ztuB'}Cz|iEzC6z|iE0'-{ptlzB'mCz|iEzC6z|iEB'wluklunhy'tluklrh{A'2}Cz|iEwC6z|iEB'tluqh|oA'-tpu|zB}Cz|iEwC6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'mCz|iEzC6z|iE'D'=?7'O\u0081B'}'D':;7't6zB'}Cz|iEwC6z|iE'D'97't6zB'}Cz|iEzC6z|iE'D'75C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'mCz|iEklrh{C6z|iE'D'/:;7'2'9706:;7'-{ptlzB'=?7B'mCz|iEqh|oC6z|iE'D'/:;7'-tpu|zB'9706:;7'-{ptlzB'=?75C6spECspECiEWlu\u0080lslzhphu5C6iE'mCz|iEklrh{C6z|iE'D':=7'-{ptlzB'9'D'>97'O\u0081B'mCz|iEqh|oC6z|iE'D':97'-{ptlzB'9'D'=;7'O\u00815'Tluklrh{'tluhprrhu'mylr|luzp3'tluqh|o'tlu|y|urhuu\u0080h5'Mylr|luzp'z|tily'zlukpyp'{pkhr'ily|iho5C6spECspECiERlzptw|shu'qh~hihu5C6iE'>97'O\u0081'khu'=;7'O\u00815'Qh~hihu'J5C6spEC6vsE",
+"s9":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'[hyhm'pu{luzp{hz'877'tlzpu'whkh'qhyhr'zlt|sh'khu'whkh'qhyhr'87'rhsp5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'[PCz|iEuC6z|iE'D'[PCz|iE8C6z|iE'2'87'svn'uB'[PCz|iE9C6z|iE'D'[PCz|iE8C6z|iE'-tpu|zB'97'svn'/yCz|iE9C6z|iE6yCz|iE8C6z|iE05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'[PCz|iE8C6z|iE'D'=7'kIB'u'D'877B'yCz|iE9C6z|iE6yCz|iE8C6z|iE'D'875C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'[PCz|iE877C6z|iE'D'=7'2'87'svn'877B'[PCz|iEqh|oC6z|iE'D'[PCz|iE877C6z|iE'-tpu|zB'97'svn'875C6spECspECiEWlu\u0080lslzhphu5C6iE'[PCz|iE877C6z|iE'D'=7'2'97'D'?7'kIB'[PCz|iEqh|oC6z|iE'D'?7'-tpu|zB'97'D'=7'kI5'[hyhm'pu{luzp{hz'{pkhr'kpq|tshorhu'shunz|unB'\u0080hun'kpq|tshorhu'pu{luzp{hzu\u0080h5'Vwzp'>7'kI'tlthrhp'87'svn'/i|rhu'97'svn0'|u{|r'qhyhr5C6spECspECiERlzptw|shu'qh~hihu5C6iE'?7'kI3'shs|'=7'kI'whkh'qhyhr'87'rhsp5'Qh~hihu'H5C6spEC6vsE",
+"s10":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Zpmh{'khu'wlyilzhyhu'ih\u0080hunhu'whkh'rlk|h'jlytpu5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'm'D'Y69'/jlr|un'23'jlti|un'-tpu|zB0B'86m'D'86z'2'86z-wyptlBB'T'D'\u0083z-wyptlB6z\u00835C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'Y'D';7'jt3'qhkp'mCz|iEjlr|unC6z|iE'D'297'jt'khu'mCz|iEjlti|unC6z|iE'D'-tpu|zB97'jtB'z'D':7'jt5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'Jlr|unA'86z-wyptlB'D'8697'-tpu|zB'86:75'Jlti|unA'86z-wyptlB'D'-tpu|zB8697'-tpu|zB'86:75C6spECspECiEWlu\u0080lslzhphu5C6iE'Jlr|unA'86z-wyptlB'D'86=73'z-wyptlB'D'=7'jt3'T'D'93'u\u0080h{h'{lyihspr5'Jlti|unA'86z-wyptlB'D'-tpu|zB<6=73'z-wyptlB'D'-tpu|zB89'jt3'T'D'73;3'th\u0080h'{lnhr5'Jlytpu'jlti|un'zlshs|'tltilu{|r'ih\u0080hunhu'th\u0080h3'{lnhr3'kpwlyrljps'|u{|r'ilukh'u\u0080h{h5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Jlr|unA'u\u0080h{h3'{lyihspr3'9-{ptlzBB'jlti|unA'th\u0080h3'{lnhr3'73;-{ptlzB5'Qh~hihu'K5C6spEC6vsE",
+"s11":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Z|k|{'ryp{pz'khu'uhzpi'rlk|h'zpuhy5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'zpu'-{ol{hBCz|iErC6z|iE'D'uCz|iE9C6z|iE6uCz|iE8C6z|iEB'uCz|iE8C6z|iE'zpu'-{ol{hBCz|iE8C6z|iE'D'uCz|iE9C6z|iE'zpu'-{ol{hBCz|iE9C6z|iEB'wlthu{|shu'zltw|yuh'ipsh'-{ol{hBCz|iE8C6z|iE'-n{B'-{ol{hBCz|iErC6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'uCz|iE8C6z|iE'D'-yhkpjB9B'uCz|iE9C6z|iE'D'8B'-{ol{hB'D':7-klnB'khu'=7-klnB5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'zpu'-{ol{hBCz|iErC6z|iE'D'86-yhkpjB9B'|u{|r':7-klnBA'zpu'-{ol{hBCz|iE9C6z|iE'D'-yhkpjB9'-{ptlzB'73<5C6spECspECiEWlu\u0080lslzhphu5C6iE'-{ol{hBCz|iErC6z|iE'D';<-klnB5'Zpuhy':7-klnB'-s{B';<-klnBA'zpu'-{ol{hBCz|iE9C6z|iE'D'-myhj89B-yhkpjB93'-{ol{hBCz|iE9C6z|iE'D';<-klnB3'rls|hy5'Zpuhy'=7-klnB'-n{B';<-klnBA'kpwhu{|srhu'zltw|yuh3'{pkhr'hkh'\u0080hun'rls|hy5C6spECspECiERlzptw|shu'qh~hihu5C6iE'-{ol{hBCz|iErC6z|iE'D';<-klnBB':7-klnB'rls|hy'whkh';<-klnBB'=7-klnB'kpwhu{|srhu'zltw|yuh5'Qh~hihu'J5C6spEC6vsE",
+"s12":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Hy|z'whkh'Y'khu'hy|z'whkh'ih{lyhp'=']5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'O|r|t'P'Rpyjoovmm'kp'{p{pr'WA'PCz|iE8C6z|iE'2'PCz|iE9C6z|iE'D'PCz|iEYC6z|iE3'klunhu'P'D'/-lwzpsvuB'-tpu|zB']Cz|iEWXC6z|iE06y'khu'PCz|iEYC6z|iE'D']Cz|iEWXC6z|iE6Y5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'-lwzpsvuBCz|iE8C6z|iE'D'89']B'-lwzpsvuBCz|iE9C6z|iE'D'=']B'ohtih{hu'jhihun'thzpun4thzpun'9'-VtlnhBB'Y'D'9'-VtlnhB5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'/89'-tpu|zB']069'2'/='-tpu|zB']069'D']695C6spECspECiEWlu\u0080lslzhphu5C6iE'8?'-tpu|zB'9]'D']3'zlopunnh']Cz|iEWXC6z|iE'D'=']5'PCz|iEYC6z|iE'D'=69'D':'HB'PCz|iE8C6z|iE'D'/89'-tpu|zB'=069'D':'HB'PCz|iE9C6z|iE'D'/='-tpu|zB'=069'D'75'[lnhunhu'WX'{lwh{'zhth'klunhu'NNS'ih{lyhp'=']3'qhkp'ih{lyhp'p{|'{pkhr'tlunhspyrhu'khu'{pkhr'tlulypth'hy|z5C6spECspECiERlzptw|shu'qh~hihu5C6iE'PCz|iEYC6z|iE'D':'HB'ih{lyhp'=']'{huwh'hy|z5'Qh~hihu'L5C6spEC6vsE",
+"s13":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Shtw|'\u0080hun'slipo'{lyhun'khu'kh\u0080hu\u0080h5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Y'D']-z|w9B6WB'P'D']6/YCz|iEHC6z|iE'2'YCz|iEIC6z|iE0B'W'D'P-z|w9BY5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'HA'997']3'877'^B'IA'997']3'9<'^B'z|tily'997']B'zlyp5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'YCz|iEHC6z|iE'D';?;776877B'YCz|iEIC6z|iE'D';?;7769<B'P'D'9976/;?;'2'8@:=05C6spECspECiEWlu\u0080lslzhphu5C6iE'YCz|iEHC6z|iE'D';?;'-VtlnhBB'YCz|iEIC6z|iE'D'8@:='-VtlnhBB'P'D'99769;97'D'8688'H5'WCz|iEHC6z|iE'D';?;6898'D';'^B'WCz|iEIC6z|iE'D'8@:=6898'D'8='^5'Whkh'yhunrhphu'zlyp'hy|zu\u0080h'zhth3'qhkp'shtw|'ilyohtih{hu'ilzhy'/kh\u0080h'uvtpuhs'rljps0'tlu\u0080hsh'slipo'{lyhun5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Shtw|'I'slipo'{lyhun3'8='^5'Qh~hihu'I5C6spEC6vsE",
+"s14":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Wv{luzphs'kp'739't'khu'|zhoh'nh\u0080h's|hy5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE']'D'rX6yB'^Cz|iEs|hyC6z|iE'D'x/]Cz|iEhropyC6z|iE'-tpu|zB']Cz|iEh~hsC6z|iE05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'X'D';'-{ptlzB'87-*?:8<B-*?:87B'JB'x'D'87-*?:8<B-*?:87B'JB'yCz|iEh~hsC6z|iE'D'73='tB'yCz|iEhropyC6z|iE'D'739't5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE']Cz|iE739C6z|iE'D'@'-{ptlzB'87-*?:8:B'-{ptlzB';'-{ptlzB'87-*?:8<B-*?:87B'6'739B']Cz|iE73=C6z|iE'D':=777673=B'^'D'87-*?:8<B-*?:87B'-{ptlzB'/]Cz|iE739C6z|iE'-tpu|zB']Cz|iE73=C6z|iE05C6spECspECiEWlu\u0080lslzhphu5C6iE']Cz|iE739C6z|iE'D'83?'-{ptlzB'87-*?:7@B']B']Cz|iE73=C6z|iE'D'='-{ptlzB'87-*?:7?B']B'^'D'87-*?:8<B-*?:87B'-{ptlzB'839'-{ptlzB'87-*?:7@B'D'27389'Q5'\\zhoh's|hy'wvzp{pm'rhyluh't|h{hu'zlqlupz'kpklrh{rhu'tlsh~hu'nh\u0080h'{vshr5'Vwzp'@'-{ptlzB'87-*?:7@B']'rlspy|'tlthrhp'y-z|w9B5C6spECspECiERlzptw|shu'qh~hihu5C6iE'83?'-{ptlzB'87-*?:7@B']'khu'27389'Q5'Qh~hihu'H5C6spEC6vsE",
+"s15":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Qhyp4qhyp'spu{hzhu'khu'wlunhy|o'rlshq|hu'{lyohkhw'qhyp4qhyp'zly{h'wlypvkl5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'x}I'D't}-z|w9B6y'-yhyyB'y'D't}6/xI0B'['D'9-wpBy6}'D'9-wpBt6/xI05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE't'D'9'-{ptlzB'87-*?:8<B-*8>?B-*?:87B'rnB'x'D'83='-{ptlzB'87-*?:8<B-*8?<B-*?:8:B'JB'I'D'73<'[B'}'D';'-{ptlzB'87-*?:7@B't6z5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'y'D'/9'-{ptlzB'87-*?:8<B-*8>?B-*?:87B'-{ptlzB';'-{ptlzB'87-*?:7@B0'6'/83='-{ptlzB'87-*?:8<B-*8?<B-*?:8:B'-{ptlzB'73<05C6spECspECiEWlu\u0080lslzhphu5C6iE'y'D'?'-{ptlzB'87-*?:8<B-*8>?B-*8?<B'6'?'-{ptlzB'87-*?:8<B-*8>?B-*?:7;B'D'738't'D'87'jt5'Rhyluh'y'-wyvwB'}3'rlshq|hu'k|h'rhsp'tlti|h{'y'D'97'jt5'['D'9-wpBt6/xI0'{pkhr'tlt|h{'}3'qhkp'wlypvklu\u0080h'{l{hw5C6spECspECiERlzptw|shu'qh~hihu5C6iE'y'D'87'jtB'}'k|h'rhsp'-yhyyB'y'D'97'jt3'['{l{hw5'Qh~hihu'K5C6spEC6vsE",
+"s16":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'NNS'puk|rzp'khu'hy|z'puk|rzp'yh{h4yh{h5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'-lwzpsvuB'D'U'H'-Kls{hBI6-Kls{hB{'/Mhyhkh\u00800B'P'D'-lwzpsvuB6Y5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'U'D'977B'H'D'<7'jt-z|w9B'D'<'-{ptlzB'87-*?:8<B-*8>@B't-z|w9BB'-Kls{hBI'D'73='[B'-Kls{hB{'D'738'zB'Y'D':'-VtlnhB5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'-lwzpsvuB'D'977'-{ptlzB'<'-{ptlzB'87-*?:8<B-*8>@B'-{ptlzB'73=6738B'P'D'-lwzpsvuB6:5C6spECspECiEWlu\u0080lslzhphu5C6iE'-lwzpsvuB'D'8'-{ptlzB'='D'=']B'P'D'9'H5'Vwzp'=77']'s|wh'tlun|iho'jt-z|w9B'rl't-z|w9B5'Tlu|y|{'o|r|t'Slu\u00813'hy|zu\u0080h'tlupti|srhu'tlkhu'zlhyho'tlkhu'zlt|sh'|u{|r'tlsh~hu'wlun|yhunhu'ms|rz5C6spECspECiERlzptw|shu'qh~hihu5C6iE'-lwzpsvuB'D'=']3'P'D'9'H5'Qh~hihu'L5C6spEC6vsE",
+"s17":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Tlkhu'thnul{'thrzpt|t3'whuqhun'nlsvtihun3'khu'qlupz'nlsvtihun5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'LCz|iEtC6z|iE6ICz|iEtC6z|iE'D'jB'-shtikhB'D'j6m5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'LCz|iEtC6z|iE'D'=77'U6JB'm'D'='-{ptlzB'87-*8?<B-*?:7?B'O\u0081B'j'D':'-{ptlzB'87-*?:89B't6z5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'ICz|iEtC6z|iE'D'=77'6'/:'-{ptlzB'87-*?:89B0B'-shtikhB'D':'-{ptlzB'87-*?:89B'6'/='-{ptlzB'87-*8?<B-*?:7?B05C6spECspECiEWlu\u0080lslzhphu5C6iE'ICz|iEtC6z|iE'D'9'-{ptlzB'87-*?:8<B-*?:87B'[B'-shtikhB'D'<'-{ptlzB'87-*?:8<B-*?:88B't'D'<77'ut3'ilyhkh'kp'ylu{hun'jhoh\u0080h'{htwhr'/zlrp{hy';77-ukhzoB>77'ut03'{lwh{u\u0080h'opqh|5'Vwzp'83?'-{ptlzB'87-*8?<B-*8?<B'['rlspy|'tlunhsprhu'L'klunhu'j5C6spECspECiERlzptw|shu'qh~hihu5C6iE'ICz|iEtC6z|iE'D'9'-{ptlzB'87-*?:8<B-*?:87B'[B'-shtikhB'D'<77'ut3'jhoh\u0080h'{htwhr5'Qh~hihu'I5C6spEC6vsE",
+"s18":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Mylr|luzp'z|k|{'ylzvuhuzp3'hy|z3'khu'mhr{vy'kh\u0080h5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'-vtlnhBCz|iE7C6z|iE'D'86-yhkpjB/SJ0B'zhh{'ylzvuhuzp'_Cz|iESC6z|iE'D'_Cz|iEJC6z|iE'zlopunnh'a'D'YB'P'D']6YB'jvz'-wopB'D'Y6a5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'Y'D'<7'-VtlnhBB'S'D'73;'OB'J'D'87'-{ptlzB'87-*?:8<B-*?:87B'MB']'D'877']5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'-vtlnhBCz|iE7C6z|iE'D'86-yhkpjB/73;'-{ptlzB'87-*?:8<B-*?:7@B0'D'86-yhkpjB/;'-{ptlzB'87-*?:8<B-*?:87B0B'P'D'8776<75C6spECspECiEWlu\u0080lslzhphu5C6iE'-vtlnhBCz|iE7C6z|iE'D'86/9'-{ptlzB'87-*?:8<B-*8>@B0'D'<77'yhk6zB'a'D'<7'-VtlnhBB'P'D'9'HB'jvz'-wopB'D'85'Ptwlkhuzp'tpupt|t'tlti|h{'hy|z'thrzpt|t3'khu'yhunrhphu'ilyzpmh{'ylzpz{pm't|yup5C6spECspECiERlzptw|shu'qh~hihu5C6iE'-vtlnhB'D'<77'yhk6z3'P'D'9'H3'mhr{vy'kh\u0080h'85'Qh~hihu'L5C6spEC6vsE",
+"s19":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'-shtikhBCz|iE{lywhuqhun3'S\u0080thuC6z|iE'A'-shtikhBCz|iE{lywluklr3'IhstlyC6z|iE5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'86-shtikhB'D'Y'/86uCz|iEHC6z|iE-z|w9B'-tpu|zB'86uCz|iEIC6z|iE-z|w9B05'S\u0080thu'uCz|iEHC6z|iE'D'8B'Ihstly'uCz|iEHC6z|iE'D'95'[lywhuqhunA'uCz|iEIC6z|iE'D'uCz|iEHC6z|iE'2'8B'{lywluklrA'uCz|iEIC6z|iE'D'-pumpuB5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Upshp'{l{hwhu'Y\u0080kilyn'{pkhr'kpwlys|rhu'rhyluh'zhspun'tlunohw|z5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'S\u0080thu'{lywhuqhunA'9'-yhyyB'85'Ihstly'{lywluklrA'-pumpuB'-yhyyB'95C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'86-shtikhBCz|iESC6z|iE'D'Y/8'-tpu|zB'86;0'D':Y6;B'86-shtikhBCz|iEIC6z|iE'D'Y/86;'-tpu|zB'70'D'Y6;5C6spECspECiEWlu\u0080lslzhphu5C6iE'-shtikhBCz|iESC6z|iE'D';6/:Y0B'-shtikhBCz|iEIC6z|iE'D';6YB'-shtikhBCz|iESC6z|iE'A'-shtikhBCz|iEIC6z|iE'D'86:'A'8'D'8'A':5'Whuqhun'nlsvtihun'{lywhuqhun'ilyhzhs'khyp'zlspzpo'lulynp'{lyrljps3'i|rhu'{lyilzhy5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Wlyihukpunhuu\u0080h'8'A':5'Qh~hihu'J5C6spEC6vsE",
+"s20":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Thzzh'\u0080hun'{lyzpzh'khu'\u0080hun'{lsho'tls|y|o5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'U'D'UCz|iE7C6z|iE'/-myhj89B0Cz|wE{6[C6z|wEB'tls|y|o'D'UCz|iE7C6z|iE'-tpu|zB'U5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'UCz|iE7C6z|iE'D'?7'nB'['D'='ohypB'{'D'8?'ohyp5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'{6['D':B'U'D'?7'-{ptlzB'/-myhj89B0-z|w:B5C6spECspECiEWlu\u0080lslzhphu5C6iE'U'D'?76?'D'87'nB'tls|y|o'?7'-tpu|zB'87'D'>7'n5'Wls|y|ohu'ilyshunz|un'lrzwvuluzphsA'?7'-yhyyB';7'-yhyyB'97'-yhyyB'875'Vwzp'9=3>'n'rlspy|'tltihnp'{pnh3'zlvsho'wls|y|ohu'spulhy5C6spECspECiERlzptw|shu'qh~hihu5C6iE'[lyzpzh'87'n3'tls|y|o'>7'n5'Qh~hihu'H5C6spEC6vsE",
+"s21":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Wlyihukpunhu'lulynp'rpul{pr'yh{h4yh{h'khu'}Cz|iEytzC6z|iE5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'LCz|iErC6z|iE'D'-myhj:9Br[B'}Cz|iEytzC6z|iE'D'-yhkpjB/:r[6t03'klunhu'['khsht'rls}pu5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'[Cz|iE8C6z|iE'D'9>'2'9>:'D':77'RB'[Cz|iE9C6z|iE'D':9>'2'9>:'D'=77'R5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'LCz|iEr9C6z|iE6LCz|iEr8C6z|iE'D'=776:77B'}Cz|iE9C6z|iE6}Cz|iE8C6z|iE'D'-yhkpjB/=776:7705C6spECspECiEWlu\u0080lslzhphu5C6iE'LCz|iErC6z|iE'tluqhkp'9'rhspB'}Cz|iEytzC6z|iE'tluqhkp'-yhkpjB9'rhsp5'Vwzp'8938'rhsp'tlthrhp'klyhqh{'Jlszp|z3'whkhohs'{lvyp'rpul{pr'tlthrhp'z|o|'t|{shr5C6spECspECiERlzptw|shu'qh~hihu5C6iE'LCz|iErC6z|iE'-{ptlzB'93'}Cz|iEytzC6z|iE'-{ptlzB'-yhkpjB95'Qh~hihu'I5C6spEC6vsE",
+"s22":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'\\zhoh'ilyzpo'wly'zprs|z'khu'kh\u0080h'tlzpu5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'^Cz|iEilyzpoC6z|iE'D's|hz'khlyho'{ly{|{|w'zprs|z'D'-Kls{hBW'-{ptlzB'-Kls{hB]B'W'D'^'-{ptlzB'q|tsho'zprs|z'wly'zlrvu5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Wyvzlz'I'-yhyyB'J'khu'K'-yhyyB'H'pzvrovyprA'|zhohu\u0080h'uvs5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'-Kls{hBW'D'9'-{ptlzB'87-*?:7@B'WhB'-Kls{hB]'D':'S'D':'-{ptlzB'87-*?:8<B-*8>@B't-z|w:BB'87'zprs|z6z5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'^Cz|iEHIC6z|iE'D':'-{ptlzB'87-*?:7@B'-{ptlzB':'-{ptlzB'87-*?:8<B-*8>@BB'^Cz|iEJKC6z|iE'D'-tpu|zB8'-{ptlzB'87-*?:7@B'-{ptlzB':'-{ptlzB'87-*?:8<B-*8>@BB'^'D'^Cz|iEHIC6z|iE'2'^Cz|iEJKC6z|iE5C6spECspECiEWlu\u0080lslzhphu5C6iE'^Cz|iEHIC6z|iE'D'@77'QB'^Cz|iEJKC6z|iE'D'-tpu|zB:77'QB'^'D'=77'Q'/zhth'klunhu's|hz'wlyzlnp'whuqhun05'W'D'=77'-{ptlzB'87'D'=777'^5'Vwzp'@77'Q'ohu\u0080h'tlunop{|un'shunrho'lrzwhuzp5C6spECspECiERlzptw|shu'qh~hihu5C6iE'=77'Q'wly'zprs|zB'=777'^5'Qh~hihu'K5C6spEC6vsE",
+"s23":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Z|o|'zhti|unhu'[5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Shq|'rhsvy'O'D'rH-Kls{hB[6S'zhth'whkh'rlk|h'ih{hun'khsht'rlhkhhu'{|uhr5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Whuqhun'khu's|hz'{pkhr'kpwlys|rhu'rhyluh'zhth'khu'zhspun'tlunohw|z5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'rCz|iEWC6z|iE'D'9rCz|iEXC6z|iEB'[Cz|iEWC6z|iE'D'877'-klnBJB'[Cz|iEXC6z|iE'D'87'-klnBJ5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'9rCz|iEXC6z|iE/877'-tpu|zB'[0'D'rCz|iEXC6z|iE/['-tpu|zB'8705C6spECspECiEWlu\u0080lslzhphu5C6iE'977'-tpu|zB'9['D'['-tpu|zB'87'-yhyyB':['D'987'-yhyyB'['D'>7'-klnBJ5'Ih{hun'\u0080hun'slipo'rvuk|r{pm'tlunhshtp'ilkh'z|o|'slipo'rljps'/:7'-klnBJ03'zlkhunrhu'X'tlunhshtp'=7'-klnBJ5'Vwzp'<<'-klnBJ'hkhsho'yh{h4yh{h'iphzh3'\u0080hun'ohu\u0080h'iluhy'ipsh'r'zhth5C6spECspECiERlzptw|shu'qh~hihu5C6iE'['D'>7'-klnBJ5'Qh~hihu'H5C6spEC6vsE",
+"s24":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Kh\u0080h'tlzpu5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Rlshq|hu'{l{hwA'MCz|iEtlzpuC6z|iE'D'tn'zpu'-{ol{hB'2'mCz|iEohtih{C6z|iEB'W'D'M'}5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE't'D'8777'rnB'}'D'97't6zB'zpu'-{ol{hB'D'738B'm'D'<77'U5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'M'D'8777'-{ptlzB'87'-{ptlzB'738'2'<77B'W'D'M'-{ptlzB'975C6spECspECiEWlu\u0080lslzhphu5C6iE'M'D'8777'2'<77'D'8<77'UB'W'D':7777'^'D':7'r^5'Vwzp'97'r^'ohu\u0080h'tlsh~hu'nyh}p{hzpB'87'r^'ohu\u0080h'tlsh~hu'ohtih{huB'977'r^'tlthrhp'tn'wlu|o5C6spECspECiERlzptw|shu'qh~hihu5C6iE'Kh\u0080h'tlzpu':7'r^5'Qh~hihu'K5C6spEC6vsE",
+"s25":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'\\zhoh'{v{hs'khu'rlshq|hu'ilukh'kp'\u007f'D'?'t5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'^'D's|hz'kp'ih~ho'nyhmpr'M-ukhzoB\u007fB'^'D'-Kls{hBLCz|iErC6z|iE'D'-myhj89Bt}-z|w9B5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'M'D'97'U'whkh'7-ukhzoB;'t3'{|y|u'spulhy'rl'7'whkh';-ukhzoB?'tB't'D'73='rnB'}Cz|iE7C6z|iE'D'75C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'^'D'97'-{ptlzB';'2'-myhj89B'-{ptlzB';'-{ptlzB'97B'-myhj89B'-{ptlzB'73='-{ptlzB'}-z|w9B'D'^5C6spECspECiEWlu\u0080lslzhphu5C6iE'^'D'?7'2';7'D'897'QB'73:}-z|w9B'D'897'-yhyyB'}-z|w9B'D';77'-yhyyB'}'D'97't6z5'Vwzp'8=7'Q'tlunhunnhw'nh\u0080h'{l{hw'97'U'zhtwhp'?'tB'vwzp';77't6z's|wh'tluhypr'hrhy5C6spECspECiERlzptw|shu'qh~hihu5C6iE'^'D'897'QB'}'D'97't6z5'Qh~hihu'J5C6spEC6vsE",
+"s26":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Rljlwh{hu'wljhohu'9'rn'khu'wltihnphu'lulynp'rpul{pru\u0080h5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Tvtlu{|t'rlrhsA'7'D'tCz|iE8C6z|iE}Cz|iE8C6z|iE'2'tCz|iE9C6z|iE}Cz|iE9C6z|iEB'LCz|iErC6z|iE'D'-myhj89Bt}-z|w9B5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'tCz|iE8C6z|iE'D'8'rnB'}Cz|iE8C6z|iE'D'97't6zB'tCz|iE9C6z|iE'D'9'rnB't|sh4t|sh'kpht5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'7'D'8'-{ptlzB'97'2'9}Cz|iE9C6z|iEB'LCz|iEr8C6z|iE'D'-myhj89B'-{ptlzB'8'-{ptlzB';77B'LCz|iEr9C6z|iE'D'-myhj89B'-{ptlzB'9'-{ptlzB'8775C6spECspECiEWlu\u0080lslzhphu5C6iE'}Cz|iE9C6z|iE'D'-tpu|zB87't6z'/ilysh~huhu'hyho05'LCz|iEr8C6z|iE'D'977'QB'LCz|iEr9C6z|iE'D'877'QB'{v{hs':77'Q5'Tvtlu{|t'rlk|h'wljhohu'zhth'ilzhy3'{l{hwp'lulynp'slipo'ihu\u0080hr'kpih~h'wljhohu'\u0080hun'slipo'ypunhu3'rhyluh'LCz|iErC6z|iE'D'w-z|w9B69t5C6spECspECiERlzptw|shu'qh~hihu5C6iE'87't6z'ilysh~huhuB':77'Q3'96:4u\u0080h'whkh'wljhohu'8'rn5'Qh~hihu'H5C6spEC6vsE",
+"s27":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Rlshq|hu'ihsvr'khu'{punnp'thrzpt|t5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'-myhj89Br\u007f-z|w9B'D'-myhj89Bt}-z|w9B'D'tno'/zls|y|o'spu{hzhu'spjpu05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Ilu{|r'khu'z|k|{'ipkhun'tpypun'{pkhr'kpwlys|rhu5C6spECspECiEPklu{pmprhzp'kh{h5C6iE't'D'73<'rnB'r'D'977'U6tB'\u007f'D'738'tB'n'D'87't6z-z|w9B5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'LCz|iEwC6z|iE'D'-myhj89B'-{ptlzB'977'-{ptlzB'7378B'}'D'-yhkpjB/9LCz|iEwC6z|iE6t0B'o'D'LCz|iEwC6z|iE6/tn05C6spECspECiEWlu\u0080lslzhphu5C6iE'LCz|iEwC6z|iE'D'8'QB'}'D'-yhkpjB;'D'9't6zB'o'D'86<'D'739't'D'97'jt5'Vwzp'97't6z's|wh'tlun|iho'jt'rl't5C6spECspECiERlzptw|shu'qh~hihu5C6iE'}'D'9't6zB'o'D'97'jt5'Qh~hihu'J5C6spEC6vsE",
+"s28":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Wlyihukpunhu'rljlwh{hu'{lytpuhs5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'Zhh{'{lytpuhsA'~'D'MCz|iEhw|unC6z|iE'2'MCz|iEZ{vrlzC6z|iE3'tlunohzpsrhu'}Cz|iE{C6z|iE'D'9y-z|w9Bn/-yovBCz|iEiC6z|iE'-tpu|zB'-yovBCz|iEmC6z|iE06/@-l{hB05C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'Qlupz'vsp'khu'ihohu'rlslylun'zhth3'qhkp'-l{hB3'-yovBCz|iEiC6z|iE3'khu'-yovBCz|iEmC6z|iE'zhspun'tlunohw|z5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'yCz|iE9C6z|iE'D'9yCz|iE8C6z|iE5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'}Cz|iE9C6z|iE6}Cz|iE8C6z|iE'D'/yCz|iE9C6z|iE6yCz|iE8C6z|iE0-z|w9B'D'9-z|w9B5C6spECspECiEWlu\u0080lslzhphu5C6iE'}Cz|iE9C6z|iE6}Cz|iE8C6z|iE'D';5'Ilyh{'khu'nh\u0080h'hw|un'zlihukpun'y-z|w:B3'zlkhunrhu'nh\u0080h'Z{vrlz'zlihukpun'y'}B'ohzps'ihnpu\u0080h'tlti|h{'}Cz|iE{C6z|iE'-wyvwB'y-z|w9B5'Vwzp'?'rhsp'ohu\u0080h'tlspoh{'ilyh{5C6spECspECiERlzptw|shu'qh~hihu5C6iE';'rhsp5'Qh~hihu'I5C6spEC6vsE",
+"s29":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Nh\u0080h'whkh'wlunopzhw'rljps'khu'rluhprhu'tvips5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'O|r|t'WhzjhsA'MCz|iE8C6z|iE6HCz|iE8C6z|iE'D'MCz|iE9C6z|iE6HCz|iE9C6z|iE5']vs|tl'jhpyhu'{l{hwA'HCz|iE8C6z|iEoCz|iE8C6z|iE'D'HCz|iE9C6z|iEoCz|iE9C6z|iE5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'HCz|iE8C6z|iE'D'87'jt-z|w9BB'HCz|iE9C6z|iE'D'<77'jt-z|w9BB'MCz|iE9C6z|iE'D'87'777'UB'oCz|iE8C6z|iE'D'<7'jt5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'MCz|iE8C6z|iE'D'87'777'-{ptlzB'876<77B'oCz|iE9C6z|iE'D'87'-{ptlzB'<76<775C6spECspECiEWlu\u0080lslzhphu5C6iE'MCz|iE8C6z|iE'D'977'UB'oCz|iE9C6z|iE'D'8'jt5'Nh\u0080h'kpwlyrljps'<7'rhsp3'{l{hwp'qhyhru\u0080h'kpwlyilzhy'<7'rhspB'|zhoh'MCz|iE8C6z|iEoCz|iE8C6z|iE'D'877'Q'zhth'klunhu'MCz|iE9C6z|iEoCz|iE9C6z|iE'D'877'Q5'Kvunryhr'tlunolth{'nh\u0080h3'i|rhu'lulynp5C6spECspECiERlzptw|shu'qh~hihu5C6iE'977'U'khu'8'jt5'Qh~hihu'L5C6spEC6vsE",
+"s30":"CvsECspECiEHwh'\u0080hun'kp{hu\u0080hrhu5C6iE'Rlshq|hu'whujhyhu'khu'qhyhr'qh{|ou\u0080h'hpy5C6spECspECiEMvyt|shzp'\u0080hun'kpn|uhrhu5C6iE'[vyypjlsspA'}'D'-yhkpjB/9no03'o'rlkhshthu's|ihun'khyp'wlyt|rhhu'hpyB'{'D'-yhkpjB/9\u00806n0B'\u007f'D'}{5C6spECspECiEPumvythzp'kpz{yhr{vy'/{pkhr'kpwlys|rhu05C6iE'[pkhr'hkh5C6spECspECiEPklu{pmprhzp'kh{h5C6iE'Wlyt|rhhu'hpy'<'tB's|ihun'83?'t'khyp'{huhoB'rlkhshthu's|ihun'o'D':39't5C6spECspECiEZ|iz{p{|zp'upshp'rl'mvyt|sh5C6iE'}'D'-yhkpjB/9'-{ptlzB'87'-{ptlzB':390B'{'D'-yhkpjB/9'-{ptlzB'83?6870B'\u007f'D'}'-{ptlzB'{5C6spECspECiEWlu\u0080lslzhphu5C6iE'}'D'-yhkpjB=;'D'?'t6zB'{'D'-yhkpjB73:='D'73='zB'\u007f'D';3?'t5'Vwzp'87't6z'tlthrhp'{punnp'<'t3'whkhohs'\u0080hun'tlulu{|rhu'hkhsho'rlkhshthu's|ihun'khyp'wlyt|rhhu'hpy5C6spECspECiERlzptw|shu'qh~hihu5C6iE'}'D'?'t6zB'\u007f'D';3?'t5'Qh~hihu'K5C6spEC6vsE"
+};
+var REVIEW = {
+"s1":"CwEWhkh'qhunrh'zvyvun3'ihjhhu'D'zrhsh'|{hth'{lwh{'zlils|t'uvs'uvup|z'2'/nhypz'uvup|z'\u0080hun'ilyptwp{'-{ptlzB'uz{05'Ohzps'|r|y'{|unnhs'kp{|spz'\u007fCz|iE7C6z|iE'-ws|ztuB'-myhj89Buz{3'klunhu'ihu\u0080hr'klzpths'\u007fCz|iE7C6z|iE'zhth'klunhu'klzpths'-Kls{hB\u007f5C6wE",
+"s2":"CwEIpsh'ililyhwh'nh\u0080h'ylz|s{huu\u0080h'uvs3'nhi|unhu'zlt|h'nh\u0080h'rlj|hsp'zh{|'zhth'ilzhy'khu'ilysh~huhu'hyho'klunhu'nh\u0080h'\u0080hun'{lyzpzh5'[pnh'}lr{vy'zhth'ilzhy'ilyz|k|{'897-klnB'zh{|'zhth'shpu'zlshs|'zlptihun5C6wE",
+"s3":"CwENh\u0080h'tpypun'kp|yhprhu'tluqhkp'rvtwvulu'zlqhqhy'khu'{lnhr's|y|z'ipkhun5'Rvtwvulu'zlqhqhy'tltwlyjlwh{'ilukhB'rvtwvulu'{lnhr's|y|z'tlun|iho'nh\u0080h'uvyths3'zlopunnh'U'{pkhr'zlshs|'zhth'klunhu'tn5C6wE",
+"s4":"CwEWhkh'nlyhr'whyhivsh'khyp'{huho'rl'{huho3'k|h'z|k|{'\u0080hun'ilyq|tsho'@7-klnB'tlunohzpsrhu'qhunrh|hu'zhth5'Z|k|{'\u0080hun'slipo'ilzhy'tltilyp'{punnp'thrzpt|t'khu'~hr{|'{lyihun'slipo'ilzhy5'Qhunrh|hu'{lyqh|o'kpjhwhp'whkh';<-klnB5C6wE",
+"s5":"CwEWhkh'nlyhr'tlspunrhy'}ly{prhs3'ylz|s{hu'nh\u0080h'rl'hyho'w|zh{'zhth'klunhu't}-z|w9B6y5'[lnhunhu'{hsp'{lyilzhy'kp'{p{pr'{lylukho'khu'{lyrljps'kp'{p{pr'{ly{punnpB'{hsp'{l{hw'{lnhun'kp'w|ujhr'ipsh'}'-nlB'-yhkpjB/ny05C6wE",
+"s6":"CwEIlukh'tlunnlspukpun'tltihnp'lulynpu\u0080h'tluqhkp'rpul{pr'{yhuzshzp'khu'yv{hzp5'Thrpu'rljps'rvlmpzplu'tvtlu'pulyzph'r3'thrpu'ilzhy'rlshq|hu'{yhuzshzpu\u0080h5'\\y|{hu'{pihA'ivsh'wlqhs3'zpspukly'wlqhs3'shs|'zpspukly'ilyvunnh5C6wE",
+"s7":"CwENlsvtihun'z{hzpvuly'|q|un'ilihz'ilyilu{|r'jvz'r\u007fA'|q|un'ilihz'tluqhkp'wly|{5'Whkh'|q|un'{lyprh{'ilyilu{|r'zpu'r\u007fA'|q|unu\u0080h'zptw|s5'Qhyhr'zptw|s'rl'zptw|s'ilyklrh{hu'-shtikhB693'khu'zptw|s'rl'wly|{'{lyklrh{'-shtikhB6;5C6wE",
+"s8":"CwELmlr'KvwwslyA'mylr|luzp'\u0080hun'kpklunhy'uhpr'ipsh'z|tily'khu'wluklunhy'zhspun'tluklrh{3'khu'{|y|u'ipsh'zhspun'tluqh|o5'Nlyhr'wluklunhy'tlun|iho'wltipshun'/}'-ws|ztuB'}Cz|iEwC6z|iE03'nlyhr'z|tily'tlun|iho'wlu\u0080li|{'/}'-*?>9:B'}Cz|iEzC6z|iE05C6wE",
+"s9":"CwEPu{luzp{hz'i|u\u0080p'ilyihukpun's|y|z'klunhu'q|tsho'z|tily'khu'ilyihukpun'{lyihspr'klunhu'r|hkyh{'qhyhr5'Rhyluh'{hyhm'pu{luzp{hz'ilyzrhsh'svnhyp{th3'u'z|tily'tluhtiho'87'svn'u'kI3'khu'qhyhr'y'rhsp'tlun|yhunpu\u0080h'97'svn'y'kI5C6wE",
+"s10":"CwEJlytpu'jlr|un'/m'wvzp{pm0'khwh{'tltilu{|r'ih\u0080hunhu'u\u0080h{h'h{h|'th\u0080h'ilynhu{|un'sl{hr'ilukh5'Jlytpu'jlti|un'/m'ulnh{pm0'zlshs|'tltilu{|r'ih\u0080hunhu'th\u0080h3'{lnhr3'khu'kpwlyrljpsB'p{|sho'zlihiu\u0080h'kpwhrhp'zlihnhp'zwpvu5C6wE",
+"s11":"CwEWlthu{|shu'zltw|yuh'ohu\u0080h'{lyqhkp'ipsh'jhoh\u0080h'tlyhtih{'khyp'tlkp|t'slipo'yhwh{'rl'tlkp|t'r|yhun'yhwh{'klunhu'z|k|{'kh{hun'tlslipop'z|k|{'ryp{pz5'Wypuzpw'pup'kpwhrhp'whkh'zlyh{'vw{pr'khu'wypzth'wlypzrvw5C6wE",
+"s12":"CwEO|r|t'RpyjoovmmA'q|tsho'hy|z'thz|r'{p{pr'jhihun'zhth'klunhu'q|tsho'hy|z'rls|hy3'khu'q|tsho'NNS'khsht'svvw'zhth'klunhu'q|tsho'wlu|y|uhu'{lnhunhu5'Hyho'hy|z'ih{lyhp'kp{lu{|rhu'vslo'wlyihukpunhu'NNS4u\u0080h'klunhu'{lnhunhu'{p{pr'jhihun5C6wE",
+"s13":"CwEKh\u0080h'uvtpuhs'shtw|'ohu\u0080h'ilyshr|'whkh'{lnhunhu'uvtpuhsu\u0080h5'Khsht'yhunrhphu'zlyp3'hy|z'zhth'zlopunnh'W'D'P-z|w9BYA'shtw|'ilyohtih{hu'slipo'ilzhy'slipo'{lyhun5'Khsht'yhunrhphu'whyhsls3'{lnhunhu'zhth'zlopunnh'W'D']-z|w9B6YA'shtw|'ilyohtih{hu'slipo'rljps'slipo'{lyhun5C6wE",
+"s14":"CwEWv{luzphs'spz{ypr']'D'rX6y'hkhsho'ilzhyhu'zrhshy'\u0080hun'ilyihukpun'{lyihspr'klunhu'y'/i|rhu'y-z|w9B05'\\zhoh'|u{|r'tltpukhorhu't|h{hu'zhth'klunhu'wly|ihohu'lulynp'wv{luzphsu\u0080hA'^'D'x-Kls{hB]5C6wE",
+"s15":"CwENh\u0080h'Svylu{\u0081'whkh't|h{hu'ilynlyhr'zlshs|'{lnhr's|y|z'rljlwh{huu\u0080h3'zlopunnh't|h{hu'ilynlyhr'tlspunrhy'{huwh'ily|iho'rlshq|hu5'Wlypvkl'zprsv{yvu'['D'9-wpBt6/xI0'{pkhr'ilynhu{|un'whkh'rlshq|huB'wypuzpw'pupsho'\u0080hun'kpwhrhp'whkh'zprsv{yvu5C6wE",
+"s16":"CwEO|r|t'Mhyhkh\u0080A'NNS'puk|rzp'zlihukpun'klunhu'shq|'wly|ihohu'ms|rz3'-lwzpsvuB'D'-tpu|zBU'k-WopB6k{5'[hukh'tpu|z'/o|r|t'Slu\u00810'tlu\u0080h{hrhu'iho~h'hy|z'puk|rzp'zlshs|'tlsh~hu'wly|ihohu'ms|rz'wlu\u0080lihiu\u0080h5C6wE",
+"s17":"CwENlsvtihun'lslr{yvthnul{pr'{lykpyp'h{hz'tlkhu'spz{ypr'khu'thnul{'\u0080hun'zhspun'{lnhr's|y|z'khu'zlmhzl3'klunhu'L'D'jI5'Zlt|h'nlsvtihun'LT'tlyhtih{'klunhu'j'kp'y|hun'ohtwhB'qlupzu\u0080h'kpilkhrhu'vslo'mylr|luzp'h{h|'whuqhun'nlsvtihunu\u0080h5C6wE",
+"s18":"CwEYlzvuhuzp'YSJ'zlyp'{lyqhkp'zhh{'_Cz|iESC6z|iE'D'_Cz|iEJC6z|iE3'\u0080hp{|'whkh'-vtlnhBCz|iE7C6z|iE'D'86-yhkpjB/SJ05'Zhh{'p{|'ptwlkhuzp'tpupt|t'/a'D'Y03'hy|z'thrzpt|t3'khu'{lnhunhu'zlmhzl'klunhu'hy|z5'Wypuzpw'pup'kpwhrhp'whkh'wluhsh'yhkpv5C6wE",
+"s19":"CwETvkls'h{vt'IvoyA'lslr{yvu'tlthujhyrhu'mv{vu'zhh{'wpukho'rl'{punrh{'lulynp'slipo'ylukho3'klunhu'LCz|iEuC6z|iE'D'-tpu|zB8:3=6u-z|w9B'l]5'Klyl{'S\u0080thu'ilyhropy'kp'u'D'8'/|s{yh|un|03'Ihstly'kp'u'D'9'/jhoh\u0080h'{htwhr05'Zlspzpo'lulynp'rljps'ilyhy{p'whuqhun'nlsvtihun'ilzhy5C6wE",
+"s20":"CwE^hr{|'why|o'hkhsho'~hr{|'\u0080hun'kpwlys|rhu'hnhy'zlwhy|o'pu{p'yhkpvhr{pm'tls|y|o5'Zl{phw'~hr{|'why|o3'zpzh'pu{p'tluqhkp'zl{lunhou\u0080h3'zlopunnh'zlz|kho'u'~hr{|'why|o'zpzhu\u0080h'/-myhj89B0Cz|wEuC6z|wE5C6wE",
+"s21":"CwE[lvyp'rpul{pr'nhzA'z|o|'t|{shr'hkhsho'|r|yhu'lulynp'rpul{pr'yh{h4yh{h'why{prls3'LCz|iErC6z|iE'D'-myhj:9Br[5'Rhyluh'LCz|iErC6z|iE'D'-myhj89Bt}-z|w9B3'rlshq|hu'lmlr{pm'zlihukpun'klunhu'-yhkpjB[5C6wE",
+"s22":"CwEWhkh'zprs|z'{lytvkpuhtprh3'|zhoh'ilyzpo'zhth'klunhu's|hz'khlyho'\u0080hun'kpspunr|wp'zprs|z'whkh'kphnyht'W-ukhzoB]B'zprs|z'zlhyho'qhy|t'qht'tlunohzpsrhu'|zhoh'wvzp{pm'/tlzpu'rhsvy05'Lulynp'khsht'rltihsp'rl'upshp'h~hs3'qhkp'XCz|iEilyzpoC6z|iE'D'^Cz|iEilyzpoC6z|iE5C6wE",
+"s23":"CwERvuk|rzp'{|uhrA'shq|'rhsvy'\u0080hun'tlsl~h{p'ih{hun4ih{hun'{lyz|z|u'zlyp'zhth'ilzhy5'Ilkh'z|o|'whkh'{phw'ih{hun'ilyihukpun'{lyihspr'klunhu'rvuk|r{p}p{hzu\u0080h3'tpypw'wltihnphu'{lnhunhu'whkh'ohtih{hu'zlyp5C6wE",
+"s24":"CwEKh\u0080h'khwh{'kpu\u0080h{hrhu'W'D'M}5'Zhh{'rlshq|hu'{l{hw3'nh\u0080h'kvyvun'tlzpu'zhth'klunhu'q|tsho'zlt|h'nh\u0080h'wlunohtih{3'{lythz|r'rvtwvulu'ilyh{'zlqhqhy'{huqhrhu5C6wE",
+"s25":"CwE\\zhoh'vslo'nh\u0080h'\u0080hun'ily|iho'zhth'klunhu's|hz'kp'ih~ho'nyhmpr'M-ukhzoB\u007f5'[lvylth'|zhoh4lulynp'tluno|i|unrhuu\u0080h'klunhu'wly|ihohu'lulynp'rpul{prA'^Cz|iE{v{hsC6z|iE'D'-myhj89Bt}Cz|iEhropyC6z|iE-z|w9B'-tpu|zB'-myhj89Bt}Cz|iEh~hsC6z|iE-z|w9B5C6wE",
+"s26":"CwEWhkh'slkhrhu3'tvtlu{|t'{v{hs'rlrhs'/{l{hw'uvs'ipsh't|sh4t|sh'kpht03'{l{hwp'lulynp'rpul{pr'ily{htiho'khyp'lulynp'rptph5'Klunhu'tvtlu{|t'zhth'ilzhy3'lulynp'rpul{pr'ilyihukpun'{lyihspr'klunhu'thzzh5C6wE",
+"s27":"CwE[huwh'nlzlrhu3'lulynp'tlrhupr'rlrhsA'lulynp'wv{luzphs'wlnhz'ily|iho'tluqhkp'lulynp'rpul{pr3'shs|'tluqhkp'lulynp'wv{luzphs'nyh}p{hzp5'[punnp'thrzpt|t'{pkhr'ilynhu{|un'whkh'z|k|{'rltpypunhu'ipkhun5C6wE",
+"s28":"CwEO|r|t'Z{vrlzA'nh\u0080h'nlzlr'ms|pkh'whkh'ivsh'M'D'=-wpB-l{hBy}5'Rljlwh{hu'{lytpuhs'{lyjhwhp'zhh{'ylz|s{hu'nh\u0080h'uvs3'khu'}Cz|iE{C6z|iE'-wyvwB'y-z|w9B5'Wypuzpw'pup'kpwhrhp'|u{|r'tlun|r|y'}pzrvzp{hz5C6wE",
+"s29":"CwEO|r|t'WhzjhsA'{lrhuhu'whkh'ms|pkh'{ly{|{|w'kp{ly|zrhu'zhth'ilzhy'rl'zlnhsh'hyho5'Rl|u{|unhu'tlrhupz'kvunryhr'zhth'klunhu'wlyihukpunhu's|hz'wlunopzhw3'kpih\u0080hy'klunhu'qhyhr'{ltw|o'wlunopzhw'rljps'\u0080hun'slipo'whuqhun5C6wE",
+"s30":"CwE[lvylth'[vyypjlsspA'rlshq|hu'zlti|yhu'khyp's|ihun'rljps'zhth'klunhu'rlshq|hu'qh{|o'ilihz'khyp'wlyt|rhhu'hpy'rl's|ihun3'}'D'-yhkpjB/9no05'Zl{lsho'rls|hy3'hpy'ilynlyhr'whyhivsh'klunhu'\u007f'D'9-yhkpjB/o-tpkkv{B\u008005C6wE"
+};
+var TOTAL = Object.keys(KUNCI_NUM).length + Object.keys(KUNCI_PIL).length;
+
+function bacaBilangan(t){
+  var s = String(t == null ? "" : t).replace(/\s+/g,"");
+  if (!s) return null;
+  if (/^-?\d{1,3}([.,]\d{3})+$/.test(s)) { s = s.replace(/[.,]/g,""); }
+  else if (s.indexOf(".") > -1 && s.indexOf(",") > -1) {
+    var a = Math.max(s.lastIndexOf("."), s.lastIndexOf(","));
+    s = s.slice(0,a).replace(/[.,]/g,"") + "." + s.slice(a+1);
+  } else { s = s.replace(",", "."); }
+  if (!/^-?\d*\.?\d+$/.test(s)) return null;
+  return parseFloat(s);
+}
+
+function jawaban(id){
+  var b = BENTUK[id], i, e, o = "";
+  if (b === "pg") { e = document.querySelector('input[name="'+id+'"]:checked'); return e ? String(e.value) : ""; }
+  if (b === "pgk") {
+    var l = document.querySelectorAll('input[name="'+id+'"]:checked'), a = [];
+    for (i=0;i<l.length;i++) a.push(String(l[i].value));
+    a.sort(); return a.join("");
+  }
+  for (i=1;i<=3;i++){ e = document.getElementById(id+"p"+i); if (!e || !String(e.value).trim()) return ""; o += String(e.value).trim(); }
+  return o;
+}
+function keadaan(id){
+  if (BENTUK[id] !== "bs") return jawaban(id) ? "penuh" : "kosong";
+  var n=0,i,e; for(i=1;i<=3;i++){ e=document.getElementById(id+"p"+i); if(e && String(e.value).trim()) n++; }
+  return n===3 ? "penuh" : (n===0 ? "kosong" : "sebagian");
+}
+function nilaiButir(id){
+  var b = BENTUK[id], k = buka(KUNCI_PIL[id]), i, e, n = 0;
+  if (b === "pg") return jawaban(id) === k ? 1 : 0;
+  if (b === "pgk") {
+    var dipilih = jawaban(id);
+    for (i=0;i<k.length;i++) if (dipilih.indexOf(k.charAt(i)) > -1) n++;
+    return n / k.length;
+  }
+  for (i=1;i<=3;i++){ e = document.getElementById(id+"p"+i); if (e && String(e.value).trim() === k.charAt(i-1)) n++; }
+  return n / 3;
+}
+function hitungNilai(){
+  var benar = 0, id, v, d;
+  if (!TOTAL) return 0;
+  for (id in KUNCI_NUM) {
+    d = document.getElementById(id); v = d ? bacaBilangan(d.value) : null;
+    if (v !== null && Math.abs(v - KUNCI_NUM[id][0]) <= KUNCI_NUM[id][1]) benar += 1;
+  }
+  for (id in KUNCI_PIL) benar += nilaiButir(id);
+  return Math.round((benar / TOTAL) * 100);
+}
+window.hitungNilai = hitungNilai;
+
+var elSoal = document.getElementById("soal"), elSetup = document.getElementById("setup"),
+    elMenit = document.getElementById("menit"), elTenggat = document.getElementById("tenggat"),
+    elJam = document.getElementById("jam"), elPesan = document.getElementById("pesan"),
+    elTirai = document.getElementById("tirai"), elNav = document.getElementById("navpanel"),
+    bNomor = document.getElementById("tbl-nomor"), bPeriksa = document.getElementById("tbl-periksa"),
+    bSelesai = document.getElementById("tbl-selesai"), bMulai = document.getElementById("tbl-mulai");
+var detak = null, terkunci = false, umpanSudah = false;
+
+function pesan(t, awas){ elPesan.textContent = t; elPesan.className = awas ? "awas" : ""; }
+
+function sinkronAtribut(){
+  var l = document.querySelectorAll('#soal input[type="radio"], #soal input[type="checkbox"]'), i;
+  for (i=0;i<l.length;i++){ if (l[i].checked) l[i].setAttribute("checked","checked"); else l[i].removeAttribute("checked"); }
+  var s = document.querySelectorAll("#soal select option");
+  for (i=0;i<s.length;i++){ if (s[i].selected && s[i].value) s[i].setAttribute("selected","selected"); else s[i].removeAttribute("selected"); }
+  var t = document.querySelectorAll('.identitas input'); for (i=0;i<t.length;i++) t[i].setAttribute("value", t[i].value);
+}
+
+function perbarui(){
+  var n = 0, i, id, st, rg, nb, kt;
+  for (i=0;i<URUT.length;i++){
+    id = URUT[i]; st = keadaan(id);
+    rg = document.getElementById("ragu-"+id); rg = rg && rg.checked;
+    nb = document.getElementById("nav-"+id); kt = document.getElementById("kartu-"+id);
+    if (st === "penuh") { n++; if (kt) kt.classList.remove("kosong"); }
+    if (nb) {
+      nb.className = "navnum" + (rg ? " ragu" : (st === "penuh" ? " isi" : ""));
+      nb.setAttribute("aria-label", "Soal " + (i+1) + ", " + (rg ? "ditandai ragu-ragu" : (st === "penuh" ? "sudah dijawab" : "belum dijawab")));
+    }
+    if (kt) { kt.classList.toggle("k-ragu", !!rg); kt.classList.toggle("k-isi", !rg && st === "penuh"); }
+  }
+  document.getElementById("bilah").style.width = (URUT.length ? n / URUT.length * 100 : 0) + "%";
+  document.getElementById("hitung").textContent = n + " dari " + URUT.length + " soal dijawab";
+  sinkronAtribut();
+  return n;
+}
+document.addEventListener("input", perbarui);
+document.addEventListener("change", perbarui);
+
+function format(ms){
+  var d = Math.max(0, Math.ceil(ms/1000)), j = Math.floor(d/3600), m = Math.floor((d%3600)/60), s = d%60;
+  var mm = (m<10?"0":"")+m, ss = (s<10?"0":"")+s;
+  return j > 0 ? j + ":" + mm + ":" + ss : mm + ":" + ss;
+}
+function tik(){
+  var sisa = Number(elTenggat.value) - Date.now();
+  elJam.textContent = format(sisa);
+  elJam.className = sisa <= 0 ? "habis" : (sisa <= 300000 ? "sedikit" : "");
+  elJam.setAttribute("aria-label", "Sisa waktu " + format(sisa));
+  if (sisa <= 0) kunci("Waktu habis. Lembar ini terkunci, dan jawaban yang sudah kamu pilih tetap tersimpan.", true);
+}
+function tampilkanSoal(){
+  elSetup.hidden = true; elSoal.hidden = false;
+  bNomor.disabled = false; bPeriksa.disabled = false; bSelesai.disabled = false;
+}
+function jalan(){ if (detak) clearInterval(detak); tik(); if (!terkunci) detak = setInterval(tik, 250); }
+
+bMulai.addEventListener("click", function(){
+  var m = bacaBilangan(elMenit.value);
+  if (m === null || m < 1 || m > 300 || Math.floor(m) !== m) {
+    pesan("Lama pengerjaan harus bilangan bulat 1 sampai 300 menit.", true); elMenit.focus(); return;
+  }
+  elTenggat.value = String(Date.now() + m * 60000);
+  tampilkanSoal(); pesan("Selamat mengerjakan. Waktu mulai berjalan.");
+  jalan(); perbarui();
+  var p = document.getElementById("kartu-" + URUT[0]);
+  if (p && p.scrollIntoView) p.scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+function penadah(e){
+  if (!terkunci) return;
+  var t = e.target;
+  if (t && (/^(INPUT|SELECT|TEXTAREA|LABEL)$/.test(t.tagName) || (t.closest && t.closest("label")))) { e.preventDefault(); e.stopPropagation(); }
+}
+["click","keydown","mousedown"].forEach(function(ev){ elSoal.addEventListener(ev, penadah, true); });
+
+function kunci(alasan, gulir){
+  if (terkunci) return;
+  terkunci = true;
+  if (detak) { clearInterval(detak); detak = null; }
+  elSoal.classList.add("terkunci");
+  elTirai.textContent = alasan; elTirai.hidden = false;
+  elNav.hidden = true; bNomor.setAttribute("aria-expanded","false");
+  bSelesai.disabled = true;
+  var n = perbarui();
+  pesan("Lembar terkunci. " + n + " dari " + URUT.length + " soal tersimpan.");
+  tampilkanHasil(gulir);
+}
+
+function tampilkanHasil(gulir){
+  var skor = hitungNilai(), penuh = 0, i, j, id, f, b, s, rows = "";
+  for (i=0;i<URUT.length;i++) if (nilaiButir(URUT[i]) === 1) penuh++;
+  for (i=0;i<BAGIAN.length;i++){
+    b = BAGIAN[i]; s = 0;
+    for (j=0;j<b.ids.length;j++) s += nilaiButir(b.ids[j]);
+    rows += '<tr><td data-kol="Bagian"><b>' + b.kode + '</b> ' + b.nama + '</td><td data-kol="Perolehan">' +
+      (Math.round(s*100)/100).toString().replace(".", ",") + ' dari ' + b.ids.length + '</td><td data-kol="Persentase">' +
+      Math.round(s / b.ids.length * 100) + '%</td></tr>';
+  }
+  var h = document.getElementById("hasil");
+  h.innerHTML = '<h2>Nilai akhir</h2><div class="skor" id="skor">' + skor + '</div>' +
+    '<p class="ket">dari 100 &middot; ' + penuh + ' dari ' + URUT.length + ' soal terjawab penuh</p>' +
+    '<table><thead><tr><th>Bagian</th><th>Perolehan</th><th>Persentase</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+    '<p class="cat">Baca pembahasan pada soal yang belum tepat. Cari langkah tempat jalan pikiranmu berbelok, bukan sekadar jawaban akhirnya.</p>';
+  h.hidden = false;
+  var pertama = document.getElementById("kartu-" + URUT[0]);
+  if (!umpanSudah && !(pertama && pertama.querySelector(".umpan"))) {
+    for (i=0;i<URUT.length;i++){
+      id = URUT[i]; f = nilaiButir(id);
+      var kelas = f === 1 ? "ok" : (f === 0 ? "no" : "sebagian");
+      var teks = f === 1 ? "Jawabanmu benar" : (f === 0 ? "Jawabanmu belum tepat" : "Benar sebagian &mdash; " + Math.round(f*100) + "% dari poin soal ini");
+      var html = '<div class="feedback-head"><span class="result-pill ' + kelas + '">' + teks + '</span></div>';
+      html += '<div class="panel pembahasan"><h3>Pembahasan</h3>' + buka(PEMBAHASAN[id]) + '</div>';
+      html += '<div class="panel review"><h3>Review Konsep</h3>' + buka(REVIEW[id]) + '</div>';
+      var d = document.createElement("div"); d.className = "umpan"; d.innerHTML = html;
+      var isi = document.querySelector("#kartu-" + id + " .soal-isi"); if (isi) isi.appendChild(d);
+    }
+  }
+  umpanSudah = true;
+  if (gulir && h.scrollIntoView) { try { h.scrollIntoView({behavior:"smooth", block:"start"}); } catch(e){} }
+}
+
+bNomor.addEventListener("click", function(){
+  elNav.hidden = !elNav.hidden; bNomor.setAttribute("aria-expanded", String(!elNav.hidden));
+});
+elNav.addEventListener("click", function(e){
+  var t = e.target.closest ? e.target.closest(".navnum") : null; if (!t) return;
+  var k = document.getElementById("kartu-" + t.getAttribute("data-soal"));
+  if (k && k.scrollIntoView) k.scrollIntoView({behavior:"smooth", block:"start"});
+  elNav.hidden = true; bNomor.setAttribute("aria-expanded","false");
+});
+
+bPeriksa.addEventListener("click", function(){
+  var kos = [], seb = [], rg = [], i, id, st, kt, r;
+  for (i=0;i<URUT.length;i++){
+    id = URUT[i]; st = keadaan(id); kt = document.getElementById("kartu-"+id);
+    if (st === "kosong") kos.push(i+1); else if (st === "sebagian") seb.push(i+1);
+    if (kt) kt.classList.toggle("kosong", st !== "penuh");
+    r = document.getElementById("ragu-"+id); if (r && r.checked) rg.push(i+1);
+  }
+  if (!kos.length && !seb.length) {
+    pesan(rg.length ? "Semua soal sudah terisi. Periksa lagi soal yang kamu tandai ragu-ragu: nomor " + rg.join(", ") + "." : "Semua soal sudah terisi. Periksa sekali lagi sebelum menekan Selesai.");
+    return;
+  }
+  var t = "Masih ada yang perlu kamu isi";
+  var bag = [];
+  if (kos.length) bag.push("belum dijawab: nomor " + kos.join(", "));
+  if (seb.length) bag.push("Benar–Salah belum lengkap ketiga pernyataannya: nomor " + seb.join(", "));
+  pesan(t + " — " + bag.join("; ") + ".", true);
+  var p = document.getElementById("kartu-" + URUT[(kos.length ? kos[0] : seb[0]) - 1]);
+  if (p && p.scrollIntoView) p.scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+bSelesai.addEventListener("click", function(){
+  if (terkunci) return;
+  var b = 0, i; for (i=0;i<URUT.length;i++) if (keadaan(URUT[i]) !== "penuh") b++;
+  var tanya = b ? "Masih ada " + b + " soal yang belum lengkap. Tetap selesai sekarang?" : "Yakin selesai? Sesudah ini jawabanmu tidak dapat diubah.";
+  if (!window.confirm(tanya)) return;
+  kunci("Kamu sudah menekan Selesai. Lembar ini terkunci, dan jawabanmu tersimpan.", true);
+});
+
+// pemulihan saat dimuat
+perbarui();
+if (elTenggat.value && !isNaN(Number(elTenggat.value))) {
+  tampilkanSoal();
+  if (Number(elTenggat.value) - Date.now() > 0) { jalan(); pesan("Pengerjaan dilanjutkan dari waktu yang tersimpan."); }
+  else { elJam.textContent = "00:00"; elJam.className = "habis"; kunci("Waktu habis. Lembar ini terkunci, dan jawaban yang sudah kamu pilih tetap tersimpan.", false); }
+}
+})();
+</script>
+</body>
+</html>

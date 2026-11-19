@@ -1,0 +1,25 @@
+{
+  "tahap": [
+    { "kode": "penyisihan", "nama": "Penyisihan", "urutan": 1 },
+    { "kode": "semifinal",  "nama": "Semifinal",  "urutan": 2 },
+    { "kode": "final",      "nama": "Final",      "urutan": 3 }
+  ],
+  "berkas": {
+    "penyisihan-v1.html": {
+      "judul": "Simulasi Penyisihan · Versi 1",
+      "tahap": "penyisihan",
+      "soal": 30,
+      "bentuk": "Pilihan ganda 5 opsi",
+      "ringkas": "Dua belas bagian: Pengukuran, Vektor, Mekanika, Getaran & Gelombang, Optik, Listrik & Elektrodinamika, Magnet & Induksi, Gelombang Elektromagnetik, Fisika Modern, Termodinamika, Energi & Daya.",
+      "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah."
+    },
+    "penyisihan-v2.html": {
+      "judul": "Simulasi Penyisihan · Versi 2",
+      "tahap": "penyisihan",
+      "soal": 30,
+      "bentuk": "Pilihan ganda 5 opsi",
+      "ringkas": "Bagian dan bobotnya sama dengan Versi 1, angka dan konteks soalnya berbeda. Pakai sebagai pengulangan setelah Versi 1 selesai dibahas.",
+      "catatan": "Tanpa kalkulator. Tidak ada pengurangan nilai untuk jawaban salah."
+    }
+  }
+}
