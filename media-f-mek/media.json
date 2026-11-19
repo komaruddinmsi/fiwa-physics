@@ -1,329 +1,354 @@
 {
- "_baca_ini_dulu": "Berkas ini satu-satunya tempat mengatur bahan pendukung tiap tahapan topik F.MEK. Panduan lengkap ada di media-f-mek/PANDUAN-MEDIA.md. Kunci di dalam 'tp' adalah kode TP persis seperti pada tp.json; di dalamnya kode tahapan S1–S14 dan L1–L4. Kunci berawalan garis bawah diabaikan situs.",
- "_tipe_yang_didukung": {
-  "video": "{ tipe, judul, yt (kode video YouTube), mulai (detik, opsional), catatan }",
-  "audio": "{ tipe, judul, berkas (mp3/ogg) atau naskah (dibacakan peramban) }",
-  "simulasi": "{ tipe, judul, berkas (html milik sendiri) atau url (situs luar), catatan }",
-  "bacaan": "{ tipe, judul, berkas (html milik sendiri) atau url, catatan }",
-  "tautan": "{ tipe, judul, url, catatan } — dibuka di tab baru, untuk situs yang menolak disematkan"
- },
- "_catatan_gerbang": "S2, S8, dan S13 sengaja dikosongkan. Gerbang tidak boleh didampingi bahan bantu: itu yang membuatnya berfungsi sebagai gerbang.",
- "_sumber": "Seluruh tautan disalin dari daftar sumber digital RPP F.MEK (C1.0b–C4.0b), diverifikasi penyusun RPP pada 18 November 2026.",
- "tp": {
-  "F.MEK.1-pra": {
-   "S1": [
-    {
-     "tipe": "audio",
-     "judul": "Peta belajar bagian ini",
-     "naskah": "Selamat datang di unit Mekanika. Bagian pertama ini tentang operasi vektor: menyambung dua panah, dan menguraikan satu panah miring menjadi komponen mendatar dan tegak. Satu hal yang akan diminta berulang-ulang: sebelum memilih sinus atau kosinus, putuskan dulu sudutnya diukur dari sumbu mana. Keputusan itulah yang dinilai, bukan angka yang kebetulan cocok."
-    }
-   ],
-   "S4": [
-    {
-     "tipe": "bacaan",
-     "judul": "Konsep: operasi vektor",
-     "berkas": "media-f-mek/bacaan/bacaan-f-mek-1-pra.html",
-     "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Menguraikan gaya miring",
-     "berkas": "media-f-mek/simulasi/penguraian-vektor.html",
-     "catatan": "Ganti acuan sudutnya dari sumbu-x ke sumbu-y, lalu lihat komponen mana yang bertukar memakai sinus."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Penjumlahan Vektor · PhET",
-     "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html?locale=in",
-     "catatan": "Tarik vektornya, lalu baca komponen dan resultannya. Simulasi ini tidak menghitung untukmu — ia hanya menampilkan."
-    },
-    {
-     "tipe": "bacaan",
-     "judul": "OpenStax 3.3 · Vector Addition and Subtraction: Analytical Methods",
-     "url": "https://openstax.org/books/college-physics-2e/pages/3-3-vector-addition-and-subtraction-analytical-methods",
-     "catatan": "Bacaan terbuka berbahasa Inggris.",
-     "luar": true
-    }
-   ],
-   "S6": [
-    {
-     "tipe": "simulasi",
-     "judul": "Menguraikan gaya miring",
-     "berkas": "media-f-mek/simulasi/penguraian-vektor.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Penjumlahan Vektor · PhET",
-     "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html?locale=in",
-     "catatan": "Dipakai guru pada tahap 2."
-    }
-   ],
-   "S9": [
-    {
-     "tipe": "video",
-     "judul": "Penguraian vektor · komponen x dan y",
-     "yt": "ogktYk0rri0",
-     "catatan": "Pekerjaan rumah blok latihan, ≤ 5 menit."
-    },
-    {
-     "tipe": "video",
-     "judul": "Komponen vektor dan penguraiannya · Le GuruLes",
-     "yt": "ho0mvbyGesA",
-     "catatan": "Untuk yang masih tertukar sinus dan kosinus. ≤ 10 menit."
-    }
-   ],
-   "S11": [
-    {
-     "tipe": "simulasi",
-     "judul": "Menguraikan gaya miring",
-     "berkas": "media-f-mek/simulasi/penguraian-vektor.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Penjumlahan Vektor · PhET",
-     "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html?locale=in",
-     "catatan": "Pakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    }
-   ]
+  "_baca_ini_dulu": "Berkas ini satu-satunya tempat mengatur bahan pendukung tiap tahapan topik F.MEK. Panduan lengkap ada di media-f-mek/PANDUAN-MEDIA.md. Kunci di dalam 'tp' adalah kode TP persis seperti pada tp.json; di dalamnya kode tahapan S1–S14 dan L1–L4. Kunci berawalan garis bawah diabaikan situs.",
+  "_tipe_yang_didukung": {
+    "video": "{ tipe, judul, yt (kode video YouTube), mulai (detik, opsional), catatan }",
+    "audio": "{ tipe, judul, berkas (mp3/ogg) atau naskah (dibacakan peramban) }",
+    "simulasi": "{ tipe, judul, berkas (html milik sendiri) atau url (situs luar), catatan }",
+    "bacaan": "{ tipe, judul, berkas (html milik sendiri) atau url, catatan }",
+    "tautan": "{ tipe, judul, url, catatan } — dibuka di tab baru, untuk situs yang menolak disematkan"
   },
-  "F.MEK.2": {
-   "S1": [
-    {
-     "tipe": "audio",
-     "judul": "Peta belajar bagian ini",
-     "naskah": "Bagian ini tentang gaya dan gerak pada peristiwa sehari-hari. Satu pertanyaan akan kamu pakai terus-menerus: siapa pemberi gaya ini. Panah yang tidak bisa dijawab pertanyaan itu bukan gaya, dan harus dihapus dari diagrammu."
+  "_catatan_gerbang": "S2, S8, dan S13 sengaja dikosongkan. Gerbang tidak boleh didampingi bahan bantu: itu yang membuatnya berfungsi sebagai gerbang.",
+  "_sumber": "Seluruh tautan disalin dari daftar sumber digital RPP F.MEK (C1.0b–C4.0b), diverifikasi penyusun RPP pada 18 November 2026.",
+  "tp": {
+    "F.MEK.1-pra": {
+      "S1": [
+        {
+          "tipe": "audio",
+          "judul": "Peta belajar bagian ini",
+          "naskah": "Selamat datang di unit Mekanika. Bagian pertama ini tentang operasi vektor: menyambung dua panah, dan menguraikan satu panah miring menjadi komponen mendatar dan tegak. Satu hal yang akan diminta berulang-ulang: sebelum memilih sinus atau kosinus, putuskan dulu sudutnya diukur dari sumbu mana. Keputusan itulah yang dinilai, bukan angka yang kebetulan cocok."
+        }
+      ],
+      "S4": [
+        {
+          "tipe": "bacaan",
+          "judul": "Konsep: operasi vektor",
+          "berkas": "media-f-mek/bacaan/bacaan-f-mek-1-pra.html",
+          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Menguraikan gaya miring",
+          "berkas": "media-f-mek/simulasi/penguraian-vektor.html",
+          "catatan": "Ganti acuan sudutnya dari sumbu-x ke sumbu-y, lalu lihat komponen mana yang bertukar memakai sinus."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Penjumlahan Vektor · PhET",
+          "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html?locale=in",
+          "catatan": "Tarik vektornya, lalu baca komponen dan resultannya. Simulasi ini tidak menghitung untukmu — ia hanya menampilkan."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "OpenStax 3.3 · Vector Addition and Subtraction: Analytical Methods",
+          "url": "https://openstax.org/books/college-physics-2e/pages/3-3-vector-addition-and-subtraction-analytical-methods",
+          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "luar": true
+        }
+      ],
+      "S6": [
+        {
+          "tipe": "simulasi",
+          "judul": "Menguraikan gaya miring",
+          "berkas": "media-f-mek/simulasi/penguraian-vektor.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Penjumlahan Vektor · PhET",
+          "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html?locale=in",
+          "catatan": "Dipakai guru pada tahap 2."
+        }
+      ],
+      "S9": [
+        {
+          "tipe": "video",
+          "judul": "Penguraian vektor · komponen x dan y",
+          "yt": "ogktYk0rri0",
+          "catatan": "Pekerjaan rumah blok latihan, ≤ 5 menit."
+        },
+        {
+          "tipe": "video",
+          "judul": "Komponen vektor dan penguraiannya · Le GuruLes",
+          "yt": "ho0mvbyGesA",
+          "catatan": "Untuk yang masih tertukar sinus dan kosinus. ≤ 10 menit."
+        }
+      ],
+      "S11": [
+        {
+          "tipe": "simulasi",
+          "judul": "Menguraikan gaya miring",
+          "berkas": "media-f-mek/simulasi/penguraian-vektor.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Penjumlahan Vektor · PhET",
+          "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html?locale=in",
+          "catatan": "Pakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        }
+      ]
+    },
+    "F.MEK.2": {
+      "S1": [
+        {
+          "tipe": "audio",
+          "judul": "Peta belajar bagian ini",
+          "naskah": "Bagian ini tentang gaya dan gerak pada peristiwa sehari-hari. Satu pertanyaan akan kamu pakai terus-menerus: siapa pemberi gaya ini. Panah yang tidak bisa dijawab pertanyaan itu bukan gaya, dan harus dihapus dari diagrammu."
+        }
+      ],
+      "S4": [
+        {
+          "tipe": "bacaan",
+          "judul": "Konsep: gaya dan gerak sehari-hari",
+          "berkas": "media-f-mek/bacaan/bacaan-f-mek-2.html",
+          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya neto dan keadaan gerak",
+          "berkas": "media-f-mek/simulasi/gaya-neto-gerak.html",
+          "catatan": "Dorong petinya, lalu lepaskan dorongannya saat sedang meluncur. Berhenti seketika, atau melambat dulu?"
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya dan Gerak: Dasar · PhET",
+          "url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=in",
+          "catatan": "Tarik benda, nyalakan panah gaya dan nilai gaya netonya."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "OpenStax 4.3 · Newton's Second Law of Motion",
+          "url": "https://openstax.org/books/college-physics-2e/pages/4-3-newtons-second-law-of-motion-concept-of-a-system",
+          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "luar": true
+        }
+      ],
+      "S6": [
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya neto dan keadaan gerak",
+          "berkas": "media-f-mek/simulasi/gaya-neto-gerak.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya dan Gerak: Dasar · PhET",
+          "url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=in",
+          "catatan": "Dipakai guru pada tahap 2."
+        }
+      ],
+      "S9": [
+        {
+          "tipe": "video",
+          "judul": "Animasi pembelajaran Hukum Newton",
+          "yt": "PKNN0q3eCow",
+          "catatan": "Hukum I, II, dan III pada peristiwa sehari-hari. ≤ 5 menit."
+        },
+        {
+          "tipe": "video",
+          "judul": "Hukum 1 dan 2 Newton tentang gerak · Le GuruLes",
+          "yt": "H-NMqBSZ2jo",
+          "catatan": "Untuk yang masih menjumlah gaya tanpa arah. ≤ 10 menit."
+        }
+      ],
+      "S11": [
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya neto dan keadaan gerak",
+          "berkas": "media-f-mek/simulasi/gaya-neto-gerak.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya dan Gerak: Dasar · PhET",
+          "url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=in",
+          "catatan": "Periksa jawabanmu sesudah menghitung."
+        }
+      ]
+    },
+    "F.MEK.1a": {
+      "S1": [
+        {
+          "tipe": "audio",
+          "judul": "Peta belajar bagian ini",
+          "naskah": "Bagian ini bukan tentang menghafal bunyi tiga hukum Newton. Yang dinilai adalah kemampuanmu menjelaskan sebab dan akibatnya, lalu menulis satu contoh baru yang belum pernah dibahas di kelas — dan menjelaskan mengapa contoh itu cocok."
+        }
+      ],
+      "S4": [
+        {
+          "tipe": "bacaan",
+          "judul": "Konsep: Hukum Newton sebagai sebab dan akibat",
+          "berkas": "media-f-mek/bacaan/bacaan-f-mek-1a.html",
+          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Aksi dan reaksi: dua benda, dua percepatan",
+          "berkas": "media-f-mek/simulasi/aksi-reaksi.html",
+          "catatan": "Kalau aksi dan reaksi saling meniadakan, kedua perahu harus tetap diam. Tekan Dorong dan lihat sendiri."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "OpenStax 4.4 · Newton's Third Law of Motion",
+          "url": "https://openstax.org/books/college-physics-2e/pages/4-4-newtons-third-law-of-motion-symmetry-in-forces",
+          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "luar": true
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Gaya dan Gerak pada Bidang Miring · PhET",
+          "url": "https://phet.colorado.edu/in/simulation/ramp-forces-and-motion",
+          "catatan": "Dibuka langsung di panel ini.",
+          "luar": true
+        }
+      ],
+      "S9": [
+        {
+          "tipe": "video",
+          "judul": "Penerapan Hukum Newton III dalam kehidupan sehari-hari",
+          "yt": "1PzFZJ_-e5s",
+          "catatan": "Pekerjaan rumah blok latihan, ≤ 5 menit."
+        },
+        {
+          "tipe": "video",
+          "judul": "Hukum 3 Newton",
+          "yt": "QIGszB3L7l4",
+          "catatan": "Untuk yang masih mengira aksi dan reaksi saling meniadakan. ≤ 10 menit."
+        }
+      ],
+      "S6": [
+        {
+          "tipe": "simulasi",
+          "judul": "Aksi dan reaksi: dua benda, dua percepatan",
+          "berkas": "media-f-mek/simulasi/aksi-reaksi.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        }
+      ],
+      "S11": [
+        {
+          "tipe": "simulasi",
+          "judul": "Aksi dan reaksi: dua benda, dua percepatan",
+          "berkas": "media-f-mek/simulasi/aksi-reaksi.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        }
+      ]
+    },
+    "F.MEK.1b": {
+      "S1": [
+        {
+          "tipe": "audio",
+          "judul": "Peta belajar bagian ini",
+          "naskah": "Bagian terakhir unit ini memakai seluruh bagian sebelumnya sekaligus. Dua syarat kesetimbangan dipakai bersama: jumlah gaya nol, dan jumlah momen nol. Jawaban supaya lebih kokoh tidak dihitung di sini; yang dihitung adalah jawaban yang menyebut momen pada engsel atau komponen gaya penyangga."
+        }
+      ],
+      "S4": [
+        {
+          "tipe": "bacaan",
+          "judul": "Konsep: struktur, momen, dan komponen",
+          "berkas": "media-f-mek/bacaan/bacaan-f-mek-1b.html",
+          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Momen gaya dan kesetimbangan",
+          "berkas": "media-f-mek/simulasi/momen-kesetimbangan.html",
+          "catatan": "Jumlah gayanya nol, tetapi batangnya tetap berputar. Dua syarat, bukan satu."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Kesetimbangan · PhET",
+          "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html?locale=in",
+          "catatan": "Geser bebannya, lalu perhatikan kapan papan setimbang dan kapan tidak."
+        },
+        {
+          "tipe": "bacaan",
+          "judul": "OpenStax 9.2 · The Second Condition for Equilibrium",
+          "url": "https://openstax.org/books/college-physics-2e/pages/9-2-the-second-condition-for-equilibrium",
+          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "luar": true
+        }
+      ],
+      "S6": [
+        {
+          "tipe": "simulasi",
+          "judul": "Momen gaya dan kesetimbangan",
+          "berkas": "media-f-mek/simulasi/momen-kesetimbangan.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Kesetimbangan · PhET",
+          "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html?locale=in",
+          "catatan": "Dipakai guru pada tahap 2."
+        }
+      ],
+      "S9": [
+        {
+          "tipe": "video",
+          "judul": "Momen gaya pada kesetimbangan benda tegar #1",
+          "yt": "TnI6YlOKeAA",
+          "catatan": "Momen gaya dan kesetimbangan. ≤ 5 menit."
+        },
+        {
+          "tipe": "video",
+          "judul": "Momen gaya pada kesetimbangan benda tegar #2",
+          "yt": "XXKGnwadnfA",
+          "catatan": "Untuk yang masih melupakan lengan torsi atau syarat jumlah momen nol. ≤ 10 menit."
+        }
+      ],
+      "S11": [
+        {
+          "tipe": "simulasi",
+          "judul": "Momen gaya dan kesetimbangan",
+          "berkas": "media-f-mek/simulasi/momen-kesetimbangan.html",
+          "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
+        },
+        {
+          "tipe": "simulasi",
+          "judul": "Kesetimbangan · PhET",
+          "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html?locale=in",
+          "catatan": "Periksa jawabanmu sesudah menghitung."
+        }
+      ]
     }
-   ],
-   "S4": [
-    {
-     "tipe": "bacaan",
-     "judul": "Konsep: gaya dan gerak sehari-hari",
-     "berkas": "media-f-mek/bacaan/bacaan-f-mek-2.html",
-     "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya neto dan keadaan gerak",
-     "berkas": "media-f-mek/simulasi/gaya-neto-gerak.html",
-     "catatan": "Dorong petinya, lalu lepaskan dorongannya saat sedang meluncur. Berhenti seketika, atau melambat dulu?"
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya dan Gerak: Dasar · PhET",
-     "url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=in",
-     "catatan": "Tarik benda, nyalakan panah gaya dan nilai gaya netonya."
-    },
-    {
-     "tipe": "bacaan",
-     "judul": "OpenStax 4.3 · Newton's Second Law of Motion",
-     "url": "https://openstax.org/books/college-physics-2e/pages/4-3-newtons-second-law-of-motion-concept-of-a-system",
-     "catatan": "Bacaan terbuka berbahasa Inggris.",
-     "luar": true
-    }
-   ],
-   "S6": [
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya neto dan keadaan gerak",
-     "berkas": "media-f-mek/simulasi/gaya-neto-gerak.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya dan Gerak: Dasar · PhET",
-     "url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=in",
-     "catatan": "Dipakai guru pada tahap 2."
-    }
-   ],
-   "S9": [
-    {
-     "tipe": "video",
-     "judul": "Animasi pembelajaran Hukum Newton",
-     "yt": "PKNN0q3eCow",
-     "catatan": "Hukum I, II, dan III pada peristiwa sehari-hari. ≤ 5 menit."
-    },
-    {
-     "tipe": "video",
-     "judul": "Hukum 1 dan 2 Newton tentang gerak · Le GuruLes",
-     "yt": "H-NMqBSZ2jo",
-     "catatan": "Untuk yang masih menjumlah gaya tanpa arah. ≤ 10 menit."
-    }
-   ],
-   "S11": [
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya neto dan keadaan gerak",
-     "berkas": "media-f-mek/simulasi/gaya-neto-gerak.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya dan Gerak: Dasar · PhET",
-     "url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html?locale=in",
-     "catatan": "Periksa jawabanmu sesudah menghitung."
-    }
-   ]
   },
-  "F.MEK.1a": {
-   "S1": [
-    {
-     "tipe": "audio",
-     "judul": "Peta belajar bagian ini",
-     "naskah": "Bagian ini bukan tentang menghafal bunyi tiga hukum Newton. Yang dinilai adalah kemampuanmu menjelaskan sebab dan akibatnya, lalu menulis satu contoh baru yang belum pernah dibahas di kelas — dan menjelaskan mengapa contoh itu cocok."
-    }
-   ],
-   "S4": [
-    {
-     "tipe": "bacaan",
-     "judul": "Konsep: Hukum Newton sebagai sebab dan akibat",
-     "berkas": "media-f-mek/bacaan/bacaan-f-mek-1a.html",
-     "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Aksi dan reaksi: dua benda, dua percepatan",
-     "berkas": "media-f-mek/simulasi/aksi-reaksi.html",
-     "catatan": "Kalau aksi dan reaksi saling meniadakan, kedua perahu harus tetap diam. Tekan Dorong dan lihat sendiri."
-    },
-    {
-     "tipe": "bacaan",
-     "judul": "OpenStax 4.4 · Newton's Third Law of Motion",
-     "url": "https://openstax.org/books/college-physics-2e/pages/4-4-newtons-third-law-of-motion-symmetry-in-forces",
-     "catatan": "Bacaan terbuka berbahasa Inggris.",
-     "luar": true
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Gaya dan Gerak pada Bidang Miring · PhET",
-     "url": "https://phet.colorado.edu/in/simulation/ramp-forces-and-motion",
-     "catatan": "Dibuka langsung di panel ini.",
-     "luar": true
-    }
-   ],
-   "S9": [
-    {
-     "tipe": "video",
-     "judul": "Penerapan Hukum Newton III dalam kehidupan sehari-hari",
-     "yt": "1PzFZJ_-e5s",
-     "catatan": "Pekerjaan rumah blok latihan, ≤ 5 menit."
-    },
-    {
-     "tipe": "video",
-     "judul": "Hukum 3 Newton",
-     "yt": "QIGszB3L7l4",
-     "catatan": "Untuk yang masih mengira aksi dan reaksi saling meniadakan. ≤ 10 menit."
-    }
-   ],
-   "S6": [
-    {
-     "tipe": "simulasi",
-     "judul": "Aksi dan reaksi: dua benda, dua percepatan",
-     "berkas": "media-f-mek/simulasi/aksi-reaksi.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    }
-   ],
-   "S11": [
-    {
-     "tipe": "simulasi",
-     "judul": "Aksi dan reaksi: dua benda, dua percepatan",
-     "berkas": "media-f-mek/simulasi/aksi-reaksi.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    }
-   ]
-  },
-  "F.MEK.1b": {
-   "S1": [
-    {
-     "tipe": "audio",
-     "judul": "Peta belajar bagian ini",
-     "naskah": "Bagian terakhir unit ini memakai seluruh bagian sebelumnya sekaligus. Dua syarat kesetimbangan dipakai bersama: jumlah gaya nol, dan jumlah momen nol. Jawaban supaya lebih kokoh tidak dihitung di sini; yang dihitung adalah jawaban yang menyebut momen pada engsel atau komponen gaya penyangga."
-    }
-   ],
-   "S4": [
-    {
-     "tipe": "bacaan",
-     "judul": "Konsep: struktur, momen, dan komponen",
-     "berkas": "media-f-mek/bacaan/bacaan-f-mek-1b.html",
-     "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Momen gaya dan kesetimbangan",
-     "berkas": "media-f-mek/simulasi/momen-kesetimbangan.html",
-     "catatan": "Jumlah gayanya nol, tetapi batangnya tetap berputar. Dua syarat, bukan satu."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Kesetimbangan · PhET",
-     "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html?locale=in",
-     "catatan": "Geser bebannya, lalu perhatikan kapan papan setimbang dan kapan tidak."
-    },
-    {
-     "tipe": "bacaan",
-     "judul": "OpenStax 9.2 · The Second Condition for Equilibrium",
-     "url": "https://openstax.org/books/college-physics-2e/pages/9-2-the-second-condition-for-equilibrium",
-     "catatan": "Bacaan terbuka berbahasa Inggris.",
-     "luar": true
-    }
-   ],
-   "S6": [
-    {
-     "tipe": "simulasi",
-     "judul": "Momen gaya dan kesetimbangan",
-     "berkas": "media-f-mek/simulasi/momen-kesetimbangan.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Kesetimbangan · PhET",
-     "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html?locale=in",
-     "catatan": "Dipakai guru pada tahap 2."
-    }
-   ],
-   "S9": [
-    {
-     "tipe": "video",
-     "judul": "Momen gaya pada kesetimbangan benda tegar #1",
-     "yt": "TnI6YlOKeAA",
-     "catatan": "Momen gaya dan kesetimbangan. ≤ 5 menit."
-    },
-    {
-     "tipe": "video",
-     "judul": "Momen gaya pada kesetimbangan benda tegar #2",
-     "yt": "XXKGnwadnfA",
-     "catatan": "Untuk yang masih melupakan lengan torsi atau syarat jumlah momen nol. ≤ 10 menit."
-    }
-   ],
-   "S11": [
-    {
-     "tipe": "simulasi",
-     "judul": "Momen gaya dan kesetimbangan",
-     "berkas": "media-f-mek/simulasi/momen-kesetimbangan.html",
-     "catatan": "Dipakai untuk memeriksa jawabanmu sendiri sesudah menghitung, bukan sebelum."
-    },
-    {
-     "tipe": "simulasi",
-     "judul": "Kesetimbangan · PhET",
-     "url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html?locale=in",
-     "catatan": "Periksa jawabanmu sesudah menghitung."
-    }
-   ]
+  "topik": {
+    "PEMBUKA": [
+      {
+        "tipe": "video",
+        "judul": "Hukum Newton dalam kehidupan sehari-hari",
+        "yt": "PKNN0q3eCow",
+        "catatan": "Video pembuka. Tonton sekali sebelum masuk ke TP pertama."
+      },
+      {
+        "tipe": "simulasi",
+        "judul": "Mengerem kereta cepat (buatan sendiri)",
+        "berkas": "media-f-mek/simulasi/rem-kereta-cepat.html",
+        "catatan": "Geser kecepatan dari 175 ke 350 km/jam dan bandingkan jarak berhentinya."
+      },
+      {
+        "tipe": "audio",
+        "judul": "Pembuka topik — dibacakan",
+        "naskah": "Selamat datang di topik Mekanika: Gaya dan Gerak. Sebelum rumus apa pun, lihat dulu tiga hal yang terjadi di sekitarmu tahun ini. Pertama, kereta cepat Whoosh melaju tiga ratus lima puluh kilometer per jam dan membutuhkan berkilo-kilometer untuk berhenti. Kedua, motor ojek daring yang berhenti di tanjakan tetap diam, bukan karena tidak ada gaya padanya, melainkan karena gaya-gaya itu saling meniadakan. Ketiga, lengan crane menahan beban puluhan ton tanpa terguling, bukan karena kuat, melainkan karena jaraknya diatur. Ketiganya dijelaskan oleh satu kalimat yang akan kamu kuasai: jumlah gaya sama dengan massa kali percepatan. Mainkan dulu simulasinya, baru masuk ke tujuan pembelajaran pertama."
+      },
+      {
+        "tipe": "bacaan",
+        "judul": "Gaya dan gerak di sekitarmu (buatan sendiri)",
+        "berkas": "media-f-mek/bacaan/bacaan-f-mek-1-pra.html",
+        "catatan": "Bacaan ringan untuk menemani pembuka."
+      }
+    ],
+    "L1": [],
+    "L2": [],
+    "L3": [],
+    "L4": [
+      {
+        "tipe": "simulasi",
+        "judul": "Bank soal PhET seluruh topik",
+        "url": "https://phet.colorado.edu/in/simulations/filter?subjects=physics",
+        "catatan": "Jelajahi sendiri simulasi fisika lain yang berhubungan.",
+        "luar": true
+      }
+    ]
   }
- },
- "topik": {
-  "L1": [],
-  "L2": [],
-  "L3": [],
-  "L4": [
-   {
-    "tipe": "simulasi",
-    "judul": "Bank soal PhET seluruh topik",
-    "url": "https://phet.colorado.edu/in/simulations/filter?subjects=physics",
-    "catatan": "Jelajahi sendiri simulasi fisika lain yang berhubungan.",
-    "luar": true
-   }
-  ]
- }
 }
