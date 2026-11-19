@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aksi dan reaksi: dua benda, dua percepatan</title><link rel="stylesheet" href="sim.css"></head><body>
+<h1>Aksi dan reaksi: dua benda, dua percepatan</h1>
+<p class="sub">Dua perahu saling mendorong dengan gaya yang <b>sama besar</b>. Kalau aksi dan reaksi benar-benar saling meniadakan, keduanya harus tetap diam. Tekan Dorong dan lihat sendiri. Lalu ubah massanya: gayanya tetap sama, percepatannya tidak.</p>
+<div class="grid">
+  <div class="kotak"><canvas id="kanvas" width="620" height="330"></canvas></div>
+  <div class="kotak atur">
+    <div class="baris"><label for="F">Gaya dorong</label><input type="range" id="F" min="20" max="200" step="10" value="80"><output id="oF">80 N</output></div>
+    <div class="baris"><label for="m1">Massa perahu kiri</label><input type="range" id="m1" min="10" max="160" step="5" value="40"><output id="om1">40 kg</output></div>
+    <div class="baris"><label for="m2">Massa perahu kanan</label><input type="range" id="m2" min="10" max="160" step="5" value="20"><output id="om2">20 kg</output></div>
+    <h2>Yang terbaca</h2>
+    <div class="baris"><label>Gaya pada kiri</label><span></span><output id="of1">—</output></div>
+    <div class="baris"><label>Gaya pada kanan</label><span></span><output id="of2">—</output></div>
+    <div class="baris"><label>Percepatan kiri</label><span></span><output id="oa1">—</output></div>
+    <div class="baris"><label>Percepatan kanan</label><span></span><output id="oa2">—</output></div>
+    <p id="kabar" class="sub" style="margin:4px 0 0"></p>
+    <div class="tombol"><button id="dorong">Dorong</button><button id="ulang" class="ghost">Ulangi</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var K=document.getElementById('kanvas'), c=K.getContext('2d');
+  var $=function(i){return document.getElementById(i)};
+  var x1=210, x2=330, v1=0, v2=0, t0=0, mendorong=false, sisa=0;
+  function gambar(F,m1,m2,a1,a2){
+    var W=K.width,H=K.height,air=H-96;
+    c.clearRect(0,0,W,H);
+    c.fillStyle='rgba(0,120,180,.18)'; c.fillRect(0,air,W,H-air);
+    c.strokeStyle='rgba(140,180,255,.35)'; c.lineWidth=1.5;
+    c.beginPath(); c.moveTo(0,air); c.lineTo(W,air); c.stroke();
+    function perahu(x,m,warna,nama){
+      var w=84,h=40;
+      c.fillStyle=warna.replace('1)','.26)'); c.strokeStyle=warna; c.lineWidth=2;
+      c.beginPath(); c.moveTo(x,air-h); c.lineTo(x+w,air-h);
+      c.lineTo(x+w-14,air); c.lineTo(x+14,air); c.closePath(); c.fill(); c.stroke();
+      c.fillStyle='#eaf0ff'; c.font='600 12px system-ui';
+      c.fillText(m+' kg', x+24, air-16); c.fillText(nama, x+22, air-h-10);
+    }
+    perahu(x1,m1,'rgba(0,201,167,1)','kiri'); perahu(x2,m2,'rgba(180,140,255,1)','kanan');
+    if (mendorong||sisa>0){
+      function panah(xa,y,p,warna,label){
+        c.strokeStyle=warna;c.fillStyle=warna;c.lineWidth=3.5;
+        var xb=xa+p;c.beginPath();c.moveTo(xa,y);c.lineTo(xb,y);c.stroke();
+        var d=p>0?1:-1;c.beginPath();c.moveTo(xb,y);c.lineTo(xb-11*d,y-6);c.lineTo(xb-11*d,y+6);c.closePath();c.fill();
+        c.font='600 12px system-ui';c.fillText(label,xa+p/2-26,y-12);
+      }
+      panah(x1+84, air-58, -F*0.8, '#ffc247', F+' N ke kiri');
+      panah(x2,    air-58,  F*0.8, '#ff7a7a', F+' N ke kanan');
+    }
+    c.fillStyle='#9db0e6'; c.font='12px system-ui';
+    c.fillText('Kedua gaya sama besar — tetapi bekerja pada dua benda yang berbeda, jadi tidak pernah dijumlahkan.', 14, H-16);
+  }
+  function bingkai(ts){
+    var dt = t0 ? Math.min((ts-t0)/1000,0.05) : 0; t0=ts;
+    var F=+$('F').value, m1=+$('m1').value, m2=+$('m2').value;
+    var a1=-F/m1, a2=F/m2;
+    if (sisa>0){ v1+=a1*dt; v2+=a2*dt; sisa-=dt; if(sisa<=0) mendorong=false; }
+    x1+=v1*dt*12; x2+=v2*dt*12;
+    if(x1<4){x1=4;v1=0;} if(x2>K.width-88){x2=K.width-88;v2=0;}
+    gambar(F,m1,m2,a1,a2);
+    $('of1').textContent=F+' N (ke kiri)'; $('of2').textContent=F+' N (ke kanan)';
+    $('oa1').textContent=Math.abs(a1).toFixed(2)+' m/s²'; $('oa2').textContent=a2.toFixed(2)+' m/s²';
+    $('kabar').innerHTML = (sisa>0||v1!==0)
+      ? 'Gayanya <b>sama besar</b>, tetapi perahu yang lebih ringan mendapat percepatan lebih besar: a = F/m. Keduanya bergerak — jadi aksi dan reaksi jelas tidak saling meniadakan.'
+      : 'Tekan <b>Dorong</b>. Kalau aksi dan reaksi saling meniadakan, keduanya seharusnya tetap diam.';
+    requestAnimationFrame(bingkai);
+  }
+  ['F','m1','m2'].forEach(function(i){ $(i).addEventListener('input',function(){
+    $('o'+i).textContent = $(i).value + (i==='F'?' N':' kg'); }); });
+  $('dorong').addEventListener('click',function(){ mendorong=true; sisa=0.9; });
+  $('ulang').addEventListener('click',function(){ x1=210;x2=330;v1=0;v2=0;sisa=0;mendorong=false; });
+  requestAnimationFrame(bingkai);
+})();
+</script></body></html>

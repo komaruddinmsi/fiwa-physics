@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menguraikan gaya miring</title><link rel="stylesheet" href="sim.css"></head><body>
+<h1>Menguraikan gaya miring</h1>
+<p class="sub">Geser besar gaya dan sudutnya. Perhatikan satu hal: <b>ganti acuan sudutnya</b> dari sumbu-x ke sumbu-y, lalu lihat komponen mana yang memakai sinus dan mana yang memakai kosinus. Angkanya bertukar — dan itulah jebakan yang paling sering memakan korban.</p>
+<div class="grid">
+  <div class="kotak"><canvas id="kanvas" width="620" height="440"></canvas></div>
+  <div class="kotak atur">
+    <div class="baris"><label for="F">Besar gaya F</label><input type="range" id="F" min="10" max="200" step="5" value="100"><output id="oF">100 N</output></div>
+    <div class="baris"><label for="th">Sudut θ</label><input type="range" id="th" min="0" max="90" step="1" value="37"><output id="oth">37°</output></div>
+    <label class="sakelar"><input type="checkbox" id="acuan"> Sudut diukur dari <b>sumbu-y</b> (bukan sumbu-x)</label>
+    <h2>Hasilnya</h2>
+    <div class="baris"><label>Komponen mendatar</label><span></span><output id="ofx">—</output></div>
+    <div class="baris"><label>Komponen tegak</label><span></span><output id="ofy">—</output></div>
+    <div class="baris"><label>Uji Pythagoras</label><span></span><output id="opy">—</output></div>
+    <p id="rumus" class="sub" style="margin:4px 0 0"></p>
+    <div class="tombol"><button id="reset" class="ghost">Kembalikan</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var K=document.getElementById('kanvas'), c=K.getContext('2d');
+  var $=function(i){return document.getElementById(i)};
+  function gambar(F,th,dariY){
+    var rad=th*Math.PI/180;
+    // sudut terhadap sumbu-x, apa pun acuannya
+    var ax = dariY ? (90-th)*Math.PI/180 : rad;
+    var fx = F*Math.cos(ax), fy = F*Math.sin(ax);
+    var W=K.width,H=K.height,ox=90,oy=H-80,s=1.45;
+    c.clearRect(0,0,W,H);
+    // sumbu
+    c.strokeStyle='rgba(140,180,255,.45)'; c.lineWidth=1.5;
+    c.beginPath(); c.moveTo(40,oy); c.lineTo(W-30,oy); c.moveTo(ox,H-30); c.lineTo(ox,40); c.stroke();
+    c.fillStyle='#9db0e6'; c.font='13px system-ui';
+    c.fillText('sumbu-x', W-85, oy+22); c.fillText('sumbu-y', ox+8, 52);
+    function panah(x1,y1,x2,y2,warna,tebal){
+      c.strokeStyle=warna; c.fillStyle=warna; c.lineWidth=tebal||3;
+      c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke();
+      var a=Math.atan2(y2-y1,x2-x1);
+      c.beginPath(); c.moveTo(x2,y2);
+      c.lineTo(x2-11*Math.cos(a-0.4), y2-11*Math.sin(a-0.4));
+      c.lineTo(x2-11*Math.cos(a+0.4), y2-11*Math.sin(a+0.4));
+      c.closePath(); c.fill();
+    }
+    var tx=ox+fx*s, ty=oy-fy*s;
+    // komponen
+    c.setLineDash([6,5]);
+    panah(ox,oy,tx,oy,'#ffc247',2.5); panah(tx,oy,tx,ty,'#b48cff',2.5);
+    c.setLineDash([]);
+    panah(ox,oy,tx,ty,'#00c9a7',4);
+    // busur sudut
+    c.strokeStyle='#ff7a7a'; c.lineWidth=2; c.beginPath();
+    if(dariY) c.arc(ox,oy,54,-Math.PI/2,-ax,false); else c.arc(ox,oy,54,0,-ax,true);
+    c.stroke();
+    c.fillStyle='#ff7a7a'; c.font='600 14px system-ui';
+    var m = dariY ? -(Math.PI/2+ax)/2 : -ax/2;
+    c.fillText('θ='+th+'°', ox+66*Math.cos(m)-14, oy+66*Math.sin(m)+5);
+    c.fillStyle='#ffc247'; c.fillText('Fx = '+fx.toFixed(1)+' N', ox+Math.max(fx*s/2-40,6), oy+26);
+    c.fillStyle='#b48cff'; c.fillText('Fy = '+fy.toFixed(1)+' N', tx+10, oy-fy*s/2);
+    c.fillStyle='#00c9a7'; c.fillText('F = '+F+' N', tx+12, ty-8);
+    return {fx:fx, fy:fy};
+  }
+  function perbarui(){
+    var F=+$('F').value, th=+$('th').value, dariY=$('acuan').checked;
+    $('oF').textContent=F+' N'; $('oth').textContent=th+'°';
+    var r=gambar(F,th,dariY);
+    $('ofx').textContent=r.fx.toFixed(1)+' N';
+    $('ofy').textContent=r.fy.toFixed(1)+' N';
+    var py=Math.sqrt(r.fx*r.fx+r.fy*r.fy);
+    $('opy').textContent='√(Fx²+Fy²) = '+py.toFixed(1)+' N';
+    $('rumus').innerHTML = dariY
+      ? 'Sudut diukur dari <b>sumbu-y</b>, jadi komponen tegak <b>menempel</b> pada sudut dan memakai kosinus: Fy = F cos θ. Komponen mendatar <b>berhadapan</b> dengan sudut: Fx = F sin θ.'
+      : 'Sudut diukur dari <b>sumbu-x</b>, jadi komponen mendatar <b>menempel</b> pada sudut dan memakai kosinus: Fx = F cos θ. Komponen tegak <b>berhadapan</b> dengan sudut: Fy = F sin θ.';
+  }
+  ['F','th','acuan'].forEach(function(i){ $(i).addEventListener('input',perbarui); $(i).addEventListener('change',perbarui); });
+  $('reset').addEventListener('click',function(){ $('F').value=100; $('th').value=37; $('acuan').checked=false; perbarui(); });
+  perbarui();
+})();
+</script></body></html>
