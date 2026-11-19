@@ -400,9 +400,40 @@ FIMS.dorong = function (db) {
     const d = db || bacaLokal();
     belumTerkirim = false;
     API('progres', { method: 'PUT', body: JSON.stringify({ tp: d.tp || {} }) })
+      .then(r => { if (r && r.usang && Object.keys(r.usang).length) adopsiDariPeladen(r.usang); })
       .catch(() => { belumTerkirim = true; });
   }, 1200);
 };
+
+/* ---------- guru mengubah progres murid: peramban murid menyusul ----------
+   Guru bisa menilai atau mereset satu dokumen murid. Peladen menaikkan nomor "epoch" TP itu.
+   Peramban murid yang masih memegang salinan lama (a) ditolak saat mengirim, lalu diberi salinan
+   baru dalam jawabannya, dan (b) mengecek nomor epoch tiap 30 detik serta saat tab kembali tampak.
+   Salinan baru dipasang ke penyimpanan lokal dan diumumkan ke app.js lewat peristiwa fims:progres. */
+function adopsiDariPeladen(peta) {
+  const lokal = bacaLokal(); lokal.tp = lokal.tp || {};
+  for (const [slug, data] of Object.entries(peta)) lokal.tp[slug] = data;
+  tulisLokal(lokal);
+  document.dispatchEvent(new CustomEvent('fims:progres', { detail: { tp: peta } }));
+}
+
+async function segarProgres() {
+  if (!FIMS.aku) return;
+  const r = await API('progres?epoch=1');
+  if (!r.epoch) return;
+  const lokal = (bacaLokal().tp) || {};
+  const perlu = Object.keys(r.epoch).filter(slug => (r.epoch[slug] || 0) > ((lokal[slug] && lokal[slug].epoch) || 0));
+  if (!perlu.length) return;
+  const p = await API('progres');
+  if (!p.tp) return;
+  const ambil = {};
+  for (const slug of perlu) if (p.tp[slug]) ambil[slug] = p.tp[slug];
+  if (Object.keys(ambil).length) adopsiDariPeladen(ambil);
+}
+setInterval(() => { if (document.visibilityState === 'visible') segarProgres().catch(() => {}); }, 30000);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') segarProgres().catch(() => {});
+});
 
 /* Tab ditutup, ponsel dikunci, atau pindah aplikasi: kirim sekarang juga.
    Tanpa ini, perubahan pada 1,2 detik terakhir sebelum halaman ditinggalkan
@@ -429,6 +460,14 @@ document.addEventListener('visibilitychange', () => {
 FIMS.papan = () => API('papan');
 /* Dibuka untuk app.js: antrean penilaian dan penyimpanan nilai oleh guru. */
 FIMS.API = (jalur, opsi) => API(jalur, opsi);
+/* Kunci dokumen isian = alamat berkas tanpa "/" depan, tanpa ".html", tanpa "index". Harus identik dengan
+   bentukKunci() di assets/fims-simpan.js: keduanya menunjuk baris yang sama di tabel "lembar". */
+FIMS.kunciLembar = jalur => {
+  let p = String(jalur || '').replace(/[?#].*$/, '').replace(/^\/+/, '');
+  try { p = decodeURIComponent(p); } catch {}
+  p = p.replace(/\/index\.html?$/i, '').replace(/\.html?$/i, '').replace(/\/+$/, '');
+  return p.replace(/[^A-Za-z0-9._\-\/]/g, '_').replace(/\/{2,}/g, '/').replace(/\.\.+/g, '.').slice(0, 200);
+};
 
 /* ---------- panel anggota ---------- */
 /* Dipakai bersama oleh penggambar tabel dan pendengar klik yang tetap.

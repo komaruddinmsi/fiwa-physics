@@ -236,6 +236,44 @@ const EN = {
 "Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.": "Colour = status, number = tier. The top row is the progress on this device; the rows below come from each student's account."
 
 };
+Object.assign(EN, {
+"Atur ulang dokumen murid": "Reopen a student document",
+"Murid terlanjur menekan Selesai, atau dokumennya sudah diskor? Pilih muridnya, lalu klik dokumen yang mau dibuka ulang: tahapan S1–S14, lapis L1–L4, paket (termasuk PRI UIN), atau dokumen isian lain. Hanya hasil dan isian dokumen itu yang dihapus; dokumen lain dan progres TP tetap utuh. Murid bisa langsung mengerjakan ulang.": "A student pressed Finish by accident, or the document was already scored? Pick the student, then click the document to reopen: stages S1–S14, layers L1–L4, packages (including PRI UIN), or any other fillable document. Only that document’s result and answers are removed; other documents and the LO progress stay intact. The student can redo it right away.",
+"Pilih murid…": "Choose a student…",
+"Murid ini belum punya hasil tercatat.": "This student has no recorded results yet.",
+"Lapis, paket, dan dokumen isian lain": "Layers, packages and other fillable documents",
+"Dokumen lain": "Other documents",
+"Memuat dokumen isian…": "Loading fillable documents…",
+"Dokumen isian (lapis, paket) belum dapat dimuat. Tahapan di atas tetap bisa dibuka ulang.": "Fillable documents (layers, packages) could not be loaded. The stages above can still be reopened.",
+"hasil dokumen (skor %s)": "document result (score %s)",
+"hasil dokumen (selesai)": "document result (finished)",
+"terisi %s": "filled %s",
+"isian yang sudah diisi (%s)": "answers already entered (%s)",
+"Tetap utuh: dokumen lain dan progres TP murid.": "Kept: all other documents and the student’s LO progress.",
+"Buka ulang %s untuk %s?": "Reopen %s for %s?",
+"Dihapus: %s": "Removed: %s",
+"Tetap utuh: dokumen lain dan progres TP ini.": "Kept: all other documents and this LO’s progress.",
+"Status %s: %s → %s": "Status %s: %s → %s",
+"Status TP tidak berubah.": "The LO status does not change.",
+"Terkunci lagi untuk murid: %s": "Locked again for the student: %s",
+"Terbuka lagi untuk murid: %s": "Unlocked again for the student: %s",
+"Alasan (opsional, terlihat oleh murid)": "Reason (optional, visible to the student)",
+"Ya, buka ulang": "Yes, reopen",
+"Batal": "Cancel",
+"%s sudah dibuka ulang untuk %s. Murid melihatnya paling lambat 45 detik lagi.": "%s has been reopened for %s. The student sees it within 45 seconds.",
+"Gagal membuka ulang.": "Could not reopen.",
+"%s membuka ulang tahapan ini pada %s%s. Kerjakan lagi dari awal.": "%s reopened this stage on %s%s. Please do it again from the start.",
+"Gurumu": "Your teacher",
+"Hapus progres TP ini (hanya milikmu)": "Delete this LO’s progress (yours only)",
+"skor %s%": "score %s%",
+"tanda selesai": "completion mark",
+"bukti terkirim": "evidence sent",
+"dan tier T%s": "and tier T%s",
+"hasil pengulangan terakhir (%s)": "latest repeat result (%s)",
+"Murid": "Student",
+"lulus": "passed",
+"gagal": "failed"
+});
 let BHS = 'id';
 const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
 const trf = (x, ...v) => { let i = 0; return tr(x).replace(/%s/g, () => v[i++]); };
@@ -759,7 +797,12 @@ function viewer(tp, id, h) {
   const tt = topikDariTP(tp);
   const awal = id === 'S1' && tt.pembuka && tt.tp && tt.tp[0] && tt.tp[0].slug === tp.slug
     ? `<a class="note pembuka-ingat" href="#topik-${tt.slug}-pembuka">▶ ${tr('Belum membaca pembukanya? Lihat fenomena dunia nyata topik ini lebih dulu.')}</a>` : '';
-  return `<section class="viewer" id="viewer">${awal}<div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
+  // Guru membuka ulang tahapan ini dan murid belum mengerjakannya lagi: jelaskan, jangan biarkan bingung.
+  const rs = (h.p.reset || []).filter(x => x.t === id).pop();
+  const bukaUlang = (rs && id !== 'S14' && !h.e[id])
+    ? `<div class="note reset-info">↺ ${trf('%s membuka ulang tahapan ini pada %s%s. Kerjakan lagi dari awal.',
+        esc(rs.nama || tr('Gurumu')), tgl(rs.pada), rs.alasan ? ' — ' + esc(rs.alasan) : '')}</div>` : '';
+  return `<section class="viewer" id="viewer">${awal}${bukaUlang}<div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
     <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>
     <div id="viewer-bawah">${bagianBawah(tp, id, h, aksi)}</div>
@@ -772,7 +815,7 @@ function panelGuruTP(tp, h) {
     ? trf('%s poin', h.e.S11.skor - h.e.S13.skor) : tr('belum ada data');
   return `<section class="panel stack"><h3>${trf('Panel guru · %s', esc(tp.kode))}</h3>
     <div class="row"><label for="tierIn">${tr('Tier dari rubrik S9/S12')}</label><select id="tierIn">${opsi}</select>
-    <button class="btn ghost" data-aksi="reset">${tr('Hapus progres TP ini')}</button></div>
+    <button class="btn ghost" data-aksi="reset">${tr('Hapus progres TP ini (hanya milikmu)')}</button></div>
     <div class="muted" style="font-size:.85rem">${trf('Selisih S11 − S13: %s · Riwayat status: %s', selisih, h.p.riwayat.map(r => tr(STATUS[r.ke])).join(' → ') || '—')}</div></section>`;
 }
 
@@ -837,6 +880,10 @@ function halGuru() {
     <section class="panel stack"><h2>${tr('Butuh penilaian')}</h2>
       <p class="muted" style="margin:0">${tr('Murid di bawah ini sudah sampai pada tahapan yang nilainya diisi guru. Yang paling lama menunggu berada di atas.')} ${tr('Hanya murid bimbinganmu yang tampil di sini. Pemilik situs melihat seluruh murid.')}</p>
       <div id="antrean-nilai"><p class="muted" style="margin:0">${tr('Memuat antrean penilaian…')}</p></div></section>
+    <section class="panel stack" id="reset-guru"><h2>${tr('Atur ulang dokumen murid')}</h2>
+      <p class="muted" style="margin:0">${tr('Murid terlanjur menekan Selesai, atau dokumennya sudah diskor? Pilih muridnya, lalu klik dokumen yang mau dibuka ulang: tahapan S1–S14, lapis L1–L4, paket (termasuk PRI UIN), atau dokumen isian lain. Hanya hasil dan isian dokumen itu yang dihapus; dokumen lain dan progres TP tetap utuh. Murid bisa langsung mengerjakan ulang.')}</p>
+      <div class="row"><label for="reset-murid">${tr('Murid')}</label><select id="reset-murid"><option value="">${tr('Memuat papan kelas…')}</option></select></div>
+      <div id="reset-isi"></div><div id="reset-konfirmasi" hidden></div><div id="reset-pesan" role="status"></div></section>
     <section class="panel stack"><h2>${tr('Papan posisi')}</h2><p class="muted" style="margin:0">${tr('Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.')}</p>${papan}
       <div id="papan-kelas"><p class="muted" style="margin:0">${tr('Memuat papan kelas…')}</p></div></section>
     <section class="panel stack"><h2>${tr('Simulasi waktu')}</h2><p class="muted" style="margin:0">${trf('Untuk uji alur kuis tertunda (H+2) dan pengulangan (H+14). Sekarang digeser %s hari.', geser)}</p>
@@ -975,6 +1022,7 @@ function isiPapanKelas() {
   FIMS.papan().then(r => {
     const w2 = document.getElementById('papan-kelas'); if (!w2) return;
     if (!r.murid) { w2.innerHTML = `<p class="muted" style="margin:0">${esc(r.galat || tr('Tidak dapat memuat papan kelas.'))}</p>`; return; }
+    papanMurid = r.murid || []; isiResetGuru();
     if (!r.murid.length) { w2.innerHTML = `<p class="muted" style="margin:0">${tr('Belum ada murid aktif. Setujui anggota lebih dulu di laman Anggota.')}</p>`; return; }
     const baris = m => `<tr><td class="l">${esc(m.nama || m.email.split('@')[0])}<br><span class="mono muted" style="font-size:.78em">${esc(m.email)}</span></td>` +
       tps.map(tp => { const h = hitungP((m.tp || {})[tp.slug], tp);
@@ -986,6 +1034,240 @@ function isiPapanKelas() {
 
   muatAntrean();
 }
+
+/* ---------- guru: buka ulang SATU dokumen murid ----------
+   Dua macam dokumen. (1) Tahapan S1–S14 pada satu TP: hasilnya tercatat di progres TP (skor/tanda selesai;
+   S12 juga tier; S14 hasil terakhir). (2) Dokumen isian apa pun: lapis L1–L4, paket PRI UIN, pembuka, dokumen
+   baru. Isiannya tersimpan per akun murid di tabel "lembar" dan ditunjuk lewat "kunci" (alamat berkas).
+   Tahapan yang punya keduanya dibuka ulang sekaligus. Dokumen lain dan progres TP tetap.
+   Penghapusan dikerjakan peladen (jalur guru/reset), yang memeriksa bahwa murid itu bimbingan guru ini atau
+   yang memanggil adalah pemilik. Peramban murid menyusul sendiri dalam paling lama 30–45 detik. */
+let papanMurid = [], resetMurid = '', resetPilih = null, resetPesan = '';
+let resetLembar = null, resetMemuat = false, resetLembarGalat = false;   // null = belum/sedang dimuat
+
+const dekodeEntitas = s => { const e = document.createElement('textarea'); e.innerHTML = String(s == null ? '' : s); return e.value; };
+const kunciBerkas = b => (window.FIMS && FIMS.kunciLembar) ? FIMS.kunciLembar(b) : '';
+
+/* Kunci dokumen → nama yang dikenal guru (dari katalog). Kunci yang tak dikenal tetap ditampilkan apa adanya,
+   jadi dokumen baru yang belum masuk katalog pun bisa dibuka ulang. */
+function petaDokumen() {
+  const peta = {};
+  for (const t of K.topik) {
+    if (t.pembuka && t.pembuka.berkas) peta[kunciBerkas(t.pembuka.berkas)] = { topik: t, label: tr('Fenomena Dunia Nyata') };
+    for (const [id, l] of Object.entries(t.tahapan || {})) {
+      if (!l) continue;
+      if (l.berkas) peta[kunciBerkas(l.berkas)] = { topik: t, label: id + ' · ' + dekodeEntitas(l.judul || '') };
+      if (l.latihan && l.latihan.berkas) peta[kunciBerkas(l.latihan.berkas)] = { topik: t, label: id + ' · ' + tr('Latihan Unit Test') };
+    }
+    for (const q of t.paket || []) if (q.berkas) peta[kunciBerkas(q.berkas)] = { topik: t, label: dekodeEntitas(q.judul || '') };
+    for (const tp of t.tp || []) for (const [id, f] of Object.entries(tp.tahapan || {}))
+      if (f && f.berkas) peta[kunciBerkas(f.berkas)] = { topik: t, tp, id };
+  }
+  return peta;
+}
+
+function ringkasLembar(l) {                          // satu baris untuk tombol dan konfirmasi
+  const kecil = l.diubah ? tgl(l.diubah * 1000) : '';
+  const skor = l.skor != null ? Math.round(l.skor) + '%' : null;
+  if (l.selesai) return { besar: skor || '✓', kecil, frasa: skor ? trf('hasil dokumen (skor %s)', skor) : tr('hasil dokumen (selesai)') };
+  const n = l.total ? `${l.terisi || 0}/${l.total}` : '…';
+  return { besar: trf('terisi %s', n), kecil, frasa: trf('isian yang sudah diisi (%s)', n) };
+}
+
+function adaHasilTahapan(p, id) {
+  return id === 'S14' ? !!(p.s14 || []).length : !!((p.ev || {})[id] || (id === 'S12' && p.tier));
+}
+
+function hasilDokumen(p, id) {                       // ringkas: apa yang akan hilang
+  if (id === 'S14') {
+    const a = (p.s14 || [])[(p.s14 || []).length - 1];
+    return { besar: a ? tr(a.hasil) : '—', kecil: a ? tgl(a.waktu) : '', frasa: trf('hasil pengulangan terakhir (%s)', a ? tr(a.hasil) : '—') };
+  }
+  const e = (p.ev || {})[id] || {};
+  const bukti = id === 'S12' && p.tier ? 'T' + p.tier : null;
+  const besar = bukti || (e.skor != null ? e.skor + '%' : '✓');
+  const frasa = id === 'S12'
+    ? tr('bukti terkirim') + (p.tier ? ' ' + trf('dan tier T%s', p.tier) : '')
+    : (e.skor != null ? trf('skor %s%', e.skor) : tr('tanda selesai'));
+  return { besar, kecil: e.waktu ? tgl(e.waktu) : '', frasa };
+}
+
+function simulasiReset(p, id) {                      // cermin aturan peladen; hanya untuk pratinjau
+  const q = JSON.parse(JSON.stringify(p)); q.ev = q.ev || {}; q.s14 = q.s14 || [];
+  if (id === 'S14') {
+    const c = q.s14.pop();
+    if (c && c.hasil === 'gagal') {
+      const g = [...q.s14].reverse().find(x => x.hasil === 'gagal');
+      if (g) q.s14Mulai = (g.waktu || 0) + 1; else delete q.s14Mulai;
+    }
+  } else { delete q.ev[id]; if (id === 'S12') q.tier = null; }
+  return q;
+}
+
+function dampakReset(tp, p, id) {
+  const ukur = q => { const st = hitungP(q, tp);
+    return { st, h: { e: q.ev || {}, s: st.s, tier: q.tier || 0, p: q, amb: tp.ambang || 75 } }; };
+  const a = ukur(p), b = ukur(simulasiReset(p, id));
+  const ids = TAHAPAN.map(s => s.id).filter(x => tp.tahapan[x] && x !== id);
+  const kA = Object.fromEntries(ids.map(x => [x, kunci(tp, x, a.h)])), kB = Object.fromEntries(ids.map(x => [x, kunci(tp, x, b.h)]));
+  return {
+    status: a.st.s !== b.st.s || a.st.stabil !== b.st.stabil ? [a.st, b.st] : null,
+    terkunci: ids.filter(x => kB[x] && !kA[x]),
+    terbuka: ids.filter(x => kA[x] && !kB[x])
+  };
+}
+
+async function muatLembar() {
+  const murid = resetMurid;
+  resetLembar = null; resetLembarGalat = false;
+  if (!murid) { gambarResetIsi(); return; }
+  resetMemuat = true; gambarResetIsi();
+  let r; try { r = await FIMS.API('guru/lembar?murid=' + encodeURIComponent(murid)); } catch (e) { r = {}; }
+  resetMemuat = false;
+  if (murid !== resetMurid) return;                  // guru sudah memilih murid lain
+  resetLembarGalat = !(r && r.ok && Array.isArray(r.lembar));
+  resetLembar = resetLembarGalat ? [] : r.lembar;
+  gambarResetIsi();
+}
+
+function isiResetGuru() {
+  const sel = document.getElementById('reset-murid'); if (!sel) return;
+  sel.innerHTML = `<option value="">${tr('Pilih murid…')}</option>` + papanMurid.map(m =>
+    `<option value="${esc(m.email)}"${m.email === resetMurid ? ' selected' : ''}>${esc(m.nama || m.email.split('@')[0])}${m.kelas ? ' · ' + esc(m.kelas) : ''}</option>`).join('');
+  if (!papanMurid.some(m => m.email === resetMurid)) { resetMurid = ''; resetLembar = null; }
+  gambarResetIsi();
+  if (resetMurid && resetLembar === null && !resetMemuat) muatLembar();
+}
+
+function gambarResetIsi() {
+  const isi = document.getElementById('reset-isi'), pes = document.getElementById('reset-pesan');
+  if (!isi) return;
+  if (pes) pes.innerHTML = resetPesan ? `<div class="note reset-ok">${esc(resetPesan)}</div>` : '';
+  const m = papanMurid.find(x => x.email === resetMurid);
+  if (!m) { isi.innerHTML = ''; gambarResetKonfirmasi(); return; }
+
+  const peta = petaDokumen(), lemTahapan = {}, lain = [];
+  for (const l of (resetLembar || [])) {
+    if (!l.adaIsi) continue;                         // sudah dikosongkan guru: tidak ada yang bisa dibuka ulang
+    const d = peta[l.kunci];
+    if (d && d.tp) lemTahapan[d.tp.slug + '|' + d.id] = l; else lain.push({ l, d });
+  }
+  const dipilih = (tp, id, kunci) => !!resetPilih && (kunci ? resetPilih.kunci === kunci : (resetPilih.tp === tp && resetPilih.id === id));
+
+  const blokTP = semuaTP().map(tp => {
+    const p = (m.tp || {})[tp.slug] || {};
+    const ids = TAHAPAN.map(s => s.id).filter(id => adaHasilTahapan(p, id) || lemTahapan[tp.slug + '|' + id]);
+    if (!ids.length) return '';
+    const h = hitungP(p, tp);
+    const tombol = ids.map(id => {
+      const l = lemTahapan[tp.slug + '|' + id], r = adaHasilTahapan(p, id) ? hasilDokumen(p, id) : ringkasLembar(l);
+      const on = resetPilih && resetPilih.tp === tp.slug && resetPilih.id === id;
+      return `<button type="button" class="rs-doc" data-rs="pilih" data-tp="${esc(tp.slug)}" data-id="${id}" data-kunci="${l ? esc(l.kunci) : ''}" aria-pressed="${on ? 'true' : 'false'}">
+        <span class="rs-id">${id}</span><span class="rs-nm">${esc(tr(T(id).nama))}</span>
+        <span class="rs-hasil">${esc(r.besar)}${r.kecil ? ` <small>· ${esc(r.kecil)}</small>` : ''}</span><span class="rs-ikon" aria-hidden="true">↺</span></button>`; }).join('');
+    return `<div class="rs-tp"><div class="row" style="justify-content:space-between"><h3>${esc(tp.kode)} · ${esc(tp.judul)}</h3>${chip(h.s, h.stabil)}</div>
+      <div class="rs-daftar">${tombol}</div></div>`;
+  }).join('');
+
+  const kel = {};
+  for (const x of lain) { const k = x.d ? x.d.topik.kode : tr('Dokumen lain'); (kel[k] = kel[k] || []).push(x); }
+  const blokLain = Object.entries(kel).map(([kode, arr]) =>
+    `<div class="rs-tp"><h3>${esc(kode)} · ${tr('Lapis, paket, dan dokumen isian lain')}</h3><div class="rs-daftar">${arr.map(({ l, d }) => {
+      const r = ringkasLembar(l);
+      return `<button type="button" class="rs-doc" data-rs="pilih" data-kunci="${esc(l.kunci)}" aria-pressed="${dipilih('', '', l.kunci) ? 'true' : 'false'}">
+        <span class="rs-nm">${esc(d ? d.label : l.kunci)}</span>
+        <span class="rs-hasil">${esc(r.besar)}${r.kecil ? ` <small>· ${esc(r.kecil)}</small>` : ''}</span><span class="rs-ikon" aria-hidden="true">↺</span></button>`; }).join('')}</div></div>`).join('');
+
+  const status = resetLembar === null ? `<p class="muted" style="margin:0">${tr('Memuat dokumen isian…')}</p>`
+    : (resetLembarGalat ? `<p class="muted" style="margin:0">${tr('Dokumen isian (lapis, paket) belum dapat dimuat. Tahapan di atas tetap bisa dibuka ulang.')}</p>` : '');
+  isi.innerHTML = (blokTP + blokLain + status) || `<p class="muted" style="margin:0">${tr('Murid ini belum punya hasil tercatat.')}</p>`;
+  gambarResetKonfirmasi();
+}
+
+function namaDokumenReset(pil) {
+  if (pil.tp && pil.id) return pil.id + ' · ' + tr(T(pil.id).nama);
+  const d = petaDokumen()[pil.kunci];
+  return d ? d.label : pil.kunci;
+}
+
+function gambarResetKonfirmasi() {
+  const k = document.getElementById('reset-konfirmasi'); if (!k) return;
+  const m = papanMurid.find(x => x.email === resetMurid);
+  if (!m || !resetPilih) { k.hidden = true; k.innerHTML = ''; return; }
+  const pil = resetPilih, tp = pil.tp ? cariTP(pil.tp) : null, p = pil.tp ? ((m.tp || {})[pil.tp] || {}) : null;
+  const l = pil.kunci ? (resetLembar || []).find(x => x.kunci === pil.kunci) : null;
+  const adaTahap = !!(tp && adaHasilTahapan(p, pil.id));
+  if (!adaTahap && !l) { k.hidden = true; k.innerHTML = ''; return; }
+  const nm = m.nama || m.email.split('@')[0];
+  const hasil = adaTahap ? hasilDokumen(p, pil.id) : null, d = adaTahap ? dampakReset(tp, p, pil.id) : null;
+  const baris = [
+    adaTahap ? `<li>${trf('Dihapus: %s', `<b>${esc(hasil.frasa)}</b>${hasil.kecil ? ' (' + esc(hasil.kecil) + ')' : ''}`)}</li>` : '',
+    l ? `<li>${trf('Dihapus: %s', `<b>${esc(ringkasLembar(l).frasa)}</b>${l.diubah ? ' (' + esc(tgl(l.diubah * 1000)) + ')' : ''}`)}</li>` : '',
+    `<li>${tr(tp ? 'Tetap utuh: dokumen lain dan progres TP ini.' : 'Tetap utuh: dokumen lain dan progres TP murid.')}</li>`,
+    d ? `<li>${d.status ? trf('Status %s: %s → %s', esc(tp.kode), chip(d.status[0].s, d.status[0].stabil), chip(d.status[1].s, d.status[1].stabil)) : tr('Status TP tidak berubah.')}</li>` : '',
+    d && d.terkunci.length ? `<li>${trf('Terkunci lagi untuk murid: %s', esc(d.terkunci.join(', ')))}</li>` : '',
+    d && d.terbuka.length ? `<li>${trf('Terbuka lagi untuk murid: %s', esc(d.terbuka.join(', ')))}</li>` : ''
+  ].join('');
+  k.hidden = false;
+  k.innerHTML = `<div class="note rs-konfirm"><b>${trf('Buka ulang %s untuk %s?', esc(namaDokumenReset(pil)), esc(nm))}</b>
+    <ul>${baris}</ul>
+    <div class="row"><label for="rs-alasan">${tr('Alasan (opsional, terlihat oleh murid)')}</label>
+      <input type="text" id="rs-alasan" maxlength="160" style="flex:1;min-width:200px"></div>
+    <div class="row"><button type="button" class="btn" data-rs="ya">${tr('Ya, buka ulang')}</button>
+      <button type="button" class="btn ghost" data-rs="batal">${tr('Batal')}</button></div></div>`;
+}
+
+async function jalankanReset(tombol) {
+  const m = papanMurid.find(x => x.email === resetMurid); if (!m || !resetPilih) return;
+  const pil = resetPilih, alasan = (document.getElementById('rs-alasan') || {}).value || '';
+  const badan = { murid: m.email, alasan };
+  if (pil.tp && pil.id) { badan.tp = pil.tp; badan.tahapan = pil.id; }
+  if (pil.kunci) badan.kunci = pil.kunci;
+  tombol.disabled = true;
+  let r;
+  try { r = await FIMS.API('guru/reset', { method: 'POST', body: JSON.stringify(badan) }); }
+  catch (e) { r = { galat: String(e) }; }
+  if (r && r.ok) {
+    if (r.data && pil.tp) { m.tp = m.tp || {}; m.tp[pil.tp] = r.data; }
+    resetPesan = trf('%s sudah dibuka ulang untuk %s. Murid melihatnya paling lambat 45 detik lagi.', namaDokumenReset(pil), m.nama || m.email.split('@')[0]);
+    resetPilih = null;
+    await muatLembar();                               // daftar dokumen isian ikut segar
+    isiPapanKelas();                                  // papan dan antrean ikut segar
+  } else {
+    tombol.disabled = false;
+    const pes = document.getElementById('reset-pesan');
+    if (pes) pes.innerHTML = `<div class="note reset-gagal">${esc((r && r.galat) || tr('Gagal membuka ulang.'))}</div>`;
+  }
+}
+
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-rs]'); if (!b) return;
+  const a = b.dataset.rs;
+  if (a === 'pilih') { resetPilih = { tp: b.dataset.tp || '', id: b.dataset.id || '', kunci: b.dataset.kunci || '' }; resetPesan = ''; gambarResetIsi(); return; }
+  if (a === 'batal') { resetPilih = null; gambarResetIsi(); return; }
+  if (a === 'ya') jalankanReset(b);
+});
+document.addEventListener('change', ev => {
+  if (ev.target.id === 'reset-murid') { resetMurid = ev.target.value; resetPilih = null; resetPesan = ''; muatLembar(); }
+});
+
+/* ---------- murid: salinan terbaru dari peladen (guru menilai atau membuka ulang) ---------- */
+document.addEventListener('fims:progres', ev => {
+  const tp = (ev.detail && ev.detail.tp) || {};
+  let tahapanIniBerubah = false;
+  for (const [slug, data] of Object.entries(tp)) {
+    if (cur && cur.tp.slug === slug) {
+      const lama = db.tp[slug] || {}, id = cur.id;
+      if (JSON.stringify([(lama.ev || {})[id], lama.tier, lama.s14]) !== JSON.stringify([(data.ev || {})[id], data.tier, data.s14])) tahapanIniBerubah = true;
+    }
+    db.tp[slug] = data;
+  }
+  try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) {}     // data dari peladen: tidak didorong balik
+  // Lembar isian yang sedang terbuka (paket, lapis, pembuka) jangan dimuat ulang: jawaban yang diketik akan hilang.
+  if (/-p-|-l[1-4](-latihan)?$|-pembuka$/.test(location.hash)) return;
+  if (cur && !tahapanIniBerubah) { segarkanSetelahSkor(); return; }       // lembar tahapan tetap hidup
+  render();
+});
 
 /* Mengingat panel mana yang dilipat, per peramban. */
 function pasangLipat() {
@@ -1112,7 +1394,13 @@ document.addEventListener('change', ev => {
 });
 // jembatan skor dari halaman HTML tahapan
 window.addEventListener('message', ev => {
-  const d = ev.data; if (!d || !d.fims || !cur) return;
+  const d = ev.data;
+  // Dokumen isian yang melapor selesai/skor: teruskan ke penyimpan per akun di dalam dokumen itu,
+  // di rute mana pun (tahapan, lapis, paket), supaya skor ikut tersimpan di akun murid.
+  if (d && (d.fims === 'skor' || d.fims === 'selesai') && ev.source) {
+    try { if (ev.source.FIMS_LEMBAR) ev.source.FIMS_LEMBAR.lapor(d.fims === 'skor' && typeof d.skor === 'number' ? { selesai: true, skor: d.skor } : { selesai: true }); } catch (e) {}
+  }
+  if (!d || !d.fims || !cur) return;
   const s = T(cur.id);
   if (d.fims === 'skor' && typeof d.skor === 'number' && (s.skor || cur.id === 'S14'))
     catat(cur.tp, cur.id, { skor: d.skor, salah: d.salah, benar: d.benar, total: d.total });
@@ -1120,6 +1408,19 @@ window.addEventListener('message', ev => {
   else return;
   segarkanSetelahSkor();     // lembar di dalam bingkai dibiarkan hidup
 });
+/* Dokumen isian yang tampil di dalam situs dipasangi penyimpan jawaban per akun (assets/fims-simpan.js)
+   bila belum punya. Jadi dokumen baru yang kelak diunggah ikut tersimpan walau tag-nya lupa ditambahkan. */
+document.addEventListener('load', ev => {
+  const f = ev.target; if (!f || f.tagName !== 'IFRAME' || !f.classList.contains('frame')) return;
+  try {
+    const w = f.contentWindow, d = f.contentDocument;
+    if (!w || !d || !d.body || w.FIMS_LEMBAR || d.getElementById('fims-simpan-js')) return;
+    if (!d.querySelector('input, select, textarea')) return;
+    const s = d.createElement('script'); s.id = 'fims-simpan-js';
+    s.src = new URL('assets/fims-simpan.js', location.href).href;
+    d.body.appendChild(s);
+  } catch (e) {}
+}, true);
 window.addEventListener('hashchange', render);
 document.addEventListener('fims:mode', render);        // guru menukar mode tampilan
 

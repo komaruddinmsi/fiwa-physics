@@ -361,3 +361,25 @@ details.lipat > summary h2{min-width:0;overflow-wrap:anywhere}
    meregangkan seluruh halaman alih-alih menggulir di tempatnya sendiri */
 .panel.stack > *,.lipat-isi > *,#antrean-nilai,#papan-kelas{min-width:0}
 .scroll{max-width:100%}
+
+/* ---------- guru: buka ulang satu dokumen murid ---------- */
+input[type=text]{font:inherit;padding:7px 10px;border:1px solid var(--line-kuat);border-radius:8px;background:rgba(3,9,31,.6);color:var(--fg)}
+#reset-guru select{max-width:100%;min-width:0}
+.rs-tp{border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0}
+.rs-tp h3{margin:0;font-size:1rem}
+.rs-daftar{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px}
+.rs-doc{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"id nm ikon" "id hasil ikon";gap:0 10px;align-items:center;text-align:left;
+  min-height:48px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--fg);font:inherit;cursor:pointer;min-width:0}
+.rs-doc:hover{border-color:var(--line-kuat)}
+.rs-doc[aria-pressed="true"]{border-color:var(--gate);background:var(--gate-soft)}
+.rs-doc .rs-id{grid-area:id;font:600 .85rem var(--mono);color:var(--muted)}
+.rs-doc .rs-nm{grid-area:nm;font-weight:600;font-size:.9rem;min-width:0;overflow-wrap:anywhere}
+.rs-doc .rs-hasil{grid-area:hasil;font-size:.85rem;color:var(--teal-muda)}
+.rs-doc .rs-hasil small{color:var(--muted)}
+.rs-doc .rs-ikon{grid-area:ikon;font-size:1.2rem;color:var(--gate)}
+.rs-konfirm ul{margin:.5em 0;padding-left:1.2em}
+.rs-konfirm li{margin:.2em 0}
+.rs-konfirm .row{margin-top:.6em}
+.reset-ok{border-left-color:var(--s5);background:rgba(25,184,111,.14)}
+.reset-gagal{border-left-color:#ff6b6b;background:rgba(255,107,107,.14)}
+.reset-info{border-left-color:var(--teal);background:rgba(0,201,167,.12)}
