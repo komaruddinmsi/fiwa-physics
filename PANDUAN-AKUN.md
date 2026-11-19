@@ -219,10 +219,88 @@ macam:
 
 Guru mengetik nilainya langsung di baris antrean, lalu **Simpan**. Nilainya
 ditulis ke progres murid beserta catatan siapa yang menilai dan kapan, pada
-`ev.S8.oleh` / `ev.S12.oleh` dan kolom `progres.oleh`.
+`ev.S8.oleh` / `ev.S12.oleh` (berisi **nama tampilan**, bukan surel, supaya surel pemilik tidak
+sampai ke peramban murid) dan kolom `progres.oleh` (surel, hanya di peladen).
 
 Di bawahnya, **Papan posisi** menampilkan posisi tiap murid pada seluruh TP —
 untuk guru hanya murid bimbingannya, untuk pemilik seluruh murid.
+
+### Jawaban dan skor tersimpan per akun
+
+Semua dokumen yang bisa diisi murid kini menyimpan **isian, waktu mulai, status
+terkunci, dan skornya** di akun murid, bukan lagi di peramban. Murid yang menutup
+tab, berganti perangkat, atau memuat ulang melanjutkan dari tempat terakhir:
+pengatur waktu PRI UIN tetap berjalan dari tenggatnya, dan lembar yang sudah
+dikumpulkan tetap terkunci dengan nilainya.
+
+- Berlaku untuk 12 dokumen PRI UIN, lapis L1–L4 (utama dan latihan), pembuka, dan
+  semua lembar tahapan. Dokumen yang diunggah kelak ikut otomatis (lihat
+  `PANDUAN-TOPIK-BARU.md`, bagian "Jawaban tersimpan per murid").
+- Isian disimpan sekitar 3 detik setelah murid berhenti mengubah, dan seketika saat
+  tab ditutup. Di atas halaman ada bilah kecil: "Jawabanmu tersimpan di akunmu".
+- Tersimpan di tabel D1 `lembar` (satu baris per murid per dokumen). Tabel itu
+  **dibuat sendiri** saat dipakai pertama kali; `migrasi-lembar.sql` hanya bila ingin
+  membuatnya lebih dulu. Satu dokumen maksimal 60 KB dan satu murid maksimal 400 dokumen.
+- Guru dan pemilik yang membuka dokumen hanya melihat-lihat: tidak ada yang disimpan
+  atas nama mereka, dan bilah menulis "Mode guru: jawaban tidak disimpan".
+- Isian tidak pernah dikirim sebelum isian lama selesai dimuat, supaya lembar kosong
+  tidak menimpa jawaban yang sudah ada. Bila peladen tidak terjangkau, murid diberi
+  tahu dan lembar tetap bisa dipakai.
+- Menghapus anggota di laman Anggota ikut menghapus semua isiannya.
+- Skor yang tampil di daftar guru hanya untuk dokumen yang sudah dikumpulkan
+  (ditekan Selesai atau waktu habis). Yang belum, tampil sebagai "terisi 12/30".
+- Tombol **Hapus progres TP ini (hanya milikmu)** di halaman TP hanya menghapus
+  progres TP di perangkat itu; isian dokumen yang sudah tersimpan tidak ikut hilang.
+  Untuk mengosongkan isian, guru memakai "Atur ulang dokumen murid".
+
+### Membuka ulang satu dokumen murid
+
+Murid tidak sengaja menekan Selesai, atau dokumennya sudah terlanjur diskor?
+Guru tidak perlu menghapus progres satu TP. Di **Papan Guru → Atur ulang dokumen
+murid**: pilih murid, klik dokumen yang ingin dibuka ulang, baca pratinjau, lalu
+**Ya, buka ulang**.
+
+- Yang dihapus hanya hasil dokumen itu (skor atau tanda selesai). Untuk **S12**
+  tier-nya ikut dihapus; untuk **S14** yang dicopot adalah hasil pengulangan terakhir.
+- Dokumen lain dan progres TP tetap utuh.
+- Pratinjau menunjukkan apa yang hilang, perubahan status TP (misalnya Tuntas →
+  Mencoba), dan tahapan mana yang terkunci atau terbuka lagi. Contoh: mereset S13
+  melepas kunci "sekali jalan" sehingga murid bisa mengerjakannya lagi.
+- Alasan boleh diisi (maksimal 160 karakter). Murid melihatnya di halaman tahapan
+  itu: "*Bu Sari membuka ulang tahapan ini pada 19 Nov — alasan. Kerjakan lagi dari awal.*"
+- Berlaku untuk **semua tahapan S1–S14 (termasuk S2b/S2c) di semua topik berjenis alur**,
+  dibaca dari katalog; topik baru otomatis ikut, tanpa pengaturan tambahan.
+- Guru hanya melihat dan mereset muridnya sendiri; pemilik melihat semua murid.
+
+**Dokumen isian lain (lapis L1–L4, paket PRI UIN, pembuka, dokumen baru)** juga
+muncul di daftar yang sama, dalam kotak "Lapis, paket, dan dokumen isian lain" per
+topik. Klik, baca pratinjau, **Ya, buka ulang**: isian dan skor dokumen itu dihapus
+dan murid mulai dari kosong (untuk PRI UIN: layar pengaturan waktu muncul lagi).
+Tahapan S1–S14 yang juga punya isian tersimpan dibuka ulang dua-duanya sekaligus
+dengan satu klik. Dokumen yang belum terdaftar di katalog tetap muncul, memakai
+alamat berkasnya sebagai nama.
+
+#### Mengapa ada nomor epoch
+
+Progres murid disimpan di peramban lalu disinkronkan ke peladen, dan dulu
+kirimannya selalu menimpa. Akibatnya tab murid yang masih terbuka bisa
+menghidupkan lagi dokumen yang baru direset guru. Sekarang tiap TP punya nomor
+`epoch` yang naik setiap kali guru menilai atau mereset. Kiriman dengan epoch lebih
+lama ditolak dan murid diberi salinan terbaru; peramban murid juga mengecek epoch
+tiap 30 detik dan saat tab kembali terlihat. `epoch` dan catatan `reset` dimiliki
+peladen, nilai kiriman dari peramban diabaikan.
+
+Aturan yang sama berlaku untuk isian dokumen (tabel `lembar`): tiap dokumen punya
+`epoch` sendiri. Tab murid yang masih memegang isian lama ditolak, lalu halaman
+dokumen itu memuat ulang sendiri dan murid melihat lembar kosong beserta catatan
+guru. Pemeriksaannya tiap 45 detik dan saat tab kembali terlihat.
+
+Satu konsekuensi yang wajar: pekerjaan murid yang tercatat pada salinan usang,
+di jeda sebelum peramban menyusul (paling lama 30 detik untuk tahapan, 45 detik
+untuk isian dokumen), ikut dibuang.
+
+Tombol lama **Hapus progres TP ini** di halaman TP kini berlabel "(hanya milikmu)":
+ia hanya menghapus progres akun yang sedang dipakai, bukan milik murid.
 
 ### Batas yang dijaga di sisi server
 
@@ -232,7 +310,10 @@ Semuanya diperiksa ulang di API, bukan hanya disembunyikan di tampilan:
 - guru tidak dapat mengatur pembimbing (403);
 - siswa tidak dapat membuka antrean maupun papan (403);
 - hanya S8 dan S12 yang boleh dinilai guru — tahapan lain ditolak;
+- guru hanya boleh mereset dokumen murid bimbingannya (403 untuk selain itu); murid tidak dapat mereset dirinya sendiri;
 - skor dibatasi 0–100, tier 1–4;
+- isian dokumen hanya bisa ditulis oleh murid pemiliknya (guru dan pemilik tidak menyimpan apa pun lewat jalur itu), `reset` dari peramban dibuang, dan kunci dokumen yang tak wajar (`..`, `//`, karakter aneh) ditolak;
+- guru hanya bisa melihat daftar dokumen isian murid bimbingannya (`guru/lembar`); isian mentah tidak pernah dikirim ke guru, hanya ringkasan;
 - pembimbing hanya boleh ditetapkan untuk akun berperan siswa, dan hanya akun
   guru atau pemilik yang aktif yang boleh menjadi pembimbing. Surel lain dalam
   permintaan dibuang dan dikembalikan pada medan `ditolak`.

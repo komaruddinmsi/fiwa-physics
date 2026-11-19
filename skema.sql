@@ -49,3 +49,22 @@ CREATE TABLE IF NOT EXISTS bimbing (
 );
 
 CREATE INDEX IF NOT EXISTS bimbing_murid ON bimbing (murid);
+
+-- Lembar: isian dan skor SATU dokumen untuk SATU murid (PRI UIN, lapis L1–L4, paket, dokumen baru).
+-- Tabel ini juga dibuat otomatis oleh Function pada pemakaian pertama; berkas ini hanya sebagai catatan
+-- dan untuk pemasangan baru. kunci = alamat berkas tanpa "/" di depan dan tanpa ".html".
+CREATE TABLE IF NOT EXISTS lembar (
+  email   TEXT NOT NULL,
+  kunci   TEXT NOT NULL,               -- contoh: konten/pri-uin-smp/paket/penyisihan-v1
+  data    TEXT NOT NULL,               -- JSON: { f:{isian}, x:{keadaan khusus}, reset:{...} }
+  skor    REAL,
+  selesai INTEGER NOT NULL DEFAULT 0,
+  terisi  INTEGER,                     -- jumlah isian yang sudah diisi
+  total   INTEGER,                     -- jumlah isian seluruhnya
+  epoch   INTEGER NOT NULL DEFAULT 0,  -- naik tiap guru membuka ulang dokumen ini
+  diubah  INTEGER NOT NULL,
+  oleh    TEXT,
+  PRIMARY KEY (email, kunci)
+);
+
+CREATE INDEX IF NOT EXISTS lembar_kunci ON lembar (kunci);

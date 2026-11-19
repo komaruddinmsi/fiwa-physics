@@ -103,6 +103,53 @@ Halaman yang hanya perlu menandai "sudah dikerjakan" cukup memasang
 
 ---
 
+### Jawaban tersimpan per murid (otomatis)
+
+Setiap dokumen yang punya kotak isian (`<input>`, `<select>`, `<textarea>`) menyimpan
+isian dan skornya ke akun murid, dan guru bisa membukanya ulang dari Papan Guru. Ini
+berlaku untuk dokumen tahapan, lapis L1–L4, pembuka, **dan dokumen paket/lepas yang
+diunggah kelak**. Penulis dokumen hanya perlu:
+
+1. **Memberi tiap kotak isian `id` atau `name` yang tetap.** Itu kunci penyimpanannya.
+   Kotak tanpa keduanya disimpan menurut urutannya, tetapi rapuh bila dokumen diubah.
+   Kotak yang dibuat skrip (misalnya soal yang digambar saat memuat) boleh, asal id-nya
+   tetap.
+2. **Menaruh satu baris di akhir `<body>`** (opsional bila dokumen tampil di dalam situs,
+   karena halaman induk memasangnya otomatis; wajib bila dokumen dibuka sendiri di tab baru):
+
+   ```html
+   <script src="../../../assets/fims-simpan.js"></script>
+   ```
+   Sesuaikan jalur relatifnya ke `assets/`. Dokumen yang memuat `fims-shim.js` tidak perlu
+   baris ini.
+3. Kotak yang tidak boleh disimpan diberi atribut `data-fims-abaikan` (atau diletakkan
+   di dalam elemen berattribut itu).
+
+Itu cukup untuk lembar sederhana. Dokumen yang **punya pengatur waktu, kunci, atau hasil
+yang digambar skrip** perlu tiga kait kecil di `window` supaya keadaannya pulih persis
+seperti ditinggalkan murid (contoh lengkap: lihat 12 dokumen PRI UIN dan `L3` f-use/f-mek):
+
+```js
+// 1. ringkasan untuk daftar guru; "selesai" menentukan kapan skor dicatat
+window.FIMS_RINGKAS = function(){ return { terisi: 12, total: 30, selesai: terkunci }; };
+// 2. keadaan di luar kotak isian, misalnya "sudah dikunci"
+window.FIMS_KEADAAN = function(){ return { kunci: terkunci }; };
+// 3. dipanggil sesudah isian dipulihkan: jalankan ulang kode pemulihan dokumen
+window.FIMS_PULIHKAN = function(info){ /* info = { selesai, skor, x }, x = hasil FIMS_KEADAAN */ };
+```
+
+Seketika menyimpan (tanpa menunggu 3 detik): `FIMS_LEMBAR.lapor({ selesai: true, skor: 80 })`.
+Skor hanya dicatat bila dokumen `selesai`; bila `FIMS_RINGKAS` tidak ada, skor diambil dari
+`window.hitungNilai()` dan "selesai" dari kotak tersembunyi `#selesai` bernilai `1`, atau dari
+laporan `postMessage({fims:'skor'|'selesai'})` yang diteruskan halaman induk.
+
+Yang **tidak** otomatis: elemen `contenteditable`, kanvas gambar, dan keadaan yang hanya hidup
+di variabel JS. Untuk itu pakai `FIMS_KEADAAN`/`FIMS_PULIHKAN`.
+
+**Cara memeriksa dokumen baru:** buka sebagai murid uji, isi, tunggu bilah menulis "tersimpan",
+muat ulang (isian harus kembali), lalu dari akun guru buka Papan Guru → Atur ulang dokumen
+murid → dokumen itu harus muncul dan, sesudah dibuka ulang, lembar murid kosong lagi.
+
 ## 3 · Kunci jawaban: terbuka atau tersandi
 
 | Tahapan | Bentuk kunci | Alasan |
@@ -340,13 +387,16 @@ Nilai `"jalur"` yang dikenali: `IGCSE`, `AS/A`, `TKA`, `Olimpiade`
 
 1. **Berdiri sendiri.** Seluruh CSS dan JS di dalam satu berkas. Jangan
    menautkan `assets/tahapan.css` atau `assets/fims-shim.js` — dokumen paket
-   tidak memakai mesin tahapan.
+   tidak memakai mesin tahapan. Satu-satunya berkas situs yang boleh ditautkan adalah
+   `assets/fims-simpan.js` (penyimpan jawaban per murid, lihat bagian 2).
 2. **Jangan mengirim `postMessage` ke induk.** Dokumen paket tidak melapor skor;
    kalau ia mengirim `{fims:'skor'}`, pesan itu diabaikan karena tidak ada TP
    yang aktif, tetapi lebih baik tidak dikirim sama sekali.
 3. **Tanpa `target="_blank"` di dalam dokumen.** Situs sudah menyediakan tombol
    "Buka penuh di tab baru" di luar bingkai.
-4. **Kunci jawaban jangan ditulis terbuka.** Paket PRI UIN memakai geseran
+4. **Beri tiap kotak isian `id`/`name` yang tetap** supaya isian murid tersimpan di akunnya dan
+   bisa dibuka ulang guru. Lihat "Jawaban tersimpan per murid" di bagian 2.
+5. **Kunci jawaban jangan ditulis terbuka.** Paket PRI UIN memakai geseran
    Caesar (`GESER = 7`) pada `KUNCI_PIL`, `PEMBAHASAN`, dan `REVIEW`. Itu
    penghalang terhadap View Source, bukan kerahasiaan kriptografis — cukup untuk
    simulasi, tidak cukup untuk ujian yang menentukan.
