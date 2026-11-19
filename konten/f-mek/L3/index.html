@@ -883,12 +883,31 @@ table.penguasaan td.r,table.penguasaan th.r{text-align:right;white-space:nowrap}
   document.addEventListener("input", perbarui);
   document.addEventListener("change", perbarui);
 
-  /* ---------- awal: lanjutkan bila tenggat sudah tersimpan ---------- */
-  perbarui();
-  if (elTenggat.value) {
-    tampilSoal();
-    if (sisaMs() <= 0) kunci(false, "waktu"); else jalankanJam();
+  /* ---------- penyimpanan per akun (assets/fims-simpan.js) ----------
+     Isian, waktu mulai, dan status terkunci ikut tersimpan di akun murid; guru bisa membuka ulang lembar ini. */
+  (function(){
+    var kunciAsli = kunci;
+    kunci = function(){ var r = kunciAsli.apply(this, arguments); try { if (window.FIMS_LEMBAR) window.FIMS_LEMBAR.lapor(); } catch (e) {} return r; };
+  })();
+  window.FIMS_RINGKAS = function(){
+    var b = belumLengkap();
+    return { terisi: URUT.length - b.kosong.length - b.sebagian.length, total: URUT.length, selesai: terkunciSekarang() };
+  };
+  window.FIMS_KEADAAN = function(){ return { kunci: terkunciSekarang() }; };
+
+  /* ---------- awal: lanjutkan bila tenggat sudah tersimpan (dipanggil lagi sesudah isian akun dipulihkan) ---------- */
+  function pulihkanLembar(info){
+    var terkunciSimpan = !!(info && info.x && info.x.kunci);
+    if (timer) { clearInterval(timer); timer = null; }
+    perbarui();
+    if (elTenggat.value) {
+      tampilSoal();
+      if (terkunciSimpan) kunci(false, "selesai");
+      else if (sisaMs() <= 0) kunci(false, "waktu"); else jalankanJam();
+    }
   }
+  window.FIMS_PULIHKAN = pulihkanLembar;
+  pulihkanLembar();
 })();
 </script>
 
@@ -909,5 +928,6 @@ table.penguasaan td.r,table.penguasaan th.r{text-align:right;white-space:nowrap}
   });
 })();
 </script>
+<script src="../../../assets/fims-simpan.js"></script>
 </body>
 </html>
