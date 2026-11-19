@@ -29,3 +29,6 @@ Untuk topik baru: salin `bank/data_tp.py` dan ketiga bank soalnya, ganti
 isinya, lalu sesuaikan nama folder di bagian atas `bangun.py`.
 
 Panduan lengkap: `../PANDUAN-TOPIK-BARU.md`.
+
+- `ebook.py` — menulis halaman topik Kumpulan E-Book (jalur Olimpiade) dari daftar `BUKU`. Lihat PANDUAN-TOPIK-BARU.md bagian 8.7.
+- `pecah-pdf.py` — memotong PDF besar jadi bagian di bawah 25 MiB, lengkap dengan bookmark per bagian. Dipakai untuk Halliday (1.450 halaman → 4 berkas).
