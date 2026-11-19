@@ -238,8 +238,15 @@ const EN = {
 };
 Object.assign(EN, {
 "Atur ulang dokumen murid": "Reopen a student document",
-"Murid terlanjur menekan Selesai, atau dokumennya sudah diskor? Pilih muridnya, lalu klik dokumen yang mau dibuka ulang: tahapan S1–S14, lapis L1–L4, paket (termasuk PRI UIN), atau dokumen isian lain. Hanya hasil dan isian dokumen itu yang dihapus; dokumen lain dan progres TP tetap utuh. Murid bisa langsung mengerjakan ulang.": "A student pressed Finish by accident, or the document was already scored? Pick the student, then click the document to reopen: stages S1–S14, layers L1–L4, packages (including PRI UIN), or any other fillable document. Only that document’s result and answers are removed; other documents and the LO progress stay intact. The student can redo it right away.",
+"Murid terlanjur menekan Selesai, atau dokumennya sudah diskor? Pilih muridnya, lalu topiknya, lalu klik dokumen yang mau dibuka ulang: tahapan S1–S14, lapis L1–L4, paket (termasuk PRI UIN), atau dokumen isian lain. Hanya hasil dan isian dokumen itu yang dihapus; dokumen lain dan progres TP tetap utuh. Murid bisa langsung mengerjakan ulang.": "A student pressed Finish by accident, or the document was already scored? Pick the student, then the topic, then click the document to reopen: stages S1–S14, layers L1–L4, packages (including PRI UIN), or any other fillable document. Only that document’s result and answers are removed; other documents and the LO progress stay intact. The student can redo it right away.",
 "Pilih murid…": "Choose a student…",
+"Topik yang dikerjakan": "Topic worked on",
+"Pilih topik…": "Choose a topic…",
+"%s dokumen": "%s documents",
+"1 dokumen": "1 document",
+"Murid ini belum mengerjakan topik apa pun.": "This student has not worked on any topic yet.",
+"Pilih topik di atas untuk melihat dokumen yang sudah dikerjakan murid ini.": "Choose a topic above to see the documents this student has worked on.",
+"Tidak ada lagi dokumen terisi pada topik ini.": "No filled-in documents left in this topic.",
 "Murid ini belum punya hasil tercatat.": "This student has no recorded results yet.",
 "Lapis, paket, dan dokumen isian lain": "Layers, packages and other fillable documents",
 "Dokumen lain": "Other documents",
@@ -881,8 +888,9 @@ function halGuru() {
       <p class="muted" style="margin:0">${tr('Murid di bawah ini sudah sampai pada tahapan yang nilainya diisi guru. Yang paling lama menunggu berada di atas.')} ${tr('Hanya murid bimbinganmu yang tampil di sini. Pemilik situs melihat seluruh murid.')}</p>
       <div id="antrean-nilai"><p class="muted" style="margin:0">${tr('Memuat antrean penilaian…')}</p></div></section>
     <section class="panel stack" id="reset-guru"><h2>${tr('Atur ulang dokumen murid')}</h2>
-      <p class="muted" style="margin:0">${tr('Murid terlanjur menekan Selesai, atau dokumennya sudah diskor? Pilih muridnya, lalu klik dokumen yang mau dibuka ulang: tahapan S1–S14, lapis L1–L4, paket (termasuk PRI UIN), atau dokumen isian lain. Hanya hasil dan isian dokumen itu yang dihapus; dokumen lain dan progres TP tetap utuh. Murid bisa langsung mengerjakan ulang.')}</p>
+      <p class="muted" style="margin:0">${tr('Murid terlanjur menekan Selesai, atau dokumennya sudah diskor? Pilih muridnya, lalu topiknya, lalu klik dokumen yang mau dibuka ulang: tahapan S1–S14, lapis L1–L4, paket (termasuk PRI UIN), atau dokumen isian lain. Hanya hasil dan isian dokumen itu yang dihapus; dokumen lain dan progres TP tetap utuh. Murid bisa langsung mengerjakan ulang.')}</p>
       <div class="row"><label for="reset-murid">${tr('Murid')}</label><select id="reset-murid"><option value="">${tr('Memuat papan kelas…')}</option></select></div>
+      <div class="row" id="reset-topik-baris" hidden><label for="reset-topik">${tr('Topik yang dikerjakan')}</label><select id="reset-topik"></select></div>
       <div id="reset-isi"></div><div id="reset-konfirmasi" hidden></div><div id="reset-pesan" role="status"></div></section>
     <section class="panel stack"><h2>${tr('Papan posisi')}</h2><p class="muted" style="margin:0">${tr('Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.')}</p>${papan}
       <div id="papan-kelas"><p class="muted" style="margin:0">${tr('Memuat papan kelas…')}</p></div></section>
@@ -1042,7 +1050,8 @@ function isiPapanKelas() {
    Tahapan yang punya keduanya dibuka ulang sekaligus. Dokumen lain dan progres TP tetap.
    Penghapusan dikerjakan peladen (jalur guru/reset), yang memeriksa bahwa murid itu bimbingan guru ini atau
    yang memanggil adalah pemilik. Peramban murid menyusul sendiri dalam paling lama 30–45 detik. */
-let papanMurid = [], resetMurid = '', resetPilih = null, resetPesan = '';
+let resetTopikSengaja = false;                       // guru sudah memilih topik dengan tangan: jangan dipilihkan otomatis lagi
+let papanMurid = [], resetMurid = '', resetTopik = '', resetPilih = null, resetPesan = '';   // resetTopik: slug topik, atau '~lain' = dokumen tanpa topik
 let resetLembar = null, resetMemuat = false, resetLembarGalat = false;   // null = belum/sedang dimuat
 
 const dekodeEntitas = s => { const e = document.createElement('textarea'); e.innerHTML = String(s == null ? '' : s); return e.value; };
@@ -1127,7 +1136,7 @@ async function muatLembar() {
   if (murid !== resetMurid) return;                  // guru sudah memilih murid lain
   resetLembarGalat = !(r && r.ok && Array.isArray(r.lembar));
   resetLembar = resetLembarGalat ? [] : r.lembar;
-  gambarResetIsi();
+  gambarResetIsi(true);                               // true: bila hanya satu topik yang dikerjakan, pilih otomatis
 }
 
 function isiResetGuru() {
@@ -1139,12 +1148,13 @@ function isiResetGuru() {
   if (resetMurid && resetLembar === null && !resetMemuat) muatLembar();
 }
 
-function gambarResetIsi() {
+function gambarResetIsi(otomatis) {
   const isi = document.getElementById('reset-isi'), pes = document.getElementById('reset-pesan');
+  const bar = document.getElementById('reset-topik-baris'), selT = document.getElementById('reset-topik');
   if (!isi) return;
   if (pes) pes.innerHTML = resetPesan ? `<div class="note reset-ok">${esc(resetPesan)}</div>` : '';
   const m = papanMurid.find(x => x.email === resetMurid);
-  if (!m) { isi.innerHTML = ''; gambarResetKonfirmasi(); return; }
+  if (!m) { isi.innerHTML = ''; if (bar) bar.hidden = true; gambarResetKonfirmasi(); return; }
 
   const peta = petaDokumen(), lemTahapan = {}, lain = [];
   for (const l of (resetLembar || [])) {
@@ -1152,11 +1162,37 @@ function gambarResetIsi() {
     const d = peta[l.kunci];
     if (d && d.tp) lemTahapan[d.tp.slug + '|' + d.id] = l; else lain.push({ l, d });
   }
+  const idsTP = (tp, p) => TAHAPAN.map(s => s.id).filter(id => adaHasilTahapan(p, id) || lemTahapan[tp.slug + '|' + id]);
+
+  /* Topik yang SUDAH dikerjakan murid ini (ada hasil atau isian yang bisa dibuka ulang), beserta jumlah dokumennya. */
+  const jmlDok = n => n === 1 ? tr('1 dokumen') : trf('%s dokumen', n);
+  const jumlah = {}, nTanpaTopik = lain.filter(x => !x.d).length;
+  for (const t of K.topik) {
+    let n = 0;
+    for (const tp of t.tp || []) n += idsTP(tp, (m.tp || {})[tp.slug] || {}).length;
+    n += lain.filter(x => x.d && x.d.topik.slug === t.slug).length;
+    if (n) jumlah[t.slug] = n;
+  }
+  const opsi = K.topik.filter(t => jumlah[t.slug]).map(t => ({ v: t.slug, teks: `${t.kode} · ${t.nama} — ${jmlDok(jumlah[t.slug])}` }));
+  if (nTanpaTopik) opsi.push({ v: '~lain', teks: `${tr('Dokumen lain')} — ${jmlDok(nTanpaTopik)}` });
+  const siap = resetLembar !== null;                 // daftar dokumen isian sudah sampai
+  const lama = resetTopik;
+  if (!opsi.some(o => o.v === resetTopik)) resetTopik = (otomatis && siap && !resetTopikSengaja && opsi.length === 1) ? opsi[0].v : '';
+  if (resetTopik !== lama) resetPilih = null;
+
+  if (bar && selT) {
+    bar.hidden = false;
+    selT.disabled = !opsi.length;
+    selT.innerHTML = `<option value="">${tr(opsi.length ? 'Pilih topik…' : (siap ? 'Murid ini belum mengerjakan topik apa pun.' : 'Memuat dokumen isian…'))}</option>` +
+      opsi.map(o => `<option value="${esc(o.v)}"${o.v === resetTopik ? ' selected' : ''}>${esc(o.teks)}</option>`).join('');
+  }
+
   const dipilih = (tp, id, kunci) => !!resetPilih && (kunci ? resetPilih.kunci === kunci : (resetPilih.tp === tp && resetPilih.id === id));
 
-  const blokTP = semuaTP().map(tp => {
+  /* Hanya TP dari topik yang dipilih. Topik lain tidak digambar sama sekali. */
+  const blokTP = !resetTopik || resetTopik === '~lain' ? '' : semuaTP().filter(tp => tp._t.slug === resetTopik).map(tp => {
     const p = (m.tp || {})[tp.slug] || {};
-    const ids = TAHAPAN.map(s => s.id).filter(id => adaHasilTahapan(p, id) || lemTahapan[tp.slug + '|' + id]);
+    const ids = idsTP(tp, p);
     if (!ids.length) return '';
     const h = hitungP(p, tp);
     const tombol = ids.map(id => {
@@ -1169,18 +1205,24 @@ function gambarResetIsi() {
       <div class="rs-daftar">${tombol}</div></div>`;
   }).join('');
 
-  const kel = {};
-  for (const x of lain) { const k = x.d ? x.d.topik.kode : tr('Dokumen lain'); (kel[k] = kel[k] || []).push(x); }
-  const blokLain = Object.entries(kel).map(([kode, arr]) =>
-    `<div class="rs-tp"><h3>${esc(kode)} · ${tr('Lapis, paket, dan dokumen isian lain')}</h3><div class="rs-daftar">${arr.map(({ l, d }) => {
+  const lainIni = !resetTopik ? [] : lain.filter(x => resetTopik === '~lain' ? !x.d : (x.d && x.d.topik.slug === resetTopik));
+  const blokLain = !lainIni.length ? '' :
+    `<div class="rs-tp"><h3>${esc(resetTopik === '~lain' ? tr('Dokumen lain') : (K.topik.find(t => t.slug === resetTopik) || {}).kode)} · ${tr('Lapis, paket, dan dokumen isian lain')}</h3><div class="rs-daftar">${lainIni.map(({ l, d }) => {
       const r = ringkasLembar(l);
       return `<button type="button" class="rs-doc" data-rs="pilih" data-kunci="${esc(l.kunci)}" aria-pressed="${dipilih('', '', l.kunci) ? 'true' : 'false'}">
         <span class="rs-nm">${esc(d ? d.label : l.kunci)}</span>
-        <span class="rs-hasil">${esc(r.besar)}${r.kecil ? ` <small>· ${esc(r.kecil)}</small>` : ''}</span><span class="rs-ikon" aria-hidden="true">↺</span></button>`; }).join('')}</div></div>`).join('');
+        <span class="rs-hasil">${esc(r.besar)}${r.kecil ? ` <small>· ${esc(r.kecil)}</small>` : ''}</span><span class="rs-ikon" aria-hidden="true">↺</span></button>`; }).join('')}</div></div>`;
 
   const status = resetLembar === null ? `<p class="muted" style="margin:0">${tr('Memuat dokumen isian…')}</p>`
     : (resetLembarGalat ? `<p class="muted" style="margin:0">${tr('Dokumen isian (lapis, paket) belum dapat dimuat. Tahapan di atas tetap bisa dibuka ulang.')}</p>` : '');
-  isi.innerHTML = (blokTP + blokLain + status) || `<p class="muted" style="margin:0">${tr('Murid ini belum punya hasil tercatat.')}</p>`;
+  let badan = blokTP + blokLain;
+  if (!badan) {
+    const kata = resetTopik ? 'Tidak ada lagi dokumen terisi pada topik ini.'
+      : opsi.length ? 'Pilih topik di atas untuk melihat dokumen yang sudah dikerjakan murid ini.'
+      : (siap && !resetLembarGalat ? 'Murid ini belum punya hasil tercatat.' : '');
+    if (kata) badan = `<p class="muted" style="margin:0">${tr(kata)}</p>`;
+  }
+  isi.innerHTML = badan + status;
   gambarResetKonfirmasi();
 }
 
@@ -1248,7 +1290,8 @@ document.addEventListener('click', ev => {
   if (a === 'ya') jalankanReset(b);
 });
 document.addEventListener('change', ev => {
-  if (ev.target.id === 'reset-murid') { resetMurid = ev.target.value; resetPilih = null; resetPesan = ''; muatLembar(); }
+  if (ev.target.id === 'reset-murid') { resetMurid = ev.target.value; resetPilih = null; resetPesan = ''; resetTopikSengaja = false; muatLembar(); }
+  if (ev.target.id === 'reset-topik') { resetTopik = ev.target.value; resetTopikSengaja = true; resetPilih = null; resetPesan = ''; gambarResetIsi(); }
 });
 
 /* ---------- murid: salinan terbaru dari peladen (guru menilai atau membuka ulang) ---------- */
