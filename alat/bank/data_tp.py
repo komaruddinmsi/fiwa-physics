@@ -12,7 +12,7 @@ TP = [
   "judul": "Operasi vektor: penjumlahan & penguraian komponen",
   "teks": "Menerapkan operasi vektor: penjumlahan dan penguraian komponen.",
   "prasyarat": [],
-  "janji": [
+  "tujuan": [
     "menyambung dua panah dan membaca panjang hasilnya, bukan menjumlah panjangnya;",
     "menguraikan satu gaya miring menjadi komponen mendatar dan tegak dengan memeriksa sudutnya diukur dari sumbu mana;",
     "memilih sumbu sejajar dan tegak lurus bidang pada bidang miring, lalu menguraikan berat ke sumbu itu.",
@@ -47,7 +47,7 @@ TP = [
   "judul": "Gaya & gerak pada peristiwa sehari-hari",
   "teks": "Mengaitkan hubungan antara gaya dan gerak (Hukum Newton) pada peristiwa yang terjadi dalam kehidupan sehari-hari.",
   "prasyarat": ["f-mek-1-pra"],
-  "janji": [
+  "tujuan": [
     "memeriksa tiap panah gaya dengan satu pertanyaan — siapa pemberinya — dan membuang panah yang tidak punya pemberi;",
     "menjumlahkan gaya dengan tanda arah, lalu membaca arti gaya neto bagi keadaan geraknya;",
     "menghitung percepatan dari gaya neto dan massa, dan menyebut pasangan aksi–reaksi beserta benda tempatnya bekerja.",
@@ -84,7 +84,7 @@ TP = [
   "judul": "Hukum Newton sebagai sebab dan akibat",
   "teks": "Menjelaskan hubungan gaya dan gerak (Hukum Newton), serta mencontohkannya pada peristiwa baru.",
   "prasyarat": ["f-mek-2"],
-  "janji": [
+  "tujuan": [
     "menjelaskan Hukum I sebagai sebab–akibat: tanpa gaya neto, keadaan gerak bertahan;",
     "menjelaskan Hukum II dengan menyebut gaya neto sebagai sebab dan massa sebagai penahan akibatnya;",
     "menyebut pasangan aksi–reaksi pada dua benda yang berbeda, dan menulis satu contoh baru yang cocok mekanismenya.",
@@ -119,7 +119,7 @@ TP = [
   "judul": "Menganalisis struktur lewat gaya: momen & komponen",
   "teks": "Menganalisis hubungan gerak dan gaya serta pemanfaatannya untuk menjelaskan fenomena alam, desain, atau rekayasa struktur.",
   "prasyarat": ["f-mek-1a"],
-  "janji": [
+  "tujuan": [
     "memisahkan hal yang menentukan kekuatan struktur dari pengecoh, dengan alasan yang menyebut gaya, lengan, atau batas patah;",
     "memakai dua syarat kesetimbangan sekaligus — ΣF = 0 dan Στ = 0 — dan tahu kapan yang kedua yang dilanggar;",
     "menguraikan tegangan miring menjadi komponen, lalu menjelaskan peran penyangga diagonal lewat momen pada engsel.",

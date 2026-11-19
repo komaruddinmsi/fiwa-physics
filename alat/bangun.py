@@ -134,7 +134,7 @@ def S01(t):
 <p style="color:var(--abu);font-size:14px;margin:0;">Kalimat di atas adalah tujuan bagian ini, apa adanya.</p></div>
 
 <div class="kartu"><h2>Setelah ini kamu dapat&hellip;</h2>
-<ul>{''.join(f'<li>{j}</li>' for j in t['janji'])}</ul></div>
+<ul>{''.join(f'<li>{j}</li>' for j in t['tujuan'])}</ul></div>
 
 <div class="kartu"><h2>Kapan kamu boleh bilang &ldquo;selesai&rdquo;</h2><p>{t['selesai']}</p></div>
 
@@ -153,7 +153,7 @@ def S01(t):
 
 <div class="kartu"><h2>Perkiraan waktu belajar</h2><p class="waktu">{E(t['waktu'])}</p></div>
 <button type="button" id="fims-kirim">Saya siap mulai</button>"""
-    return halaman("Peta & Janji", t["kode"], E(t["judul"]), isi)
+    return halaman("Peta & Tujuan Pembelajaran", t["kode"], E(t["judul"]), isi)
 
 def S02(t):
     soal, kunci = render_soal(S2[t["slug"]])
