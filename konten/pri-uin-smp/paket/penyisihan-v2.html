@@ -455,17 +455,34 @@ $("tbl-selesai").addEventListener("click", function(){
 document.addEventListener("input", function(){ if (!terkunci) perbarui(); });
 document.addEventListener("change", function(){ if (!terkunci) perbarui(); });
 
-/* ---------- pemulihan saat dimuat ---------- */
+/* ---------- penyimpanan per akun (assets/fims-simpan.js) ----------
+   Isian, waktu mulai, dan status terkunci disimpan ke akun murid; guru bisa membuka ulang lembar ini. */
 (function(){
+  var kunciAsli = kunci;
+  kunci = function(){ var r = kunciAsli.apply(this, arguments); try { if (window.FIMS_LEMBAR) window.FIMS_LEMBAR.lapor(); } catch (e) {} return r; };
+})();
+window.FIMS_RINGKAS = function(){
+  var n = 0, i; for (i = 0; i < URUT.length; i++) if (keadaan(URUT[i]) === "penuh") n++;
+  return { terisi: n, total: URUT.length, selesai: terkunci };
+};
+window.FIMS_KEADAAN = function(){ return { kunci: terkunci }; };
+
+/* ---------- pemulihan saat dimuat (dipanggil lagi oleh fims-simpan.js sesudah isian akun dipulihkan) ---------- */
+function pulihkanLembar(info){
+  var terkunciSimpan = !!(info && info.x && info.x.kunci);
   var t = parseInt(elTenggat.value, 10);
+  if (detak) { clearInterval(detak); detak = null; }
   if (!isNaN(t) && t > 0) {
     tampilkanSoal(); perbarui();
     if ($("selesai").value === "1") { kunci("Kamu sudah menekan Selesai. Lembar ini terkunci, dan jawabanmu tersimpan.", false); elJam.textContent = "00:00"; }
-    else if (t - Date.now() <= 0) { elJam.textContent = "00:00"; elJam.className = "habis"; kunci("Waktu habis. Lembar ini sudah terkunci, dan jawabanmu tersimpan.", false); }
+    else if (t - Date.now() <= 0 || terkunciSimpan) { elJam.textContent = "00:00"; elJam.className = "habis"; kunci("Waktu habis. Lembar ini sudah terkunci, dan jawabanmu tersimpan.", false); }
     else { jalankan(); pesan("Pengerjaan dilanjutkan dari waktu yang tersimpan."); }
   } else { perbarui(); }
-})();
+}
+window.FIMS_PULIHKAN = pulihkanLembar;
+pulihkanLembar();
 })();
 </script>
+<script src="../../../assets/fims-simpan.js"></script>
 </body>
 </html>

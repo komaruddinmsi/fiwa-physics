@@ -953,14 +953,34 @@ bSelesai.addEventListener("click", function(){
   kunci("Kamu sudah menekan Selesai. Lembar ini terkunci, dan jawabanmu tersimpan.", true);
 });
 
-// pemulihan saat dimuat
-perbarui();
-if (elTenggat.value && !isNaN(Number(elTenggat.value))) {
-  tampilkanSoal();
-  if (Number(elTenggat.value) - Date.now() > 0) { jalan(); pesan("Pengerjaan dilanjutkan dari waktu yang tersimpan."); }
-  else { elJam.textContent = "00:00"; elJam.className = "habis"; kunci("Waktu habis. Lembar ini terkunci, dan jawaban yang sudah kamu pilih tetap tersimpan.", false); }
+/* ---------- penyimpanan per akun (assets/fims-simpan.js) ----------
+   Isian, waktu mulai, dan status terkunci disimpan ke akun murid; guru bisa membuka ulang lembar ini. */
+(function(){
+  var kunciAsli = kunci;
+  kunci = function(){ var r = kunciAsli.apply(this, arguments); try { if (window.FIMS_LEMBAR) window.FIMS_LEMBAR.lapor(); } catch (e) {} return r; };
+})();
+window.FIMS_RINGKAS = function(){
+  var n = 0, i; for (i = 0; i < URUT.length; i++) if (keadaan(URUT[i]) === "penuh") n++;
+  return { terisi: n, total: URUT.length, selesai: terkunci };
+};
+window.FIMS_KEADAAN = function(){ return { kunci: terkunci }; };
+
+// pemulihan saat dimuat (dipanggil lagi oleh fims-simpan.js sesudah isian akun dipulihkan)
+function pulihkanLembar(info){
+  var terkunciSimpan = !!(info && info.x && info.x.kunci);
+  if (detak) { clearInterval(detak); detak = null; }
+  perbarui();
+  if (elTenggat.value && !isNaN(Number(elTenggat.value))) {
+    tampilkanSoal();
+    if (terkunciSimpan) { elJam.textContent = "00:00"; kunci("Kamu sudah menekan Selesai. Lembar ini terkunci, dan jawabanmu tersimpan.", false); }
+    else if (Number(elTenggat.value) - Date.now() > 0) { jalan(); pesan("Pengerjaan dilanjutkan dari waktu yang tersimpan."); }
+    else { elJam.textContent = "00:00"; elJam.className = "habis"; kunci("Waktu habis. Lembar ini terkunci, dan jawaban yang sudah kamu pilih tetap tersimpan.", false); }
+  }
 }
+window.FIMS_PULIHKAN = pulihkanLembar;
+pulihkanLembar();
 })();
 </script>
+<script src="../../../assets/fims-simpan.js"></script>
 </body>
 </html>
