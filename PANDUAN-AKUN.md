@@ -257,8 +257,16 @@ dikumpulkan tetap terkunci dengan nilainya.
 
 Murid tidak sengaja menekan Selesai, atau dokumennya sudah terlanjur diskor?
 Guru tidak perlu menghapus progres satu TP. Di **Papan Guru → Atur ulang dokumen
-murid**: pilih murid, klik dokumen yang ingin dibuka ulang, baca pratinjau, lalu
-**Ya, buka ulang**.
+murid**: pilih murid, **pilih topiknya**, klik dokumen yang ingin dibuka ulang,
+baca pratinjau, lalu **Ya, buka ulang**.
+
+- Pilihan topik hanya berisi topik yang **sudah dikerjakan murid itu**, lengkap dengan
+  jumlah dokumennya. Topik yang belum disentuh tidak muncul.
+- Yang tampil hanya TP dari topik terpilih. Progres topik lain tidak ikut muncul.
+- Murid yang baru mengerjakan **satu topik** langsung terbuka otomatis. Yang
+  mengerjakan beberapa topik diminta memilih dulu.
+- "Dokumen lain" memuat dokumen isian yang belum terdaftar di katalog.
+- Berganti murid mempertahankan topik yang sama bila murid berikutnya juga mengerjakannya.
 
 - Yang dihapus hanya hasil dokumen itu (skor atau tanda selesai). Untuk **S12**
   tier-nya ikut dihapus; untuk **S14** yang dicopot adalah hasil pengulangan terakhir.
@@ -273,8 +281,8 @@ murid**: pilih murid, klik dokumen yang ingin dibuka ulang, baca pratinjau, lalu
 - Guru hanya melihat dan mereset muridnya sendiri; pemilik melihat semua murid.
 
 **Dokumen isian lain (lapis L1–L4, paket PRI UIN, pembuka, dokumen baru)** juga
-muncul di daftar yang sama, dalam kotak "Lapis, paket, dan dokumen isian lain" per
-topik. Klik, baca pratinjau, **Ya, buka ulang**: isian dan skor dokumen itu dihapus
+muncul di daftar yang sama, dalam kotak "Lapis, paket, dan dokumen isian lain" pada
+topik yang dipilih. Klik, baca pratinjau, **Ya, buka ulang**: isian dan skor dokumen itu dihapus
 dan murid mulai dari kosong (untuk PRI UIN: layar pengaturan waktu muncul lagi).
 Tahapan S1–S14 yang juga punya isian tersimpan dibuka ulang dua-duanya sekaligus
 dengan satu klik. Dokumen yang belum terdaftar di katalog tetap muncul, memakai
