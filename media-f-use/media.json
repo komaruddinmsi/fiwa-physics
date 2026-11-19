@@ -407,7 +407,7 @@
       },
       {
         "tipe": "simulasi",
-        "judul": "Energi baterai motor listrik (buatan sendiri)",
+        "judul": "Energi baterai motor listrik",
         "berkas": "media-f-use/simulasi/energi-motor-listrik.html",
         "catatan": "Matikan pengereman regeneratif, jalankan lagi, lalu bandingkan sisa baterainya."
       },
@@ -418,7 +418,7 @@
       },
       {
         "tipe": "bacaan",
-        "judul": "Ke mana energi pergi (buatan sendiri)",
+        "judul": "Ke mana energi pergi",
         "berkas": "media-f-use/bacaan/bacaan-tp1.html",
         "catatan": "Bacaan ringan untuk menemani pembuka."
       }
