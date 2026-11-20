@@ -1,34 +1,23 @@
-# alat/ — pembangun halaman tahapan
+# Alat pembangun dan pemeriksaan Physics FIWA
 
-```
-alat/
-  bangun.py          mesin: menulis seluruh halaman tahapan satu topik
-  bank/data_tp.py    identitas topik, TP, sub-bab, miskonsepsi, bekal
-  bank/bank_s2.py    bank Gerbang Prasyarat
-  bank/bank_s11.py   bank Latihan Bertingkat
-  bank/bank_s13.py   bank Gerbang Ketuntasan
-  bank/gerbang.json  naskah butir gerbang kelas, hasil ekstraksi dari RPP
-  bacaan.py          menulis halaman bacaan konsep milik sendiri
-  periksa-media.py   memeriksa kelengkapan bahan pendukung tiap TP
-  sumber/            worksheet asli yang dipakai apa adanya sebagai S7
-```
+Sumber aktif materi ada pada bank/lesson_*.py. Metadata topik dan TP berada pada konten/<topik>/topik.json serta tp.json. Baca ../STANDAR-KONTEN-FISIKA.md dan ../PANDUAN-TOPIK-BARU.md sebelum menambah isi.
 
-Menjalankan:
+Jalankan dari akar proyek:
 
-```bash
-cd alat && python3 bangun.py && python3 bacaan.py
-cd ..   && node build.js
-python3 alat/periksa-media.py f-mek     # wajib bersih sebelum selesai
+```text
+node build.js
+python alat/konten_interaktif.py
+node build.js
+python alat/periksa-standar-konten.py
+node alat/uji-model-fisika.cjs
+node alat/uji-kelas-konten.cjs
+node alat/uji-alur-p.cjs
+python alat/periksa-media.py f-mek
+python alat/periksa-media.py f-use
 ```
 
-`bangun.py` menulis ke `konten/<slug-topik>/` dan `aset-<slug-topik>/`.
-Ia menimpa tanpa bertanya, jadi jangan menyunting halaman hasilnya langsung —
-sunting banknya, lalu bangun ulang.
+alur_p.py adalah pintu masuk kompatibel ke generator aktif. konten_interaktif.py membangun seluruh P1–P10, bacaan interaktif, pembuka serta L1–L4. Jangan membuat kembali generator S lama atau memakai bank lama.
 
-Untuk topik baru: salin `bank/data_tp.py` dan ketiga bank soalnya, ganti
-isinya, lalu sesuaikan nama folder di bagian atas `bangun.py`.
+ebook.py dan pecah-pdf.py tetap untuk topik buku yang terpisah. PDF Halliday disimpan di aset-ebook/ sesuai tautan situs. RPP sumber kurikulum tetap ada di aset-f-mek/GURU_RPP-F.MEK.docx; worksheet sumber versi lama sudah dikeluarkan. Tidak ada alat yang perlu dijalankan untuk menghapus progres atau jawaban siswa.
 
-Panduan lengkap: `../PANDUAN-TOPIK-BARU.md`.
-
-- `ebook.py` — menulis halaman topik Kumpulan E-Book (jalur Olimpiade) dari daftar `BUKU`. Lihat PANDUAN-TOPIK-BARU.md bagian 8.7.
-- `pecah-pdf.py` — memotong PDF besar jadi bagian di bawah 25 MiB, lengkap dengan bookmark per bagian. Dipakai untuk Halliday (1.450 halaman → 4 berkas).
+Periksa seluruh paket sebelum unggah dengan python alat/periksa-paket-upload.py. Cadangan dan berkas sementara disimpan di luar fiwa-physics.

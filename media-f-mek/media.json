@@ -1,5 +1,5 @@
 {
-  "_baca_ini_dulu": "Berkas ini satu-satunya tempat mengatur bahan pendukung tiap tahapan topik F.MEK. Panduan lengkap ada di media-f-mek/PANDUAN-MEDIA.md. Kunci di dalam 'tp' adalah kode TP persis seperti pada tp.json; di dalamnya kode tahapan S1–S14 dan L1–L4. Kunci berawalan garis bawah diabaikan situs.",
+  "_baca_ini_dulu": "Berkas ini satu-satunya tempat mengatur bahan pendukung tiap tahapan topik F.MEK. Panduan lengkap ada di media-f-mek/PANDUAN-MEDIA.md. Kunci di dalam 'tp' adalah kode TP persis seperti pada tp.json; di dalamnya kode tahapan P1–P10 dan L1–L4. Kunci berawalan garis bawah diabaikan situs.",
   "_tipe_yang_didukung": {
     "video": "{ tipe, judul, yt (kode video YouTube), mulai (detik, opsional), catatan }",
     "audio": "{ tipe, judul, berkas (mp3/ogg) atau naskah (dibacakan peramban) }",
@@ -7,15 +7,16 @@
     "bacaan": "{ tipe, judul, berkas (html milik sendiri) atau url, catatan }",
     "tautan": "{ tipe, judul, url, catatan } — dibuka di tab baru, untuk situs yang menolak disematkan"
   },
-  "_catatan_gerbang": "S2, S8, dan S13 sengaja dikosongkan. Gerbang tidak boleh didampingi bahan bantu: itu yang membuatnya berfungsi sebagai gerbang.",
+  "_catatan_gerbang": "P2, P5, dan P9 sengaja dikosongkan. Gerbang tidak boleh didampingi bahan bantu: itu yang membuatnya berfungsi sebagai gerbang.",
   "_sumber": "Seluruh tautan disalin dari daftar sumber digital RPP F.MEK (C1.0b–C4.0b), diverifikasi penyusun RPP pada 18 November 2026.",
   "tp": {
     "F.MEK.1-pra": {
       "S1": [
         {
           "tipe": "audio",
-          "judul": "Peta belajar bagian ini",
-          "naskah": "Selamat datang di unit Mekanika. Bagian pertama ini tentang operasi vektor: menyambung dua panah, dan menguraikan satu panah miring menjadi komponen mendatar dan tegak. Satu hal yang akan diminta berulang-ulang: sebelum memilih sinus atau kosinus, putuskan dulu sudutnya diukur dari sumbu mana. Keputusan itulah yang dinilai, bukan angka yang kebetulan cocok."
+          "judul": "Narasi fenomena dan tujuan",
+          "naskah": "Mari amati. Robot membawa sensor dari lemari alat ke meja praktikum. Ia maju 6 m ke timur, lalu 8 m ke utara untuk menghindari meja panjang. Petugas lain perlu mengirim robot kedua langsung dari lemari menuju titik akhir itu. Layar peta menampilkan dua ruas rute dan satu panah penghubung titik awal–akhir. Apakah robot kedua harus menempuh 14 m juga? Geser satu ruas rute dan perhatikan apa yang berubah pada panah menuju tujuan. Panjang lintasan menjawab seberapa jauh robot berjalan. Vektor perpindahan menjawab perubahan posisi beserta arahnya. Kita akan menyambung panah, membaca acuan sudut, dan memilih sumbu agar satu peristiwa dapat digambar sekaligus dihitung dengan konsisten.",
+          "catatan": "Dibacakan peramban setelah kamu menekan Putar. Naskah yang sama tersedia untuk dibaca; cocokkan dengan lab visual P4."
         }
       ],
       "S4": [
@@ -23,7 +24,7 @@
           "tipe": "bacaan",
           "judul": "Konsep: operasi vektor",
           "berkas": "media-f-mek/bacaan/bacaan-f-mek-1-pra.html",
-          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint."
         },
         {
           "tipe": "simulasi",
@@ -41,7 +42,7 @@
           "tipe": "bacaan",
           "judul": "OpenStax 3.3 · Vector Addition and Subtraction: Analytical Methods",
           "url": "https://openstax.org/books/college-physics-2e/pages/3-3-vector-addition-and-subtraction-analytical-methods",
-          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint.",
           "luar": true
         }
       ],
@@ -92,8 +93,9 @@
       "S1": [
         {
           "tipe": "audio",
-          "judul": "Peta belajar bagian ini",
-          "naskah": "Bagian ini tentang gaya dan gerak pada peristiwa sehari-hari. Satu pertanyaan akan kamu pakai terus-menerus: siapa pemberi gaya ini. Panah yang tidak bisa dijawab pertanyaan itu bukan gaya, dan harus dihapus dari diagrammu."
+          "judul": "Narasi fenomena dan tujuan",
+          "naskah": "Mari amati. Troli sensor sedang melaju ke kanan pada rel laboratorium. Dua aktuator menariknya: kabel kanan 8 N dan kabel kiri 20 N. Seorang siswa menambahkan panah ‘gaya gerak’ ke kanan karena troli masih menuju ujung rel. Siswa lain ingin memeriksa siapa pemberi setiap gaya sebelum menebak gerak berikutnya. Saat dua tarikan itu bekerja, mungkinkah troli tetap bergerak ke kanan untuk sementara? Ubah satu tarikan dan bandingkan panah gaya, percepatan, serta kecepatan. Kita akan memisahkan gambar interaksi pada benda dari catatan geraknya. Gaya neto menentukan perubahan kecepatan; untuk mengetahui kecepatan berikutnya kita juga memerlukan keadaan awal dan lamanya gaya bekerja.",
+          "catatan": "Dibacakan peramban setelah kamu menekan Putar. Naskah yang sama tersedia untuk dibaca; cocokkan dengan lab visual P4."
         }
       ],
       "S4": [
@@ -101,7 +103,7 @@
           "tipe": "bacaan",
           "judul": "Konsep: gaya dan gerak sehari-hari",
           "berkas": "media-f-mek/bacaan/bacaan-f-mek-2.html",
-          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint."
         },
         {
           "tipe": "simulasi",
@@ -119,7 +121,7 @@
           "tipe": "bacaan",
           "judul": "OpenStax 4.3 · Newton's Second Law of Motion",
           "url": "https://openstax.org/books/college-physics-2e/pages/4-3-newtons-second-law-of-motion-concept-of-a-system",
-          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint.",
           "luar": true
         }
       ],
@@ -170,8 +172,9 @@
       "S1": [
         {
           "tipe": "audio",
-          "judul": "Peta belajar bagian ini",
-          "naskah": "Bagian ini bukan tentang menghafal bunyi tiga hukum Newton. Yang dinilai adalah kemampuanmu menjelaskan sebab dan akibatnya, lalu menulis satu contoh baru yang belum pernah dibahas di kelas — dan menjelaskan mengapa contoh itu cocok."
+          "judul": "Narasi fenomena dan tujuan",
+          "naskah": "Mari amati. Pada ilustrasi, dua tokoh berdiri di atas papan beroda ideal yang mula-mula diam. Ketika tangan mereka saling menekan, keduanya menjauh. Tokoh dengan massa total lebih kecil berubah kecepatan lebih cepat. Ini adalah model di layar untuk dipelajari, bukan petunjuk mencoba kegiatan di atas papan. Jika gaya saling tekan sama besar, mengapa perubahan gerak kedua tokoh bisa berbeda? Setelah tangan terpisah, apakah mereka harus langsung berhenti? Pisahkan tiga pertanyaan: apa yang mempertahankan gerak, apa yang mengubah gerak, dan benda mana yang menerima tiap gaya. Tiga Hukum Newton menjawab pertanyaan yang berbeda tetapi saling terhubung.",
+          "catatan": "Dibacakan peramban setelah kamu menekan Putar. Naskah yang sama tersedia untuk dibaca; cocokkan dengan lab visual P4."
         }
       ],
       "S4": [
@@ -179,7 +182,7 @@
           "tipe": "bacaan",
           "judul": "Konsep: Hukum Newton sebagai sebab dan akibat",
           "berkas": "media-f-mek/bacaan/bacaan-f-mek-1a.html",
-          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint."
         },
         {
           "tipe": "simulasi",
@@ -191,7 +194,7 @@
           "tipe": "bacaan",
           "judul": "OpenStax 4.4 · Newton's Third Law of Motion",
           "url": "https://openstax.org/books/college-physics-2e/pages/4-4-newtons-third-law-of-motion-symmetry-in-forces",
-          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint.",
           "luar": true
         },
         {
@@ -237,8 +240,9 @@
       "S1": [
         {
           "tipe": "audio",
-          "judul": "Peta belajar bagian ini",
-          "naskah": "Bagian terakhir unit ini memakai seluruh bagian sebelumnya sekaligus. Dua syarat kesetimbangan dipakai bersama: jumlah gaya nol, dan jumlah momen nol. Jawaban supaya lebih kokoh tidak dihitung di sini; yang dihitung adalah jawaban yang menyebut momen pada engsel atau komponen gaya penyangga."
+          "judul": "Narasi fenomena dan tujuan",
+          "naskah": "Mari amati. Ilustrasi menampilkan papan rak mendatar yang berengsel pada dinding dan ditahan kabel diagonal di ujungnya. Tumpukan buku bisa digeser mendekati dinding atau ke ujung. Kabel yang tampak lebih landai harus menanggung tegangan lebih besar, walaupun berat buku tidak berubah. Mana yang lebih memengaruhi tuntutan pada kabel: warna papan, letak buku, atau sudut penyangga? Bagaimana membuktikannya dengan gaya dan momen? Tentukan poros, bedakan jarak sepanjang batang dari lengan momen, lalu gunakan keseimbangan gaya dan momen untuk menilai rancangan. Model ini menjelaskan mekanisme; kekuatan bahan tetap perlu diperiksa.",
+          "catatan": "Dibacakan peramban setelah kamu menekan Putar. Naskah yang sama tersedia untuk dibaca; cocokkan dengan lab visual P4."
         }
       ],
       "S4": [
@@ -246,7 +250,7 @@
           "tipe": "bacaan",
           "judul": "Konsep: struktur, momen, dan komponen",
           "berkas": "media-f-mek/bacaan/bacaan-f-mek-1b.html",
-          "catatan": "Bacaan ringkas empat sub-bab, lengkap dengan miskonsepsi yang diincar tiap sub-bab."
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint."
         },
         {
           "tipe": "simulasi",
@@ -264,7 +268,7 @@
           "tipe": "bacaan",
           "judul": "OpenStax 9.2 · The Second Condition for Equilibrium",
           "url": "https://openstax.org/books/college-physics-2e/pages/9-2-the-second-condition-for-equilibrium",
-          "catatan": "Bacaan terbuka berbahasa Inggris.",
+          "catatan": "Bacaan interaktif edisi baru: pelajari konsep, ubah model visual, buka contoh bertahap dan coba checkpoint.",
           "luar": true
         }
       ],
