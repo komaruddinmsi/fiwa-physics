@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-19T15:07:03.673Z",
+  "dibuat": "2026-11-20T22:42:29.547Z",
   "topik": [
     {
       "slug": "pri-uin-smp",
@@ -110,28 +110,32 @@
       "jenis": "alur",
       "pembuka": {
         "berkas": "konten/f-use/pembuka/index.html",
-        "judul": "Fenomena Dunia Nyata — Usaha &amp; Energi"
+        "judul": "Fenomena Dunia Nyata · F.USE"
       },
       "tahapan": {
         "L1": {
-          "berkas": "konten/f-use/L1/index.html",
-          "judul": "Kuis Blok Fisika — Usaha & Energi"
+          "berkas": "konten/f-use/L1/interaktif.html",
+          "judul": "Penilaian Lintas-TP · F.USE",
+          "versi": 3
         },
         "L2": {
-          "berkas": "konten/f-use/L2/index.html",
-          "judul": "Muara Topik Fisika F.USE — Urutan Kerja di Jalur Angkut Galon"
+          "berkas": "konten/f-use/L2/interaktif.html",
+          "judul": "Penyelidikan Lintas-TP · F.USE",
+          "versi": 3
         },
         "L3": {
-          "berkas": "konten/f-use/L3/index.html",
-          "judul": "Tes Topik Fisika — Usaha & Energi",
+          "berkas": "konten/f-use/L3/interaktif.html",
+          "judul": "Penilaian Lintas-TP · F.USE",
+          "versi": 3,
           "latihan": {
-            "berkas": "konten/f-use/L3/latihan.html",
-            "judul": "Latihan Unit Test — Tes Topik Fisika F.USE (Usaha &amp; Energi)"
+            "berkas": "konten/f-use/L3/latihan-interaktif.html",
+            "judul": "Latihan Unit Test · F.USE"
           }
         },
         "L4": {
-          "berkas": "konten/f-use/L4/index.html",
-          "judul": "Tantangan Mata Pelajaran Fisika"
+          "berkas": "konten/f-use/L4/interaktif.html",
+          "judul": "Penyelidikan Lintas-TP · F.USE",
+          "versi": 3
         }
       },
       "tp": [
@@ -146,68 +150,79 @@
           "ambang": 75,
           "tahapan": {
             "S1": {
-              "berkas": "konten/f-use/f-use-1-pra/S1/index.html",
-              "judul": "Peta & Tujuan Pembelajaran"
+              "berkas": "konten/f-use/f-use-1-pra/P1/index.html",
+              "judul": "Pembuka dan Tujuan · F.USE.1-pra",
+              "versi": 3
             },
             "S2": {
-              "berkas": "konten/f-use/f-use-1-pra/S2/index.html",
-              "judul": "Cek Mandiri Sebelum Belajar — Fisika F.USE.1-pra"
+              "berkas": "konten/f-use/f-use-1-pra/P2/index.html",
+              "judul": "Cek Prasyarat · F.USE.1-pra",
+              "versi": 3
             },
             "S2b": {
-              "berkas": "konten/f-use/f-use-1-pra/S2b/index.html",
-              "judul": "Lembar Bekal"
+              "berkas": "konten/f-use/f-use-1-pra/P2a/index.html",
+              "judul": "Penguatan Prasyarat · F.USE.1-pra",
+              "versi": 3
             },
             "S2c": {
-              "berkas": "konten/f-use/f-use-1-pra/S2c/index.html",
-              "judul": "Lembar Bekal Plus"
+              "berkas": "konten/f-use/f-use-1-pra/P2b/index.html",
+              "judul": "Belajar Terbimbing Prasyarat · F.USE.1-pra",
+              "versi": 3
             },
             "S3": {
-              "berkas": "konten/f-use/f-use-1-pra/S3/index.html",
-              "judul": "Tebak Dulu, Sebelum Kita Belajar — F.USE.1-pra"
+              "berkas": "konten/f-use/f-use-1-pra/P3/index.html",
+              "judul": "Prediksi Awal · F.USE.1-pra",
+              "versi": 3
             },
             "S4": {
-              "berkas": "konten/f-use/f-use-1-pra/S4/index.html",
-              "judul": "Modul Konsep"
+              "berkas": "konten/f-use/f-use-1-pra/P4/index.html",
+              "judul": "Konsep dan Praktik · F.USE.1-pra",
+              "versi": 3
             },
             "S5": {
-              "berkas": "konten/f-use/f-use-1-pra/S5/index.html",
-              "judul": "Bedah Prediksi di Kelas"
+              "berkas": "konten/f-use/f-use-1-pra/P4/diskusi.html",
+              "judul": "Diskusi Prediksi · F.USE.1-pra",
+              "versi": 3
             },
             "S6": {
-              "berkas": "konten/f-use/f-use-1-pra/S6/index.html",
-              "judul": "Inti Terbimbing di Kelas"
+              "berkas": "konten/f-use/f-use-1-pra/P4/contoh.html",
+              "judul": "Contoh Terbimbing · F.USE.1-pra",
+              "versi": 3
             },
             "S7": {
-              "berkas": "konten/f-use/f-use-1-pra/S7/index.html",
-              "judul": "Lembar Kerja Fisika F.USE.1-pra — Usaha & Energi"
+              "berkas": "konten/f-use/f-use-1-pra/P4/praktik.html",
+              "judul": "Praktik dan Penyelidikan · F.USE.1-pra",
+              "versi": 3
             },
             "S8": {
-              "berkas": "konten/f-use/f-use-1-pra/S8/index.html",
-              "judul": "Cek Cepat di Kelas"
+              "berkas": "konten/f-use/f-use-1-pra/P5/index.html",
+              "judul": "Cek Pemahaman · F.USE.1-pra",
+              "versi": 3
             },
             "S9": {
-              "berkas": "konten/f-use/f-use-1-pra/S9/index.html",
-              "judul": "Kartu Kerja Fisika · Usaha & Energi (bagian pertama)"
-            },
-            "S10": {
-              "berkas": "konten/f-use/f-use-1-pra/S10/index.html",
-              "judul": "Satu Layar Penutup · Usaha & Energi (bagian pertama)"
+              "berkas": "konten/f-use/f-use-1-pra/P6a/index.html",
+              "judul": "Tindak Lanjut · F.USE.1-pra",
+              "versi": 3
             },
             "S11": {
-              "berkas": "konten/f-use/f-use-1-pra/S11/index.html",
-              "judul": "Worksheet · Latihan Bertingkat · F.USE.1-pra"
+              "berkas": "konten/f-use/f-use-1-pra/P7/index.html",
+              "judul": "Latihan Persiapan · 10 soal · F.USE.1-pra",
+              "versi": 3
             },
             "S12": {
-              "berkas": "konten/f-use/f-use-1-pra/S12/index.html",
-              "judul": "Tugas Kinerja Fisika F.USE.1-pra — Usaha dan Energi di Asramamu"
+              "berkas": "konten/f-use/f-use-1-pra/P8/index.html",
+              "judul": "Tugas Penerapan · F.USE.1-pra",
+              "versi": 3
             },
             "S13": {
-              "berkas": "konten/f-use/f-use-1-pra/S13/index.html",
-              "judul": "Kuis Ingatan Tunda — Usaha, Energi Kinetik & Potensial"
+              "berkas": "konten/f-use/f-use-1-pra/P9/form-1.html",
+              "judul": "Uji Ketuntasan TP · F.USE.1-pra",
+              "versi": 3
             },
             "S14": {
-              "berkas": "konten/f-use/f-use-1-pra/S14/index.html",
-              "judul": "Latihan Selang-Seling — Usaha dan Energi"
+              "berkas": "konten/f-use/f-use-1-pra/P10/sesi-1.html",
+              "judul": "Ulangi Materi",
+              "versi": 3
             }
           }
         },
@@ -224,68 +239,79 @@
           "ambang": 75,
           "tahapan": {
             "S1": {
-              "berkas": "konten/f-use/f-use-1/S1/index.html",
-              "judul": "Peta & Tujuan Pembelajaran"
+              "berkas": "konten/f-use/f-use-1/P1/index.html",
+              "judul": "Pembuka dan Tujuan · F.USE.1",
+              "versi": 3
             },
             "S2": {
-              "berkas": "konten/f-use/f-use-1/S2/index.html",
-              "judul": "Cek Mandiri Sebelum Belajar — Fisika F.USE.1"
+              "berkas": "konten/f-use/f-use-1/P2/index.html",
+              "judul": "Cek Prasyarat · F.USE.1",
+              "versi": 3
             },
             "S2b": {
-              "berkas": "konten/f-use/f-use-1/S2b/index.html",
-              "judul": "Lembar Bekal"
+              "berkas": "konten/f-use/f-use-1/P2a/index.html",
+              "judul": "Penguatan Prasyarat · F.USE.1",
+              "versi": 3
             },
             "S2c": {
-              "berkas": "konten/f-use/f-use-1/S2c/index.html",
-              "judul": "Lembar Bekal Plus"
+              "berkas": "konten/f-use/f-use-1/P2b/index.html",
+              "judul": "Belajar Terbimbing Prasyarat · F.USE.1",
+              "versi": 3
             },
             "S3": {
-              "berkas": "konten/f-use/f-use-1/S3/index.html",
-              "judul": "Tebak Dulu, Sebelum Kita Belajar — F.USE.1"
+              "berkas": "konten/f-use/f-use-1/P3/index.html",
+              "judul": "Prediksi Awal · F.USE.1",
+              "versi": 3
             },
             "S4": {
-              "berkas": "konten/f-use/f-use-1/S4/index.html",
-              "judul": "Modul Konsep"
+              "berkas": "konten/f-use/f-use-1/P4/index.html",
+              "judul": "Konsep dan Praktik · F.USE.1",
+              "versi": 3
             },
             "S5": {
-              "berkas": "konten/f-use/f-use-1/S5/index.html",
-              "judul": "Bedah Prediksi di Kelas"
+              "berkas": "konten/f-use/f-use-1/P4/diskusi.html",
+              "judul": "Diskusi Prediksi · F.USE.1",
+              "versi": 3
             },
             "S6": {
-              "berkas": "konten/f-use/f-use-1/S6/index.html",
-              "judul": "Inti Terbimbing di Kelas"
+              "berkas": "konten/f-use/f-use-1/P4/contoh.html",
+              "judul": "Contoh Terbimbing · F.USE.1",
+              "versi": 3
             },
             "S7": {
-              "berkas": "konten/f-use/f-use-1/S7/index.html",
-              "judul": "Lembar Kerja Fisika F.USE.1 — Praktik Terstruktur di Kelas"
+              "berkas": "konten/f-use/f-use-1/P4/praktik.html",
+              "judul": "Praktik dan Penyelidikan · F.USE.1",
+              "versi": 3
             },
             "S8": {
-              "berkas": "konten/f-use/f-use-1/S8/index.html",
-              "judul": "Cek Cepat di Kelas"
+              "berkas": "konten/f-use/f-use-1/P5/index.html",
+              "judul": "Cek Pemahaman · F.USE.1",
+              "versi": 3
             },
             "S9": {
-              "berkas": "konten/f-use/f-use-1/S9/index.html",
-              "judul": "Kartu Kerja Fisika · Usaha & Energi (bagian kedua)"
-            },
-            "S10": {
-              "berkas": "konten/f-use/f-use-1/S10/index.html",
-              "judul": "Satu Layar Penutup · Usaha & Energi (bagian kedua)"
+              "berkas": "konten/f-use/f-use-1/P6a/index.html",
+              "judul": "Tindak Lanjut · F.USE.1",
+              "versi": 3
             },
             "S11": {
-              "berkas": "konten/f-use/f-use-1/S11/index.html",
-              "judul": "Worksheet · Latihan Bertingkat · F.USE.1"
+              "berkas": "konten/f-use/f-use-1/P7/index.html",
+              "judul": "Latihan Persiapan · 10 soal · F.USE.1",
+              "versi": 3
             },
             "S12": {
-              "berkas": "konten/f-use/f-use-1/S12/index.html",
-              "judul": "Tugas Kinerja Fisika F.USE.1 — Merancang Peluncur Bola Stan Pameran"
+              "berkas": "konten/f-use/f-use-1/P8/index.html",
+              "judul": "Tugas Penerapan · F.USE.1",
+              "versi": 3
             },
             "S13": {
-              "berkas": "konten/f-use/f-use-1/S13/index.html",
-              "judul": "Kuis Ingatan Tunda — Usaha, Energi & Hukum Kekekalan Energi Mekanik"
+              "berkas": "konten/f-use/f-use-1/P9/form-1.html",
+              "judul": "Uji Ketuntasan TP · F.USE.1",
+              "versi": 3
             },
             "S14": {
-              "berkas": "konten/f-use/f-use-1/S14/index.html",
-              "judul": "Latihan Selang-Seling — Usaha dan Energi"
+              "berkas": "konten/f-use/f-use-1/P10/sesi-1.html",
+              "judul": "Ulangi Materi",
+              "versi": 3
             }
           }
         }
@@ -460,28 +486,32 @@
       "jenis": "alur",
       "pembuka": {
         "berkas": "konten/f-mek/pembuka/index.html",
-        "judul": "Fenomena Dunia Nyata — Mekanika: Gaya &amp; Gerak"
+        "judul": "Fenomena Dunia Nyata · F.MEK"
       },
       "tahapan": {
         "L1": {
-          "berkas": "konten/f-mek/L1/index.html",
-          "judul": "Kuis Blok"
+          "berkas": "konten/f-mek/L1/interaktif.html",
+          "judul": "Penilaian Lintas-TP · F.MEK",
+          "versi": 3
         },
         "L2": {
-          "berkas": "konten/f-mek/L2/index.html",
-          "judul": "Muara Topik"
+          "berkas": "konten/f-mek/L2/interaktif.html",
+          "judul": "Penyelidikan Lintas-TP · F.MEK",
+          "versi": 3
         },
         "L3": {
-          "berkas": "konten/f-mek/L3/index.html",
-          "judul": "Worksheet CBT Fisika — Mekanika (Paket 2)",
+          "berkas": "konten/f-mek/L3/interaktif.html",
+          "judul": "Penilaian Lintas-TP · F.MEK",
+          "versi": 3,
           "latihan": {
-            "berkas": "konten/f-mek/L3/latihan.html",
-            "judul": "Latihan TKA Fisika — Mekanika: Vektor Gaya, Hukum Newton, dan Kesetimbangan"
+            "berkas": "konten/f-mek/L3/latihan-interaktif.html",
+            "judul": "Latihan Unit Test · F.MEK"
           }
         },
         "L4": {
-          "berkas": "konten/f-mek/L4/index.html",
-          "judul": "Tantangan Mata Pelajaran"
+          "berkas": "konten/f-mek/L4/interaktif.html",
+          "judul": "Penyelidikan Lintas-TP · F.MEK",
+          "versi": 3
         }
       },
       "tp": [
@@ -496,68 +526,79 @@
           "ambang": 75,
           "tahapan": {
             "S1": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S1/index.html",
-              "judul": "Peta &amp; Tujuan Pembelajaran"
+              "berkas": "konten/f-mek/f-mek-1-pra/P1/index.html",
+              "judul": "Pembuka dan Tujuan · F.MEK.1-pra",
+              "versi": 3
             },
             "S2": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S2/index.html",
-              "judul": "Gerbang Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1-pra/P2/index.html",
+              "judul": "Cek Prasyarat · F.MEK.1-pra",
+              "versi": 3
             },
             "S2b": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S2b/index.html",
-              "judul": "Penguatan Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1-pra/P2a/index.html",
+              "judul": "Penguatan Prasyarat · F.MEK.1-pra",
+              "versi": 3
             },
             "S2c": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S2c/index.html",
-              "judul": "Remediasi Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1-pra/P2b/index.html",
+              "judul": "Belajar Terbimbing Prasyarat · F.MEK.1-pra",
+              "versi": 3
             },
             "S3": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S3/index.html",
-              "judul": "Pemantik &amp; Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-1-pra/P3/index.html",
+              "judul": "Prediksi Awal · F.MEK.1-pra",
+              "versi": 3
             },
             "S4": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S4/index.html",
-              "judul": "Penyajian Konsep Awal"
+              "berkas": "konten/f-mek/f-mek-1-pra/P4/index.html",
+              "judul": "Konsep dan Praktik · F.MEK.1-pra",
+              "versi": 3
             },
             "S5": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S5/index.html",
-              "judul": "Pembahasan Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-1-pra/P4/diskusi.html",
+              "judul": "Diskusi Prediksi · F.MEK.1-pra",
+              "versi": 3
             },
             "S6": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S6/index.html",
-              "judul": "Inti Terbimbing"
+              "berkas": "konten/f-mek/f-mek-1-pra/P4/contoh.html",
+              "judul": "Contoh Terbimbing · F.MEK.1-pra",
+              "versi": 3
             },
             "S7": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S7/index.html",
-              "judul": "Worksheet Fisika F.MEK.1-pra — Dua Soal Latihan"
+              "berkas": "konten/f-mek/f-mek-1-pra/P4/praktik.html",
+              "judul": "Praktik dan Penyelidikan · F.MEK.1-pra",
+              "versi": 3
             },
             "S8": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S8/index.html",
-              "judul": "Gerbang Formatif Kelas"
+              "berkas": "konten/f-mek/f-mek-1-pra/P5/index.html",
+              "judul": "Cek Pemahaman · F.MEK.1-pra",
+              "versi": 3
             },
             "S9": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S9/index.html",
-              "judul": "Diferensiasi T1–T4"
-            },
-            "S10": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S10/index.html",
-              "judul": "Konsolidasi &amp; Jangkar"
+              "berkas": "konten/f-mek/f-mek-1-pra/P6a/index.html",
+              "judul": "Tindak Lanjut · F.MEK.1-pra",
+              "versi": 3
             },
             "S11": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S11/index.html",
-              "judul": "Latihan Bertingkat"
+              "berkas": "konten/f-mek/f-mek-1-pra/P7/index.html",
+              "judul": "Latihan Persiapan · 10 soal · F.MEK.1-pra",
+              "versi": 3
             },
             "S12": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S12/index.html",
-              "judul": "Tugas Kinerja"
+              "berkas": "konten/f-mek/f-mek-1-pra/P8/index.html",
+              "judul": "Tugas Penerapan · F.MEK.1-pra",
+              "versi": 3
             },
             "S13": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S13/index.html",
-              "judul": "Gerbang Ketuntasan TP"
+              "berkas": "konten/f-mek/f-mek-1-pra/P9/form-1.html",
+              "judul": "Uji Ketuntasan TP · F.MEK.1-pra",
+              "versi": 3
             },
             "S14": {
-              "berkas": "konten/f-mek/f-mek-1-pra/S14/index.html",
-              "judul": "Pengulangan Berjarak"
+              "berkas": "konten/f-mek/f-mek-1-pra/P10/sesi-1.html",
+              "judul": "Ulangi Materi",
+              "versi": 3
             }
           }
         },
@@ -574,68 +615,79 @@
           "ambang": 75,
           "tahapan": {
             "S1": {
-              "berkas": "konten/f-mek/f-mek-2/S1/index.html",
-              "judul": "Peta &amp; Tujuan Pembelajaran"
+              "berkas": "konten/f-mek/f-mek-2/P1/index.html",
+              "judul": "Pembuka dan Tujuan · F.MEK.2",
+              "versi": 3
             },
             "S2": {
-              "berkas": "konten/f-mek/f-mek-2/S2/index.html",
-              "judul": "Gerbang Prasyarat"
+              "berkas": "konten/f-mek/f-mek-2/P2/index.html",
+              "judul": "Cek Prasyarat · F.MEK.2",
+              "versi": 3
             },
             "S2b": {
-              "berkas": "konten/f-mek/f-mek-2/S2b/index.html",
-              "judul": "Penguatan Prasyarat"
+              "berkas": "konten/f-mek/f-mek-2/P2a/index.html",
+              "judul": "Penguatan Prasyarat · F.MEK.2",
+              "versi": 3
             },
             "S2c": {
-              "berkas": "konten/f-mek/f-mek-2/S2c/index.html",
-              "judul": "Remediasi Prasyarat"
+              "berkas": "konten/f-mek/f-mek-2/P2b/index.html",
+              "judul": "Belajar Terbimbing Prasyarat · F.MEK.2",
+              "versi": 3
             },
             "S3": {
-              "berkas": "konten/f-mek/f-mek-2/S3/index.html",
-              "judul": "Pemantik &amp; Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-2/P3/index.html",
+              "judul": "Prediksi Awal · F.MEK.2",
+              "versi": 3
             },
             "S4": {
-              "berkas": "konten/f-mek/f-mek-2/S4/index.html",
-              "judul": "Penyajian Konsep Awal"
+              "berkas": "konten/f-mek/f-mek-2/P4/index.html",
+              "judul": "Konsep dan Praktik · F.MEK.2",
+              "versi": 3
             },
             "S5": {
-              "berkas": "konten/f-mek/f-mek-2/S5/index.html",
-              "judul": "Pembahasan Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-2/P4/diskusi.html",
+              "judul": "Diskusi Prediksi · F.MEK.2",
+              "versi": 3
             },
             "S6": {
-              "berkas": "konten/f-mek/f-mek-2/S6/index.html",
-              "judul": "Inti Terbimbing"
+              "berkas": "konten/f-mek/f-mek-2/P4/contoh.html",
+              "judul": "Contoh Terbimbing · F.MEK.2",
+              "versi": 3
             },
             "S7": {
-              "berkas": "konten/f-mek/f-mek-2/S7/index.html",
-              "judul": "Worksheet Fisika F.MEK.2 — Dua Soal Latihan"
+              "berkas": "konten/f-mek/f-mek-2/P4/praktik.html",
+              "judul": "Praktik dan Penyelidikan · F.MEK.2",
+              "versi": 3
             },
             "S8": {
-              "berkas": "konten/f-mek/f-mek-2/S8/index.html",
-              "judul": "Gerbang Formatif Kelas"
+              "berkas": "konten/f-mek/f-mek-2/P5/index.html",
+              "judul": "Cek Pemahaman · F.MEK.2",
+              "versi": 3
             },
             "S9": {
-              "berkas": "konten/f-mek/f-mek-2/S9/index.html",
-              "judul": "Diferensiasi T1–T4"
-            },
-            "S10": {
-              "berkas": "konten/f-mek/f-mek-2/S10/index.html",
-              "judul": "Konsolidasi &amp; Jangkar"
+              "berkas": "konten/f-mek/f-mek-2/P6a/index.html",
+              "judul": "Tindak Lanjut · F.MEK.2",
+              "versi": 3
             },
             "S11": {
-              "berkas": "konten/f-mek/f-mek-2/S11/index.html",
-              "judul": "Latihan Bertingkat"
+              "berkas": "konten/f-mek/f-mek-2/P7/index.html",
+              "judul": "Latihan Persiapan · 10 soal · F.MEK.2",
+              "versi": 3
             },
             "S12": {
-              "berkas": "konten/f-mek/f-mek-2/S12/index.html",
-              "judul": "Tugas Kinerja"
+              "berkas": "konten/f-mek/f-mek-2/P8/index.html",
+              "judul": "Tugas Penerapan · F.MEK.2",
+              "versi": 3
             },
             "S13": {
-              "berkas": "konten/f-mek/f-mek-2/S13/index.html",
-              "judul": "Gerbang Ketuntasan TP"
+              "berkas": "konten/f-mek/f-mek-2/P9/form-1.html",
+              "judul": "Uji Ketuntasan TP · F.MEK.2",
+              "versi": 3
             },
             "S14": {
-              "berkas": "konten/f-mek/f-mek-2/S14/index.html",
-              "judul": "Pengulangan Berjarak"
+              "berkas": "konten/f-mek/f-mek-2/P10/sesi-1.html",
+              "judul": "Ulangi Materi",
+              "versi": 3
             }
           }
         },
@@ -652,68 +704,79 @@
           "ambang": 75,
           "tahapan": {
             "S1": {
-              "berkas": "konten/f-mek/f-mek-1a/S1/index.html",
-              "judul": "Peta &amp; Tujuan Pembelajaran"
+              "berkas": "konten/f-mek/f-mek-1a/P1/index.html",
+              "judul": "Pembuka dan Tujuan · F.MEK.1a",
+              "versi": 3
             },
             "S2": {
-              "berkas": "konten/f-mek/f-mek-1a/S2/index.html",
-              "judul": "Gerbang Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1a/P2/index.html",
+              "judul": "Cek Prasyarat · F.MEK.1a",
+              "versi": 3
             },
             "S2b": {
-              "berkas": "konten/f-mek/f-mek-1a/S2b/index.html",
-              "judul": "Penguatan Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1a/P2a/index.html",
+              "judul": "Penguatan Prasyarat · F.MEK.1a",
+              "versi": 3
             },
             "S2c": {
-              "berkas": "konten/f-mek/f-mek-1a/S2c/index.html",
-              "judul": "Remediasi Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1a/P2b/index.html",
+              "judul": "Belajar Terbimbing Prasyarat · F.MEK.1a",
+              "versi": 3
             },
             "S3": {
-              "berkas": "konten/f-mek/f-mek-1a/S3/index.html",
-              "judul": "Pemantik &amp; Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-1a/P3/index.html",
+              "judul": "Prediksi Awal · F.MEK.1a",
+              "versi": 3
             },
             "S4": {
-              "berkas": "konten/f-mek/f-mek-1a/S4/index.html",
-              "judul": "Penyajian Konsep Awal"
+              "berkas": "konten/f-mek/f-mek-1a/P4/index.html",
+              "judul": "Konsep dan Praktik · F.MEK.1a",
+              "versi": 3
             },
             "S5": {
-              "berkas": "konten/f-mek/f-mek-1a/S5/index.html",
-              "judul": "Pembahasan Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-1a/P4/diskusi.html",
+              "judul": "Diskusi Prediksi · F.MEK.1a",
+              "versi": 3
             },
             "S6": {
-              "berkas": "konten/f-mek/f-mek-1a/S6/index.html",
-              "judul": "Inti Terbimbing"
+              "berkas": "konten/f-mek/f-mek-1a/P4/contoh.html",
+              "judul": "Contoh Terbimbing · F.MEK.1a",
+              "versi": 3
             },
             "S7": {
-              "berkas": "konten/f-mek/f-mek-1a/S7/index.html",
-              "judul": "Worksheet Fisika F.MEK.1a — Dua Soal Latihan"
+              "berkas": "konten/f-mek/f-mek-1a/P4/praktik.html",
+              "judul": "Praktik dan Penyelidikan · F.MEK.1a",
+              "versi": 3
             },
             "S8": {
-              "berkas": "konten/f-mek/f-mek-1a/S8/index.html",
-              "judul": "Gerbang Formatif Kelas"
+              "berkas": "konten/f-mek/f-mek-1a/P5/index.html",
+              "judul": "Cek Pemahaman · F.MEK.1a",
+              "versi": 3
             },
             "S9": {
-              "berkas": "konten/f-mek/f-mek-1a/S9/index.html",
-              "judul": "Diferensiasi T1–T4"
-            },
-            "S10": {
-              "berkas": "konten/f-mek/f-mek-1a/S10/index.html",
-              "judul": "Konsolidasi &amp; Jangkar"
+              "berkas": "konten/f-mek/f-mek-1a/P6a/index.html",
+              "judul": "Tindak Lanjut · F.MEK.1a",
+              "versi": 3
             },
             "S11": {
-              "berkas": "konten/f-mek/f-mek-1a/S11/index.html",
-              "judul": "Latihan Bertingkat"
+              "berkas": "konten/f-mek/f-mek-1a/P7/index.html",
+              "judul": "Latihan Persiapan · 10 soal · F.MEK.1a",
+              "versi": 3
             },
             "S12": {
-              "berkas": "konten/f-mek/f-mek-1a/S12/index.html",
-              "judul": "Tugas Kinerja"
+              "berkas": "konten/f-mek/f-mek-1a/P8/index.html",
+              "judul": "Tugas Penerapan · F.MEK.1a",
+              "versi": 3
             },
             "S13": {
-              "berkas": "konten/f-mek/f-mek-1a/S13/index.html",
-              "judul": "Gerbang Ketuntasan TP"
+              "berkas": "konten/f-mek/f-mek-1a/P9/form-1.html",
+              "judul": "Uji Ketuntasan TP · F.MEK.1a",
+              "versi": 3
             },
             "S14": {
-              "berkas": "konten/f-mek/f-mek-1a/S14/index.html",
-              "judul": "Pengulangan Berjarak"
+              "berkas": "konten/f-mek/f-mek-1a/P10/sesi-1.html",
+              "judul": "Ulangi Materi",
+              "versi": 3
             }
           }
         },
@@ -730,68 +793,79 @@
           "ambang": 75,
           "tahapan": {
             "S1": {
-              "berkas": "konten/f-mek/f-mek-1b/S1/index.html",
-              "judul": "Peta &amp; Tujuan Pembelajaran"
+              "berkas": "konten/f-mek/f-mek-1b/P1/index.html",
+              "judul": "Pembuka dan Tujuan · F.MEK.1b",
+              "versi": 3
             },
             "S2": {
-              "berkas": "konten/f-mek/f-mek-1b/S2/index.html",
-              "judul": "Gerbang Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1b/P2/index.html",
+              "judul": "Cek Prasyarat · F.MEK.1b",
+              "versi": 3
             },
             "S2b": {
-              "berkas": "konten/f-mek/f-mek-1b/S2b/index.html",
-              "judul": "Penguatan Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1b/P2a/index.html",
+              "judul": "Penguatan Prasyarat · F.MEK.1b",
+              "versi": 3
             },
             "S2c": {
-              "berkas": "konten/f-mek/f-mek-1b/S2c/index.html",
-              "judul": "Remediasi Prasyarat"
+              "berkas": "konten/f-mek/f-mek-1b/P2b/index.html",
+              "judul": "Belajar Terbimbing Prasyarat · F.MEK.1b",
+              "versi": 3
             },
             "S3": {
-              "berkas": "konten/f-mek/f-mek-1b/S3/index.html",
-              "judul": "Pemantik &amp; Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-1b/P3/index.html",
+              "judul": "Prediksi Awal · F.MEK.1b",
+              "versi": 3
             },
             "S4": {
-              "berkas": "konten/f-mek/f-mek-1b/S4/index.html",
-              "judul": "Penyajian Konsep Awal"
+              "berkas": "konten/f-mek/f-mek-1b/P4/index.html",
+              "judul": "Konsep dan Praktik · F.MEK.1b",
+              "versi": 3
             },
             "S5": {
-              "berkas": "konten/f-mek/f-mek-1b/S5/index.html",
-              "judul": "Pembahasan Prakonsepsi"
+              "berkas": "konten/f-mek/f-mek-1b/P4/diskusi.html",
+              "judul": "Diskusi Prediksi · F.MEK.1b",
+              "versi": 3
             },
             "S6": {
-              "berkas": "konten/f-mek/f-mek-1b/S6/index.html",
-              "judul": "Inti Terbimbing"
+              "berkas": "konten/f-mek/f-mek-1b/P4/contoh.html",
+              "judul": "Contoh Terbimbing · F.MEK.1b",
+              "versi": 3
             },
             "S7": {
-              "berkas": "konten/f-mek/f-mek-1b/S7/index.html",
-              "judul": "Worksheet Fisika F.MEK.1b — Dua Soal Latihan"
+              "berkas": "konten/f-mek/f-mek-1b/P4/praktik.html",
+              "judul": "Praktik dan Penyelidikan · F.MEK.1b",
+              "versi": 3
             },
             "S8": {
-              "berkas": "konten/f-mek/f-mek-1b/S8/index.html",
-              "judul": "Gerbang Formatif Kelas"
+              "berkas": "konten/f-mek/f-mek-1b/P5/index.html",
+              "judul": "Cek Pemahaman · F.MEK.1b",
+              "versi": 3
             },
             "S9": {
-              "berkas": "konten/f-mek/f-mek-1b/S9/index.html",
-              "judul": "Diferensiasi T1–T4"
-            },
-            "S10": {
-              "berkas": "konten/f-mek/f-mek-1b/S10/index.html",
-              "judul": "Konsolidasi &amp; Jangkar"
+              "berkas": "konten/f-mek/f-mek-1b/P6a/index.html",
+              "judul": "Tindak Lanjut · F.MEK.1b",
+              "versi": 3
             },
             "S11": {
-              "berkas": "konten/f-mek/f-mek-1b/S11/index.html",
-              "judul": "Latihan Bertingkat"
+              "berkas": "konten/f-mek/f-mek-1b/P7/index.html",
+              "judul": "Latihan Persiapan · 10 soal · F.MEK.1b",
+              "versi": 3
             },
             "S12": {
-              "berkas": "konten/f-mek/f-mek-1b/S12/index.html",
-              "judul": "Tugas Kinerja"
+              "berkas": "konten/f-mek/f-mek-1b/P8/index.html",
+              "judul": "Tugas Penerapan · F.MEK.1b",
+              "versi": 3
             },
             "S13": {
-              "berkas": "konten/f-mek/f-mek-1b/S13/index.html",
-              "judul": "Gerbang Ketuntasan TP"
+              "berkas": "konten/f-mek/f-mek-1b/P9/form-1.html",
+              "judul": "Uji Ketuntasan TP · F.MEK.1b",
+              "versi": 3
             },
             "S14": {
-              "berkas": "konten/f-mek/f-mek-1b/S14/index.html",
-              "judul": "Pengulangan Berjarak"
+              "berkas": "konten/f-mek/f-mek-1b/P10/sesi-1.html",
+              "judul": "Ulangi Materi",
+              "versi": 3
             }
           }
         }

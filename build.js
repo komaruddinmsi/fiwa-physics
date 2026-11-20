@@ -6,7 +6,8 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = 'konten';
-const TAHAPAN_TP = ['S1','S2','S2b','S2c','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13','S14'];
+// Kunci lama menjaga kesinambungan progres akun; navigasi publik memakai P.
+const TAHAPAN_TP = ['S1','S2','S2b','S2c','S3','S4','S5','S6','S7','S8','S9','S11','S12','S13','S14'];
 const TAHAPAN_TOPIK = ['L1','L2','L3','L4'];
 
 const isDir = p => fs.existsSync(p) && fs.statSync(p).isDirectory();
@@ -27,10 +28,13 @@ function cariTahapan(dir, daftar) {
     const p = path.join(dir, nama);
     const f = isDir(p) ? path.join(p, 'index.html') : p;
     if (!fs.existsSync(f)) continue;
-    hasil[id] = { berkas: f.split(path.sep).join('/'), judul: judulDari(f) };
+    const interaktif=path.join(dir,nama,'interaktif.html');
+    const aktif=fs.existsSync(interaktif)?interaktif:f;
+    hasil[id] = { berkas: aktif.split(path.sep).join('/'), judul: judulDari(aktif),...(aktif===interaktif?{versi:3}:{}) };
     // Konten kedua untuk satu tahapan: <ID>/latihan.html (dipakai L3: latihan unit test)
     if (isDir(p)) {
-      const lat = path.join(p, 'latihan.html');
+      const baruLat=path.join(p,'latihan-interaktif.html');
+      const lat=fs.existsSync(baruLat)?baruLat:path.join(p,'latihan.html');
       if (fs.existsSync(lat)) hasil[id].latihan = { berkas: lat.split(path.sep).join('/'), judul: judulDari(lat) };
     }
   }
@@ -94,6 +98,12 @@ if (isDir(ROOT)) {
       const dirP = path.join(dirT, p);
       const metaP = readJSON(path.join(dirP, 'tp.json'));
       const tahapan = cariTahapan(dirP, TAHAPAN_TP);
+      for (const [lama,baru] of [['S1','P1'],['S2','P2'],['S2b','P2a'],['S2c','P2b'],['S3','P3'],['S4','P4'],['S5','P4/diskusi.html'],['S6','P4/contoh.html'],['S7','P4/praktik.html'],['S8','P5'],['S9','P6a'],['S11','P7'],['S12','P8'],['S13','P9/form-1.html']]) {
+        const f=path.join(dirP,...(baru.endsWith('.html')?[baru]:[baru,'index.html']));
+        if(fs.existsSync(f)) tahapan[lama]={berkas:f.split(path.sep).join('/'),judul:judulDari(f),versi:3};
+      }
+      const review=path.join(dirP,'P10','sesi-1.html');
+      if(fs.existsSync(review))tahapan.S14={berkas:review.split(path.sep).join('/'),judul:'Ulangi Materi',versi:3};
       daftarTP.push({
         slug: slug(p),
         kode: metaP.kode || p,

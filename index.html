@@ -10,8 +10,12 @@
 <link rel="apple-touch-icon" href="assets/logo-mark.png">
 <meta name="theme-color" content="#e3f1fe">
 <script src="assets/tema.js"></script>
+<script src="assets/alur-p.js"></script>
+<script src="assets/alur-p-data.js"></script>
+<script src="assets/suara.js" defer></script>
 <link rel="stylesheet" href="assets/app.css">
 <link rel="stylesheet" href="assets/tema.css">
+<link rel="stylesheet" href="assets/alur-p.css">
 </head>
 <body class="tamu">
 <header class="bar">
@@ -26,6 +30,16 @@
       <div class="theme-switch" role="group" aria-label="Tema tampilan">
         <button type="button" data-theme-choice="light" aria-pressed="true" aria-label="Tema terang" title="Tema terang"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
         <button type="button" data-theme-choice="dim" aria-pressed="false" aria-label="Tema teduh" title="Tema teduh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 14A8.7 8.7 0 0 1 10 3.4 8.8 8.8 0 1 0 20.6 14Z"/></svg></button>
+      </div>
+      <div class="sound-menu">
+        <button type="button" id="sound-toggle" class="sound-trigger" aria-label="Pengaturan bunyi" aria-expanded="false" aria-controls="sound-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 5 9H2v6h3l6 5Z M15 8a6 6 0 0 1 0 8 M18 5a10 10 0 0 1 0 14"/></svg><span>Bunyi</span></button>
+        <section id="sound-panel" class="sound-panel" aria-labelledby="sound-heading" hidden>
+          <h2 id="sound-heading">Efek bunyi</h2>
+          <label for="sound-on">Aktifkan bunyi <input type="checkbox" id="sound-on"></label>
+          <label for="sound-volume">Volume <input type="range" id="sound-volume" min="0" max="100" value="35"></label><output for="sound-volume">35%</output>
+          <p>Bunyi “poup” mengikuti klikmu. Pilihan, hasil, dan notifikasi juga tetap terlihat di layar.</p>
+          <button type="button" id="sound-test" class="btn ghost">Uji bunyi</button><p id="sound-status" role="status" aria-live="polite"></p>
+        </section>
       </div>
       <div class="lang" role="group" aria-label="Bahasa / Language">
         <button type="button" data-bhs="id" aria-pressed="true">ID</button><button type="button" data-bhs="en" aria-pressed="false">EN</button>
