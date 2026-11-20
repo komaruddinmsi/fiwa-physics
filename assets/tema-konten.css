@@ -1,0 +1,33 @@
+/* Lapisan warna bagi HTML milik FIWA yang ditanam. Isi, skor, diagram dan PDF tidak diubah. */
+@font-face{font-family:Nunito;font-style:normal;font-weight:400 800;font-display:swap;src:url('fonts/nunito.woff2') format('woff2')}
+:root[data-fiwa-theme]{
+  --bg:#f5f9fd;--panel:#fff;--panel-2:#edf4fb;--line:#dce5ef;--line-kuat:#b8cfe3;--fg:#0a1f4d;--muted:#566881;
+  --biru:#1b7fe0;--teal:#16795e;--emas:#966009;--merah:#b43f43;--ungu:#7961a3;
+  --tosca0:#0b2d5a;--tosca:#155fa9;--tosca2:#1b7fe0;--tosca3:#9cd0fa;--toscaB:#e3f1fe;
+  --tinta:#0a1f4d;--abu:#566881;--abuB:#f2f6fa;--garis:#dce5ef;
+  --oranye:#966009;--oranye2:#b67813;--oranyeB:#fef2dc;--kuning:#c98a12;--kuningB:#fef6ea;
+  --hijau:#16795e;--hijauB:#ddf4ec;--merahB:#fbeaea;
+  --display:Nunito,"Segoe UI",system-ui,sans-serif;--body:Nunito,"Segoe UI",system-ui,sans-serif;
+  --fiwa-paper:#fff;--fiwa-soft:#f5f9fd;--fiwa-ink:#0a1f4d;--fiwa-line:#dce5ef;
+  color-scheme:light;
+}
+:root[data-fiwa-theme="dim"]{
+  --bg:#203348;--panel:#293f56;--panel-2:#314a64;--line:#49617b;--line-kuat:#68829e;--fg:#edf4fd;--muted:#b3c4d8;
+  --biru:#9bcdf5;--teal:#8ed7bc;--emas:#ffd081;--merah:#ffb3ad;--ungu:#c7b5ed;
+  --tosca0:#d1e7fc;--tosca:#9bcdf5;--tosca2:#9bcdf5;--tosca3:#9cd0fa;--toscaB:#304b66;
+  --tinta:#edf4fd;--abu:#b3c4d8;--abuB:#2c435c;--garis:#49617b;
+  --oranye:#ffd081;--oranye2:#ffcc77;--oranyeB:#484132;--kuning:#ffd081;--kuningB:#443e32;
+  --hijau:#8ed7bc;--hijauB:#2a4a46;--merahB:#4c363e;
+  --fiwa-paper:#293f56;--fiwa-soft:#203348;--fiwa-ink:#edf4fd;--fiwa-line:#49617b;
+  color-scheme:dark;
+}
+html[data-fiwa-theme] body{background:var(--fiwa-soft);color:var(--fiwa-ink);font-family:Nunito,"Segoe UI",system-ui,sans-serif}
+html[data-fiwa-theme] :is(.kartu,.soal,.hasil-kartu){background:var(--fiwa-paper);border-color:var(--fiwa-line);border-radius:16px}
+html[data-fiwa-theme] header.kepala{background:#0b2d5a;color:#fff}
+html[data-fiwa-theme] header.kepala :is(h1,p,.kode){color:#fff}
+html[data-fiwa-theme] :is(.naskah,.miskon){background:var(--abuB);color:var(--tinta)}
+html[data-fiwa-theme] :is(.soal-judul,.lead){background:var(--toscaB);color:var(--tinta)}
+html[data-fiwa-theme] :is(.unduh,#fims-kirim){background:#1b396d;color:#fff;border-radius:999px}
+html[data-fiwa-theme] .unduh.tenang{background:#155fa9;color:#fff}
+html[data-fiwa-theme="dim"] :is(.isian input,.isian select,.isian textarea){background:var(--panel);color:var(--fg);border-color:var(--line-kuat)}
+html[data-fiwa-theme] :focus-visible{outline:3px solid var(--emas);outline-offset:3px}

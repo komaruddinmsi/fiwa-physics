@@ -281,6 +281,16 @@ Object.assign(EN, {
 "lulus": "passed",
 "gagal": "failed"
 });
+Object.assign(EN, {
+  'Empat jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.': 'Four tracks, one way of working: every learning objective is walked through stage by stage, from pre-class to post-class, and counts as mastered only once its final gate is passed.',
+  'Urutan tahapan': 'Learning stages', 'Tahapan selesai': 'Stages completed',
+  'Tujuan pembelajaran lain': 'Other learning objectives', 'Terkunci': 'Locked',
+  'Selesai': 'Completed', 'Sedang dibuka': 'Currently open', 'Tahapan bersyarat': 'Conditional stage',
+  'Pra-KBM': 'Before class', 'KBM': 'In class', 'Pasca-KBM': 'After class',
+  'Pilih tahapan, lanjutkan perjalananmu.': 'Choose a stage and continue your journey.',
+  'Urutan belajar ada di panel kiri. Pada layar kecil, buka Urutan tahapan untuk memilih bagian yang ingin dipelajari.': 'Your learning sequence is in the left panel. On smaller screens, expand Learning stages to choose a stage.',
+  'Pilih tahapan yang terbuka pada daftar. Beberapa bagian menunggu kegiatan kelas, penilaian guru, atau jadwal berikutnya.': 'Choose an available stage. Some parts wait for class activities, teacher assessment, or the next scheduled session.'
+});
 let BHS = 'id';
 const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
 const trf = (x, ...v) => { let i = 0; return tr(x).replace(/%s/g, () => v[i++]); };
@@ -521,6 +531,25 @@ const kartuPaketTopik = t => { const n = (t.paket || []).length;
     ${t.ringkas ? `<div class="muted" style="font-size:.85rem">${esc(t.ringkas)}</div>` : ''}</a>`; };
 
 /* ---------- tampilan: beranda ---------- */
+function physicsIcon(name) {
+  const paths = {
+    atom: '<ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/>',
+    wave: '<path d="M2 12c3-12 7-12 10 0s7 12 10 0M2 20h20"/>',
+    vector: '<path d="M5 19V4m0 15h15M5 19 18 6m-5 0h5v5M2 7l3-3 3 3m9 9 3 3-3 3"/>',
+    orbit: '<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="12" ry="5" transform="rotate(-30 12 12)"/><path d="m17 3 2 3m-1-1 3-1"/>',
+    book: '<path d="M12 5v15M3 4c3-1 6-1 9 1 3-2 6-2 9-1v15c-3-1-6-1-9 1-3-2-6-2-9-1Z"/>',
+    clipboard: '<rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/>',
+    bulb: '<path d="M9 18h6m-5 3h4M8 15a7 7 0 1 1 8 0c-1 1-1 2-1 3H9c0-1 0-2-1-3Z"/>',
+    flag: '<path d="M5 22V3m0 0h14l-4 5 4 5H5"/>',
+    trophy: '<path d="M7 3h10v7a5 5 0 0 1-10 0Zm5 12v6m-4 0h8M7 5H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4"/>',
+    repeat: '<path d="M20 8a8 8 0 0 0-13-4L3 8m0-5v5h5m-4 8a8 8 0 0 0 13 4l4-4m0 5v-5h-5"/>',
+    check: '<path d="m5 12 4 4L19 6"/>',
+    lock: '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/>',
+    chevron: '<path d="m6 9 6 6 6-6"/>'
+  };
+  return `<svg class="physics-icon" viewBox="0 0 24 24" aria-hidden="true">${paths[name] || paths.atom}</svg>`;
+}
+
 function kotakJalur() {
   return JALUR.map(j => {
     const ts = topikJalur(j), n = ts.length;
@@ -533,7 +562,7 @@ function kotakJalur() {
         ? `<span class="jm">${n === 1 ? trf('1 topik · %s TP', tps.length) : trf('%s topik · %s TP', n, tps.length)}</span>`
         : `<span class="jm">${n === 1 ? trf('1 topik · %s paket', pks.length) : trf('%s topik · %s paket', n, pks.length)}</span>`;
     return `<a class="jalur j-${j.slug}" href="#jalur-${j.slug}">
-      <span class="jk">${esc(j.kode)}</span>
+      <span class="jk"><span class="jalur-ikon">${physicsIcon({igcse:'atom','as-a':'wave',tka:'vector',olimpiade:'orbit'}[j.slug])}</span>${esc(j.kode)}</span>
       <span class="jn">${j.nama}</span>
       <span class="jt">${tr(j.teks)}</span>
       <span class="jb">${isi}${tps.length ? `<span class="jm">${tuntas === 1 ? tr('1 TP Tuntas') : trf('%s TP Tuntas', tuntas)}</span>` : ''}</span>
@@ -560,7 +589,7 @@ function beranda() {
   return `<div class="stack">
     <section class="hero"><p class="eyebrow">Fitrah Islamic World Academy</p>
       <h1>${tr('Belajar Fisika sampai tuntas')}</h1>
-      <p class="lede">${tr('Tiga jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.')}</p></section>
+      <p class="lede">${tr('Empat jalur, satu cara kerja: setiap tujuan pembelajaran ditempuh bertahap dari Pra-KBM sampai Pasca-KBM, dan baru dinyatakan tuntas bila lulus gerbang akhirnya.')}</p></section>
     <section class="stack"><h2 class="sr-tajuk">${tr('Pilih jalur')}</h2><div class="grid-jalur">${kotakJalur()}</div></section>
     ${lanjut}${lain}</div>`;
 }
@@ -658,6 +687,86 @@ function halTopik(t) {
 }
 
 /* ---------- tampilan: TP ---------- */
+// Penanda visual memakai bukti dan ambang yang sama; tidak menulis progres.
+function tahapSelesai(tp, s, h) {
+  if (s.id === 'S12') return h.tier >= 3;
+  if (s.id === 'S14') return !!h.stabil;
+  const ev = h.e[s.id];
+  if (!ev) return false;
+  const amb = ambangTahapan(tp, s.id);
+  return amb == null || (ev.skor != null && ev.skor >= amb);
+}
+
+function navigasiTahapan(tp, aktif, h) {
+  const t = topikDariTP(tp);
+  const tahap = TAHAPAN.filter(s => !s.cabang || tp.tahapan[s.id]);
+  const selesai = tahap.filter(s => tahapSelesai(tp, s, h)).length;
+  const icons = { S1:'book', S2:'clipboard', S2b:'book', S2c:'book', S3:'bulb', S4:'bulb',
+    S5:'wave', S6:'vector', S7:'clipboard', S8:'trophy', S9:'vector', S10:'book',
+    S11:'clipboard', S12:'flag', S13:'trophy', S14:'repeat' };
+  const phases = ['Pra-KBM', 'KBM', 'Pasca-KBM'];
+  const items = tahap.map((s, i) => {
+    const ada = tp.tahapan[s.id], k = kunci(tp, s.id, h), done = tahapSelesai(tp, s, h);
+    const active = aktif === s.id, canOpen = ada && (!k || guru());
+    const status = !ada ? tr('Belum diunggah') : active ? tr('Sedang dibuka') : done ? tr('Selesai') : k ? tr('Terkunci') : s.cabang ? tr('Tahapan bersyarat') : tr(phases[s.f]);
+    const title = !ada ? tr('Belum diunggah') : k || tr(s.lulus);
+    const state = k && !guru() ? physicsIcon('lock') : done ? physicsIcon('check') : '';
+    const ev = h.e[s.id];
+    const result = s.id === 'S12' && h.tier ? 'T' + h.tier : s.id === 'S14' && h.p.s14.length ? h.p.s14.length + '×' : ev && ev.skor != null ? ev.skor + '%' : '';
+    const inner = `${physicsIcon(icons[s.id])}<span class="step-label">${esc(tr(s.nama))}<small>${s.id}${result ? ' · '+esc(result) : ''} · ${esc(status)}</small></span><span class="step-state">${state}</span>`;
+    const item = canOpen
+      ? `<a class="step-link" href="#tp-${tp.slug}-${s.id.toLowerCase()}"${active ? ' aria-current="step"' : ''} title="${esc(title)}">${inner}</a>`
+      : `<div class="step-link" role="link" aria-disabled="true" title="${esc(title)}">${inner}</div>`;
+    const cls = ['study-step', active ? 'active' : '', done ? 'done' : '', k ? 'locked' : '', !ada ? 'missing' : '', s.gate ? 'gate' : '',
+      ['S3','S4','S5','S6'].includes(s.id) ? 'concept' : '', i && tahap[i-1].f !== s.f ? 'phase-start' : ''].filter(Boolean).join(' ');
+    return `<li class="${cls}"><span class="step-number" aria-hidden="true">${i+1}</span>${item}</li>`;
+  }).join('');
+  const others = t.tp.length > 1 ? `<nav class="study-other" aria-label="${tr('Tujuan pembelajaran lain')}">${t.tp.map(p => {
+    const k = kunciTP(p), current = p.slug === tp.slug;
+    const content = `<small>${esc(p.kode)}${current ? ' · '+tr('Sedang dibuka') : k ? ' · '+tr('Terkunci') : ''}</small><strong>${esc(p.judul)}</strong>`;
+    return k ? `<div title="${esc(k)}">${content}</div>` : `<a${current ? ' class="current"' : ''} href="#tp-${p.slug}">${content}</a>`;
+  }).join('')}</nav>` : '';
+  return `<aside class="study-rail" data-study-tp="${esc(tp.slug)}" aria-label="${esc(tr('Urutan tahapan'))}">
+    <a class="study-course" href="#topik-${t.slug}">${physicsIcon('atom')}<span><strong>${esc(t.nama)}</strong><small>${esc(tp.kode)} · ${trf('%s TP', t.tp.length)}</small></span></a>
+    <div class="study-progress"><div class="row"><span id="stage-progress-label">${tr('Tahapan selesai')}</span><b>${selesai} / ${tahap.length}</b></div><progress max="${tahap.length}" value="${selesai}" aria-labelledby="stage-progress-label"></progress></div>
+    <button class="study-rail-toggle" type="button" data-study-toggle aria-expanded="${window.matchMedia('(min-width: 900px)').matches}" aria-controls="study-rail-list">${tr('Urutan tahapan')}${physicsIcon('chevron')}</button>
+    <div class="study-rail-scroll" id="study-rail-list"${window.matchMedia('(min-width: 900px)').matches ? '' : ' hidden'}><nav aria-label="${esc(tr('Urutan tahapan'))}"><ol class="study-steps">${items}</ol></nav>${others}</div>
+    <div class="study-rail-footer" aria-hidden="true">${physicsIcon('wave')}</div></aside>`;
+}
+
+function bukaDaftarTahapan(rail, open) {
+  rail.querySelector('.study-rail-scroll').hidden = !open;
+  rail.querySelector('[data-study-toggle]').setAttribute('aria-expanded', String(open));
+}
+
+function posisikanTahapan(rail, scrollTop) {
+  if (!rail) return;
+  const scroll = rail.querySelector('.study-rail-scroll');
+  if (scrollTop != null) scroll.scrollTop = scrollTop;
+  const active = rail.querySelector('[aria-current="step"]');
+  if (!active || scroll.hidden) return;
+  const bounds = scroll.getBoundingClientRect(), box = active.getBoundingClientRect();
+  if (box.top < bounds.top) scroll.scrollTop -= bounds.top - box.top + 8;
+  else if (box.bottom > bounds.bottom) scroll.scrollTop += box.bottom - bounds.bottom + 8;
+}
+
+function segarkanNavigasiTahapan(tp, id, h) {
+  const rail = document.querySelector('.study-rail');
+  if (!rail) return;
+  const top = rail.querySelector('.study-rail-scroll').scrollTop, open = !rail.querySelector('.study-rail-scroll').hidden;
+  rail.outerHTML = navigasiTahapan(tp, id, h);
+  const baru = document.querySelector('.study-rail'); bukaDaftarTahapan(baru, open);
+  posisikanTahapan(baru, top);
+}
+
+function pengantarTP(tp) {
+  const next = langkah(tp);
+  return `<section class="study-intro">${physicsIcon('atom')}<h2>${tr('Pilih tahapan, lanjutkan perjalananmu.')}</h2>
+    <p>${tr('Urutan belajar ada di panel kiri. Pada layar kecil, buka Urutan tahapan untuk memilih bagian yang ingin dipelajari.')}</p>
+    <div class="study-phase-key">${FASE.map(f => `<span>${esc(tr(f))}</span>`).join('')}</div>
+    ${next && tp.tahapan[next] ? `<a class="next" href="#tp-${tp.slug}-${next.toLowerCase()}"><span class="what"><span class="eyebrow">${tr('Langkah berikutnya')}</span><b>${esc(tr(T(next).nama))}</b><span class="muted">${next}</span></span><span class="btn">${tr('Mulai')}</span></a>` : `<p>${tr('Pilih tahapan yang terbuka pada daftar. Beberapa bagian menunggu kegiatan kelas, penilaian guru, atau jadwal berikutnya.')}</p>`}</section>`;
+}
+
 function halTP(tp, aktif) {
   const kTP = kunciTP(tp);
   if (kTP) {
@@ -671,34 +780,18 @@ function halTP(tp, aktif) {
   }
   const h = hitung(tp), t = tp._t;
   const ladder = STATUS.map((n, i) => `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${tr(n)}</div>`).join('');
-  const lanes = [0, 1, 2].map(f => {
-    const tiles = TAHAPAN.filter(s => s.f === f).map(s => {
-      const ada = tp.tahapan[s.id], k = kunci(tp, s.id, h), ev = h.e[s.id];
-      if (s.cabang && !ada) return '';
-      let mark = '';
-      if (s.id === 'S12') mark = h.tier ? 'T' + h.tier : (ev ? 'menunggu nilai' : '');
-      else if (s.id === 'S14') mark = h.p.s14.length ? h.p.s14.length + '× ' : '';
-      else if (ev) mark = ev.skor != null ? ev.skor + '%' : '✓';
-      const cls = ['tile', s.gate ? 'gate' : '', s.cabang ? 'branch' : '', !ada ? 'miss' : '', ada && k ? 'lock' : '', aktif === s.id ? 'cur' : ''].join(' ');
-      const sub = !ada ? tr('Belum diunggah') : (k ? '🔒 ' + k : tr(s.lulus));
-      const inner = `<span class="sid">${s.id}${s.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(s.nama))}<small>${esc(sub)}</small></span><span class="mark${ev ? ' ok' : ''}">${esc(mark)}</span>`;
-      return ada && (!k || guru()) ? `<a class="${cls}" href="#tp-${tp.slug}-${s.id.toLowerCase()}">${inner}</a>` : `<div class="${cls}">${inner}</div>`;
-    }).join('');
-    return `<div class="phase"><h3>${tr(FASE[f])}</h3>${tiles}</div>`;
-  }).join('');
   const lengkap = TAHAPAN.filter(s => s.rangka && !tp.tahapan[s.id]).map(s => s.id);
   return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${esc(tp.kode)}</div>
-    <div class="row" style="justify-content:space-between"><div style="min-width:0"><div class="eyebrow mono">${esc(tp.kode)}${tp.bloom ? ' · Bloom ' + esc(tp.bloom) : ''}</div>
-      <h1>${esc(tp.judul)}</h1>${tp.teks ? `<p class="muted" style="margin:.4em 0 0;max-width:65ch">${esc(tp.teks)}</p>` : ''}</div>
-      <div class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</div></div>
-    <div class="ladder">${ladder}</div>
+    <div class="study-layout">${navigasiTahapan(tp, aktif, h)}<div class="study-main">
+    <header class="study-heading"><div class="row"><span class="tp-label">${esc(tp.kode)}${tp.bloom ? ' · Bloom ' + esc(tp.bloom) : ''}</span><span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span></div>
+      <h1>${esc(tp.judul)}</h1>${tp.teks ? `<p class="muted">${esc(tp.teks)}</p>` : ''}
+      <div class="ladder">${ladder}</div></header>
     ${h.s === 4 && h.p.s14.length && h.p.s14[h.p.s14.length - 1].hasil === 'gagal' ? `<div class="note">${tr('Status turun ke Mahir: pengulangan berjarak gagal. Jadwal diulang dari H+14.')}</div>` : ''}
     ${(h.tier && h.tier < 3) ? `<div class="note">${trf('Tier T%s: perlu pendampingan pada konteks baru, bukan tambahan latihan soal.', h.tier)}</div>` : ''}
     ${guru() && lengkap.length ? `<div class="note">${trf('Kelengkapan: tahapan rangka belum diunggah — %s.', lengkap.join(', '))}</div>` : ''}
-    <div class="phases">${lanes}</div>
-    ${aktif ? viewer(tp, aktif, h) : ''}
+    ${aktif ? viewer(tp, aktif, h) : pengantarTP(tp)}
     ${h.e.S13 && h.e.S13.skor >= h.amb && h.s >= 4 ? s14Panel(h) : ''}
-    ${guru() ? panelGuruTP(tp, h) : ''}</div>`;
+    ${guru() ? panelGuruTP(tp, h) : ''}</div></div></div>`;
 }
 
 function s14Panel(h) {
@@ -769,6 +862,7 @@ function segarkanSetelahSkor() {
   const bawah = document.getElementById('viewer-bawah');
   if (!cur || !bawah) return render();
   const h = hitung(cur.tp);
+  segarkanNavigasiTahapan(cur.tp, cur.id, h);
   const s = T(cur.id);
   bawah.innerHTML = bagianBawah(cur.tp, cur.id, h, barisAksi(cur.tp, cur.id, h, s));
   const kep = document.querySelector('.row .chip');
@@ -1374,6 +1468,8 @@ function muatAntrean() {
 
 function render() {
   rangka();
+  const priorRail = document.querySelector('.study-rail');
+  const prior = priorRail ? { tp: priorRail.dataset.studyTp, top: priorRail.querySelector('.study-rail-scroll').scrollTop, open: !priorRail.querySelector('.study-rail-scroll').hidden } : null;
   const h = decodeURIComponent(location.hash.slice(1));
   let html, m; cur = null;
   $('#nav-guru').classList.toggle('on', h === 'guru');
@@ -1389,17 +1485,26 @@ function render() {
   else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) html = halTP(cariTP(m[1]));
   else html = beranda();
   $('#app').innerHTML = html;
+  const rail = document.querySelector('.study-rail');
+  if (rail && prior && prior.tp === rail.dataset.studyTp) bukaDaftarTahapan(rail, prior.open);
+  posisikanTahapan(rail, rail && prior && prior.tp === rail.dataset.studyTp ? prior.top : 0);
   pasangLipat();
   if (window.speechSynthesis) window.speechSynthesis.cancel();   // hentikan narasi halaman sebelumnya
   isiBahan();
   isiPapanKelas();
-  if (cur && document.getElementById('viewer')) document.getElementById('viewer').scrollIntoView({ block: 'start', behavior: 'smooth' });
-  else window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 }
 
 function tpDariHash() { const m = location.hash.match(/^#tp-(.+?)(-s\d+[bc]?)?$/); return m ? cariTP(m[1]) : null; }
 
 document.addEventListener('click', ev => {
+  const toggle = ev.target.closest('[data-study-toggle]');
+  if (toggle) {
+    const rail = toggle.closest('.study-rail');
+    bukaDaftarTahapan(rail, toggle.getAttribute('aria-expanded') !== 'true');
+    posisikanTahapan(rail);
+    return;
+  }
   const lb = ev.target.closest('[data-bhs]');
   if (lb) { const v = lb.dataset.bhs === 'en' ? 'en' : 'id';
     if (v !== BHS) { BHS = v; db.opsi.bahasa = v; simpan();
