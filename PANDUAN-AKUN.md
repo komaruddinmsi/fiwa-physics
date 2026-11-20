@@ -106,9 +106,10 @@ Tidak ada surel yang dikirim ke mana pun. Alamat surel hanya menjadi tanda penge
 Menu **Anggota** hanya muncul untuk pemilik situs. Guru dan siswa tidak melihatnya, dan API-nya pun menolak mereka — jadi alamat surel Anda tidak terbaca siapa pun dari dalam situs.
 
 1. Masuk sebagai pemilik
-2. Klik **Anggota** di bilah atas
-3. Permintaan baru ada di bagian **Menunggu persetujuan**
-4. **Setujui** atau **Tolak**
+2. Lihat **lonceng** di bilah atas. Angka merah di pojoknya = jumlah anggota yang menunggu persetujuan. Angka bertambah sendiri (diperiksa tiap 30 detik, dan setiap kali tab dibuka lagi), tanpa muat ulang halaman
+3. Klik lonceng: muncul daftar pendaftar (nama, surel, peran, tanggal). Klik salah satu, atau **Tinjau di halaman Anggota**, untuk membuka halaman Anggota. Lonceng tetap tampil di mode Siswa; hanya pemilik yang melihatnya
+4. Di halaman Anggota, permintaan baru ada di bagian **Menunggu persetujuan**
+5. **Setujui** atau **Tolak**. Angka di lonceng langsung turun
 
 Peran bisa diubah kapan saja lewat tombol **Jadikan guru** / **Jadikan siswa**.
 
