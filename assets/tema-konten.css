@@ -31,3 +31,130 @@ html[data-fiwa-theme] :is(.unduh,#fims-kirim){background:#1b396d;color:#fff;bord
 html[data-fiwa-theme] .unduh.tenang{background:#155fa9;color:#fff}
 html[data-fiwa-theme="dim"] :is(.isian input,.isian select,.isian textarea){background:var(--panel);color:var(--fg);border-color:var(--line-kuat)}
 html[data-fiwa-theme] :focus-visible{outline:3px solid var(--emas);outline-offset:3px}
+
+/* Dokumen belajar memakai kertas abu-biru saat Teduh. Banyak worksheet lama
+   mempunyai latar putih tetap dan --putih untuk isi sekaligus teks tombol.
+   Semua token di bawah karena itu tetap bertinta gelap. Shell situs dan
+   simulasi media tetap memakai palet gelapnya sendiri. */
+:root[data-fiwa-theme="dim"][data-fiwa-reading="paper"]{
+  --bg:#dfe5ec;--panel:#e9edf2;--panel-2:#dde5ed;--line:#bdcbd9;--line-kuat:#71869e;
+  --fg:#24364b;--muted:#4e6074;--biru:#245780;--teal:#285c46;--emas:#785114;--merah:#933e45;--ungu:#66517b;
+  --tosca0:#203b5b;--tosca:#2b5577;--tosca2:#306b99;--tosca3:#6b93b2;--toscaB:#d4e2ed;
+  --tinta:#24364b;--abu:#4e6074;--abuB:#dde5ed;--putih:#e9edf2;--garis:#bdcbd9;
+  --oranye:#80511f;--oranye2:#8a5b27;--oranyeB:#e8dfcd;--kuning:#c4aa71;--kuningB:#e8e1d2;
+  --hijau:#285c46;--hijauB:#d8e5dd;--merahB:#eddbd9;
+  --fiwa-paper:#e9edf2;--fiwa-soft:#dfe5ec;--fiwa-ink:#24364b;--fiwa-line:#bdcbd9;
+  --fiwa-field:#f0f3f6;--fiwa-field-muted:#dce3eb;--fiwa-head:#2b4a68;--fiwa-on-head:#edf1f5;
+  color-scheme:light;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] body{
+  background:var(--fiwa-soft);color:var(--fiwa-ink);line-height:1.6;
+}
+/* Samakan bidang-bidang yang pada dokumen sumber memakai #fff / #FBFDFD. */
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.kartu,.kartu-identitas,.kartu-soal,.soal,.bagian,.bagian-isi,.isi-bagian,.bagian-badan,.ringkasan,#hasil){
+  background:var(--fiwa-paper);color:var(--fiwa-ink);border-color:var(--fiwa-line);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.bilah-bawah,.bawah,#navpanel,.lipat-tombol){
+  background:var(--fiwa-paper);color:var(--fiwa-ink);border-color:var(--line-kuat);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.naskah,.miskon,.cara-baca,.langkah.kosong,.ganti){
+  background:var(--abuB);color:var(--tinta);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.soal-judul,.kartu-soal>h3,.lead){
+  background:var(--toscaB);color:var(--tosca0);
+}
+/* Judul putih tetap berpasangan dengan pita navy, bukan aksen biru pucat. */
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(header.kepala,.kepala,.bagian-judul,.bagian-kep,.bagian>.pita){
+  background:var(--fiwa-head);color:var(--fiwa-on-head);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(header.kepala,.kepala,.bagian-judul,.bagian-kep,.bagian>.pita)
+  :is(h1,h2,h3,p,.kode,.meta,.jelas,.penjelas,.baris-kecil,.rentang){color:var(--fiwa-on-head)}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.identitas label,.kartu-identitas label,.isi-item label,.isian label,.lebar label,label,.bantu,.sat,.satuan,.perintah,.catatan,.sumber-gambar,.pesan){
+  color:var(--muted);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] label{
+  color:var(--fiwa-ink)!important;font-size:max(.875rem,1em);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.bantu,.sat,.satuan,.perintah,.sumber-gambar){color:var(--muted)!important;font-size:max(.875rem,1em)}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.naskah,.soal-isi,.dalam-soal,.bagian-isi,.isi-bagian,.bagian-badan){font-size:1rem;line-height:1.65}
+/* Semua jenis isian: jangan hanya .isian, sebab S7 dan PRI memakai struktur lain.
+   text-fill juga ditetapkan untuk teks readonly/disabled dan autofill WebKit. */
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="hidden"]),select,textarea,[contenteditable="true"]){
+  background:var(--fiwa-field)!important;color:var(--fiwa-ink)!important;
+  -webkit-text-fill-color:var(--fiwa-ink)!important;border-color:var(--line-kuat);caret-color:var(--tosca0);color-scheme:light;font-size:1rem;line-height:1.5;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] :is(input,textarea)::placeholder{
+  color:#586a7e!important;-webkit-text-fill-color:#586a7e!important;opacity:1;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] :is(select option,select optgroup){
+  background:var(--fiwa-field);color:var(--fiwa-ink);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(input,select,textarea):is(:disabled,[readonly]){
+  background:var(--fiwa-field-muted)!important;color:#43556b!important;-webkit-text-fill-color:#43556b!important;opacity:1;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(input[type="checkbox"],input[type="radio"]){accent-color:var(--tosca);color-scheme:light}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(input,select,textarea,[contenteditable="true"]):focus-visible{
+  outline:3px solid #527eaa;outline-offset:2px;box-shadow:none;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] input:is(:autofill,:-webkit-autofill){
+  -webkit-text-fill-color:var(--fiwa-ink)!important;box-shadow:0 0 0 1000px var(--fiwa-field) inset!important;
+}
+/* Pilihan, tabel dan status tetap dapat dibedakan tanpa mengandalkan warna saja. */
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] .opsi label{
+  background:var(--fiwa-field);color:var(--fiwa-ink);border-color:var(--line-kuat);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] .opsi label:has(input:checked){
+  background:#cadde9;color:var(--fiwa-ink);border-color:var(--tosca);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] #soal.terkunci :is(.opsi,.ragu){opacity:1}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] :is(table,tbody,td){
+  background:var(--fiwa-paper);color:var(--fiwa-ink);border-color:var(--fiwa-line);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] table th{
+  background:var(--fiwa-head);color:var(--fiwa-on-head);border-color:var(--line-kuat);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] table tr:nth-child(even) td{background:var(--abuB)}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] :is(tr.kelompok td,td.terisi){
+  background:var(--toscaB)!important;color:var(--tosca0);
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.aturan,.panel-aturan,.arah,.kelas,.panel.review){background:var(--kuningB);color:var(--tinta)}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.tujuan,.baik,.panel.pembahasan){background:var(--hijauB);color:var(--tinta)}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.awas,.syarat,#tirai){background:var(--merahB);color:var(--merah)}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.aturan,.panel-aturan,.panel.review) :is(strong,b,h3){color:#6b4d1c}
+/* Warna inline pada ekspor worksheet lama: koreksi hanya tinta yang dikenal,
+   jangan menimpa seluruh warna teks atau warna diagram secara menyeluruh. */
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is([style*="color:#6a7f84" i],[style*="color: #6a7f84" i]){color:var(--muted)!important}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is([style*="color:#c05621" i],[style*="color: #c05621" i]){color:var(--oranye)!important}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is([style*="color:#8a6604" i],[style*="color: #8a6604" i]){color:#6b4d1c!important}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(.kosong,.salah) :is(input,select,textarea),
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"]
+  :is(input,select,textarea):is(.kosong,.salah,[aria-invalid="true"]){
+  background:var(--oranyeB)!important;color:var(--fiwa-ink)!important;-webkit-text-fill-color:var(--fiwa-ink)!important;border-color:var(--oranye)!important;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] :is(.terisi,.benar) :is(input,select,textarea),
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] :is(input,select,textarea):is(.terisi,.benar){
+  border-color:var(--hijau);color:var(--fiwa-ink)!important;
+}
+html[data-fiwa-theme="dim"][data-fiwa-reading="paper"] ::selection{background:#b7cfe3;color:#1b3048}
+/* Gambar/SVG/canvas tidak dibalik atau disaring: warna dan label diagram tetap asli. */

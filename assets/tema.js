@@ -15,6 +15,13 @@
       if (url.origin !== location.origin || !/\.html?$/i.test(url.pathname)) return;
       const doc = frame.contentDocument;
       if (!doc || !doc.head || !doc.body) return;
+      // Lembar lama memuat warna tetap pada panel, tabel dan input. Gunakan
+      // satu palet kertas redup yang utuh, bukan teks terang di atas panel putih.
+      if (/^\/(?:konten|aset-[a-z0-9.-]+)\//i.test(url.pathname)) {
+        doc.documentElement.dataset.fiwaReading = 'paper';
+      } else {
+        delete doc.documentElement.dataset.fiwaReading;
+      }
       doc.documentElement.dataset.fiwaTheme = theme;
       if (!doc.getElementById('fiwa-content-theme')) {
         const link = doc.createElement('link');
