@@ -112,6 +112,12 @@ const EN = {
 "Memuat daftar guru…": "Loading the teacher list…",
 "%s anggota menunggu persetujuan": "%s members awaiting approval",
 "1 anggota menunggu persetujuan": "1 member awaiting approval",
+"Notifikasi": "Notifications",
+"Notifikasi anggota": "Member notifications",
+"Tidak ada anggota yang menunggu persetujuan.": "No members are awaiting approval.",
+"Tidak dapat memuat notifikasi.": "Could not load notifications.",
+"Tinjau di halaman Anggota": "Review on the Members page",
+"dan %s lainnya": "and %s more",
 "Keluar": "Sign out",
 "Memuat…": "Loading…",
 "Tidak dapat memuat daftar anggota.": "Could not load the member list.",
@@ -684,7 +690,14 @@ function pasangBilah() {
     ${a.guru ? `<div class="mode-alih" role="group" aria-label="${t('Mode tampilan')}">
         <button type="button" data-mode="guru">${t('Guru')}</button><button type="button" data-mode="siswa">${t('Siswa')}</button>
       </div>` : ''}
-    ${a.owner ? `<a href="#anggota" class="akun-tautan" id="t-anggota">${t('Anggota')}<span class="lencana" id="lencana-menunggu" hidden></span></a>` : ''}
+    ${a.owner ? `<a href="#anggota" class="akun-tautan" id="t-anggota">${t('Anggota')}</a>` : ''}
+    ${a.owner ? `<div class="lonceng" id="lonceng">
+        <button type="button" class="lonceng-tbl" id="lonceng-tbl" aria-haspopup="true" aria-expanded="false" aria-controls="lonceng-panel" aria-label="${t('Notifikasi anggota')}">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span class="lencana lonceng-lencana" id="lencana-menunggu" hidden></span>
+        </button>
+        <div class="lonceng-panel" id="lonceng-panel" role="region" aria-label="${t('Notifikasi')}" hidden></div>
+      </div>` : ''}
     <span class="akun-nama" title="${esc(a.email)}">${esc(a.nama || a.email.split('@')[0])}</span>
     <button type="button" class="akun-keluar" id="b-keluar">${t('Keluar')}</button>`;
   nav.appendChild(blok);
@@ -701,23 +714,133 @@ function pasangBilah() {
   });
   segarMode();
   segarLencana();
+  if (a.owner) pasangLonceng();
 }
 
-/* Lencana jumlah anggota yang menunggu persetujuan, pada tautan "Anggota". */
+/* Lonceng notifikasi (khusus pemilik): lencana merah berisi jumlah anggota yang menunggu persetujuan.
+   Angkanya mengikuti peladen: dimuat saat masuk, disegarkan tiap 30 detik selagi tab terlihat dan setiap kali
+   tab kembali dibuka, serta langsung diperbarui oleh halaman Anggota. Klik lonceng menampilkan daftarnya. */
 FIMS.setMenunggu = function (n) {
-  if (FIMS.aku) FIMS.aku.menunggu = Number(n) || 0;
-  segarLencana();
+  const lama = (FIMS.aku && Number(FIMS.aku.menunggu)) || 0;
+  n = Number(n) || 0;
+  if (FIMS.aku) FIMS.aku.menunggu = n;
+  segarLencana(n > lama);
 };
 
-function segarLencana() {
+function labelLonceng(n) {
+  return n < 1 ? t('Notifikasi anggota')
+    : (n === 1 ? t('1 anggota menunggu persetujuan') : tf('%s anggota menunggu persetujuan', n));
+}
+
+function segarLencana(baru) {
   const b = document.getElementById('lencana-menunggu');
   if (!b) return;
   const n = (FIMS.aku && Number(FIMS.aku.menunggu)) || 0;
   b.textContent = n < 1 ? '' : (n > 99 ? '99+' : String(n));
   b.hidden = n < 1;
-  const taut = document.getElementById('t-anggota');
-  if (taut) taut.title = n < 1 ? t('Anggota')
-    : (n === 1 ? t('1 anggota menunggu persetujuan') : tf('%s anggota menunggu persetujuan', n));
+  const tbl = document.getElementById('lonceng-tbl');
+  if (tbl) { tbl.setAttribute('aria-label', labelLonceng(n)); tbl.title = labelLonceng(n); }
+  if (baru && n > 0) {                                   // ada permintaan baru: denyut singkat
+    b.classList.remove('baru'); void b.offsetWidth; b.classList.add('baru');
+  }
+  if (document.getElementById('lonceng-panel') && !document.getElementById('lonceng-panel').hidden) isiLonceng();
+}
+
+let _daftarLonceng = null, _galatLonceng = false, _memuatLonceng = false;
+
+function isiLonceng() {
+  const w = document.getElementById('lonceng-panel'); if (!w) return;
+  const n = (FIMS.aku && Number(FIMS.aku.menunggu)) || 0;
+  const tgl = x => x ? new Date(x * 1000).toLocaleDateString(BHS === 'en' ? 'en-GB' : 'id-ID', { day: 'numeric', month: 'short' }) : '';
+  let isi;
+  if (_galatLonceng) isi = `<p class="lonceng-kosong">${t('Tidak dapat memuat notifikasi.')}</p>`;
+  else if (n < 1 && _daftarLonceng && !_daftarLonceng.length) isi = `<p class="lonceng-kosong">${t('Tidak ada anggota yang menunggu persetujuan.')}</p>`;
+  else if (!_daftarLonceng) isi = `<p class="lonceng-kosong">${t('Memuat…')}</p>`;
+  else {
+    const tampil = _daftarLonceng.slice(0, 6), sisa = _daftarLonceng.length - tampil.length;
+    isi = `<ul class="lonceng-daftar">${tampil.map(m => {
+      const nm = m.nama || String(m.email).split('@')[0];
+      return `<li><a href="#anggota" class="lonceng-baris" data-tutup>
+        <span class="lonceng-avatar" aria-hidden="true">${esc(nm.trim().charAt(0).toUpperCase() || '?')}</span>
+        <span class="lonceng-teks"><b>${esc(nm)}</b><small>${esc(m.email)}</small></span>
+        <span class="lonceng-sisi"><span class="lonceng-peran">${t(m.peran === 'guru' ? 'Guru' : 'Siswa')}</span><small>${esc(tgl(m.dibuat))}</small></span></a></li>`; }).join('')}</ul>` +
+      (sisa > 0 ? `<p class="lonceng-sisa">${tf('dan %s lainnya', sisa)}</p>` : '');
+  }
+  w.innerHTML = `<div class="lonceng-kepala"><b>${t('Notifikasi')}</b>${n > 0 ? `<span class="lonceng-jml">${esc(labelLonceng(n))}</span>` : ''}</div>${isi}
+    <a href="#anggota" class="lonceng-semua" data-tutup>${t('Tinjau di halaman Anggota')} →</a>`;
+}
+
+function aturLonceng() {                                 // letakkan panel di bawah lonceng, tetap di dalam layar
+  const w = document.getElementById('lonceng'), p = document.getElementById('lonceng-panel');
+  if (!w || !p) return;
+  const vw = document.documentElement.clientWidth, lebar = Math.min(360, vw - 32);
+  const r = w.getBoundingClientRect();
+  const kiri = Math.max(16, Math.min(r.right - lebar, vw - lebar - 16));
+  p.style.width = lebar + 'px';
+  p.style.left = (kiri - r.left) + 'px';
+}
+
+function tutupLonceng(balik) {
+  const p = document.getElementById('lonceng-panel'), b = document.getElementById('lonceng-tbl');
+  if (!p || p.hidden) return;
+  p.hidden = true; if (b) { b.setAttribute('aria-expanded', 'false'); if (balik) b.focus(); }
+}
+
+async function muatDaftarLonceng() {
+  if (_memuatLonceng) return;
+  _memuatLonceng = true;
+  const r = await API('anggota').catch(() => ({}));
+  _memuatLonceng = false;
+  if (Array.isArray(r.anggota)) {
+    _galatLonceng = false;
+    _daftarLonceng = r.anggota.filter(m => m.status === 'menunggu').sort((x, y) => (y.dibuat || 0) - (x.dibuat || 0));
+    FIMS.setMenunggu(_daftarLonceng.length);             // daftar adalah kebenaran terbaru: angka ikut menyesuaikan
+  } else { _galatLonceng = true; _daftarLonceng = null; }
+  const p = document.getElementById('lonceng-panel');
+  if (p && !p.hidden) isiLonceng();
+}
+
+function bukaLonceng() {
+  const p = document.getElementById('lonceng-panel'), b = document.getElementById('lonceng-tbl');
+  if (!p || !b) return;
+  p.hidden = false; b.setAttribute('aria-expanded', 'true');
+  aturLonceng(); isiLonceng();
+  muatDaftarLonceng();
+}
+
+async function cekMenunggu() {
+  if (!FIMS.aku || !FIMS.aku.owner || document.hidden) return;
+  const r = await API('saya').catch(() => null);
+  if (!(r && r.ok && r.masuk && r.menunggu !== undefined)) return;
+  const lama = Number(FIMS.aku.menunggu) || 0;
+  FIMS.setMenunggu(r.menunggu);
+  const p = document.getElementById('lonceng-panel');
+  if (p && !p.hidden && Number(r.menunggu) !== lama) muatDaftarLonceng();   // panel terbuka: daftarnya ikut disegarkan
+}
+
+let _loncengSiap = false;
+function pasangLonceng() {
+  const b = document.getElementById('lonceng-tbl'); if (!b) return;
+  _daftarLonceng = null; _galatLonceng = false;
+  b.addEventListener('click', ev => {
+    ev.stopPropagation();
+    const p = document.getElementById('lonceng-panel');
+    if (p.hidden) bukaLonceng(); else tutupLonceng(false);
+  });
+  document.getElementById('lonceng-panel').addEventListener('click', ev => {
+    const x = ev.target.closest('[data-tutup]'); if (!x) return;
+    tutupLonceng(false);
+    if (location.hash === '#anggota') { ev.preventDefault(); FIMS.halAnggota(); }   // sudah di sana: segarkan saja
+  });
+  if (_loncengSiap) return;                              // pendengar global dipasang sekali saja
+  _loncengSiap = true;
+  document.addEventListener('click', ev => { if (!ev.target.closest('#lonceng')) tutupLonceng(false); });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') tutupLonceng(true); });
+  window.addEventListener('resize', () => { const p = document.getElementById('lonceng-panel'); if (p && !p.hidden) aturLonceng(); });
+  window.addEventListener('hashchange', () => tutupLonceng(false));
+  window.addEventListener('focus', cekMenunggu);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) cekMenunggu(); });
+  setInterval(cekMenunggu, 30000);
 }
 
 function segarMode() {
