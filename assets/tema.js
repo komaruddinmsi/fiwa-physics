@@ -37,12 +37,11 @@
 
   function labels(language) {
     const en = language === 'en';
-    document.querySelectorAll('[data-theme-label]').forEach(el => {
-      el.textContent = el.dataset.themeLabel === 'dim' ? (en ? 'Dim' : 'Teduh') : (en ? 'Light' : 'Terang');
-    });
     document.querySelectorAll('[data-theme-choice]').forEach(button => {
-      button.setAttribute('aria-label', button.dataset.themeChoice === 'dim'
-        ? (en ? 'Dim theme' : 'Tema teduh') : (en ? 'Light theme' : 'Tema terang'));
+      const label = button.dataset.themeChoice === 'dim'
+        ? (en ? 'Dim theme' : 'Tema teduh') : (en ? 'Light theme' : 'Tema terang');
+      button.setAttribute('aria-label', label);
+      button.setAttribute('title', label);
     });
     const group = document.querySelector('.theme-switch');
     if (group) group.setAttribute('aria-label', en ? 'Display theme' : 'Tema tampilan');
