@@ -140,6 +140,7 @@ function bukaTahapan(d, id) {
   if (!ev && !adaTier) return { galat: 'Tahapan ini belum punya hasil tercatat.' };
   const dulu = { skor: ev && ev.skor != null ? ev.skor : null, waktu: ev && ev.waktu ? ev.waktu : null };
   if (id === 'S12') { dulu.tier = d.tier || null; d.tier = null; }
+  if(id==='S8'&&d.p5Usulan)d.p5Usulan.menunggu=false;
   delete d.ev[id];
   return { dulu };
 }
@@ -572,8 +573,8 @@ export async function onRequest(ctx) {
         // S12 Tugas Kinerja: murid sudah mengirim bukti, tier belum diisi guru.
         if (ev.S12 && !d.tier) antre.push({ ...dasar, tahapan: 'S12', minta: 'tier' });
         // S8 Gerbang Formatif Kelas: murid sudah lulus S4, skor gerbang belum masuk.
-        if (ev.S4 && sk('S2') != null && sk('S2') >= 80 && sk('S8') == null)
-          antre.push({ ...dasar, tahapan: 'S8', minta: 'skor' });
+        if (ev.S4 && sk('S2') != null && sk('S2') >= 80 && (sk('S8') == null || (ev.S8 && ev.S8.cekUlang) || (d.p5Usulan&&d.p5Usulan.menunggu)))
+          antre.push({ ...dasar, tahapan: 'S8', minta: 'skor', usulan:d.p5Usulan&&d.p5Usulan.menunggu?d.p5Usulan:null });
       }
       antre.sort((x, y) => (x.diubah || 0) - (y.diubah || 0));
       return json({ antrean: antre.slice(0, 500), jumlah: antre.length });
@@ -586,7 +587,7 @@ export async function onRequest(ctx) {
       const murid = rapi(b.murid), slug = String(b.tp || '').slice(0, 80);
       const tahapan = String(b.tahapan || '').toUpperCase();
       if (!murid || !slug || !['S8', 'S12'].includes(tahapan))
-        return json({ galat: 'Permintaan tidak lengkap. Tahapan yang dapat dinilai guru hanya S8 dan S12.' }, 400);
+        return json({ galat: 'Permintaan tidak lengkap. Tahapan yang dapat dinilai guru hanya P5 dan P8.' }, 400);
 
       if (!isOwner) {
         const ikat = await DB.prepare('SELECT 1 AS a FROM bimbing WHERE guru = ? AND murid = ?')
@@ -603,6 +604,10 @@ export async function onRequest(ctx) {
         const skor = Number(b.skor);
         if (!isFinite(skor) || skor < 0 || skor > 100) return json({ galat: 'Skor harus 0–100.' }, 400);
         d.ev.S8 = { ...(d.ev.S8 || {}), skor: Math.round(skor), oleh: aktif.nama || 'Guru', pada: kini() };
+        delete d.ev.S8.cekUlang;
+        if(d.p5Usulan)d.p5Usulan.menunggu=false;
+        const fokus=Number(b.fokus||0);
+        d.ev.S8.fokus=Number.isInteger(fokus)&&fokus>=0&&fokus<=4?fokus:0;
       } else {
         const tier = Number(b.tier);
         if (!Number.isInteger(tier) || tier < 1 || tier > 4) return json({ galat: 'Tier harus 1–4.' }, 400);
