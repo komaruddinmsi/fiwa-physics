@@ -73,6 +73,7 @@
     return p.slice(0, 200);
   }
   var KUNCI = bentukKunci(location.pathname);
+  if(window.FIWA_CLASS&&window.FIWA_CLASS.version>=3){var siklus=new URL(location.href).searchParams.get('cycle');if(siklus!==null)KUNCI=KUNCI.slice(0,160)+'-siklus-'+siklus.replace(/[^0-9A-Za-z_-]/g,'').slice(0,32);}
   if (!KUNCI || !/^[A-Za-z0-9]/.test(KUNCI)) return;
 
   /* ---------- membaca dan menulis isian ---------- */

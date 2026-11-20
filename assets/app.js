@@ -47,22 +47,22 @@ const EN = {
 "Dokumen ini berdiri sendiri: nilai dan pembahasan muncul di dalam lembar itu sendiri, tidak masuk ke progres jalur belajar.": "This document stands alone: the score and worked solutions appear inside the sheet itself and do not enter the learning-path progress.",
 "Kembali ke daftar paket": "Back to the pack list",
 "Dokumen tidak ditemukan.": "Document not found.",
-"Peta & Tujuan Pembelajaran": "Map & Learning Objective",
+"Pembuka dan Tujuan": "Map & Learning Objective",
 "Gerbang Prasyarat": "Prerequisite Gate",
 "Penguatan Prasyarat": "Prerequisite Reinforcement",
 "Remediasi Prasyarat": "Prerequisite Remediation",
-"Pemantik & Prakonsepsi": "Hook & Preconceptions",
-"Penyajian Konsep Awal": "First Concept Exposure",
+"Prediksi Awal": "Hook & Preconceptions",
+"Konsep dan Checkpoint": "First Concept Exposure",
 "Pembahasan Prakonsepsi": "Preconception Debrief",
 "Inti Terbimbing": "Guided Core",
 "Praktik Terstruktur": "Structured Practice",
 "Gerbang Formatif Kelas": "Class Formative Gate",
-"Diferensiasi T1–T4": "Differentiation T1–T4",
+"Tindak Lanjut": "Differentiation T1–T4",
 "Konsolidasi & Jangkar": "Consolidation & Anchor",
-"Latihan Bertingkat": "Tiered Practice",
+"Latihan Persiapan": "Tiered Practice",
 "Tugas Kinerja": "Performance Task",
-"Gerbang Ketuntasan TP": "LO Mastery Gate",
-"Pengulangan Berjarak": "Spaced Retrieval",
+"Uji Ketuntasan TP": "LO Mastery Gate",
+"Ulangi Materi": "Spaced Retrieval",
 "Dibuka": "Opened",
 "≥80% lanjut · 60–79% → S2b · <60% → S2c": "≥80% proceed · 60–79% → S2b · <60% → S2c",
 "Ulang S2 satu kali": "Retake S2 once",
@@ -108,7 +108,7 @@ const EN = {
 "Lulus Gerbang Prasyarat (S2 ≥ 80%) dulu": "Pass the Prerequisite Gate (S2 ≥ 80%) first",
 "Kirim prakonsepsi S3 sebelum tatap muka": "Submit the S3 preconceptions before the lesson",
 "Kerjakan Gerbang Formatif S8 di kelas": "Sit the S8 Class Formative Gate in class",
-"Kerjakan Latihan Bertingkat S11 dulu": "Do the S11 Tiered Practice first",
+"Kerjakan Latihan Persiapan S11 dulu": "Do the S11 Tiered Practice first",
 "Kerjakan S11 dulu": "Do S11 first",
 "Selesaikan dulu %s · %s": "Finish %s · %s first",
 "Tugas Kinerja S12 harus dinilai minimal T3": "The S12 Performance Task must be graded at least T3",
@@ -163,7 +163,7 @@ const EN = {
 "Terisi otomatis bila halaman kuis mengirim skor.": "Filled in automatically when the quiz page reports a score.",
 "Tandai selesai": "Mark done", "Tandai sudah mengikuti": "Mark as attended", "Mode guru. Siswa tidak dapat mengetik skornya sendiri.": "Teacher mode. Students cannot type their own score.", "Skor tahapan ini dinilai dan diisi gurumu di kelas.": "Your teacher marks and enters the score for this stage in class.", "Skormu terisi sendiri begitu kamu menekan tombol periksa pada lembar di atas. Tidak ada angka yang bisa diketik sendiri di sini.": "Your score is filled in automatically the moment you press the check button on the sheet above. There is no figure to type in here.", "Skor tercatat: %s": "Score on record: %s", "Langkah berikutnya": "Next step", "Semua butir sudah benar.": "Every item is correct.", "Benar %s dari %s butir.": "%s of %s items correct.", "%s nomor masih salah": "%s items are still wrong", "Skormu %s, ambangnya %s. Kurang %s poin lagi.": "Your score is %s and the threshold is %s. You are %s points short.", "Buka kembali nomor-nomor itu pada lembar di atas, kerjakan ulang langkahnya, lalu periksa lagi. Kunci jawaban sengaja tidak ditampilkan.": "Open those items again on the sheet above, work through them afresh, then check once more. The answer key is deliberately not shown.", "Ke %s · %s": "Go to %s · %s", "%s · %s": "%s · %s", "Sesudah ini: kerjakan ulang Gerbang Prasyarat": "Next: sit the Prerequisite Gate again", "Penguatan dan remediasi tidak mengubah statusmu dengan sendirinya. Status baru naik setelah kamu lulus Gerbang Prasyarat, yaitu skor minimal 80%. Kerjakan ulang gerbangnya sekarang.": "Reinforcement and remediation do not change your status by themselves. Your status only rises once you pass the Prerequisite Gate with at least 80%. Sit the gate again now.",
 "Panel guru · %s": "Teacher panel · %s",
-"Tier dari rubrik S9/S12": "Tier from the S9/S12 rubric",
+"Tier Tugas Penerapan (P8)": "Tier from the S9/S12 rubric",
 "Hapus progres TP ini": "Clear progress for this LO",
 "Selisih S11 − S13: %s · Riwayat status: %s": "S11 − S13 gap: %s · Status history: %s",
 "%s poin": "%s points",
@@ -171,7 +171,7 @@ const EN = {
 "Papan guru": "Teacher board", "Memuat papan kelas…": "Loading the class board…", "Tidak dapat memuat papan kelas.": "Could not load the class board.", "Belum ada murid aktif. Setujui anggota lebih dulu di laman Anggota.": "No active students yet. Approve members on the Members page first.", "Murid": "Students", "Warna = status, angka = tier. Baris paling atas adalah progres pada perangkat ini; baris berikutnya diambil dari akun tiap murid.": "Colour = status, number = tier. The top row is progress on this device; the rows below come from each student's account.", "Anggota": "Members", "Keluar": "Sign out", "Guru": "Teacher", "Siswa": "Student",
 "Kelengkapan & posisi": "Completeness & standing",
 "Kelengkapan tahapan": "Stage completeness",
-"✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.": "✕ = a core stage (S1, S2, S3, S5, S8, S10, S12, S13, S14) has not been uploaded. An LO with any ✕ is not ready to publish.",
+"✕ = tahapan rangka (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10) belum diunggah. TP dengan ✕ belum boleh terbit.": "✕ = a core stage (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10) has not been uploaded. An LO with any ✕ is not ready to publish.",
 "Papan posisi": "Standing board",
 "Warna = status, angka = tier. Versi statis hanya membaca progres di perangkat ini. Papan seluruh kelas butuh login dan database (Tahap 6 panduan).": "Colour = status, number = tier. This static version only reads progress stored on this device. A whole-class board needs sign-in and a database (Stage 6 of the guide).",
 "Simulasi waktu": "Time simulation",
@@ -292,26 +292,26 @@ Object.assign(EN, {
   'Pilih tahapan yang terbuka pada daftar. Beberapa bagian menunggu kegiatan kelas, penilaian guru, atau jadwal berikutnya.': 'Choose an available stage. Some parts wait for class activities, teacher assessment, or the next scheduled session.'
 });
 let BHS = 'id';
-const tr  = x => (BHS === 'id' || EN[x] === undefined) ? x : EN[x];
+const tr = x => FIWA_ALUR.label((BHS === 'id' || EN[x] === undefined) ? x : EN[x]);
 const trf = (x, ...v) => { let i = 0; return tr(x).replace(/%s/g, () => v[i++]); };
 
 const TAHAPAN = [
-  { id:'S1',  f:0, nama:'Peta & Tujuan Pembelajaran',            lulus:'Dibuka',                         rangka:1 },
-  { id:'S2',  f:0, nama:'Gerbang Prasyarat',       lulus:'≥80% lanjut · 60–79% → S2b · <60% → S2c', gate:1, skor:1, rangka:1 },
+  { id:'S1',  f:0, nama:'Pembuka dan Tujuan',            lulus:'Hook dan tujuan dibaca',                         rangka:1 },
+  { id:'S2',  f:0, nama:'Cek Prasyarat',       lulus:'≥80% lanjut · 60–79% → S2b · <60% → S2c', gate:1, skor:1, rangka:1 },
   { id:'S2b', f:0, nama:'Penguatan Prasyarat',     lulus:'Ulang S2 satu kali', cabang:1 },
   { id:'S2c', f:0, nama:'Remediasi Prasyarat',     lulus:'Ulang S2', cabang:1 },
-  { id:'S3',  f:0, nama:'Pemantik & Prakonsepsi',  lulus:'Terkirim (tidak dinilai)', rangka:1 },
-  { id:'S4',  f:0, nama:'Penyajian Konsep Awal',   lulus:'Cek sisipan terjawab' },
+  { id:'S3',  f:0, nama:'Prediksi Awal',  lulus:'Terkirim (tidak dinilai)', rangka:1 },
+  { id:'S4',  f:0, nama:'Konsep dan Praktik',   lulus:'Seluruh checkpoint tepat', rangka:1 },
   { id:'S5',  f:1, nama:'Pembahasan Prakonsepsi',  lulus:'Dipimpin guru', rangka:1 },
   { id:'S6',  f:1, nama:'Inti Terbimbing',         lulus:'Dipimpin guru' },
   { id:'S7',  f:1, nama:'Praktik Terstruktur',     lulus:'Lembar kerja terisi' },
-  { id:'S8',  f:1, nama:'Gerbang Formatif Kelas',  lulus:'≥80% benar', gate:1, skor:1, guruIsi:1, rangka:1 },
-  { id:'S9',  f:1, nama:'Diferensiasi T1–T4',      lulus:'Sesuai cabang S8' },
-  { id:'S10', f:1, nama:'Konsolidasi & Jangkar',   lulus:'Jangkar terkirim', rangka:1 },
-  { id:'S11', f:2, nama:'Latihan Bertingkat',      lulus:'Benar 3 dari 4 (≥75%) · H+0–H+2', skor:1 },
-  { id:'S12', f:2, nama:'Tugas Kinerja',           lulus:'Minimal T3 (dinilai guru) · H+1–H+5', gate:1, tier:1, rangka:1 },
-  { id:'S13', f:2, nama:'Gerbang Ketuntasan TP',   lulus:'Butir baru, sekali jalan · H+2–H+7', gate:1, skor:1, rangka:1 },
-  { id:'S14', f:2, nama:'Pengulangan Berjarak',    lulus:'H+14, +30, +60 · gagal → turun', gate:1, rangka:1 }
+  { id:'S8',  f:1, nama:'Cek Pemahaman',  lulus:'≥80% benar', gate:1, skor:1, guruIsi:1, rangka:1 },
+  { id:'S9',  f:1, nama:'Tindak Lanjut',      lulus:'Cabang sesuai skor P5; semua jawaban tepat', skor:1 },
+  
+  { id:'S11', f:2, nama:'Latihan Persiapan',      lulus:'Minimal 8 dari 10 soal · H+0–H+2', skor:1 },
+  { id:'S12', f:2, nama:'Tugas Penerapan',           lulus:'Minimal T3 (dinilai guru) · H+1–H+5', gate:1, tier:1, rangka:1 },
+  { id:'S13', f:2, nama:'Uji Ketuntasan TP',   lulus:'Butir baru, sekali jalan · H+2–H+7', gate:1, skor:1, rangka:1 },
+  { id:'S14', f:2, nama:'Ulangi Materi',    lulus:'H+14, +30, +60 · gagal → turun', gate:1, rangka:1 }
 ];
 const LAPIS = [
   { id:'L1', nama:'Kuis Blok',              kapan:'Setiap 2–4 TP' },
@@ -333,7 +333,7 @@ const FASE = ['Fase 0 · Pra-KBM', 'Fase 1 · KBM', 'Fase 2 · Pasca-KBM'];
 const STATUS = ['Belum Mulai', 'Siap', 'Mencoba', 'Akrab', 'Mahir', 'Tuntas'];
 // Fase KBM ditempuh berurutan: tiap tahapan baru terbuka setelah tahapan sebelumnya selesai.
 // Gerbang Formatif S8 karena itu tidak dapat dibuka sebelum S7 dikerjakan.
-const RANTAI_KBM = { S5:'S3', S6:'S5', S7:'S6', S8:'S7', S9:'S8', S10:'S9' };
+const RANTAI_KBM = { S5:'S3', S6:'S5', S7:'S6', S8:'S7', S9:'S8' };
 const HARI = 864e5;
 const T = id => TAHAPAN.find(s => s.id === id);
 
@@ -351,6 +351,8 @@ const prog = slug => (db.tp[slug] = db.tp[slug] || { ev: {}, tier: null, s14: []
 const now = () => Date.now() + (db.opsi.geser || 0) * HARI;   // "geser hari" = simulasi waktu untuk uji coba
 
 /* ---------- mesin status ---------- */
+function latihanSiap(e) { const v=e.S11; return !!(v && v.skor != null && v.skor >= (v.versi >= 2 ? 80 : 75)); }
+function cabangS9(h) { const score=h.e.S8 && h.e.S8.skor; return score == null ? null : score >= 80 ? 'skip' : score >= 60 ? 'a' : 'b'; }
 function hitungP(p, tp) {                      // murni: tidak menyentuh penyimpanan
   p = p || {}; const e = p.ev || {}, amb = tp.ambang || 75, s14 = p.s14 || [];
   const sk = id => (e[id] && e[id].skor != null) ? e[id].skor : null;
@@ -360,12 +362,12 @@ function hitungP(p, tp) {                      // murni: tidak menyentuh penyimp
   if (s >= 1 && ok('S4')) s = 2;
   if (s >= 2 && sk('S8') != null && sk('S8') >= 80) s = 3;
   const tier = p.tier || 0;
-  if (s >= 3 && sk('S11') != null && sk('S11') >= 75 && tier >= 3) s = 4;
+  if (s >= 3 && latihanSiap(e) && tier >= 3) s = 4;
   let stabil = false;
   if (s >= 4 && sk('S13') != null && sk('S13') >= amb) {
     const gagalTerakhir = s14.length && s14[s14.length - 1].hasil === 'gagal';
     s = gagalTerakhir ? 4 : 5;
-    stabil = s === 5 && s14.filter(x => x.hasil === 'lulus').length >= 3;
+    stabil = s === 5 && s14.filter(x => x.hasil === 'lulus' && x.waktu >= (p.s14Mulai || e.S13.waktu || 0)).length >= 3;
   }
   return { s, stabil, tier: p.tier || null };
 }
@@ -379,12 +381,12 @@ function hitung(tp) {
   if (s >= 1 && ok('S4')) s = 2;
   if (s >= 2 && sk('S8') != null && sk('S8') >= 80) s = 3;
   const tier = p.tier || 0;
-  if (s >= 3 && sk('S11') != null && sk('S11') >= 75 && tier >= 3) s = 4;
+  if (s >= 3 && latihanSiap(e) && tier >= 3) s = 4;
   let stabil = false;
   if (s >= 4 && sk('S13') != null && sk('S13') >= amb) {
     const gagalTerakhir = p.s14.length && p.s14[p.s14.length - 1].hasil === 'gagal';
     s = gagalTerakhir ? 4 : 5;
-    stabil = s === 5 && p.s14.filter(x => x.hasil === 'lulus').length >= 3;
+    stabil = s === 5 && p.s14.filter(x => x.hasil === 'lulus' && x.waktu >= (p.s14Mulai || e.S13.waktu || 0)).length >= 3;
   }
   // catat riwayat bila berubah (status tidak ditimpa, jejak disimpan)
   const last = p.riwayat.length ? p.riwayat[p.riwayat.length - 1].ke : 0;
@@ -400,16 +402,18 @@ function kunci(tp, id, h) {
   if (id === 'S2c') return (sk('S2') != null && sk('S2') < 60) ? null : tr('Hanya untuk skor S2 di bawah 60%');
   if (h.s < 1) return tr('Lulus Gerbang Prasyarat (S2 ≥ 80%) dulu');
   if (['S3', 'S4'].includes(id)) return null;
+  if (id === 'S9' && (!e.S8 || e.S8.skor == null)) return tr('Menunggu skor P5 dari guru.');
   if (RANTAI_KBM[id]) {
     if (!e.S3) return tr('Kirim prakonsepsi S3 sebelum tatap muka');
     const b = RANTAI_KBM[id];
     if (b !== 'S3' && !e[b]) return trf('Selesaikan dulu %s · %s', b, tr(T(b).nama));
     return null;
   }
-  if (id === 'S11') return e.S8 ? null : tr('Kerjakan Gerbang Formatif S8 di kelas');
-  if (id === 'S12') return e.S11 ? null : tr('Kerjakan Latihan Bertingkat S11 dulu');
+  if (id === 'S11') return e.S8 && e.S8.skor >= 80 ? null : tr('Lulus P5 dahulu; gunakan P6 dan cek ulang bersama guru jika perlu.');
+  if (id === 'S12') return latihanSiap(e) ? null : tr('Selesaikan P7 dengan minimal 8 dari 10 jawaban tepat dahulu.');
   if (id === 'S13') {
-    if (!e.S11) return tr('Kerjakan S11 dulu');
+    if (!latihanSiap(e)) return tr('Selesaikan P7 dengan minimal 8 dari 10 jawaban tepat dahulu.');
+    if (!e.S8 || e.S8.skor < 80) return tr('Lulus P5 dahulu.');
     if ((h.tier || 0) < 3) return tr('Tugas Kinerja S12 harus dinilai minimal T3');
     const buka = e.S11.waktu + 2 * HARI;
     if (now() < buka) return trf('Kuis tertunda dibuka %s (H+2 setelah S11)', tgl(buka));
@@ -438,11 +442,11 @@ function catat(tp, id, data) {
   const p = prog(tp.slug);
   if (id === 'S14') {
     const lulus = data.skor == null ? true : data.skor >= (tp.ambang || 75);
-    p.s14.push({ hasil: lulus ? 'lulus' : 'gagal', waktu: now() });
-    if (!lulus) p.s14Mulai = now();               // turun ke Mahir & jadwal ulang dari interval pertama
+    p.s14.push({ hasil: lulus ? 'lulus' : 'gagal', waktu: now(), skor:data.skor, sesi:data.session, jawaban:data.answers });
+    if (!lulus) p.s14Mulai = now() + 1;               // turun ke Mahir & jadwal ulang dari interval pertama
   } else {
     const lama = p.ev[id];
-    p.ev[id] = { waktu: now(),
+    p.ev[id] = { ...(lama || {}), waktu: now(),
       skor: data.skor == null ? (lama && lama.skor != null ? lama.skor : null) : Math.round(data.skor) };
     // daftar nomor yang masih salah, dikirim halaman lembarnya
     if (Array.isArray(data.salah)) {
@@ -452,6 +456,16 @@ function catat(tp, id, data) {
     } else if (lama && lama.salah && data.skor == null) {
       p.ev[id].salah = lama.salah; p.ev[id].benar = lama.benar; p.ev[id].total = lama.total;
     }
+    if (id==='S13' && data.versi>=3) {p.ujian=p.ujian||[]; const cycle=(p.ev.S11&&p.ev.S11.waktu)||0;if(!p.ujian.some(x=>x.cycle===cycle))p.ujian.push({cycle,form:data.form,skor:data.skor,waktu:now()});p.ujian=p.ujian.slice(-20);}
+    if (data.versi) p.ev[id].versi = data.versi;
+    else if (id === 'S11' && data.skor != null && tp.tahapan.S11 && tp.tahapan.S11.versi >= 2) p.ev[id].versi = tp.tahapan.S11.versi;
+    if (data.awal != null) p.ev[id].awal = data.awal;
+    if (id === 'S9') {
+      p.ev[id].cabang = data.branch || cabangS9({ e:p.ev });
+      p.ev[id].fokus = Number(data.focus ?? (p.ev.S8 && p.ev.S8.fokus) ?? 0);
+      if (data.skor === 100 && p.ev.S8 && p.ev.S8.skor < 80) p.ev.S8.cekUlang = true;
+    }
+    if (id === 'S8' && data.skor != null) { if(p.p5Usulan)p.p5Usulan.menunggu=false; delete p.ev.S8.cekUlang; p.ev.S8.fokus=Number(data.fokus||0); }
     if (id === 'S2' && p.ev.S2.skor >= 80) { delete p.ev.S2b; delete p.ev.S2c; }
   }
   simpan();
@@ -468,9 +482,11 @@ function langkah(tp) {
     return 'S2';
   }
   for (const id of ['S3', 'S4']) if (!e[id] && ada(id)) return id;
-  if (!e.S8) return null;                          // menunggu tatap muka
-  if (!e.S11) return 'S11';
-  if (!e.S12) return 'S12';
+  for (const id of ['S5','S6','S7']) if (!e[id] && ada(id)) return id;
+  if (!e.S8 || e.S8.skor == null) return 'S8';
+  if (e.S8.skor < 80) return tahapSelesai(tp,T('S9'),h) ? 'S8' : 'S9';
+  if (!latihanSiap(e)) return 'S11';
+  if (!e.S12 || (h.tier || 0) < 3) return 'S12';
   if (!kunci(tp, 'S13', h)) return 'S13';
   if (h.s === 5 || (h.s === 4 && e.S13)) {
     const j = jadwalS14(h).find(x => x.berikut);
@@ -654,7 +670,7 @@ function halPembuka(t) {
     <iframe class="frame frame-penuh" src="${esc(t.pembuka.berkas)}" title="${tr('Fenomena Dunia Nyata')}"></iframe>
     <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="PEMBUKA"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div>
     <p class="row" style="gap:.5rem;flex-wrap:wrap">
-      ${tp1 ? `<a class="btn" href="#tp-${tp1.slug}">${tr('Lanjut ke')} ${esc(tp1.kode)} · S1 →</a>` : ''}
+      ${tp1 ? `<a class="btn" href="#tp-${tp1.slug}-p1">${tr('Lanjut ke')} ${esc(tp1.kode)} · S1 →</a>` : ''}
       <a class="btn ghost" href="#topik-${t.slug}">${tr('Kembali ke daftar TP')}</a></p></div>`;
 }
 
@@ -666,6 +682,12 @@ const kartuPembuka = t => t.pembuka
   : '';
 
 /* ---------- tampilan: topik ---------- */
+function hookTopik(t) {
+  if(t.jenis==='paket')return '';
+  const energy=t.slug==='f-use',intro=(window.FIWA_TOPIC_HOOKS||{})[t.slug];
+  if(intro)return `<section class="topic-hook"><div><div class="eyebrow">Fenomena Dunia Nyata</div><h2>${esc(intro.title)}</h2><p>${esc(intro.scene)}</p><p><b>${esc(intro.question)}</b></p><a class="btn" href="#topik-${t.slug}-pembuka">Amati fenomena dan pilih TP</a></div><div class="topic-hook-art">${physicsIcon(energy?'wave':'vector')}</div></section>`;
+  return `<section class="topic-hook"><div><div class="eyebrow">${tr('Fenomena Dunia Nyata')}</div><h2>${energy?'Energi yang hilang… pergi ke mana?':'Bus mengerem. Mengapa tubuhmu masih melaju?'}</h2><p>${energy?'Rem memanas, kereta melambat, motor membutuhkan energi. Mulai dari peristiwa yang kamu kenal, lalu pilih kemampuan yang ingin kamu bangun.':'Dari langkahmu di halaman sekolah sampai batang penyangga bangunan: arah gaya dan titik kerjanya menentukan apa yang terjadi.'}</p><button type="button" class="btn" data-scroll-tp>Jelajahi tujuan belajar</button> ${t.pembuka?`<a class="btn ghost" href="#topik-${t.slug}-pembuka">Buka cerita fenomenanya</a>`:''}</div><div class="topic-hook-art">${physicsIcon(energy?'wave':'vector')}</div></section>`;
+}
 function halTopik(t) {
   if (t.jenis === 'paket') return halTopikPaket(t);
   const tps = t.tp.map(tp => { const h = hitung(tp), k = kunciTP(tp);
@@ -673,7 +695,7 @@ function halTopik(t) {
       <span class="t"><b>${esc(tp.judul)}</b>${tp.teks ? `<br><span class="muted">${esc(tp.teks)}</span>` : ''}${k ? `<br><span class="gembok">🔒 ${esc(k)}</span>` : ''}</span>
       <span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span>`;
     return k ? `<div class="item terkunci" title="${esc(k)}">${isi}</div>`
-             : `<a class="item" href="#tp-${tp.slug}">${isi}</a>`; }).join('');
+             : `<a class="item topic-tp-link" href="#tp-${tp.slug}-p1">${isi}</a>`; }).join('');
   const kl = kunciLapis(t);
   const lapis = LAPIS.map(l => { const ada = t.tahapan[l.id];
     if (!ada) return `<div class="tile miss"><span class="sid">${l.id}</span><span class="nm">${esc(tr(l.nama))}<small>${tr('Belum diunggah')}</small></span><span></span></div>`;
@@ -681,14 +703,16 @@ function halTopik(t) {
     return `<a class="tile${l.gate ? ' gate' : ''}" href="#topik-${t.slug}-${l.id.toLowerCase()}"><span class="sid">${l.id}${l.gate ? ' ▲' : ''}</span><span class="nm">${esc(tr(l.nama))}<small>${esc(tr(l.kapan))}</small></span><span></span></a>`; }).join('');
   return `<div class="stack"><div class="crumbs">${remah(t)}${esc(t.kode)}</div>
     <div><div class="eyebrow">${esc(t.mapel)}${t.jalur ? ' · ' + esc(t.jalur) : ''}</div><h1>${esc(t.nama)}</h1></div>
+    ${hookTopik(t)}
     ${t.pembuka ? `<section class="stack"><h2>${tr('Fenomena Dunia Nyata')}</h2><div class="list">${kartuPembuka(t)}</div></section>` : ''}
-    <section class="stack"><h2>${tr('Tujuan Pembelajaran')}</h2><div class="list">${tps || `<p class="muted">${tr('Belum ada TP.')}</p>`}</div></section>
+    <section class="stack" id="pilih-tp"><h2>${tr('Tujuan Pembelajaran')}</h2><div class="list">${tps || `<p class="muted">${tr('Belum ada TP.')}</p>`}</div></section>
     <section class="stack"><h2>${tr('Lapis topik')}</h2><div class="layer">${lapis}</div></section></div>`;
 }
 
 /* ---------- tampilan: TP ---------- */
 // Penanda visual memakai bukti dan ambang yang sama; tidak menulis progres.
 function tahapSelesai(tp, s, h) {
+  if (s.id === 'S9') { const branch=cabangS9(h); return branch === 'skip' || !!(h.e.S9 && h.e.S9.skor === 100 && h.e.S9.cabang === branch && Number(h.e.S9.fokus||0)===Number((h.e.S8&&h.e.S8.fokus)||0)); }
   if (s.id === 'S12') return h.tier >= 3;
   if (s.id === 'S14') return !!h.stabil;
   const ev = h.e[s.id];
@@ -698,40 +722,33 @@ function tahapSelesai(tp, s, h) {
 }
 
 function navigasiTahapan(tp, aktif, h) {
-  const t = topikDariTP(tp);
-  const tahap = TAHAPAN.filter(s => !s.cabang || tp.tahapan[s.id]);
-  const selesai = tahap.filter(s => tahapSelesai(tp, s, h)).length;
-  const icons = { S1:'book', S2:'clipboard', S2b:'book', S2c:'book', S3:'bulb', S4:'bulb',
-    S5:'wave', S6:'vector', S7:'clipboard', S8:'trophy', S9:'vector', S10:'book',
-    S11:'clipboard', S12:'flag', S13:'trophy', S14:'repeat' };
-  const phases = ['Pra-KBM', 'KBM', 'Pasca-KBM'];
-  const items = tahap.map((s, i) => {
-    const ada = tp.tahapan[s.id], k = kunci(tp, s.id, h), done = tahapSelesai(tp, s, h);
-    const active = aktif === s.id, canOpen = ada && (!k || guru());
-    const status = !ada ? tr('Belum diunggah') : active ? tr('Sedang dibuka') : done ? tr('Selesai') : k ? tr('Terkunci') : s.cabang ? tr('Tahapan bersyarat') : tr(phases[s.f]);
-    const title = !ada ? tr('Belum diunggah') : k || tr(s.lulus);
-    const state = k && !guru() ? physicsIcon('lock') : done ? physicsIcon('check') : '';
-    const ev = h.e[s.id];
-    const result = s.id === 'S12' && h.tier ? 'T' + h.tier : s.id === 'S14' && h.p.s14.length ? h.p.s14.length + '×' : ev && ev.skor != null ? ev.skor + '%' : '';
-    const inner = `${physicsIcon(icons[s.id])}<span class="step-label">${esc(tr(s.nama))}<small>${s.id}${result ? ' · '+esc(result) : ''} · ${esc(status)}</small></span><span class="step-state">${state}</span>`;
-    const item = canOpen
-      ? `<a class="step-link" href="#tp-${tp.slug}-${s.id.toLowerCase()}"${active ? ' aria-current="step"' : ''} title="${esc(title)}">${inner}</a>`
-      : `<div class="step-link" role="link" aria-disabled="true" title="${esc(title)}">${inner}</div>`;
-    const cls = ['study-step', active ? 'active' : '', done ? 'done' : '', k ? 'locked' : '', !ada ? 'missing' : '', s.gate ? 'gate' : '',
-      ['S3','S4','S5','S6'].includes(s.id) ? 'concept' : '', i && tahap[i-1].f !== s.f ? 'phase-start' : ''].filter(Boolean).join(' ');
-    return `<li class="${cls}"><span class="step-number" aria-hidden="true">${i+1}</span>${item}</li>`;
-  }).join('');
-  const others = t.tp.length > 1 ? `<nav class="study-other" aria-label="${tr('Tujuan pembelajaran lain')}">${t.tp.map(p => {
-    const k = kunciTP(p), current = p.slug === tp.slug;
-    const content = `<small>${esc(p.kode)}${current ? ' · '+tr('Sedang dibuka') : k ? ' · '+tr('Terkunci') : ''}</small><strong>${esc(p.judul)}</strong>`;
-    return k ? `<div title="${esc(k)}">${content}</div>` : `<a${current ? ' class="current"' : ''} href="#tp-${p.slug}">${content}</a>`;
-  }).join('')}</nav>` : '';
-  return `<aside class="study-rail" data-study-tp="${esc(tp.slug)}" aria-label="${esc(tr('Urutan tahapan'))}">
-    <a class="study-course" href="#topik-${t.slug}">${physicsIcon('atom')}<span><strong>${esc(t.nama)}</strong><small>${esc(tp.kode)} · ${trf('%s TP', t.tp.length)}</small></span></a>
-    <div class="study-progress"><div class="row"><span id="stage-progress-label">${tr('Tahapan selesai')}</span><b>${selesai} / ${tahap.length}</b></div><progress max="${tahap.length}" value="${selesai}" aria-labelledby="stage-progress-label"></progress></div>
-    <button class="study-rail-toggle" type="button" data-study-toggle aria-expanded="${window.matchMedia('(min-width: 900px)').matches}" aria-controls="study-rail-list">${tr('Urutan tahapan')}${physicsIcon('chevron')}</button>
-    <div class="study-rail-scroll" id="study-rail-list"${window.matchMedia('(min-width: 900px)').matches ? '' : ' hidden'}><nav aria-label="${esc(tr('Urutan tahapan'))}"><ol class="study-steps">${items}</ol></nav>${others}</div>
-    <div class="study-rail-footer" aria-hidden="true">${physicsIcon('wave')}</div></aside>`;
+  const t=topikDariTP(tp),groups=FIWA_ALUR.groups;
+  const groupDone=g=>g[2].filter(id=>!['S2b','S2c'].includes(id)).every(id=>tahapSelesai(tp,T(id),h));
+  const activeGroup=groups.find(g=>g[2].includes(aktif));
+  function sub(id,label,extra='') {
+    const lock=kunci(tp,id,h),ok=!!tp.tahapan[id]&&(!lock||guru());
+    const href=FIWA_ALUR.toPublic[id].toLowerCase()+extra;
+    return ok?`<a href="#tp-${tp.slug}-${href}"${aktif===id&&!extra?' aria-current="step"':''}>${esc(label)}</a>`:`<span aria-disabled="true">${esc(label)}</span>`;
+  }
+  function item(g) {
+    const [code,name,ids,icon]=g,id=ids[0],active=g===activeGroup,done=groupDone(g),lock=kunci(tp,id,h),can=tp.tahapan[id]&&(!lock||guru());
+    const branch=id==='S9'?cabangS9(h):null;
+    const status=branch==='skip'?tr('Tidak diperlukan'):done?tr('Selesai'):lock?tr('Terkunci'):tr('Siap dibuka');
+    const inner=`${physicsIcon(icon)}<span class="step-label">${esc(tr(name))}<small>${esc(status)}</small></span><span class="step-state">${done?physicsIcon('check'):lock?physicsIcon('lock'):''}</span>`;
+    const link=can?`<a class="step-link" href="#tp-${tp.slug}-${code.toLowerCase()}"${active?' aria-current="step"':''}>${inner}</a>`:`<div class="step-link" aria-disabled="true" title="${esc(lock||'')}">${inner}</div>`;
+    let subs='';
+    if(code==='P2'&&active) subs=sub('S2b','P2a · Penguatan')+sub('S2c','P2b · Belajar Terbimbing');
+    if(code==='P4'&&active) {
+      const names=(window.FIWA_TP_HOOKS[tp.slug]||{}).concepts||[];
+      subs=names.map((n,i)=>sub('S4','Konsep '+(i+1)+' · '+n,'-konsep-'+(i+1))+sub('S4','Checkpoint '+(i+1),'-checkpoint-'+(i+1))).join('')+
+        sub('S5','Diskusi prediksi bersama guru')+sub('S6','Contoh terbimbing')+sub('S7','Praktik dan lembar kerja');
+    }
+    if(code==='P6'&&active)subs=branch==='skip'?'<span>Tidak perlu latihan tambahan. Lanjutkan P7.</span>':branch?sub('S9',branch==='a'?'P6a · Penguatan · 2 soal':'P6b · Belajar Terbimbing · 3 soal',branch):'<span>Menunggu skor P5.</span>';
+    return `<li class="study-step ${active?'active':''} ${done?'done':''} ${lock?'locked':''} ${code==='P4'?'concept':''}"><span class="step-number">${code}</span>${link}${subs?`<div class="study-substeps">${subs}</div>`:''}</li>`;
+  }
+  const others=t.tp.map(p=>{const lock=kunciTP(p);return lock?`<div><small>${esc(p.kode)} · ${tr('Terkunci')}</small><strong>${esc(p.judul)}</strong></div>`:`<a href="#tp-${p.slug}-p1" class="${p.slug===tp.slug?'current':''}"><small>${esc(p.kode)}</small><strong>${esc(p.judul)}</strong></a>`;}).join('');
+  const completed=groups.filter(groupDone).length;
+  return `<aside class="study-rail" data-study-tp="${esc(tp.slug)}" aria-label="Urutan P1 sampai P10"><a class="study-course" href="#topik-${t.slug}">${physicsIcon('atom')}<span><strong>${esc(t.nama)}</strong><small>${esc(tp.kode)}</small></span></a><div class="study-progress"><div class="row"><span id="stage-progress-label">${tr('Tahapan selesai')}</span><b>${completed} / 10</b></div><progress max="10" value="${completed}" aria-labelledby="stage-progress-label"></progress></div><button class="study-rail-toggle" type="button" data-study-toggle aria-expanded="${window.matchMedia('(min-width: 900px)').matches}" aria-controls="study-rail-list">${tr('Urutan tahapan')}${physicsIcon('chevron')}</button><div class="study-rail-scroll" id="study-rail-list"${window.matchMedia('(min-width: 900px)').matches?'':' hidden'}><nav aria-label="P1 sampai P9"><ol class="study-steps">${groups.slice(0,9).map(item).join('')}</ol></nav><div class="study-review"><ol class="study-steps">${item(groups[9])}</ol></div><nav class="study-other" aria-label="Tujuan pembelajaran lain">${others}</nav></div><div class="study-rail-footer" aria-hidden="true">${physicsIcon('wave')}</div></aside>`;
 }
 
 function bukaDaftarTahapan(rail, open) {
@@ -759,7 +776,8 @@ function segarkanNavigasiTahapan(tp, id, h) {
   posisikanTahapan(baru, top);
 }
 
-function pengantarTP(tp) {
+function pengantarTP(tp) { return viewer(tp,'S1',hitung(tp)); }
+function pengantarTPLama(tp) {
   const next = langkah(tp);
   return `<section class="study-intro">${physicsIcon('atom')}<h2>${tr('Pilih tahapan, lanjutkan perjalananmu.')}</h2>
     <p>${tr('Urutan belajar ada di panel kiri. Pada layar kecil, buka Urutan tahapan untuk memilih bagian yang ingin dipelajari.')}</p>
@@ -784,7 +802,7 @@ function halTP(tp, aktif) {
   return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${esc(tp.kode)}</div>
     <div class="study-layout">${navigasiTahapan(tp, aktif, h)}<div class="study-main">
     <header class="study-heading"><div class="row"><span class="tp-label">${esc(tp.kode)}${tp.bloom ? ' · Bloom ' + esc(tp.bloom) : ''}</span><span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span></div>
-      <h1>${esc(tp.judul)}</h1>${tp.teks ? `<p class="muted">${esc(tp.teks)}</p>` : ''}
+      <h1>${esc(tp.judul)}</h1>${tp.teks && aktif && aktif!=='S1' ? `<p class="muted">${esc(tp.teks)}</p>` : ''}
       <div class="ladder">${ladder}</div></header>
     ${h.s === 4 && h.p.s14.length && h.p.s14[h.p.s14.length - 1].hasil === 'gagal' ? `<div class="note">${tr('Status turun ke Mahir: pengulangan berjarak gagal. Jadwal diulang dari H+14.')}</div>` : ''}
     ${(h.tier && h.tier < 3) ? `<div class="note">${trf('Tier T%s: perlu pendampingan pada konteks baru, bukan tambahan latihan soal.', h.tier)}</div>` : ''}
@@ -802,7 +820,8 @@ function s14Panel(h) {
 // Ambang kelulusan tiap tahapan berskor; null berarti tidak ada ambang.
 function ambangTahapan(tp, id) {
   if (id === 'S2' || id === 'S8') return 80;
-  if (id === 'S11') return 75;
+  if (id === 'S9') return 100;
+  if (id === 'S11') return prog(tp.slug).ev.S11 && !(prog(tp.slug).ev.S11.versi >= 2) ? 75 : 80;
   if (id === 'S13' || id === 'S14') return tp.ambang || 75;
   return null;
 }
@@ -864,7 +883,7 @@ function segarkanSetelahSkor() {
   const h = hitung(cur.tp);
   segarkanNavigasiTahapan(cur.tp, cur.id, h);
   const s = T(cur.id);
-  bawah.innerHTML = bagianBawah(cur.tp, cur.id, h, barisAksi(cur.tp, cur.id, h, s));
+  bawah.innerHTML = FIWA_ALUR.html(bagianBawah(cur.tp, cur.id, h, barisAksi(cur.tp, cur.id, h, s)));
   const kep = document.querySelector('.row .chip');
   if (kep) kep.outerHTML = chip(h.s, h.stabil);
   const tangga = document.querySelector('.ladder');
@@ -872,7 +891,10 @@ function segarkanSetelahSkor() {
     `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${tr(n)}</div>`).join('');
 }
 
+function pilihanFokus(tp,chosen=0) { const names=(window.FIWA_TP_HOOKS[(tp||{}).slug]||{}).concepts||[]; return `<label>Fokus tindak lanjut P6<select class="fokus-p6"><option value="0">Campuran konsep utama</option>${names.map((n,i)=>`<option value="${i+1}"${Number(chosen)===i+1?' selected':''}>${esc(n)}</option>`).join('')}</select></label>`; }
 function barisAksi(tp, id, h, s) {
+  if(id==='S8'&&h.p.p5Usulan&&!guru())return `<p class="note">Hasil mandiri terakhir: ${h.p.p5Usulan.skor}%. ${h.p.p5Usulan.menunggu?'Menunggu pengesahan guru.':'Skor pengesahan guru: '+((h.e.S8||{}).skor??'—')+'%.'} Gunakan tombol pada materi untuk pengerjaan.</p>`;
+  if (tp.tahapan[id] && (tp.tahapan[id].versi >= 3 || (['S1','S4'].includes(id) && tp.tahapan[id].versi >= 2)) && !guru()) return '<p class="muted">Gunakan tombol penyelesaian pada materi di atas.</p>';
   const tercatat = h.e[id] && h.e[id].skor != null ? h.e[id].skor : null;
   const nilaiTercatat = tercatat != null
     ? `<span class="skor-tercatat">${trf('Skor tercatat: %s', tercatat)}</span>` : '';
@@ -880,7 +902,7 @@ function barisAksi(tp, id, h, s) {
     return `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai bukti terkirim')}</button><span class="muted">${tr('Tier diisi guru (rubrik T1–T4).')}</span></div>`;
   if (s.skor || id === 'S14') {
     if (guru())
-      return `<div class="row"><label for="skorIn">${tr('Skor (%)')}</label><input type="number" id="skorIn" min="0" max="100" style="width:90px"><button class="btn" data-aksi="skor">${tr('Simpan skor')}</button><span class="muted">${tr('Mode guru. Siswa tidak dapat mengetik skornya sendiri.')}</span>${nilaiTercatat}</div>`;
+      return `<div class="row"><label for="skorIn">${tr('Skor (%)')}</label><input type="number" id="skorIn" min="0" max="100" style="width:90px">${id==='S8'?pilihanFokus(tp,h.e.S8&&h.e.S8.fokus):''}<button class="btn" data-aksi="skor">${tr('Simpan skor')}</button><span class="muted">${tr('Mode guru. Siswa tidak dapat mengetik skornya sendiri.')}</span>${nilaiTercatat}</div>`;
     if (s.guruIsi)
       return `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai sudah mengikuti')}</button><span class="muted">${tr('Skor tahapan ini dinilai dan diisi gurumu di kelas.')}</span>${nilaiTercatat}</div>`;
     return `<div class="row kunci-skor"><span class="muted">${tr('Skormu terisi sendiri begitu kamu menekan tombol periksa pada lembar di atas. Tidak ada angka yang bisa diketik sendiri di sini.')}</span>${nilaiTercatat}</div>`;
@@ -888,8 +910,20 @@ function barisAksi(tp, id, h, s) {
   return `<div class="row"><button class="btn" data-aksi="selesai">${tr('Tandai selesai')}</button></div>`;
 }
 
+function siklusP5(h) { return Math.max((h.e.S9&&h.e.S9.skor===100&&h.e.S9.waktu)||0,...(h.p.reset||[]).filter(x=>x.t==='S8').map(x=>x.pada||0)); }
 function viewer(tp, id, h) {
-  const s = T(id), f = tp.tahapan[id];
+  const s = T(id); let f = tp.tahapan[id];
+  if(id==='S8' && f && f.versi>=3){const cycle=siklusP5(h),old=h.p.p5Usulan,form=old&&old.cycle===cycle?old.form:1+((h.p.p5Riwayat||[]).length%4);f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P5/${form===1?'index.html':'form-'+form+'.html'}?cycle=${cycle}`};}
+  if(id==='S13' && f && f.versi>=3){const cycle=(h.e.S11&&h.e.S11.waktu)||0,attempt=(h.p.ujian||[]).find(x=>x.cycle===cycle),form=attempt?attempt.form:1+((h.p.ujian||[]).length%4);f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P9/form-${form}.html?cycle=${cycle}`};}
+  if (id === 'S14' && f && f.versi >= 2) {
+    const next=jadwalS14(h).find(x=>x.berikut),session=next?next.ke:3;
+    f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P10/sesi-${session}.html?cycle=${h.p.s14Mulai || (h.e.S13 && h.e.S13.waktu) || 0}`};
+  }
+  if (id === 'S9') {
+    const branch=cabangS9(h);
+    if (branch==='skip') return `<section class="panel stack"><h2>P6 · Tindak Lanjut</h2><p>Hasil P5-mu sudah memenuhi kesiapan. Latihan tambahan tidak diperlukan.</p><a class="btn" href="#tp-${tp.slug}-p7">Lanjutkan P7 · 10 soal</a></section>`;
+    if (branch) f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P6${branch}/index.html?fokus=${Number((h.e.S8&&h.e.S8.fokus)||0)}`};
+  }
   if (!f) return `<div class="panel">${trf('Tahapan %s belum diunggah.', id)}</div>`;
   const k = kunci(tp, id, h);
   if (k && !guru()) return `<div class="note">🔒 ${esc(k)}</div>`;
@@ -903,7 +937,7 @@ function viewer(tp, id, h) {
   const bukaUlang = (rs && id !== 'S14' && !h.e[id])
     ? `<div class="note reset-info">↺ ${trf('%s membuka ulang tahapan ini pada %s%s. Kerjakan lagi dari awal.',
         esc(rs.nama || tr('Gurumu')), tgl(rs.pada), rs.alasan ? ' — ' + esc(rs.alasan) : '')}</div>` : '';
-  return `<section class="viewer" id="viewer">${awal}${bukaUlang}<div class="row" style="justify-content:space-between"><h2>${id} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
+  return `<section class="viewer" id="viewer">${awal}${bukaUlang}<div class="row" style="justify-content:space-between"><h2>${FIWA_ALUR.toPublic[id]} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
     <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>
     <div id="viewer-bawah">${bagianBawah(tp, id, h, aksi)}</div>
@@ -915,7 +949,7 @@ function panelGuruTP(tp, h) {
   const selisih = h.e.S11 && h.e.S13 && h.e.S11.skor != null && h.e.S13.skor != null
     ? trf('%s poin', h.e.S11.skor - h.e.S13.skor) : tr('belum ada data');
   return `<section class="panel stack"><h3>${trf('Panel guru · %s', esc(tp.kode))}</h3>
-    <div class="row"><label for="tierIn">${tr('Tier dari rubrik S9/S12')}</label><select id="tierIn">${opsi}</select>
+    <div class="row"><label for="tierIn">${tr('Tier Tugas Penerapan (P8)')}</label><select id="tierIn">${opsi}</select>
     <button class="btn ghost" data-aksi="reset">${tr('Hapus progres TP ini (hanya milikmu)')}</button></div>
     <div class="muted" style="font-size:.85rem">${trf('Selisih S11 − S13: %s · Riwayat status: %s', selisih, h.p.riwayat.map(r => tr(STATUS[r.ke])).join(' → ') || '—')}</div></section>`;
 }
@@ -977,7 +1011,7 @@ function halGuru() {
       <div class="lipat-isi stack">${isi}</div></details>`;
   return `<div class="stack"><div><div class="eyebrow">${tr('Papan guru')}</div><h1>${tr('Kelengkapan & posisi')}</h1></div>
     ${lipat('kelengkapan', tr('Kelengkapan tahapan'),
-      `<p class="muted" style="margin:0">${tr('✕ = tahapan rangka (S1, S2, S3, S5, S8, S10, S12, S13, S14) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}`, true)}
+      `<p class="muted" style="margin:0">${tr('✕ = tahapan rangka (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10) belum diunggah. TP dengan ✕ belum boleh terbit.')}</p>${kel}`, true)}
     <section class="panel stack"><h2>${tr('Butuh penilaian')}</h2>
       <p class="muted" style="margin:0">${tr('Murid di bawah ini sudah sampai pada tahapan yang nilainya diisi guru. Yang paling lama menunggu berada di atas.')} ${tr('Hanya murid bimbinganmu yang tampil di sini. Pemilik situs melihat seluruh murid.')}</p>
       <div id="antrean-nilai"><p class="muted" style="margin:0">${tr('Memuat antrean penilaian…')}</p></div></section>
@@ -1437,7 +1471,7 @@ function muatAntrean() {
         <td class="l mono">${esc(judulTP(x.tp))}</td>
         <td class="mono">${esc(x.tahapan)}</td>
         <td>${tgl(x.diubah)}</td>
-        <td class="l nilai-sel">${x.minta === 'tier'
+        <td class="l nilai-sel">${x.usulan?`<p>Usulan hasil mandiri: ${esc(x.usulan.skor)}% (${esc(x.usulan.benar)}/${esc(x.usulan.total)}). Periksa bukti sebelum mengesahkan.</p>`:''}${x.minta==='skor'?pilihanFokus(cariTP(x.tp),x.usulan&&x.usulan.fokus):""}${x.minta === 'tier'
           ? `<select class="nilai-isi" aria-label="Tier"><option value="">T?</option><option value="1">T1</option><option value="2">T2</option><option value="3">T3</option><option value="4">T4</option></select>`
           : `<input class="nilai-isi" type="number" min="0" max="100" step="1" placeholder="${tr('Skor 0–100')}" aria-label="${tr('Skor 0–100')}">`}
           <button class="btn kecil" data-simpan-nilai="${i}">${tr('Simpan')}</button></td></tr>`).join('') +
@@ -1449,7 +1483,7 @@ function muatAntrean() {
       const isi = b.closest('.nilai-sel').querySelector('.nilai-isi');
       const v = String(isi.value || '').trim();
       if (!v) { isi.focus(); return; }
-      const badan = { murid: x.email, tp: x.tp, tahapan: x.tahapan };
+      const badan = { murid: x.email, tp: x.tp, tahapan: x.tahapan, fokus:Number((b.closest('.nilai-sel').querySelector('.fokus-p6')||{}).value||0) };
       if (x.minta === 'tier') badan.tier = Number(v);
       else {
         const n = Number(v);
@@ -1470,7 +1504,11 @@ function render() {
   rangka();
   const priorRail = document.querySelector('.study-rail');
   const prior = priorRail ? { tp: priorRail.dataset.studyTp, top: priorRail.querySelector('.study-rail-scroll').scrollTop, open: !priorRail.querySelector('.study-rail-scroll').hidden } : null;
-  const h = decodeURIComponent(location.hash.slice(1));
+  let h = decodeURIComponent(location.hash.slice(1));
+  const publicRoute=h.match(/^tp-(.+)-(p(?:10|[1-9])(?:a|b|-diskusi|-contoh|-praktik)?)(?:-(konsep|checkpoint)-(\d+))?$/i);
+  let lessonAnchor=null;
+  if (publicRoute) { const old=FIWA_ALUR.toOld[publicRoute[2].toLowerCase()]; if (old) { h='tp-'+publicRoute[1]+'-'+old.toLowerCase(); lessonAnchor=publicRoute[3]?publicRoute[3]+'-'+publicRoute[4]:null; } }
+  if (/^tp-.+-s10$/i.test(h)) h=h.replace(/-s10$/i,'-s1');
   let html, m; cur = null;
   $('#nav-guru').classList.toggle('on', h === 'guru');
   $('#nav-belajar').classList.toggle('on', h !== 'guru');
@@ -1482,9 +1520,11 @@ function render() {
   else if ((m = h.match(/^topik-(.+)-(l[1-4])(?:-(latihan))?$/)) && cariTopik(m[1])) html = halLapis(cariTopik(m[1]), m[2].toUpperCase(), m[3]);
   else if ((m = h.match(/^topik-(.+)$/)) && cariTopik(m[1])) html = halTopik(cariTopik(m[1]));
   else if ((m = h.match(/^tp-(.+)-(s\d+[bc]?)$/)) && cariTP(m[1])) { const id = m[2].toUpperCase().replace(/([BC])$/, c => c.toLowerCase()); cur = { tp: cariTP(m[1]), id }; html = halTP(cur.tp, id); }
-  else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) html = halTP(cariTP(m[1]));
+  else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) { cur={tp:cariTP(m[1]),id:'S1'}; html=halTP(cur.tp,'S1'); }
   else html = beranda();
-  $('#app').innerHTML = html;
+  $('#app').innerHTML = FIWA_ALUR.html(html);
+  $('#app').classList.remove('tp-transition'); void $('#app').offsetWidth; $('#app').classList.add('tp-transition');
+  if (lessonAnchor) { const frame=document.querySelector('iframe.frame'); if(frame)frame.addEventListener('load',()=>{try{const node=frame.contentDocument.getElementById(lessonAnchor);if(node)node.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}catch(_){}},{once:true}); }
   const rail = document.querySelector('.study-rail');
   if (rail && prior && prior.tp === rail.dataset.studyTp) bukaDaftarTahapan(rail, prior.open);
   posisikanTahapan(rail, rail && prior && prior.tp === rail.dataset.studyTp ? prior.top : 0);
@@ -1495,9 +1535,10 @@ function render() {
   window.scrollTo(0, 0);
 }
 
-function tpDariHash() { const m = location.hash.match(/^#tp-(.+?)(-s\d+[bc]?)?$/); return m ? cariTP(m[1]) : null; }
+function tpDariHash() { if(cur)return cur.tp;const m=location.hash.match(/^#tp-(.+)$/);return m?cariTP(m[1]):null; }
 
 document.addEventListener('click', ev => {
+  if (ev.target.closest('[data-scroll-tp]')) { const target=document.getElementById('pilih-tp'); if(target)target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); return; }
   const toggle = ev.target.closest('[data-study-toggle]');
   if (toggle) {
     const rail = toggle.closest('.study-rail');
@@ -1532,7 +1573,7 @@ document.addEventListener('click', ev => {
   if (b.dataset.geser != null) { db.opsi.geser = +b.dataset.geser ? (db.opsi.geser || 0) + +b.dataset.geser : 0; simpan(); return render(); }
   const a = b.dataset.aksi, tp = tpDariHash(); if (!tp) return;
   if (a === 'selesai' && cur) catat(tp, cur.id, {});
-  if (a === 'skor' && cur) { const v = parseFloat($('#skorIn').value); if (isNaN(v)) return $('#skorIn').focus(); catat(tp, cur.id, { skor: Math.max(0, Math.min(100, v)) }); }
+  if (a === 'skor' && cur) { const v = parseFloat($('#skorIn').value); if (isNaN(v)) return $('#skorIn').focus(); catat(tp, cur.id, { skor: Math.max(0, Math.min(100, v)), fokus:Number((document.querySelector('.fokus-p6')||{}).value||0) }); }
   if (a === 'reset') { delete db.tp[tp.slug]; simpan(); }
   render();
 });
@@ -1546,12 +1587,18 @@ window.addEventListener('message', ev => {
   // Dokumen isian yang melapor selesai/skor: teruskan ke penyimpan per akun di dalam dokumen itu,
   // di rute mana pun (tahapan, lapis, paket), supaya skor ikut tersimpan di akun murid.
   if (d && (d.fims === 'skor' || d.fims === 'selesai') && ev.source) {
-    try { if (ev.source.FIMS_LEMBAR) ev.source.FIMS_LEMBAR.lapor(d.fims === 'skor' && typeof d.skor === 'number' ? { selesai: true, skor: d.skor } : { selesai: true }); } catch (e) {}
+    try { if (!(d.versi >= 2) && ev.source.FIMS_LEMBAR) ev.source.FIMS_LEMBAR.lapor(d.fims === 'skor' && typeof d.skor === 'number' ? { selesai: true, skor: d.skor } : { selesai: true }); } catch (e) {}
   }
   if (!d || !d.fims || !cur) return;
+  const frame=document.querySelector('iframe.frame');
+  if (!frame || ev.source !== frame.contentWindow || ev.origin !== location.origin) return;
   const s = T(cur.id);
+  if(!guru() && (kunciTP(cur.tp)||kunci(cur.tp,cur.id,hitung(cur.tp))))return;
+  if(cur.id==='S8'&&d.fims==='usulan-cek'&&d.versi>=3&&Number.isFinite(d.skor)){const p=prog(cur.tp.slug),cycle=siklusP5(hitung(cur.tp));if(p.p5Usulan&&p.p5Usulan.cycle===cycle)return;p.p5Usulan={skor:Math.max(0,Math.min(100,d.skor)),fokus:Number(d.fokus||0),diagnosis:d.diagnosis,benar:d.benar,total:d.total,cycle,form:d.form,waktu:now(),menunggu:true};p.p5Riwayat=[...(p.p5Riwayat||[]),{...p.p5Usulan}].slice(-12);simpan();segarkanSetelahSkor();return;}
+  if (cur.id === 'S9' && d.versi >= 2) { const current=hitung(cur.tp); if(d.branch!==cabangS9(current) || Number(d.focus||0)!==Number((current.e.S8&&current.e.S8.fokus)||0)) return; }
+  if (cur.id === 'S14' && d.versi >= 2) { const j=jadwalS14(hitung(cur.tp)).find(x=>x.berikut); if(!j || j.ke!==d.session || (!guru() && kunci(cur.tp,'S14',hitung(cur.tp)))) return; }
   if (d.fims === 'skor' && typeof d.skor === 'number' && (s.skor || cur.id === 'S14'))
-    catat(cur.tp, cur.id, { skor: d.skor, salah: d.salah, benar: d.benar, total: d.total });
+    catat(cur.tp, cur.id, { skor: d.skor, salah: d.salah, benar: d.benar, total: d.total, branch:d.branch, focus:d.focus, versi:d.versi, awal:d.awal, session:d.session, form:d.form, answers:d.answers });
   else if (d.fims === 'selesai') catat(cur.tp, cur.id, {});   // skor yang sudah ada tidak tertimpa
   else return;
   segarkanSetelahSkor();     // lembar di dalam bingkai dibiarkan hidup
@@ -1572,6 +1619,7 @@ document.addEventListener('load', ev => {
 window.addEventListener('hashchange', render);
 document.addEventListener('fims:mode', render);        // guru menukar mode tampilan
 
+window.FIWA_COURSE={lockReason:slug=>{const tp=cariTP(slug);return tp?kunciTP(tp):'TP belum tersedia';}};
 fetch('katalog.json').then(r => r.json()).then(k => {
   K = k;
   const kotak = $('#modeGuru'); if (kotak) kotak.checked = guru();   // kotak lama, tidak ada lagi sesudah akun dipasang

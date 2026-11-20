@@ -23,6 +23,8 @@
         delete doc.documentElement.dataset.fiwaReading;
       }
       doc.documentElement.dataset.fiwaTheme = theme;
+      if (window.FIWA_ALUR) window.FIWA_ALUR.decorate(doc);
+      if (window.FIWA_SOUND) window.FIWA_SOUND.bind(doc);
       if (!doc.getElementById('fiwa-content-theme')) {
         const link = doc.createElement('link');
         link.id = 'fiwa-content-theme'; link.rel = 'stylesheet'; link.href = contentCSS.href;
