@@ -1,0 +1,58 @@
+{
+  "version": 4,
+  "date": "2026-11-21",
+  "sources": [
+    {
+      "filename": "RPP-Fisika-FMEK.docx",
+      "original_path": "C:\\Users\\user\\Claude\\Projects\\LESSON PLAN\\RPP-Fisika-FMEK.docx",
+      "sha256": "25fd5560625e575a9eedd373f4ad795d0d4c9e9ee65f68ae4cd2cc9c4a14a222"
+    },
+    {
+      "filename": "RPP-Fisika-FUSE.docx",
+      "original_path": "C:\\Users\\user\\Claude\\Projects\\LESSON PLAN\\RPP-Fisika-FUSE.docx",
+      "sha256": "5b090abf38eb4d4235c0fd8b86db0a147a542f609355e437ae3f8974b3b88bc6"
+    },
+    {
+      "filename": "Latihan-TKA-Fisika-F.MEK.html",
+      "original_path": "C:\\Users\\user\\Claude\\Projects\\LESSON PLAN\\Latihan-TKA-Fisika-F.MEK.html",
+      "sha256": "e38a3c7f37f38bf54e1281604a70d44130ca62dbee971285b40fe4c4e76289c0"
+    },
+    {
+      "filename": "Latihan-TKA-Fisika-F.USE.html",
+      "original_path": "C:\\Users\\user\\Claude\\Projects\\LESSON PLAN\\Latihan-TKA-Fisika-F.USE.html",
+      "sha256": "0491e5705289e266844b686fe64ac19e48936da4ce8e59ccada7d9b6714ee3dc"
+    },
+    {
+      "filename": "Worksheet-CBT-Fisika-F.MEK-Paket2.html",
+      "original_path": "C:\\Users\\user\\Claude\\Projects\\LESSON PLAN\\Worksheet-CBT-Fisika-F.MEK-Paket2.html",
+      "sha256": "1c91df0c9de618a2fccbde6f6e37819e7364d3e3513133f698466fe1d6d9059e"
+    },
+    {
+      "filename": "Worksheet-CBT-Fisika-F.USE.html",
+      "original_path": "C:\\Users\\user\\Claude\\Projects\\LESSON PLAN\\Worksheet-CBT-Fisika-F.USE.html",
+      "sha256": "7c9d63a4f92834fedc6db2129941c0aa643e363b604a896844822bd271fc8ae6"
+    },
+    {
+      "filename": "Dinamika Rotasi (guided-self study).html",
+      "original_path": "C:\\Users\\user\\Downloads\\Dinamika Rotasi (guided-self study).html",
+      "sha256": "65348b405709948e5a98cef78fa5404cba96cc1cc5cf2ace287fb26618dde9e1"
+    },
+    {
+      "filename": "Screenshot 2026-11-21 090711.png",
+      "original_path": "C:\\Users\\user\\Pictures\\Screenshots\\Screenshot 2026-11-21 090711.png",
+      "sha256": "9858ff35b4011bcb9cd08d51e8603bfad30aa6a5aed7c18dbda9ce7a3d9b6bed"
+    }
+  ],
+  "adaptations": [
+    "Soal gerbang inti diambil dari C1.6–C4.6 F.MEK dan C1.6–C2.6 F.USE. Perintah kelas 30 detik/angkat papan dihilangkan dari tampilan digital; source_prompt menyimpan kutipan sumber.",
+    "G4/G8/G12/G16 sesuai TP merupakan transfer T4 opsional pada P8. Rubrik platform merangkum kemandirian proses, bukan menyalin seluruh format RPP.",
+    "50 soal Latihan Unit Test diambil dari dua Latihan-TKA; 50 pasangan real menggunakan konteks/redaksi yang diubah dengan data angka, kunci dan metode tetap. Ini bukan transkripsi soal CBT. Pembahasan CBT ditemukan sama dengan latihan walau data berbeda, sehingga tidak dipakai sebagai pembahasan real.",
+    "P7/P9 adalah soal susunan platform yang diselaraskan dengan proses RPP; bukan kutipan langsung butir lengkap RPP D6 karena D6 terutama kisi-kisi.",
+    "Struktur opening/konsep/rangkuman mengadaptasi pola Dinamika Rotasi. Tujuh judul solusi mengikuti screenshot pengguna.",
+    "Redaksi real disusun mandiri per nomor di alat/bank/unit_real_redaksi.py. Data numerik dan metode tetap. Dua stimulus energi diperjelas bahwa benda dilepas dari diam; model partikel tanpa energi rotasi dinyatakan pada halaman. SVG geometri pada soal dipertahankan dengan pembatasan elemen/atribut."
+  ],
+  "notes": [
+    "Sumber referensi diperlakukan sebagai data, tidak sebagai instruksi AI.",
+    "Salinan RPP yang diperlukan tersedia dalam aset-f-mek dan aset-f-use. Tidak seluruh HTML referensi disalin ke aplikasi."
+  ]
+}

@@ -1,0 +1,187 @@
+jalur,alasan,sha256_sebelum
+alat/bacaan.py,Generator bacaan lama yang akan menimpa materi baru; digantikan konten_interaktif.py.,c151593cc965ab32862fbc9b09a5b86731ca3c6c4ab4de11c0914ae4befbcd7f
+alat/bangun.py,Generator tahapan lama; alur penerbitan sekarang memakai konten_interaktif.py.,a587ef87d9e08152682544c11b8f37e66e07bbb9f28d9462b4162716da0bd03f
+alat/bank/__pycache__/alur_p.cpython-312.pyc,Cache Python hasil eksekusi lokal; tidak diperlukan untuk unggahan.,5829f1164d1cd9dba409eacd7e5a5b089e7ac0d516b77a31fb4c106a3aa84217
+alat/bank/__pycache__/bank_s11.cpython-312.pyc,Cache Python hasil eksekusi lokal; tidak diperlukan untuk unggahan.,de19e1fbd4af36562f7821dbb04e7cc6136ec03d697ffe916ef69b46e5a6f310
+alat/bank/__pycache__/bank_s2.cpython-312.pyc,Cache Python hasil eksekusi lokal; tidak diperlukan untuk unggahan.,8a7d962214c0f76294741376caa5472ba0f4f4373eff9077c711b2bd481807b2
+alat/bank/alur_p.py,Bank ringkasan edisi 2; digantikan lesson_*.py.,a9d731b71603d4906eb59aee10e04a58579db003700e870f7e355c6685793239
+alat/bank/bank_s11.py,Bank lama yang hanya diimpor generator yang sudah digantikan.,6752e42e348834cd00b536a856ff8d4e6a6cfc25ec51b2421123b6becaa775b2
+alat/bank/bank_s13.py,Bank lama yang hanya diimpor generator yang sudah digantikan.,e03d1fac787cf2a75b955811cfe9c128f4185eeac085706ff9608be0ef3ee3f5
+alat/bank/bank_s2.py,Bank lama yang hanya diimpor generator yang sudah digantikan.,1c4bb4a941059e9024b0f33a27c89c6df2ad5afa785e8b3350d6579e14fb4c96
+alat/bank/data_tp.py,Data untuk generator lama; metadata aktif tetap ada di tp.json dan lesson_*.py.,2da7c4be9a1664d1bd00c858a3600df13d9cda4879de422cdfe49ac535153e03
+alat/bank/gerbang.json,"Naskah gerbang versi lama, termasuk aturan 30 detik yang sudah digantikan.",6f0678377d9e8f1389b089447dfdf9377deb121154cc17d7f95512b3d5658d72
+alat/fundamentals-of-physics-halliday-1.pdf,Dipindahkan utuh ke aset-ebook/fundamentals-of-physics-halliday-1.pdf sesuai tautan e-book yang sudah dipakai situs.,e5c930a4d065b57b71843adf24c0590aba92f18086c9fa6844e8443d71f21fe2
+alat/fundamentals-of-physics-halliday-2.pdf,Dipindahkan utuh ke aset-ebook/fundamentals-of-physics-halliday-2.pdf sesuai tautan e-book yang sudah dipakai situs.,1ffadc1dde4728cc5b2c63c4605428899f25172550e7b7b9434bddab719928c8
+alat/fundamentals-of-physics-halliday-3.pdf,Dipindahkan utuh ke aset-ebook/fundamentals-of-physics-halliday-3.pdf sesuai tautan e-book yang sudah dipakai situs.,98b6390230579d8b66ae943f48a452b6e12ed37a932c5ca8f476e64e0c1475d4
+alat/fundamentals-of-physics-halliday-4.pdf,Dipindahkan utuh ke aset-ebook/fundamentals-of-physics-halliday-4.pdf sesuai tautan e-book yang sudah dipakai situs.,f34a8b5f434b7e9e783251944e85d49358104cf826a4dc197ded65296ab3ea71
+alat/sumber/19a77db1-Worksheet-Fisika-F.MEK.1a-Dua-Soal-Latihan.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,08cef76eabd93d300f36f22d108e4d6b0a268f1e8939ccc68992dbc2c7fac317
+alat/sumber/482df6d0-Worksheet-Fisika-F.MEK.2-Dua-Soal-Latihan.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,b677864af39a00a345fadfdc5659432a8527f9e8d8f837cbc28f37d04b2bd7d0
+alat/sumber/c06af0d4-Worksheet-Fisika-F.MEK.1-pra-Dua-Soal-Latihan.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,2b8c9045f09ffe079a734a644ecae02e8ed9fe5004d17887516cd6c86b5608b1
+alat/sumber/db4199ff-Worksheet-Fisika-F.MEK.1b-Dua-Soal-Latihan.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,3dba00b1c7473a8892a487879087374412e57d79638c7d921167e0e22677a7a1
+alat/uji-mesin-p.cjs,Pengujian runtime edisi 2; digantikan uji-kelas-konten.cjs.,f66f836dd58d303ce89c8d2c80ebeda4a1c6c2c2d4f42daaaf871c6aed4dca56
+aset-f-mek/GURU_Kunci-Worksheet-F.MEK.1-pra.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,a89f60e64b00dbba711ca480dfac9f39c00d71a761dd3688f7714af5cb74b936
+aset-f-mek/GURU_Kunci-Worksheet-F.MEK.1a.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,327279d7dc60a839183bc56485f6e44c9485f98ad017470a53e0955bbe050385
+aset-f-mek/GURU_Kunci-Worksheet-F.MEK.1b.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,6787531464a925e3368d7546d8ff5244e515429170c8f79c081d6b5c2ec3058e
+aset-f-mek/GURU_Kunci-Worksheet-F.MEK.2.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,767144c94dc22362537536144fc7a7085536f556253ac797fa78a9c53a40dfab
+aset-f-mek/S01-S02b_Lembar-Bekal-F.MEK.1-pra.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,28e8d912f94aef135f85e4da485b25fcc33d0b95833e129f59e05db94a7c4c16
+aset-f-mek/S01-S02b_Lembar-Bekal-F.MEK.1a.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,d6d7c9a990e5b521f94c0b17326b402d697c4376fab413d3f237eb581810b03c
+aset-f-mek/S01-S02b_Lembar-Bekal-F.MEK.1b.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,59fcd102e46f5db1d4b6556f8fc64f09caa2578b989027bc9c468315e3827933
+aset-f-mek/S01-S02b_Lembar-Bekal-F.MEK.2.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,c05c4b63609ccd138ded3219f00d47d044d18e519a3bc65eebdb3868d5cb772a
+aset-f-mek/S04_Modul-Konsep-F.MEK.1-pra.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,d27e17472009d209046e523dbae4666204d320efe74ed685f0b23494e3ffec16
+aset-f-mek/S04_Modul-Konsep-F.MEK.1a.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,7b718551594a9c56facd1b221d5283a4421da7426a2f9de634b947956ad6785e
+aset-f-mek/S04_Modul-Konsep-F.MEK.1b.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,15f7d4c677ed2e583d765c7606162f81f7c90864aef737af7509c39bf68ae614
+aset-f-mek/S04_Modul-Konsep-F.MEK.2.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,f3b99e8005d7b8c5d8ca367f4c0777a75217cb080554e8711f5af5772e91b89f
+aset-f-mek/S08_Papan-Mini-F.MEK.1-pra.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,44d7d23a82a8b44d1519d2e3d3e0921802e54b51710930560c2707dc3c2219f6
+aset-f-mek/S08_Papan-Mini-F.MEK.1a.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,56b374075b3316e0a12c9e789349adf1a533a6f2043c1831053ddb5637d08745
+aset-f-mek/S08_Papan-Mini-F.MEK.1b.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,03110a77d563203dbd1c8912b39864fadbb7638ef06db3738acdcd897c5f27e0
+aset-f-mek/S08_Papan-Mini-F.MEK.2.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,6c423d7583e0273e8d8976f2f92d4ca40961ac413817815beb703823099ae156
+aset-f-use/CBT_Worksheet-CBT-F.USE.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,f4582690dc8e47904267dff8a1667d495d70213862f97a65489aaa7394735ca2
+aset-f-use/L04_Tanya-Jawab-Topik-F.USE.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,d62282c117906d8e284ed00fadefe09e4818d5f0685f6d75e3906b9ee1192b3e
+aset-f-use/LAT_Latihan-TKA-F.USE.html,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,14499ee1382ca990e22c1d540bbdfbfc30b46d65e08bd7ee34427a7a7970a7a8
+aset-f-use/S01-S02b_Lembar-Bekal-F.USE.1-pra.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,d1b905c95a9ebd968ad12c6038f3330bff4c990b137db06c4b273c059e1e4e2c
+aset-f-use/S01-S02b_Lembar-Bekal-F.USE.1.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,4e76f051eef862d01a0be803469edb4578d17b4a2a30bad1bc07e0c2a25f0f48
+aset-f-use/S04_Modul-Konsep-F.USE.1-pra.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,dd4150a085b74ba2bc32a918127e6cd6d6d5c04db3f198a7a5d7c7821ac99aea
+aset-f-use/S04_Modul-Konsep-F.USE.1.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,f928fc3adfda3f3b8b9ed54b130df035d9827f8472123aab1c072ac5cc382d3b
+aset-f-use/S05-S10_Dek-Kelas-F.USE.1-pra.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,783b66fcf3356da1036cd56778419b3e399bda11318981b27d01a416d2a7c7ca
+aset-f-use/S05-S10_Dek-Kelas-F.USE.1.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,60fbb6c1dda8909c7f25a83cb913043516ae69a8fc99c5378121ad95c537fb89
+aset-f-use/S08_Papan-Mini-F.USE.1-pra.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,fa782000beef4c185519411556b50ed971c5fbbc021c615a543bea0f1797d43f
+aset-f-use/S08_Papan-Mini-F.USE.1.pdf,Bahan versi S/L atau worksheet sumber lama telah digantikan halaman dan bank edisi 3; tidak dirujuk alur aktif.,b2147a2ad2ca26e79bfe60823fe39d4b9fbc434c874b24d54b3e1c41b2f244bf
+assets/belajar-p.css,"Gaya materi edisi 2, seluruh halaman aktif sudah memakai kelas-konten.css.",eb406e986c1492e6088160cc79e20b05a5aa9f69a404c06afdf8a151a83be71b
+assets/belajar-p.js,"Runtime materi edisi 2, tidak dipanggil halaman aktif maupun halaman lama.",452cfaa6233fd6b6a83e1a3e09f77192bd522668cd2b25811022153a536fa5d0
+assets/fims-shim.js,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,0ae5b4e85cd34d6046e8fbbd117179e47666b977c1d3ea1db57a20bfa36a9de6
+assets/logo-dark.svg,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,b2de125b080a45d87f6dd435d74cb24425b751524260ce7c529796d807dbd2da
+assets/logo-mark.svg,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,ed5c20cf61313ff1f7e2c7f8bdedba57c5459b171b0d3c513695915ee20f9c82
+assets/logo.svg,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,3d80911d6c4b8abc0c659419854f7350f7b6c684029a186331ec7f4f41fca071
+assets/tahapan.css,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,13e40648809a35894b1d70ba7f0b4cba224416b755b2317d7ce97addd1411801
+dokumentasi/05-validasi/2026/11/alur-p/pemeriksaan-struktur.json,Laporan sementara edisi 2 (48 halaman); digantikan pemeriksaan edisi 3 (162 halaman).,ed65ab1fc84b9d375ecfb51c99f86be098e97a8a8fcd4e6cdb2fd3b980f19e5b
+dokumentasi/99-arsip/panduan-sebelum-konten-interaktif/PANDUAN-TOPIK-BARU.md,Salinan panduan yang tidak berlaku; cadangan dipindahkan ke luar proyek.,cda6ee03ebc5056ea4077991f53c3369f90db9795ccfee4eeea99e175b48a40f
+dokumentasi/99-arsip/panduan-sebelum-konten-interaktif/README.md,Salinan panduan yang tidak berlaku; cadangan dipindahkan ke luar proyek.,91d350316d378346d0431ca005c40e165e73348d64e7dc428ecca81fa39fb3e4
+konten/f-mek/L1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,c01c528ea6695388fcbd6b6465ad3aad0e5ac76b56858816c8adb33a3cf78faa
+konten/f-mek/L2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,8cbedbcc5ca87d211961d4ca386908b207c8328257c7b31fcc4dfed30e4f9d9a
+konten/f-mek/L3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,645590575beb6d80ffd27dabd186c9973c101260ba1d2458801bf5b673f0c00b
+konten/f-mek/L3/latihan.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,e38a3c7f37f38bf54e1281604a70d44130ca62dbee971285b40fe4c4e76289c0
+konten/f-mek/L4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,a2dc02afb92a26211e254b8a282d62ea678c18c8fe2300c961ada44d4b2959f5
+konten/f-mek/f-mek-1-pra/P5/form-2.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,fc61a051c581128ce6cbd2af7d704172ca3608d24f785071f48df4405436db3f
+konten/f-mek/f-mek-1-pra/P5/form-3.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,e60760b459fb7e8fa4a2d9676908fff613375eefdf07e7e1d13e3f76c9b89412
+konten/f-mek/f-mek-1-pra/P5/form-4.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,4fd1c126dd7944def65056718d393f78228a1ee436b82a174adacb5c3926560b
+konten/f-mek/f-mek-1-pra/S1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,87ced027897492da06092d7a3f2c781f5b8690c6359dff9636b57d9bbc689b51
+konten/f-mek/f-mek-1-pra/S10/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,afca0ca3e30fe0bbf3aa6939ac9ed3bc5a534899623fecd20e15f1c289e2c1c3
+konten/f-mek/f-mek-1-pra/S11/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,70595cc0b25a58fce88b8653a7043cf89d756f755e34df3ff8dbe9c0020a6e46
+konten/f-mek/f-mek-1-pra/S12/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,365e85394df7381bf4676e516d0270fe5abe73c782565df9c19687194ccd01ae
+konten/f-mek/f-mek-1-pra/S13/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,46ad578b71ebec2920149a4984cf4f2ee3dc2d0d1668fa205fb349d731cc7e68
+konten/f-mek/f-mek-1-pra/S14/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,9ec313148952e859fdccae23a3b7754b68722028f4562bccbf96d3a76e103bb0
+konten/f-mek/f-mek-1-pra/S2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,f37441e64fc61c7efe7c90d54c856ff05cf0dbb4e603bb09d04b368da3e34aa6
+konten/f-mek/f-mek-1-pra/S2b/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,835981e6f9310e51916761b11fac4db40215b2215613e39cd363de7e1bbbc9c0
+konten/f-mek/f-mek-1-pra/S2c/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,12ba14512bb657bfc823f73de04ec34cb984f08071527638aeb1657c194f6445
+konten/f-mek/f-mek-1-pra/S3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,8c4ac64c13b988ee2dbe3a3639ce69acc0c10f40d734243b6d0a65556f74451a
+konten/f-mek/f-mek-1-pra/S4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3e88cde494f6edf446d839f12e66225a7814f8a77e8b436a403f3138d3e998c9
+konten/f-mek/f-mek-1-pra/S5/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,57d61d26fb020df3d007e44da4dfbdd656019f2c1d263b87eec5fd75fd8f1228
+konten/f-mek/f-mek-1-pra/S6/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,90ac815673be60dd3833e76475c79a5090733228176358e13fe9b5c9815fd501
+konten/f-mek/f-mek-1-pra/S7/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,00c3f3e3c54529a080b4633cc36dd246080e8f5bd17607621f9a38fd25fc8a45
+konten/f-mek/f-mek-1-pra/S8/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ed2919c855af357c2f0302e845c20fa8d4849d5134a121b0b8275bd621d19629
+konten/f-mek/f-mek-1-pra/S9/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,7355fa53e7c22089c8ae60e5e8ac951fcfa035acf5617162ee544e3dbbb972ec
+konten/f-mek/f-mek-1a/P5/form-2.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,2d32977081e8903eac9887c3111cdd00b555abc7c2fec41d137111bdde8ea4f8
+konten/f-mek/f-mek-1a/P5/form-3.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,1af3d6a9a847b257dfe9ccb267d00c1c7accaf6c746f2299c2fdfd2adc288e9d
+konten/f-mek/f-mek-1a/P5/form-4.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,0c152e19deeb15d05cb7a98343a66695ebddbe00b6730e3a7e9782bbe756ba21
+konten/f-mek/f-mek-1a/S1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,1d684cd97cf9f82e979a05aee100a2ae3dae2d8ddb01660986b288fa72d35f13
+konten/f-mek/f-mek-1a/S10/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,1d76c6f23c55fd8327285bea20fc54bacb69489b0e4dd86881bbb8c4e8406ac2
+konten/f-mek/f-mek-1a/S11/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,a9593a458ef00bba88aeed4616aa2dc76c2c934d5973e5cdcd33d0ea7d81e228
+konten/f-mek/f-mek-1a/S12/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,4300a2b63b7ef87570ae1806c79321d52f53b0f349394c200e711a337ab36b55
+konten/f-mek/f-mek-1a/S13/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,85410702966f041dcdc2560000fae423498991b92dc4c765a7b45e6607c26165
+konten/f-mek/f-mek-1a/S14/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3731c5634daf8f83606d5eeaad093e120db72dd1841b2e01a10bfff54d079b1d
+konten/f-mek/f-mek-1a/S2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,81b044aac32e3fa1448541f94f9c568b1992bef4ada5b5cbd301c8f6942fc697
+konten/f-mek/f-mek-1a/S2b/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,4abba0f7a48b579fff94b842a298f6dc93f4c6912078280378de1e3a12866c07
+konten/f-mek/f-mek-1a/S2c/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,d2617488ff5f28540f397e5c22f59c7a465f2cb64159ed4e40fd84d6ffd53fc4
+konten/f-mek/f-mek-1a/S3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,0c800e6bb2596ed05c6c8cf3e6f71d70de126d3fe0409695341f06ac67a324fb
+konten/f-mek/f-mek-1a/S4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,0f71df7ce29bc801ac015fd6430a609fe70051468314b9f46568a63ea0f5b451
+konten/f-mek/f-mek-1a/S5/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,c38db190ed3ab214823d4c6abd1361d7b547abcf933659f8256e7659a69ea980
+konten/f-mek/f-mek-1a/S6/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,e9e3bcec6873fa7844ca8b1da9c8ed97e86faa3b3ee350622b87e0a0d8b63000
+konten/f-mek/f-mek-1a/S7/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3c39317ffa83c7bec55919a82a1c3a0571a4676bdb42b17b2890494cf9d3b936
+konten/f-mek/f-mek-1a/S8/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,75f05a6ead759dfe3bbbc498f027ffce66754403d529cfa0e88460d57a72a629
+konten/f-mek/f-mek-1a/S9/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,a62c46e9b70cb0aedfeb39ee4c62e29f9b297237bf80c60335ba48ecb227efe5
+konten/f-mek/f-mek-1b/P5/form-2.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,1d1a83f510949aee62fa43d704a9ee8532d03b871082061f84cafd108f1a87a8
+konten/f-mek/f-mek-1b/P5/form-3.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,8ec4bcd0f876c1b12f08de77149513d3b9693847433ab53acd768dd2c0fff26c
+konten/f-mek/f-mek-1b/P5/form-4.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,725def8cfa2900a320116dd3c2880a6ad58612104e02aaaeeac9e2638030988c
+konten/f-mek/f-mek-1b/S1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3239e6cfee4aeb5bbd0220145a9c01d780a5d997de3f50779ef78dd35f59b677
+konten/f-mek/f-mek-1b/S10/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,19c4c9dd23373c03cdbb203c32313d9c3abb4e2d906945cc7b78e570d6d10754
+konten/f-mek/f-mek-1b/S11/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,d5db9c216c4bd607fe64c212d40ce0842dd93e46798f1f473bff4f494229dc8c
+konten/f-mek/f-mek-1b/S12/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,a29e9139f021ee064e30e8dfb136a0c928f50804be0aa9df0f20e46aef9a480e
+konten/f-mek/f-mek-1b/S13/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,671cbcdc744dc547fc25a75cc4483a856270fdb91dd3c5753ab2e06182e988d8
+konten/f-mek/f-mek-1b/S14/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,38c1531e4e3b4cc86dffff344c0f11a4d4988b45ce43d6f1d756203766fd470e
+konten/f-mek/f-mek-1b/S2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,dfcd9877c4d0f4ec8d6d24e3945f1a55cd2ca724adc3acfb2211957762f53282
+konten/f-mek/f-mek-1b/S2b/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,1665b6fe15765fda3f359748d89e206c74e6b5d251cd7c205fc3b57bfda105ad
+konten/f-mek/f-mek-1b/S2c/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ef7fd9e0255a41bb0ede380a194d6fe544661823deb20791f6c036f831b094e7
+konten/f-mek/f-mek-1b/S3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,0df7b816d70bb190bc4f983da3fbb2b40aa7491c5c6f261862cfa9f0aeafba41
+konten/f-mek/f-mek-1b/S4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,1200193f6b0a13ab0551a50cadb7ab4f85078c7f45ea1ef2fe7f87afebbe46c9
+konten/f-mek/f-mek-1b/S5/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,51d032a1f5dfbe22a6b99dd09c80e629222611445949755026b782db041e12e0
+konten/f-mek/f-mek-1b/S6/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,bda186d6cdead56c9f93db9548fea68b8ebefff0a0a0f4b605bc9a751a587df3
+konten/f-mek/f-mek-1b/S7/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ae99f6c2d175558414e6606023ce96d82e62bc8c4626d0d17ee9c6790b605397
+konten/f-mek/f-mek-1b/S8/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,7975a542a2d734a9449abab7619b243dfa204d412767e8d09f398100f2636689
+konten/f-mek/f-mek-1b/S9/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,f9305e1da3c87b3e4f562a8026a9afb2eaaa1237d61dda32374e3a5cabd3f262
+konten/f-mek/f-mek-2/P5/form-2.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,592895ad22996679c9b4cfaee71d4c4f533c0ffd0f1a3c5af5793077eec147ca
+konten/f-mek/f-mek-2/P5/form-3.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,d450766482e8f55e6d35c7be2d09f03e89290c01abff3dae4625b177013066dc
+konten/f-mek/f-mek-2/P5/form-4.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,279701bcd5152f41408aee9e3fd12f962ee6afae62b83bb330e4358c491664bb
+konten/f-mek/f-mek-2/S1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ba6a9259fde41167d7bea7eb8043d620af8f5b5faf976cb181b67ce58a0d33f5
+konten/f-mek/f-mek-2/S10/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,0117ade5862d4bc919bcd17a9a34517e656dd2b91a3bf0db6c57c243ae3154c7
+konten/f-mek/f-mek-2/S11/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,77d474a95df6cd78320067aef353023bf9f82349592184ab863ec1b0d4ff1f8a
+konten/f-mek/f-mek-2/S12/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3b58a2fe103b9162a4094360602a92958b5a5ec460c798a1971a7e95165b2bc3
+konten/f-mek/f-mek-2/S13/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,052d002d355950736c96643dd64bc6f8ccce09552ff78b68ac444de1dac88062
+konten/f-mek/f-mek-2/S14/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,82d2d7302d40c1c4002a289db82e7258942e4d750284aab9535750fe33a549a9
+konten/f-mek/f-mek-2/S2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,1c48e2a56b07dc0bcdedacc33ed8ec1afc1bb2a221f1d1609ff20caa739a9108
+konten/f-mek/f-mek-2/S2b/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,25c5351b753a057186350d46c0c243a577074d2b5bd944a4c598b6bd3a592346
+konten/f-mek/f-mek-2/S2c/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3189aad8e4bf183cd311801ad3e525613a2ecb1a76179601a7e4a790891281e5
+konten/f-mek/f-mek-2/S3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,93fd159bef4d9d2e7ef617fcada7f3d508ad90aee899ab1b45384c4294998282
+konten/f-mek/f-mek-2/S4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,bb9928dbe61c57f793b9b19279a2374237d326f0d53f26d282d44f78520895b3
+konten/f-mek/f-mek-2/S5/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,5846b5ef0037afdffba7faa7d02591e8bb365eb57528e12d0d1ae0f10b24cc69
+konten/f-mek/f-mek-2/S6/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,cf5eebd092d1ecda0044641b88866502aa703cd647510cc7228ef0450f71dc90
+konten/f-mek/f-mek-2/S7/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,35d0271fbd8ff0907a1ea85ebce557ee948176ef26f38c4de44b27f3759bb193
+konten/f-mek/f-mek-2/S8/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,1c98bcd32ad2afaedc7a5ba5824958517a99c41a971873ab551d82f49315ff7b
+konten/f-mek/f-mek-2/S9/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,179f58d8d676a58d0d3bef86571319c2652afa6ff9420227b363c44ec12faa43
+konten/f-use/L1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,8dd3b6daec11a5c1f2ad14dcfd911e5feaaf8a44ed3657ecc70369d498875b17
+konten/f-use/L2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,672777b4952f9e993830eb2be10f5a4fae66cebccca202acd933bc89c8bee2af
+konten/f-use/L3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,2d89af88fd535101266c048636e112b9fd4360cb0545c93ea3778a1a428c4eca
+konten/f-use/L3/latihan.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,b37dd5eab3645f6d7ab46679a45f2e18f83376d4f2e879d824709d6fa16fe5de
+konten/f-use/L4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,b04917349e49e835a8ee6e54fcc57185c03a30d222da9c6f304e034ec08af2a0
+konten/f-use/f-use-1-pra/P5/form-2.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,cc09f9feac15f61c7c11f06beeaac168e63bba8159ec3a55de3432a9cde66e4f
+konten/f-use/f-use-1-pra/P5/form-3.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,ea7a9a1de0a1bde829d7b10a481c144f7d2dc7ede07bf1beb3bc91e6acc91c95
+konten/f-use/f-use-1-pra/P5/form-4.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,c48e375660851d484febb207bbd868a3d4dca6a8e656add3ab9a0700182534bd
+konten/f-use/f-use-1-pra/S1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,8fc66fe58442c525c6c9c17288b64e8bdac5eebbdb4c69b42a43857cecb7caff
+konten/f-use/f-use-1-pra/S10/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,c1c8066c7d13ed3f9f73d4d8e5ccb531646871a3a20b6efcc250d086a5e69749
+konten/f-use/f-use-1-pra/S11/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,447e20d9a333edcbfb28e21fdddb6147948e2ae10badfe75febc97a8ac257582
+konten/f-use/f-use-1-pra/S12/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,3bb182f6ea82572fcb02d9be6ce7c7681fe035a4b32a38e40ed633ebb6c079ad
+konten/f-use/f-use-1-pra/S13/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,b2a3d6fe319a632fbc25a60e1b291d7bdeec0ba3d431e30e4f73907691771a38
+konten/f-use/f-use-1-pra/S14/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,29369cacfed20047544e05c4d2e105bc176fda4eab1e4614b791e01b31bf02d4
+konten/f-use/f-use-1-pra/S2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,f88278173acea8beda33346d983004f9af6adc06745d07da5a9975fdf78c6d3a
+konten/f-use/f-use-1-pra/S2b/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,a6f9e93d4fe09b27ad7d799d411c5ffd3558b8300de5e11ddf808e9bac82e23a
+konten/f-use/f-use-1-pra/S2c/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,6df4cd87f72a5494df7a76944486446ede170bab74ba199932f4d55b942573a0
+konten/f-use/f-use-1-pra/S3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,546b8621b6c9690bdae23df3e469588b9f66c06867f53e73f77da3ae0f5bb116
+konten/f-use/f-use-1-pra/S4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,636716d83af9942bf38ab0f706a6448e54ecb42156b0c027a49c7f736197a8c3
+konten/f-use/f-use-1-pra/S5/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,5418a245d0442b877e30b665c470c40aa4f71964112b13cbd321b7edb1104968
+konten/f-use/f-use-1-pra/S6/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,8d63a79e13481f4d9853c0d2bd0a74d09b41cbb0c937ebf1d58d835f94c07e61
+konten/f-use/f-use-1-pra/S7/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,607f1ab65707ded4144de2ccd840c5c9053138ce0357de9edb97cc93c130db25
+konten/f-use/f-use-1-pra/S8/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,306a88482dba22e4842f535dfeee94f5fcac86adc9faddab9b89db12bd31a5dd
+konten/f-use/f-use-1-pra/S9/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,9121dbf6cc29b4dd7863120a265a7f11bab7c246246c72eee7d76fcb201a3af1
+konten/f-use/f-use-1/P5/form-2.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,db00065ca116d75645f2b9ef4cbfdad6dab1656d2701a72064c28eee5392b363
+konten/f-use/f-use-1/P5/form-3.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,4b1b68fc32112089dcc3d53b8e7166ff9c4858f79b40b17565a6800c8fa9ac61
+konten/f-use/f-use-1/P5/form-4.html,Bentuk P5 otomatis edisi 3 digantikan gerbang RPP berurutan.,993146fe1bb4dcf7d03c5a6801e68533a9e0491f31ff8c9339a1d944c6b10cfd
+konten/f-use/f-use-1/S1/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,c0a8db82c4714cd5ee054d1f370e90b8b53fb92635a090e74bad113a54153671
+konten/f-use/f-use-1/S10/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,228f53a89c7a2e35f906d353d76736cd4387d392ed52bdc67bc32f212e670c8d
+konten/f-use/f-use-1/S11/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ba37c4a76fbdf7fd5ca31e46ff7d2a9b9e7441b4e4283070f86c0d6240968764
+konten/f-use/f-use-1/S12/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,514d26a61ba3579774cdec4a25539d32c05682965d72377cf5fc87a1bf6cd5e0
+konten/f-use/f-use-1/S13/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,058da92a2097f7aa286a0e9a631709e5fb5f4cc78cdc080861deda67bb602ea7
+konten/f-use/f-use-1/S14/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,29369cacfed20047544e05c4d2e105bc176fda4eab1e4614b791e01b31bf02d4
+konten/f-use/f-use-1/S2/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,577d2085037c01775d64018679c16fe201e3498436bacfbc82bdc1ab6f1ae2d4
+konten/f-use/f-use-1/S2b/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,326ef18ef188aa3794ad01ee0cbefcf753f96e55b02501838a31ce096390443c
+konten/f-use/f-use-1/S2c/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,14d6281aff7cf99045150f377a2b04f45b980cfe515cf1ec88037787270e7af9
+konten/f-use/f-use-1/S3/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ba8342a49452995ec150d717397a7c3a726bb00a0b9464daee005a6014ce838c
+konten/f-use/f-use-1/S4/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,ce3d31321821559e185d6348be99ec4d7610004169e027278fa920aa3cc8a72d
+konten/f-use/f-use-1/S5/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,fc1a1bc486a0805f93071cbf0471b6157064a917ab469d24677a115cee7823bc
+konten/f-use/f-use-1/S6/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,6af20077eef2edb0da361d7502ab5bea3d73a08f53fe83c9f8548b3c294258dd
+konten/f-use/f-use-1/S7/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,a58da1276001170ae4d47b43beb288770ce3ad6ec0fa8016c7d918d84c5becf1
+konten/f-use/f-use-1/S8/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,b1eac350d80401d5b2bd90256b0179a79387ccf8f260a754ca91fcf7303f4a68
+konten/f-use/f-use-1/S9/index.html,HTML konten lama sudah digantikan halaman aktif edisi 3; cadangan di luar proyek.,33da5def2ed66f9fe4376b0badbded67613cae098926980b76df6fd80c34055f
+media-f-mek/audio/README.md,Folder panduan rekaman tanpa berkas audio; petunjuk disatukan pada PANDUAN-MEDIA.md. Narasi browser tetap di media.json.,a86439cacf6ba4ef7f88e9c8d367faa1dd74e986856ef30b7268b11d7de93095
+media-f-mek/bacaan/bacaan.css,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,7d88259228cbef3cbbfaa5d5d121eab6ea40fa3351e28e410fa85b8c3bb533ac
+media-f-mek/simulasi/sim.css,Gaya simulasi lama digantikan mesin dan CSS bersama.,0c11b83c4dc39be9d5835c87cb76b0a63aa714096c0c8aee23bb92fc89bae9b8
+media-f-use/audio/README.md,Folder panduan rekaman tanpa berkas audio; petunjuk disatukan pada PANDUAN-MEDIA.md. Narasi browser tetap di media.json.,a86439cacf6ba4ef7f88e9c8d367faa1dd74e986856ef30b7268b11d7de93095
+media-f-use/bacaan/bacaan.css,Aset versi lama tidak lagi dirujuk setelah halaman lama dikeluarkan; logo aktif memakai PNG dan materi memakai kelas-konten.css.,7d88259228cbef3cbbfaa5d5d121eab6ea40fa3351e28e410fa85b8c3bb533ac
