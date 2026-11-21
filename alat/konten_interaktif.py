@@ -3,6 +3,9 @@ Memuat aset lesson_*.py, memvalidasi seluruh TP, baru menulis HTML versi 4.
 """
 from pathlib import Path
 import copy,hashlib,html,importlib.util,json,math,os,re
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent/"bank"))
+from kegiatan_unik import make as unique_case
 ROOT=Path(__file__).resolve().parents[1]
 E=lambda value:html.escape(str(value),quote=True)
 STAGES={'P2':8,'P7':10,'P9':8,'P10':4}
@@ -89,7 +92,7 @@ def page(path,title,code,subtitle,body,config=None,topic=None):
  cfg=json.dumps(config or {},ensure_ascii=False).replace('</','<\\/')
  runtime='gating.js' if (config or {}).get('stage')=='P5-gating' else 'unit-test.js' if (config or {}).get('stage')=='unit' else 'kelas-konten.js'
  src='' if (config or {}).get('stage') in ('P2','P5','P9') else '<aside class="class-sources"><b>Rujukan konsep</b> '+''.join('<a href="'+E(url)+'" target="_blank" rel="noopener">OpenStax · '+E(url.rsplit('/',1)[-1].replace('-',' '))+'</a>' for url in SOURCES.get(topic,[]))+'</aside>'
- text=f'''<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)} · {E(code)}</title><link rel="stylesheet" href="{root}assets/kelas-konten.css"></head><body class="class-page"><header class="class-header"><div class="class-eyebrow">Fisika · {E(code)}</div><h1>{E(title)}</h1><p>{E(subtitle)}</p></header><main class="class-main">{body}{src}</main><footer class="class-footer">Physics FIWA · Model ideal dan asumsi dinyatakan pada tiap kegiatan. Materi interaktif v4.</footer><script>window.FIWA_CLASS={cfg};</script><script src="{root}assets/kelas-visual.js"></script><script src="{root}assets/kelas-animasi.js"></script><script src="{root}assets/{runtime}"></script><script src="{root}assets/fims-simpan.js"></script></body></html>'''
+ text=f'''<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(title)} · {E(code)}</title><link rel="stylesheet" href="{root}assets/kelas-konten.css?v=20261121b"></head><body class="class-page"><header class="class-header"><div class="class-eyebrow">Fisika · {E(code)}</div><h1>{E(title)}</h1><p>{E(subtitle)}</p></header><main class="class-main">{body}{src}</main><footer class="class-footer">Physics FIWA · Model ideal dan asumsi dinyatakan pada tiap kegiatan. Materi interaktif v4.</footer><script>window.FIWA_CLASS={cfg};</script><script src="{root}assets/kelas-visual.js?v=20261121b"></script><script src="{root}assets/kelas-animasi.js?v=20261121b"></script><script src="{root}assets/{runtime}?v=20261121b"></script><script src="{root}assets/fims-simpan.js?v=20261121b"></script></body></html>'''
  path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text,encoding='utf-8');return path.relative_to(ROOT).as_posix()
 
 def actions(label='Simpan penyelesaian',hidden=False):
@@ -128,13 +131,26 @@ def build():
    body+='</section>'+actions('Kirim prediksi dan alasan');save('P3/index.html','Prediksi Awal',body,{'stage':'P3'})
    save('P5/index.html','Cek Pemahaman · Gating TP','<div id="gating-host"><p>Memuat gerbang dan respon guru…</p></div>',{'stage':'P5-gating','tp':slug})
    core,checks=concept_body(lesson,slug);save('P4/index.html','Konsep dan Praktik',core+actions('Simpan penyelesaian konsep'),{'stage':'P4','checks':checks})
-   for filename,title,stage,text in [('diskusi.html','Diskusi Prediksi','P4-diskusi','Bandingkan alasan awal dengan model yang sudah diamati. Pilih satu dugaan yang berubah, lalu jelaskan bukti visual yang membuatmu mengubahnya.'),('contoh.html','Contoh Terbimbing','P4-contoh','Kerjakan setiap langkah dalam pikiran atau buku sebelum membukanya. Sebutkan model, arah positif, dan alasan memilih persamaan.'),('praktik.html','Praktik dan Penyelidikan','P4-praktik','Pilih satu variabel untuk diubah. Tetapkan variabel lain, prediksi hasil, ambil sedikitnya tiga kondisi, lalu jelaskan pola yang ditemukan.')]:
-    b='<section class="class-card"><h2>'+E(title)+'</h2><p>'+E(text)+'</p></section>'
-    if filename=='contoh.html':b+=''.join(worked(c['worked']) for c in lesson['concepts'])
+   activities={
+    'f-mek-1-pra':('Dua pengamat menggambar rute robot dengan urutan panah berbeda. Uji apakah pertukaran urutan mengubah titik akhirnya; pisahkan perubahan gambar dari perubahan vektor.','Rancang rute dua ruas agar komponen resultan x tepat nol, tetapi perpindahan akhirnya tidak nol. Cari tiga rancangan dengan panjang ruas berbeda.'),
+    'f-mek-2':('Dua pengamat berbeda pendapat: satu memberi nama gaya dari arah gerak, yang lain dari benda pemberinya. Pilih tiga interaksi pada troli, lalu pertahankan atau gugurkan tiap panah dengan bukti kontaknya.','Selidiki kapan troli dapat bergerak ke kanan sambil dipercepat ke kiri. Uji tiga kombinasi gaya untuk v awal positif; bedakan melambat dari langsung berbalik.'),
+    'f-mek-1a':('Seorang pengamat menyatakan benda yang lebih berat selalu menerima gaya interaksi lebih besar. Buat argumen lawan memakai dua diagram benda terpisah, kemudian bandingkan percepatannya.','Rancang percobaan untuk membedakan pengaruh massa dan pengaruh gaya neto. Ubah satu variabel pada setiap seri, catat tiga keadaan, dan jelaskan variabel yang harus dikendalikan.'),
+    'f-mek-1b':('Seorang perancang menganggap resultan gaya nol sudah cukup untuk rak. Uji dugaan itu dengan pasangan gaya yang garis kerjanya berbeda; jelaskan bukti apa yang masih diperlukan.','Selidiki cara mengurangi tegangan kabel tanpa mengganti berat beban. Bandingkan perubahan posisi beban dan sudut kabel dalam dua seri terpisah, masing-masing tiga keadaan.'),
+    'f-use-1-pra':('Dua penjelasan muncul saat kotak melambat: energinya hilang, atau energi berpindah melalui usaha gaya hambat. Pilih sistem, sebut penerima energi, lalu gunakan tanda usaha untuk membandingkan kedua klaim.','Rancang pemindahan kotak dengan usaha tali yang sama menggunakan tiga kombinasi besar gaya, sudut, dan perpindahan. Nyatakan variabel yang diubah pada setiap percobaan serta batas kesimpulan tentang usaha neto.'),
+    'f-use-1':('Satu rancangan tampak berhasil karena menghitung semua tinggi dari lantai; rancangan lain memakai acuan titik B. Jelaskan bagaimana kedua neraca dapat menghasilkan keputusan sama jika selisih tinggi dan energi gesek dipakai konsisten.','Optimalkan bantalan kasar agar paket mencapai baki pada laju sasaran. Catat tiga nilai panjang bantalan, periksa keterjangkauan, lalu usulkan rentang aman dengan alasan neraca energi.')}
+   for filename,title,stage in [('diskusi.html','Diskusi Prediksi','P4-diskusi'),('contoh.html','Contoh Terbimbing','P4-contoh'),('praktik.html','Praktik dan Penyelidikan','P4-praktik')]:
+    b='<section class="class-card"><h2>'+E(title)+'</h2></section>'
+    if filename=='contoh.html':
+     for ci,c in enumerate(lesson['concepts']):
+      q=unique_case(slug,c,ci,'guided');b+='<section class="class-card"><p>Susun jawaban sendiri sebelum membuka model penyelesaian berikut.</p>'+lab(q['diagram'],True)+'<details><summary>Pembahasan kasus '+str(ci+1)+'</summary>'+worked({'scenario':q['prompt'],'steps':q['steps'],'result':q['explain']})+'</details></section>'
     else:
-     selected=[lesson['concepts'][0],lesson['concepts'][-1]]
-     for c in selected:b+='<section class="class-lab"><h3>'+E(c['title'])+'</h3>'+lab(c['lab'])+items(c['explore'])+'</section>'
-    b+='<section class="class-card class-task">'+field('Catatan model, data atau perbandingan yang kamu gunakan','v3-'+stage+'-data')+field('Kesimpulan dan alasan berdasarkan bukti yang diamati','v3-'+stage+'-alasan')+'</section>'+actions('Simpan catatan kegiatan');save('P4/'+filename,title,b,{'stage':stage})
+     ispractice=filename=='praktik.html';scenario=activities[slug][1 if ispractice else 0];ci=len(lesson['concepts'])-1 if ispractice else 1;c=lesson['concepts'][ci];model=copy.deepcopy(c['lab'])
+     if model['kind']=='motion':model['params'].update(right=16 if ispractice else 10,left=24 if ispractice else 10,v0=3,t=2)
+     if model['kind']=='energy':model['params'].update(h0=3.2 if ispractice else 2.8,h=.8,mu=.18,s=2,mode='friction')
+     if model['kind']=='work':model['params'].update(F=30,s=3,theta=37)
+     b+='<section class="class-card"><h3>'+('Pertanyaan penyelidikan' if ispractice else 'Klaim untuk diperdebatkan')+'</h3><p>'+E(scenario)+'</p></section><section class="class-lab">'+lab(model)+'</section>'
+     b+='<section class="class-card class-task">'+field('Rancangan seri percobaan dan variabel kendali' if ispractice else 'Klaim pertama, klaim pembanding, dan pilihan sementara','v4-'+stage+'-rencana',5)+field('Tiga keadaan uji: masukan, hasil, dan satuannya' if ispractice else 'Bukti diagram atau perubahan model yang mendukung argumen','v4-'+stage+'-bukti',6)+field('Kesimpulan, batas model, dan perbaikan rancangan' if ispractice else 'Tanggapan terhadap argumen lawan dan alasan revisi','v4-'+stage+'-alasan',5)+'</section>'
+    b+=actions('Simpan contoh yang sudah dipelajari' if filename=='contoh.html' else 'Simpan hasil penyelidikan' if filename=='praktik.html' else 'Simpan argumen diskusi');save('P4/'+filename,title,b,{'stage':stage})
    for stage,form in [('P2',1),('P7',1)]:
     qs=provider(slug,stage,form);body='<section class="class-card"><h2>'+({'P2':'Periksa bekal sebelum melangkah','P5':'Tunjukkan pemahamanmu','P7':'Sepuluh soal untuk menyiapkan diri'})[stage]+'</h2><p>'+({'P2':'Gunakan bekal yang sudah kamu pelajari. Hasilnya menentukan apakah kamu perlu penguatan prasyarat.','P5':'Kerjakan secara mandiri. Hasil awal membantu diagnosis; guru mengesahkan skor dan fokus tindak lanjut.','P7':'Kerjakan sepuluh soal secara mandiri dahulu. Sesudah mencoba, pelajari umpan balik dan perbaiki bagian yang masih keliru. Hasil percobaan pertama tetap dibedakan dari hasil perbaikan.'})[stage]+'</p></section>'
     if stage in ('P2','P5'):body+='<div class="class-clock"><span id="class-clock-label">Waktu rekomendasi; alokasi per soal mengikuti tingkat kesulitan.</span><output id="class-clock-value"></output></div><button type="button" class="class-button" id="class-start">Mulai pengerjaan</button>'
@@ -142,23 +158,27 @@ def build():
     for i,q in enumerate(qs,1):block,d=question(q,slug+'-'+stage+'-f'+str(form));body+='<h3>Soal '+str(i)+'</h3>'+block;data.append(d)
     body+='</div>'+actions('Kirim hasil' if stage!='P7' else 'Periksa 10 jawaban',stage in ('P2','P5'))
     save(stage+('/index.html' if form==1 else '/form-'+str(form)+'.html'),{'P2':'Cek Prasyarat','P5':'Cek Pemahaman','P7':'Latihan Persiapan · 10 soal'}[stage],body,{'stage':stage,'questions':data,'indicators':ids,'form':form,'threshold':80,'seconds':sum(q['seconds'] for q in qs)})
+   used_prereq={q['prompt'] for q in provider(slug,'P2',1)}
    for branch,title in [('a','Penguatan Prasyarat'),('b','Belajar Terbimbing Prasyarat')]:
-    qbase=provider(slug,'P2',1);body='<section class="class-card"><h2>'+title+'</h2><p>Tinjau bekal yang belum tepat sebelum mencoba kembali P2. Kerjakan contoh berikut dengan alasanmu sendiri.</p></section>'
-    for q in qbase[:3 if branch=='a' else 4]:body+='<section class="class-worked"><h3>'+E(q['prompt'])+'</h3><details><summary>Lihat penjelasan sesudah mencoba</summary><p>'+E(q['explain'])+'</p></details></section>'
-    body+=actions('Saya siap mencoba kembali P2');save('P2'+branch+'/index.html',title,body,{'stage':'P2'+branch})
+    n=3 if branch=='a' else 4;pool=[]
+    for form in range(2,35):
+     for q in provider(slug,'P2',form):
+      if q['prompt'] not in used_prereq:pool.append(q);used_prereq.add(q['prompt'])
+      if len(pool)>=n:break
+     if len(pool)>=n:break
+    assert len(pool)>=n,(slug,'Prasyarat penguatan harus mempunyai kasus baru')
+    body='<section class="class-card"><h2>'+title+'</h2><p>'+('Gunakan tiga kasus bekal baru berikut untuk menelusuri letak kekeliruan sebelum mencoba kembali cek prasyarat.'if branch=='a'else'Kerjakan empat kasus bekal baru secara terbimbing: sebut data, pilih hubungan, lalu periksa langkah bersama guru.')+'</p></section>'
+    for qi,q in enumerate(pool[:n],1):body+='<details class="class-card"><summary>Kasus bekal '+str(qi)+'</summary>'+worked({'scenario':q['prompt'],'steps':q['steps'],'result':q['explain']})+'</details>'
+    body+=actions('Saya siap memeriksa kembali bekal awal');save('P2'+branch+'/index.html',title,body,{'stage':'P2'+branch})
    for branch,n in [('a',2),('b',3)]:
-    default=provider(slug,'P5',2)[:n];blocks=[];data=[]
-    for q in default:block,d=question(q,slug+'-P6'+branch);blocks.append(block);data.append(d)
     focus_sets=[]
-    for c in lesson['concepts']:
-     pool=[q for q in provider(slug,'P7',2) if q['indicator']==c['id']]
-     pool+=copy.deepcopy(c['checks']);selected=pool[:n]
-     while len(selected)<n:selected+=copy.deepcopy(c['checks'][:1])
+    for ci,c in enumerate(lesson['concepts']):
      fb=[];fd=[]
-     for k,q in enumerate(selected[:n]):q=copy.deepcopy(q);q['id']+='-focus-'+str(k);block,d=question(q,slug+'-P6'+branch+'-'+c['id']);fb.append(block);fd.append(d)
-     focus_sets.append({'html':''.join(fb),'questions':fd,'note':c['misconception']['explain']})
-    body='<section class="class-card"><h2>'+('Penguatan' if branch=='a' else 'Belajar Terbimbing')+'</h2><p>Bagian ini terbuka sesuai hasil P5. Fokus pada satu kesulitan yang perlu diperbaiki.</p><p id="focus-note">Baca pertanyaannya, gambar modelnya, dan periksa alasan yang digunakan.</p></section><div class="class-question-list">'+''.join(blocks)+'</div>'+actions('Periksa tindak lanjut')+'<p>Sesudah semua tepat, lakukan cek ulang P5 bersama guru. Penguatan tidak otomatis mengubah skor P5 menjadi lulus.</p>'
-    save('P6'+branch+'/index.html','Tindak Lanjut',body,{'stage':'P6','branch':branch,'questions':data,'focusSets':focus_sets,'threshold':100})
+     for k in range(n):
+      q=unique_case(slug,c,ci,'followup',k+(5 if branch=='b' else 0));block,d=question(q,slug+'-P6'+branch+'-'+c['id']);fb.append(block);fd.append(d)
+     focus_sets.append({'html':''.join(fb),'questions':fd,'note':('Periksa kembali langkah yang belum tepat pada '+c['title']+'. Pilih model dan uji dua kasus baru secara mandiri.' if branch=='a' else 'Pendampingan konsep '+c['title']+': tentukan sistem bersama guru, tuliskan data dan acuan, lalu bangun solusi tiga kasus berikut.')})
+    chosen=focus_sets[0];body='<section class="class-card"><h2>'+('Penguatan' if branch=='a' else 'Belajar Terbimbing')+'</h2><p>Latihan singkat ini menargetkan proses yang belum tepat pada gerbang. Angka dan konteksnya berbeda dari contoh utama dan bank penilaian.</p><p id="focus-note">'+E(chosen['note'])+'</p></section><div class="class-question-list">'+chosen['html']+'</div>'+actions('Periksa perbaikan konsep')+'<p>Kembali ke soal gerbang yang menunggu perbaikan dan kirim bukti baru kepada guru; hasil latihan tidak mengesahkan gerbang secara otomatis.</p>'
+    save('P6'+branch+'/index.html','Tindak Lanjut',body,{'stage':'P6','branch':branch,'questions':chosen['questions'],'focusSets':focus_sets,'threshold':100})
    task=lesson['performance'];body='<section class="class-card"><h2>Masalah penerapan</h2><p class="class-lead">'+E(task['scenario'])+'</p>'+items(task['deliverables'])+'</section><section class="class-card"><h2>Rubrik yang digunakan guru</h2><table class="class-rubric"><thead><tr><th>Tingkat</th><th>Bukti yang ditunjukkan</th></tr></thead><tbody>'+''.join('<tr><th>'+E(k)+'</th><td>'+E(v)+'</td></tr>' for k,v in task['rubric'].items())+'</tbody></table></section><section class="class-card class-task">'+field('Model, data, sketsa atau uraian rancanganmu','v3-p8-model',6)+field('Penyelesaian dan pemeriksaan hasil','v3-p8-proses',6)+field('Keputusan, alasan, batas model dan kesimpulan','v3-p8-keputusan',5)+'</section>'+actions('Kirim bukti penerapan')
    save('P8/index.html','Tugas Penerapan',body,{'stage':'P8'})
    for stage,forms in [('P9',range(1,5)),('P10',range(1,4))]:
@@ -169,9 +189,10 @@ def build():
      cfg={'stage':stage,'questions':data,'indicators':ids,'threshold':meta.get('ambang',75),'form':form,'session':form if stage=='P10' else None,'seconds':sum(q['seconds'] for q in qs)}
      if stage=='P9':cfg.update(salt='FIWA-2026-v4-'+prefix,hashScale=100)
      save(f'{stage}/'+(f'form-{form}.html' if stage=='P9' else f'sesi-{form}.html'),'Uji Ketuntasan TP' if stage=='P9' else 'Ulangi Materi',body,cfg)
-   # Bacaan utama lama diganti edisi interaktif yang sama, tetap dapat dibuka terpisah.
+   # Jalur bacaan lama menjadi pintu menuju satu materi kanonis, tanpa salinan konsep/checkpoint.
    reading=ROOT/f'media-{topic["slug"]}/bacaan'/('bacaan-tp1.html' if slug=='f-use-1-pra' else 'bacaan-tp2.html' if slug=='f-use-1' else 'bacaan-'+slug+'.html')
-   written.append(page(reading,'Bacaan Konsep Interaktif',code,sub,core+actions('Simpan penyelesaian bacaan'),{'version':4,'stage':'bacaan','checks':checks},topic['slug']))
+   body='<section class="class-card"><h2>Baca materi pada alur aktif</h2><p>Penjelasan, ilustrasi, rangkuman dan checkpoint TP ini tersedia dalam satu halaman utama agar tidak ada salinan yang perlu dikerjakan ulang.</p><a class="class-button" href="../../index.html#tp-'+slug+'-p4" target="_top">Buka Konsep dan Praktik · '+E(code)+'</a></section>'
+   written.append(page(reading,'Akses Bacaan TP',code,sub,body,{'version':4,'stage':'bacaan'},topic['slug']))
   if topic.get('tp'):
    intro=TOPICS.get(topic['slug'])
    if not intro:raise ValueError('Lengkapi pembuka fenomena topik: '+topic['slug'])
@@ -184,7 +205,8 @@ def build():
   for stage,bank,form in [('L1','P7',3)]:
    body='<section class="class-card"><h2>Hubungkan model antar-TP</h2><p>Gunakan diagram, satuan dan alasan untuk memilih model. '+('Kerjakan mandiri; jawaban dikunci sesudah dikirim.' if stage=='L3' else 'Coba dahulu, lalu gunakan umpan balik untuk memperbaiki alasan.')+'</p></section><div class="class-question-list">';data=[]
    for tp in tps:
-    for q in providers[tp['slug']](tp['slug'],bank,form)[:3]:
+    for ci,c in enumerate(lessons[tp['slug']]['concepts'][:3]):
+     q=unique_case(tp['slug'],c,ci,'transfer')
      block,d=question(q,topic['slug']+'-'+stage,stage=='L3');body+=block;data.append(d)
    body+='</div>'+actions('Kirim jawaban lintas-TP')
    cfg={'version':4,'stage':stage,'questions':data,'threshold':75,'seconds':sum(q['seconds'] for q in data)}
@@ -194,12 +216,16 @@ def build():
   for mode,filename in [('practice','latihan-interaktif.html'),('real','interaktif.html')]:
    written.append(page(ROOT/'konten'/topic['slug']/'L3'/filename,'Latihan Unit Test' if mode=='practice' else 'Unit Test',topic['kode'],topic['nama'],'<div id="unit-host"><p>Memuat Unit Test…</p></div>',{'version':4,'stage':'unit','topic':topic['slug'],'unitMode':mode,'root':'../../../'},topic['slug']))
   for stage in ('L2','L4'):
-   body='<section class="class-card"><h2>Penyelidikan terpadu · '+E(TOPICS[topic['slug']]['title'])+'</h2><p>'+E(TOPICS[topic['slug']]['scene'])+'</p><p>Hubungkan sedikitnya dua model dari TP dalam topik ini. Ubah satu variabel, rekam tiga kondisi, dan nyatakan batas kesimpulanmu.</p></section>'
-   for tp in tps:
-    c=lessons[tp['slug']]['concepts'][-1];body+='<section class="class-lab"><h2>'+E(tp['judul'])+'</h2>'+lab(c['lab'])+items(c['explore'])+'</section>'
-   body+='<section class="class-card class-task">'+field('Pertanyaan penyelidikan dan prediksi','v3-'+stage+'-prediksi')+field('Model, variabel, data tiga kondisi dan perbandingannya','v3-'+stage+'-data',7)+field('Kesimpulan lintas-TP, alasan, batas model dan rancangan perbaikan','v3-'+stage+'-alasan',6)+'</section><section class="class-card"><h2>Kriteria bukti</h2><p>T1: mengumpulkan data tanpa model yang tepat. T2: model sebagian tepat tetapi hubungan antar-TP belum dijelaskan. T3: model, satuan, perbandingan data dan alasan lintas-TP tepat. T4: semua bukti T3 disertai pemeriksaan alternatif serta batas model yang jelas. Guru menilai bukti; tombol kirim tidak memberi tier secara otomatis.</p></section>'+actions('Kirim bukti penyelidikan')
-   written.append(page(ROOT/'konten'/topic['slug']/stage/'interaktif.html','Penyelidikan Lintas-TP',topic['kode'],topic['nama'],body,{'version':4,'stage':stage},topic['slug']))
- (ROOT/'assets/alur-p-data.js').write_text('window.FIWA_TP_HOOKS='+json.dumps(hooks,ensure_ascii=False)+';\nwindow.FIWA_TOPIC_HOOKS='+json.dumps(TOPICS,ensure_ascii=False)+';\n',encoding='utf-8')
+   isproject=stage=='L4';topicid=topic['slug']
+   scenario=(('Tim harus merancang pengiriman sampel yang tetap sampai pada baki ketika massa paket berubah. Pilih tinggi awal, bantalan kasar dan tinggi akhir; tentukan rentang rancangan, prediksi kondisi gagal, serta perbaikan yang layak.' if topicid=='f-use' else 'Tim menyiapkan stan pameran: alat dibawa dengan troli, lalu ditahan rak berkabel. Susun rancangan gaya dorong dan posisi beban yang memenuhi syarat gerak serta keseimbangan; sertakan uji kegagalan.') if isproject else ('Dua model bersaing untuk menjelaskan laju paket: energi mekanik selalu tetap, atau berkurang hanya pada bantalan kasar. Rancang pengujian terkontrol dan gunakan diagram energi untuk menentukan kondisi berlakunya tiap model.' if topicid=='f-use' else 'Dua model bersaing menjelaskan gerak dan kestabilan alat: cukup menjumlah besar semua gaya, atau perlu arah serta garis kerjanya. Bandingkan prediksi kedua model pada troli dan penyangga.'))
+   body='<section class="class-card"><h2>'+('Proyek rancangan dan optimasi' if isproject else 'Studio pengujian dua model')+'</h2><p>'+E(scenario)+'</p></section>'
+   for ti,tp in enumerate(tps):
+    c=lessons[tp['slug']]['concepts'][-1 if isproject else 1];model=copy.deepcopy(c['lab'])
+    if model['kind']=='energy':model['params'].update(h0=3.6 if isproject else 2.6,h=1.2 if isproject else .6,mu=.22 if isproject else .12,s=2,mode='friction')
+    body+='<section class="class-lab"><h3>'+E(tp['judul'])+'</h3>'+lab(model)+'</section>'
+   labels=(['Kriteria keberhasilan, batas rancangan dan variabel keputusan','Tabel uji tiga rancangan, prediksi dan hasil pengamatan','Pilihan rancangan, uji batas, kegagalan dan revisi akhir'] if isproject else ['Dua model yang dibandingkan dan perbedaan prediksinya','Rancangan percobaan terkontrol dan data pembeda model','Model yang didukung bukti serta kondisi yang membatasi kesimpulan'])
+   body+='<section class="class-card class-task">'+''.join(field(label,'v4-'+stage+'-'+str(i),6)for i,label in enumerate(labels))+'</section>'+actions('Kirim rancangan proyek'if isproject else'Kirim perbandingan model')
+   written.append(page(ROOT/'konten'/topicid/stage/'interaktif.html','Proyek Rekayasa'if isproject else'Studio Model',topic['kode'],topic['nama'],body,{'version':4,'stage':stage},topicid))
  out=ROOT/'dokumentasi/05-validasi/2026/11/konten-interaktif';out.mkdir(parents=True,exist_ok=True)
  (out/'struktur-konten.json').write_text(json.dumps({'version':4,'lessons':summary,'files':written},ensure_ascii=False,indent=2),encoding='utf-8')
  print(f'{len(summary)} TP, {sum(x["concepts"] for x in summary)} konsep interaktif, {len(written)} halaman edisi 4 ditulis.')

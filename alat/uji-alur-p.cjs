@@ -1,10 +1,12 @@
 /* Skenario regresi progres lama, percabangan, dan kesiapan alur P. */
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),source=fs.readFileSync(path.join(root,'assets/app.js'),'utf8');
-const listeners={},c={console,Date,URL,location:{hash:''},localStorage:{getItem:()=>null,setItem(){}},document:{addEventListener(e,fn){listeners[e]=fn},querySelector(){return null},querySelectorAll(){return []}},matchMedia:()=>({matches:true}),addEventListener(){},FIMS:{aku:{guru:false},modeGuru:()=>false,dorong(){}}};c.window=c;
+(async()=>{
+const listeners={},c={console,Date,URL,location:{hash:''},localStorage:{getItem:()=>null,setItem(){}},FIWA_SOUND:{},FIWA_STUDY:{sync(){},applyPanel(){}},document:{currentScript:{src:'https://local.test/assets/app.js'},styleSheets:[{href:'https://local.test/assets/alur-p.css'},{href:'https://local.test/assets/tema.css'},{href:'https://local.test/assets/teman-belajar.css'}],addEventListener(e,fn){listeners[e]=fn},querySelector(){return null},querySelectorAll(){return []}},matchMedia:()=>({matches:true}),addEventListener(){},FIMS:{aku:{guru:false},modeGuru:()=>false,dorong(){}}};c.window=c;
 vm.createContext(c);for(const f of ['alur-p.js','alur-p-data.js'])vm.runInContext(fs.readFileSync(path.join(root,'assets',f),'utf8'),c);
 const tail=`globalThis.testP={setCatalog:v=>K=v,setDB:v=>db=v,cariTP,hitung,hitungP,kunci,langkah,catat,cabangS9,tahapSelesai,latihanSiap,T,navigasiTahapan};})();`;
 vm.runInContext(source.slice(0,source.lastIndexOf("fetch('katalog.json').then"))+tail,c);
+await new Promise(setImmediate);
 const p=c.testP;p.setCatalog(JSON.parse(fs.readFileSync(path.join(root,'katalog.json'),'utf8')));const tp=p.cariTP('f-use-1-pra');
 let count=0;function check(name,fn){fn();count++;console.log('PASS '+name)}
 function seed(score){const t=Date.now()-5*864e5;const v={ev:{S1:{waktu:t},S2:{skor:80,waktu:t},S3:{waktu:t},S4:{waktu:t},S5:{waktu:t},S6:{waktu:t},S7:{waktu:t}},tier:null,s14:[],riwayat:[]};if(score!==null)v.ev.S8={skor:score,waktu:t};p.setDB({tp:{[tp.slug]:v},opsi:{}});return v;}
@@ -30,3 +32,5 @@ check('Canonical new route mapping',()=>{assert.equal(c.FIWA_ALUR.toOld['p10'],'
 check('Manual grade of a new practice also uses the 80-percent criterion',()=>{const d=seed(80);p.catat(tp,'S11',{skor:75});assert.equal(d.ev.S11.versi,tp.tahapan.S11.versi);assert.equal(p.latihanSiap(d.ev),false)});
 check('Failed spaced review restarts with the first interval',()=>{const d=seed(80);d.ev.S11={skor:80,versi:2,waktu:1};d.ev.S13={skor:80,waktu:3};d.tier=3;p.catat(tp,'S14',{skor:50});assert.ok(d.s14Mulai>d.s14[0].waktu);assert.equal(p.hitungP(d,tp).stabil,false)});
 console.log(JSON.stringify({passed:count}));
+
+})().catch(e=>{console.error(e);process.exitCode=1;});

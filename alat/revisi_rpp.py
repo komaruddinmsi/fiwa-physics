@@ -32,7 +32,12 @@ def align_sources(lessons,providers):
  old_providers=dict(providers)
  for slug,lesson in lessons.items():
   data=ALIGN[slug];lesson['hook']=copy.deepcopy(data['hook']);lesson['summary']=data['summary'];lesson['rpp_gates']=data['gates']
-  for c,w in zip(lesson['concepts'],data['worked']):c['worked']=copy.deepcopy(w)
+  for ci,(c,w) in enumerate(zip(lesson['concepts'],data['worked'])):
+   c['worked']=copy.deepcopy(w)
+   if slug in ('f-mek-1a','f-mek-1b'):
+    from kegiatan_unik import make as unique_case
+    q=unique_case(slug,c,ci,'concept');c['worked']={'scenario':q['prompt'],'steps':q['steps'],'result':q['explain']}
+
   base=old_providers[slug];fresh=energy.make_questions if slug.startswith('f-use') else newton.make_questions if slug in ('f-mek-1a','f-mek-1b') else vectorq.make_questions
   def make(slug,stage,form=1,base=base,fresh=fresh,lesson=lesson):
    qs=copy.deepcopy(fresh(slug,stage,form) if stage in ('P7','P9') else base(slug,stage,form))
@@ -70,6 +75,10 @@ def prepare_contracts(core):
    if q['bentuk']=='PGK':r['stem']='Pilih semua kesimpulan yang sesuai dengan data kasus ini. Lebih dari satu jawaban dapat benar.'
    elif q['bentuk']=='BS':r['stem']='Nilailah setiap pernyataan: pilih Benar atau Salah berdasarkan model pada stimulus.'
    else:r['stem']='Dari data pengujian ini, '+q['stem'][0].lower()+q['stem'][1:]
+   paraphrases={'besar resultan (jumlah vektor)':'nilai gabungan kedua vektor','Untuk dua gaya yang saling tegak lurus':'Jika kedua arah gaya membentuk sudut siku-siku','disebut langsung pada stimulus':'diperoleh dari deskripsi kasus','Angka itu terasa relevan karena':'Data tersebut berkaitan dengan','tidak masuk ke rumus':'tidak diperlukan dalam persamaan yang dipilih','yakni':'yaitu','karena':'sebab','diperlukan':'dibutuhkan','memakai':'menggunakan','terlebih dahulu':'lebih dulu','diberikan':'tersedia','diperoleh':'didapat','Hitung':'Tentukan','Kuadratkan':'Hitung kuadrat tiap besaran','Jumlahkan':'Gabungkan hasil penjumlahan','Tarik akar':'Ambil akar kuadratnya','Bandingkan dengan opsi':'Periksa juga pilihan','Jadi':'Dengan demikian'}
+   for field in ['pembahasan','review']:
+    for old,new in paraphrases.items():r[field]=re.sub(r'\b'+re.escape(old)+r'\b',lambda m:new,r[field])
+   assert r['pembahasan']!=q['pembahasan'],(topic,q['no'],'Pembahasan real masih identik')
    assert r['stimulus']!=q['stimulus'] and r['correct']==q['correct'],(topic,q['no'],q['stimulus'])
    real.append(r)
   unit[topic]={'practice':qs,'real':real}
@@ -89,7 +98,7 @@ def configure(core):
  E=core.E;lab=core.lab;items=core.items;paras=core.paras
  def worked(w):
   assert len(w['steps'])==7, w['scenario']
-  return '<section class="class-worked"><h3>Contoh terkerjakan</h3><p>'+E(prose(w['scenario']))+'</p><div class="solution-seven"><h4>Pembahasan</h4><ol>'+''.join('<li><strong>'+E(LABELS[i])+':</strong> '+E(prose(re.sub(r'^[^:]{1,65}:\s*','',x)))+'</li>'for i,x in enumerate(w['steps']))+'</ol></div><p class="worked-result">'+E(prose(w['result']))+'</p></section>'
+  return '<section class="class-worked"><h3>Contoh terkerjakan</h3><p>'+E(prose(w['scenario']))+'</p><div class="solution-seven"><h4>Pembahasan</h4><ol>'+''.join('<li><strong>'+E(LABELS[i])+':</strong> '+E(prose(re.sub(r'^[^:]{1,65}:\s*','',x)))+'</li>'for i,x in enumerate(w['steps']))+'</ol></div></section>'
  core.worked=worked
  original_question=core.question
  def question(q,prefix,protected=False):
@@ -115,7 +124,7 @@ def configure(core):
  def page(path,title,code,subtitle,body,config=None,topic=None):
   cfg={**(config or {}),'version':4};slug=next((s for s in ALIGN if '/'+s+'/' in str(path).replace('\\','/')),None)
   if cfg.get('stage')=='P1' and slug:
-   lesson=lesson_cache[slug];h=lesson['hook'];body='<section class="opening-frame"><span class="class-eyebrow">Opening · Coba pikirkan dulu</span><div class="opening-grid"><div><h2>'+E(h['title'])+'</h2><p class="class-lead">'+E(prose(h['scene']))+'</p><div class="hook-q"><b>Pertanyaan penggerak</b><p>'+E(prose(h['question']))+'</p></div><aside class="hook-memory"><h3>Ingat kembali</h3><p>'+E(lesson['concepts'][0]['question'])+'</p></aside><section class="hook-try"><h3>Coba sekarang</h3><p>Amati model. Simpan satu dugaan sebelum menekan Play; ubah satu parameter lalu bandingkan hasilnya.</p>'+''.join('<button class="hook-option" type="button">'+E(x)+'</button>'for x in h.get('options',[]))+'</section></div><div class="opening-visual">'+lab(h['lab'])+'</div></div><p class="opening-bridge">'+E(prose(h['bridge']))+'</p><a class="class-button" href="#tujuan">Lihat tujuan dan peta belajar</a></section><section class="class-card" id="tujuan"><span class="class-eyebrow">Tujuan pembelajaran</span><h2>Kemampuan yang akan kamu bangun</h2><p><b>'+E(meta_cache[slug].get('teks',''))+'</b></p>'+items(lesson['goals'])+'<nav class="roadmap">'+''.join('<a data-parent-route="tp-'+slug+'-p4-konsep-'+str(i)+'" data-tp-slug="'+slug+'" href="#tujuan"><b>'+str(i)+'</b><span>'+E(c['title'])+'</span><small>Konsep dan checkpoint</small></a>'for i,c in enumerate(lesson['concepts'],1))+'</nav></section>'+core.actions('Saya memahami tujuan belajar')
+   lesson=lesson_cache[slug];h=lesson['hook'];body='<section class="opening-frame"><span class="class-eyebrow">Opening · Coba pikirkan dulu</span><div class="opening-grid"><div><h2>'+E(h['title'])+'</h2><p class="class-lead">'+E(prose(h['scene']))+'</p><div class="hook-q"><b>Pertanyaan penggerak</b><p>'+E(prose(h['question']))+'</p></div><aside class="hook-memory"><h3>Ingat kembali</h3><p>'+E({'f-mek-1-pra':'Arah membedakan perpindahan dari jarak perjalanan.','f-mek-2':'Sebuah gaya memerlukan dua benda yang berinteraksi.','f-mek-1a':'Perubahan kecepatan ditentukan oleh resultan gaya pada benda yang dipilih.','f-mek-1b':'Letak garis kerja gaya memengaruhi kecenderungan putar.','f-use-1-pra':'Energi dapat berpindah melalui gaya sepanjang perpindahan.','f-use-1':'Acuan tinggi yang sama diperlukan ketika membandingkan dua keadaan.'}[slug])+'</p></aside><section class="hook-try"><h3>Coba sekarang</h3><p>Amati model. Simpan satu dugaan sebelum menekan Play; ubah satu parameter lalu bandingkan hasilnya.</p>'+''.join('<button class="hook-option" type="button">'+E(x)+'</button>'for x in h.get('options',[]))+'</section></div><div class="opening-visual">'+lab(h['lab'])+'</div></div><p class="opening-bridge">'+E(prose(h['bridge']))+'</p><a class="class-button" href="#tujuan">Lihat tujuan dan peta belajar</a></section><section class="class-card" id="tujuan"><span class="class-eyebrow">Tujuan pembelajaran</span><h2>Kemampuan yang akan kamu bangun</h2><p><b>'+E(meta_cache[slug].get('teks',''))+'</b></p>'+items([g for g in lesson['goals'] if g!=meta_cache[slug].get('teks','')])+'<nav class="roadmap">'+''.join('<a data-parent-route="tp-'+slug+'-p4-konsep-'+str(i)+'" data-tp-slug="'+slug+'" href="#tujuan"><b>'+str(i)+'</b><span>'+E(c['title'])+'</span><small>Konsep dan checkpoint</small></a>'for i,c in enumerate(lesson['concepts'],1))+'</nav></section>'+core.actions('Saya memahami tujuan belajar')
   if cfg.get('stage')=='P8' and slug:
    cards=[g for g in ALIGN[slug]['gates'] if g.get('optional')]
    body+='<section class="class-card"><h2>Tantangan T4 opsional</h2><p>Bagian ini menguji transfer mandiri dan tidak menurunkan bukti T3 yang sudah dicapai.</p>'+''.join('<details><summary>'+E(g['id']+' · '+g['title'])+'</summary><p>'+E(clean_prompt(g['prompt']))+'</p><p>'+E(g['rubric']['T4'])+'</p></details>'for g in cards)+'</section>'
