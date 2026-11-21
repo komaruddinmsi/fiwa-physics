@@ -1,4 +1,5 @@
 (function(){'use strict';const cfg=window.FIWA_CLASS||{},slug=cfg.tp,host=document.getElementById('gating-host');let fingerprint='',state=null,previewIndex=0,clockStart=0,clockGate='',busy=false;
+ function sound(name){try{const api=parent.FIWA_SOUND||window.FIWA_SOUND;if(api)api.play(name);}catch(_){}}
  const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  async function api(route,body){const r=await fetch('/api/'+route,{credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}:{})});const d=await r.json();if(!r.ok)throw Error(d.galat||'Belum dapat menghubungi layanan guru.');return d;}
  function adopt(d){try{if(d.data&&parent.FIMS&&parent.FIMS.terapkanProgres)parent.FIMS.terapkanProgres({[slug]:d.data});}catch(_){}}
@@ -13,7 +14,7 @@
   host.innerHTML=body;
   const preview=document.getElementById('gate-preview');if(preview)preview.addEventListener('change',()=>{previewIndex=Number(preview.value);display(d);});
   const text=q&&document.getElementById('gating-v4-'+q.id);if(text)text.addEventListener('input',()=>{if(!clockStart)clockStart=Date.now();});
-  const send=document.getElementById('gate-send');if(send&&!d.preview)send.addEventListener('click',async()=>{if(busy)return;const notice=document.getElementById('gate-notice');if(text.value.trim().length<5){notice.textContent='Tuliskan jawaban dan alasanmu dahulu.';text.focus();return;}busy=true;send.disabled=true;try{display(await api('gating/jawab',{tp:slug,gate:q.id,revision:st.revision,answer:text.value}));}catch(e){notice.textContent=e.message;send.disabled=false;}finally{busy=false;}});
+  const send=document.getElementById('gate-send');if(send&&!d.preview)send.addEventListener('click',async()=>{if(busy)return;const notice=document.getElementById('gate-notice');if(text.value.trim().length<5){notice.textContent='Tuliskan jawaban dan alasanmu dahulu.';text.focus();return;}busy=true;send.disabled=true;try{display(await api('gating/jawab',{tp:slug,gate:q.id,revision:st.revision,answer:text.value}));sound('record');}catch(e){notice.textContent=e.message;send.disabled=false;}finally{busy=false;}});
   if(window.FIMS_LEMBAR&&st.complete)FIMS_LEMBAR.lapor({selesai:true});updateClock();
  }
  function updateClock(){const out=document.getElementById('gate-clock');if(!out||!state)return;const q=state.preview?state.contract.gates[previewIndex]:state.state.current;if(!q)return;const remaining=Math.max(0,q.seconds-(clockStart?Math.floor((Date.now()-clockStart)/1000):0));out.textContent=Math.floor(remaining/60)+':'+String(remaining%60).padStart(2,'0');}

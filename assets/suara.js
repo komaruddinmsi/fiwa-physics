@@ -1,61 +1,18 @@
-/* Efek antarmuka opt-in. Tidak mengubah volume video, audio narasi, atau progres. */
-(function () {
-  'use strict';
-  const KEY = 'fiwa-sound-v1';
-  let prefs = { on: false, volume: 0.35 }, context, last = 0;
-  try { const p = JSON.parse(localStorage.getItem(KEY)); if (p) prefs = { on: p.on === true, volume: Number.isFinite(p.volume) ? Math.max(0, Math.min(1, p.volume)) : .35 }; } catch (_) {}
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (_) {} }
-  async function pop(force) {
-    if (!prefs.on || (!force && performance.now() - last < 65)) return false;
-    try {
-      const Audio = window.AudioContext || window.webkitAudioContext;
-      if (!Audio) { status('Peramban ini belum mendukung efek suara.'); return false; }
-      if (!context) context = new Audio();
-      if (context.state === 'suspended') await context.resume();
-      const t = context.currentTime, osc = context.createOscillator(), gain = context.createGain();
-      osc.type = 'sine'; osc.frequency.setValueAtTime(620, t); osc.frequency.exponentialRampToValueAtTime(250, t + .075);
-      gain.gain.setValueAtTime(.0001, t); gain.gain.exponentialRampToValueAtTime(Math.max(.0001, prefs.volume * .18), t + .008);
-      gain.gain.exponentialRampToValueAtTime(.0001, t + .09);
-      osc.connect(gain); gain.connect(context.destination); osc.start(t); osc.stop(t + .1);
-      osc.onended = () => { osc.disconnect(); gain.disconnect(); };
-      last = performance.now(); return true;
-    } catch (_) { status('Efek suara belum dapat diputar. Coba tekan Uji bunyi lagi.'); return false; }
-  }
-  function status(text) { const el = document.getElementById('sound-status'); if (el) el.textContent = text; }
-  function update() {
-    const en = document.documentElement.lang === 'en', btn = document.getElementById('sound-toggle');
-    if (btn) { btn.setAttribute('aria-label', en ? 'Sound settings' : 'Pengaturan bunyi'); btn.querySelector('span').textContent = en ? 'Sound' : 'Bunyi'; btn.dataset.on = String(prefs.on); }
-  }
-  function bind(doc) {
-    if (doc.__fiwaSound) return; doc.__fiwaSound = true;
-    doc.addEventListener('click', event => {
-      if (!event.isTrusted) return;
-      const el = event.target.closest('button,a[href],summary,input[type=checkbox],input[type=radio]');
-      if (el && !el.disabled && !el.closest('#sound-panel') && el.getAttribute('aria-disabled') !== 'true') pop(false);
-    }, true);
-    doc.addEventListener('load', event => {
-      if (event.target.tagName !== 'IFRAME') return;
-      try { if (event.target.contentDocument) bind(event.target.contentDocument); } catch (_) {}
-    }, true);
-    doc.querySelectorAll('iframe').forEach(frame => { try { if (frame.contentDocument) bind(frame.contentDocument); } catch (_) {} });
-  }
-  document.addEventListener('DOMContentLoaded', () => {
-    const button = document.getElementById('sound-toggle'), panel = document.getElementById('sound-panel');
-    if (!button || !panel) return;
-    const on = panel.querySelector('#sound-on'), volume = panel.querySelector('#sound-volume'), output = panel.querySelector('output');
-    on.checked = prefs.on; volume.value = String(Math.round(prefs.volume * 100)); output.value = volume.value + '%';
-    function close(returnFocus) { panel.hidden = true; button.setAttribute('aria-expanded', 'false'); if (returnFocus) button.focus(); }
-    button.addEventListener('click', () => { const open = panel.hidden; panel.hidden = !open; button.setAttribute('aria-expanded', String(open)); if (open) on.focus(); });
-    on.addEventListener('change', () => { prefs.on = on.checked; save(); update(); status(prefs.on ? 'Efek bunyi aktif.' : 'Efek bunyi nonaktif.'); if (prefs.on) pop(true); });
-    volume.addEventListener('input', () => { prefs.volume = Number(volume.value) / 100; output.value = volume.value + '%'; save(); });
-    panel.querySelector('#sound-test').addEventListener('click', async () => {
-      if (!prefs.on) return status('Aktifkan efek bunyi untuk mencoba.');
-      if (await pop(true)) status(prefs.volume === 0 ? 'Volume 0%. Naikkan volume untuk mendengar bunyi.' : 'Bunyi uji diputar.');
-    });
-    document.addEventListener('click', e => { if (!e.target.closest('.sound-menu')) close(false); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) close(true); });
-    window.addEventListener('hashchange', () => close(false));
-    document.addEventListener('fims:bahasa', update); bind(document); update();
-  });
-  window.FIWA_SOUND = { get: () => ({ ...prefs }), bind };
+/* Pola nada dari referensi Chemistry; tidak berbunyi sebelum tindakan pengguna. */
+(function(){'use strict';
+const KEY='fiwa-sound-v1',P={click:[[880,.05,0,.35,'triangle']],nav:[[520,.07,0,.4],[780,.08,.05,.3]],pick:[[420,.05,0,.35,'triangle']],drop:[[620,.06,0,.45,'triangle'],[930,.06,.04,.3,'triangle']],correct:[[660,.12,0,.6],[990,.18,.09,.5]],wrong:[[300,.16,0,.45,'triangle'],[260,.16,.08,.35,'triangle']],complete:[[523,.14,0,.5],[659,.14,.1,.5],[784,.24,.2,.5]],record:[[740,.06,0,.4],[740,.06,.08,.3]],start:[[392,.09,0,.45],[587,.12,.07,.4]],reset:[[587,.08,0,.4],[392,.12,.06,.35]],drip:[[1200,.04,0,.25],[900,.05,.02,.15]]};
+let prefs={on:false,volume:.35},context=null,unlocked=false,last={};try{const p=JSON.parse(localStorage.getItem(KEY));if(p)prefs={on:p.on===true,volume:Number.isFinite(p.volume)?Math.max(0,Math.min(1,p.volume)):.35};}catch(_){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(prefs));}catch(_){}}
+function status(t){const el=document.getElementById('sound-status');if(el)el.textContent=t;}
+async function play(name='click',force=false){if(!prefs.on||!unlocked||prefs.volume<=0)return false;const now=performance.now();if(!force&&((last[name]!=null&&now-last[name]<90)||(last.any!=null&&now-last.any<35)))return false;
+try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio){status('Peramban belum mendukung efek bunyi.');return false;}if(!context)context=new Audio();if(context.state==='suspended')await context.resume();const seq=P[name]||P.click,t0=context.currentTime+.01,master=context.createGain();master.gain.value=prefs.volume*.35;master.connect(context.destination);let remaining=seq.length;
+for(const[f,d,start=0,g=1,type='sine']of seq){const o=context.createOscillator(),gain=context.createGain();o.type=type;o.frequency.setValueAtTime(f,t0+start);gain.gain.setValueAtTime(.0001,t0+start);gain.gain.exponentialRampToValueAtTime(.6*g,t0+start+.012);gain.gain.exponentialRampToValueAtTime(.0001,t0+start+d);o.connect(gain);gain.connect(master);o.start(t0+start);o.stop(t0+start+d+.02);o.onended=()=>{o.disconnect();gain.disconnect();if(!--remaining)master.disconnect();};}last[name]=now;last.any=now;return true;}catch(_){status('Bunyi belum dapat diputar. Coba Uji bunyi setelah mengaktifkannya.');return false;}}
+function bind(doc){if(!doc||doc.__fiwaSoundV2)return;doc.__fiwaSoundV2=true;const unlock=e=>{if(e.isTrusted)unlocked=true;};doc.addEventListener('pointerdown',unlock,true);doc.addEventListener('keydown',unlock,true);
+doc.addEventListener('click',e=>{if(!e.isTrusted)return;unlocked=true;const el=e.target.closest('button,a[href],summary,input[type=checkbox],input[type=radio]');if(!el||el.disabled||el.getAttribute('aria-disabled')==='true'||el.closest('#sound-panel'))return;if(el.matches('[data-check-one],#class-submit,#unit-check,#unit-submit,#gate-send'))return;play(el.matches('[data-play],#class-start')?'start':el.matches('[data-reset],[data-lab-reset],#ulang')?'reset':el.matches('a[href]')?'nav':el.matches('input[type=radio],input[type=checkbox],.hook-option')?'pick':'click');},true);
+doc.addEventListener('change',e=>{if(e.isTrusted&&e.target.matches('select')&&!e.target.closest('#sound-panel')){unlocked=true;play('pick');}},true);doc.addEventListener('load',e=>{if(e.target.tagName==='IFRAME')try{bind(e.target.contentDocument);}catch(_){}},true);doc.querySelectorAll('iframe').forEach(f=>{try{bind(f.contentDocument);}catch(_){}});}
+function update(){const btn=document.getElementById('sound-toggle');if(!btn)return;const en=document.documentElement.lang==='en';btn.setAttribute('aria-label',en?'Sound settings':'Pengaturan bunyi');const label=btn.querySelector('span');if(label)label.textContent=en?'Sound':'Bunyi';btn.dataset.on=String(prefs.on);}
+function init(){bind(document);let button=document.getElementById('sound-toggle'),panel=document.getElementById('sound-panel');if(!button){const nav=document.querySelector('.nav');if(!nav)return;const menu=document.createElement('div');menu.className='sound-menu';menu.innerHTML='<button type="button" id="sound-toggle" class="sound-trigger" aria-label="Pengaturan bunyi" aria-expanded="false" aria-controls="sound-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 5 9H2v6h3l6 5Z M15 8a6 6 0 0 1 0 8 M18 5a10 10 0 0 1 0 14"/></svg><span>Bunyi</span></button><section id="sound-panel" class="sound-panel" aria-labelledby="sound-heading" hidden><h2 id="sound-heading">Efek bunyi</h2><label for="sound-on">Aktifkan bunyi <input type="checkbox" id="sound-on"></label><label for="sound-volume">Volume <input type="range" id="sound-volume" min="0" max="100" value="35"></label><output for="sound-volume">35%</output><p>Bunyi mengikuti tindakanmu. Setiap hasil juga ditampilkan secara visual.</p><button type="button" id="sound-test" class="btn ghost">Uji bunyi</button><p id="sound-status" role="status" aria-live="polite"></p></section>';nav.insertBefore(menu,nav.querySelector('.lang'));button=menu.querySelector('button');panel=menu.querySelector('section');}
+if(!panel||panel.dataset.soundBound)return;panel.dataset.soundBound='1';const on=panel.querySelector('#sound-on'),volume=panel.querySelector('#sound-volume'),output=panel.querySelector('output');on.checked=prefs.on;volume.value=Math.round(prefs.volume*100);output.value=volume.value+'%';function close(focus){panel.hidden=true;button.setAttribute('aria-expanded','false');if(focus)button.focus();}
+button.addEventListener('click',()=>{const open=panel.hidden;panel.hidden=!open;button.setAttribute('aria-expanded',String(open));if(open)on.focus();});on.addEventListener('change',e=>{if(e.isTrusted)unlocked=true;prefs.on=on.checked;save();update();status(prefs.on?'Efek bunyi aktif.':'Efek bunyi nonaktif.');if(prefs.on)play('click',true);});volume.addEventListener('input',()=>{prefs.volume=Number(volume.value)/100;output.value=volume.value+'%';save();});panel.querySelector('#sound-test').addEventListener('click',async e=>{if(e.isTrusted)unlocked=true;if(!prefs.on)return status('Aktifkan efek bunyi untuk mencoba.');if(prefs.volume===0)return status('Volume 0%. Naikkan volume untuk mendengar bunyi.');if(await play('correct',true))status('Dua nada uji diputar seperti contoh.');});document.addEventListener('click',e=>{if(!e.target.closest('.sound-menu'))close(false);});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)close(true);});window.addEventListener('hashchange',()=>close(false));document.addEventListener('fims:bahasa',update);update();}
+window.FIWA_SOUND={get:()=>({...prefs}),bind,play,patterns:P};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

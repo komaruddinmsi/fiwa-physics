@@ -1,0 +1,32 @@
+/* Tombol tetap terjangkau; lipatan tidak membangun ulang iframe. */
+.study-panel-controls{position:sticky;top:calc(var(--header-height,82px) + 6px);z-index:20;display:flex;justify-content:flex-start;pointer-events:none;min-height:44px}
+.study-panel-button{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:9px 15px;border:1px solid var(--line-kuat);border-radius:999px;background:var(--surface);color:var(--fg);font:800 .875rem var(--body);box-shadow:var(--shadow);cursor:pointer;pointer-events:auto}
+.study-panel-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;flex:none}
+.study-panel-button[aria-expanded=false] svg rect:last-child{fill:var(--accent-soft)}
+.study-panel-button:hover{border-color:var(--biru);background:var(--surface-2)}
+.study-panel-button:focus-visible,.owl-dismiss:focus-visible{outline:3px solid var(--biru);outline-offset:4px}
+.study-layout.is-rail-hidden{grid-template-columns:minmax(0,1fr)}
+.study-layout>.study-rail{top:calc(var(--header-height,82px) + 62px);max-height:calc(100dvh - var(--header-height,82px) - 78px)}
+.study-rail[hidden]{display:none}
+.study-owl{position:fixed;z-index:45;height:149px;pointer-events:none;isolation:isolate}
+.owl-flight{width:112px;position:absolute;top:0;left:0;animation:owl-fly 6s ease-in-out infinite;will-change:transform}
+.owl-dismiss{position:relative;display:block;width:112px;height:140px;padding:0;border:0;border-radius:24px;background:transparent;color:var(--fg);cursor:pointer;pointer-events:auto;filter:drop-shadow(0 4px 4px rgb(8 33 56/.16))}
+.owl-dismiss svg{display:block;width:112px;height:140px;overflow:visible}
+.owl-body{transform-origin:56px 70px;animation:owl-bob 1.4s ease-in-out infinite}
+.owl-wing-left{transform-origin:31px 43px;animation:owl-flap-left .65s ease-in-out infinite alternate}
+.owl-wing-right{transform-origin:81px 43px;animation:owl-flap-right .65s ease-in-out infinite alternate}
+.owl-eyes{transform-origin:56px 46px;animation:owl-blink 5s infinite}
+.owl-flag{transform-origin:31px 94px;animation:owl-flag 1.3s ease-in-out infinite alternate}
+.owl-close{position:absolute;top:4px;right:0;display:grid;place-items:center;width:23px;height:23px;background:var(--surface);border:1px solid var(--line-kuat);border-radius:50%;font:800 17px var(--body)}
+.owl-caption{position:absolute;top:142px;left:0;max-width:100%;margin:0;padding:4px 9px;border:1px solid var(--line-kuat);border-radius:10px;background:var(--surface);color:var(--fg);font:800 .8125rem var(--body);line-height:1.3;box-shadow:var(--shadow);pointer-events:none}
+@keyframes owl-fly{0%,100%{transform:translateX(0)}50%{transform:translateX(var(--owl-travel,140px))}}
+@keyframes owl-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes owl-flap-left{from{transform:rotate(18deg)}to{transform:rotate(-32deg)}}
+@keyframes owl-flap-right{from{transform:rotate(-18deg)}to{transform:rotate(32deg)}}
+@keyframes owl-blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.12)}}
+@keyframes owl-flag{from{transform:skewY(-2deg)}to{transform:skewY(2deg)}}
+.study-owl.reduced-motion *{animation:none!important;will-change:auto}
+@media(prefers-reduced-motion:reduce){.study-owl *{animation:none!important;will-change:auto}}
+@media(max-width:600px){.study-panel-controls{top:calc(var(--header-height,82px) + 4px)}.study-panel-button{padding:9px 12px}.owl-caption{font-size:.8125rem}}
+@media(max-width:899px){.study-layout>.study-rail{max-height:none}}
+@media print{.study-panel-controls,.study-owl{display:none!important}}

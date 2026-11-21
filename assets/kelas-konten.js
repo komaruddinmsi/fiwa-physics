@@ -1,4 +1,4 @@
-/* Interaksi materi v3, penilaian per butir, waktu rekomendasi, dan pemulihan jawaban. */
+/* Interaksi materi v4.1, penilaian per butir, waktu rekomendasi, dan pemulihan jawaban. */
 (function () {
  'use strict';
  const config=window.FIWA_CLASS||{},stage=config.stage||'',version=Number(config.version||3);
@@ -9,6 +9,7 @@
  let first=null,last=null,attempts=0,done=false,submitted=false,started=0,checked={},timer;
  const finish=document.getElementById('class-submit'),result=document.getElementById('class-result');
  const answerElement=q=>document.getElementById(q.id),numeric=s=>{const value=String(s).trim().replace(/−/g,'-').replace(',','.');return /^[-+]?\d*\.?\d+$/.test(value)?Number(value):null;};
+ function sound(name){try{const api=parent.FIWA_SOUND||window.FIWA_SOUND;if(api)api.play(name);}catch(_){}}
  function message(text){if(result)result.textContent=text;}
  async function digest(value){if(!window.crypto||!crypto.subtle)throw Error('Peramban belum mendukung pemeriksaan ini.');const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));return Array.from(new Uint8Array(bytes),n=>n.toString(16).padStart(2,'0')).join('');}
  async function correct(q){const e=answerElement(q);if(!e||!e.value.trim())return false;
@@ -32,7 +33,7 @@
   try{
    const flags=await Promise.all(questions.map(correct)),count=flags.filter(Boolean).length,score=Math.round(100*count/questions.length),wrong=questions.filter((_,i)=>!flags[i]);
    if(first===null)first=score;last=score;attempts++;submitted=true;done=['P5','P9','P10','L3'].includes(stage)||score>=Number(config.threshold||80);
-   questions.forEach((q,i)=>feedback(q,flags[i]));
+   questions.forEach((q,i)=>feedback(q,flags[i]));sound(done?'complete':'wrong');
    const byIndicator={};wrong.forEach(q=>{byIndicator[q.indicator]=(byIndicator[q.indicator]||0)+1;});
    const main=Object.keys(byIndicator).sort((a,b)=>byIndicator[b]-byIndicator[a])[0];const proposedFocus=(config.indicators||[]).indexOf(main)+1;
    let text=count+' dari '+questions.length+' tepat ('+score+'%). Hasil percobaan mandiri pertama: '+first+'%. ';
@@ -52,14 +53,14 @@
  if(document.getElementById('class-clock-value')){updateClock();timer=setInterval(updateClock,1000);}
  document.addEventListener('input',event=>{if(event.target.closest('.class-question')&&!started)started=Date.now();});
  document.addEventListener('change',event=>{const id=event.target.dataset.choiceFor;if(id){document.getElementById(id).value=event.target.value;}});
- document.querySelectorAll('[data-check-one]').forEach(button=>button.addEventListener('click',async()=>{const id=button.dataset.checkOne,q=(config.checks||[]).find(q=>q.id===id),e=q&&answerElement(q);if(!q||!e||!e.value.trim()){message('Coba jawab checkpoint dahulu.');if(q)focusQuestion(q);return;}const ok=await correct(q);checked[id]=ok;feedback(q,ok);const status=button.nextElementSibling;if(status)status.textContent=ok?'Checkpoint tepat. Hubungkan kembali dengan visual konsepnya.':'Tinjau kembali visual dan pembahasan, lalu coba kembali.';}));
+ document.querySelectorAll('[data-check-one]').forEach(button=>button.addEventListener('click',async()=>{const id=button.dataset.checkOne,q=(config.checks||[]).find(q=>q.id===id),e=q&&answerElement(q);if(!q||!e||!e.value.trim()){message('Coba jawab checkpoint dahulu.');if(q)focusQuestion(q);return;}const ok=await correct(q);checked[id]=ok;feedback(q,ok);sound(ok?'correct':'wrong');const status=button.nextElementSibling;if(status)status.textContent=ok?'Checkpoint tepat. Hubungkan kembali dengan visual konsepnya.':'Tinjau kembali visual dan pembahasan, lalu coba kembali.';}));
  if(finish)finish.addEventListener('click',()=>{
   if(questions.length){grade();return;}
   if(stage==='P4'){
    const pending=(config.checks||[]).find(q=>!checked[q.id]);if(pending){message('Selesaikan seluruh checkpoint dengan tepat sebelum menyimpan penyelesaian konsep.');focusQuestion(pending);return;}
   }
   const required=Array.from(document.querySelectorAll('[data-required]')).find(e=>!e.value.trim());if(required){message('Lengkapi catatan atau bukti yang diminta sebelum mengirim.');required.focus();return;}
-  done=true;submitted=true;message(stage==='P8'?'Bukti penerapan terkirim. Guru akan menilai menggunakan rubrik.':'Penyelesaian tercatat. Lanjutkan kegiatan berikutnya pada panel kiri.');report(null);
+  done=true;submitted=true;sound('record');message(stage==='P8'?'Bukti penerapan terkirim. Guru akan menilai menggunakan rubrik.':'Penyelesaian tercatat. Lanjutkan kegiatan berikutnya pada panel kiri.');report(null);
  });
  window.FIMS_RINGKAS=()=>({selesai:done,skor:last,terisi:questions.length?questions.filter(q=>answerElement(q)&&answerElement(q).value.trim()).length:Array.from(document.querySelectorAll('[data-required]')).filter(e=>e.value.trim()).length,total:questions.length||document.querySelectorAll('[data-required]').length});
  window.FIMS_KEADAAN=()=>({version,first,last,attempts,done,submitted,started,checked,cycle,focus});

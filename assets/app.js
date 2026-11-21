@@ -2,8 +2,20 @@
    Data kurikulum: katalog.json (dibuat build.js). Progres siswa: localStorage perangkat ini.
    Halaman tahapan boleh melapor skor:  parent.postMessage({fims:'skor', skor:85}, '*')
    atau selesai tanpa skor:              parent.postMessage({fims:'selesai'}, '*')            */
-(function () {
+(async function () {
 'use strict';
+try{
+ const base=new URL('.',document.currentScript.src);
+ async function requireScript(file,ready){if(ready())return;await new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=new URL(file+'?v=20261121c',base);el.onload=resolve;el.onerror=()=>reject(Error('Berkas pendukung belum lengkap: '+file));document.head.appendChild(el);});if(!ready())throw Error('Berkas pendukung tidak cocok: '+file);}
+ await requireScript('alur-p.js',()=>!!window.FIWA_ALUR);
+ await requireScript('alur-p-data.js',()=>!!window.FIWA_TP_HOOKS);
+ await requireScript('suara.js',()=>!!window.FIWA_SOUND);
+ await requireScript('teman-belajar.js',()=>!!window.FIWA_STUDY);
+ for(const file of ['alur-p.css','tema.css','teman-belajar.css'])if(![...document.styleSheets].some(s=>s.href&&new URL(s.href).pathname.endsWith('/'+file))){const el=document.createElement('link');el.rel='stylesheet';el.href=new URL(file+'?v=20261121c',base);document.head.appendChild(el);}
+ window.FIWA_ALUR.decorate(document);
+}catch(e){const app=document.getElementById('app');if(app){app.textContent=e.message+' — unggah assets dan index.html dari versi yang sama, lalu muat ulang.';app.setAttribute('role','alert');}return;}
+function currentFile(file){const url=new URL(file,location.href);if(url.origin===location.origin&&/\.html?$/i.test(url.pathname))url.searchParams.set('v','20261121c');return url.href;}
+
 
 /* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
 const EN = {
@@ -654,7 +666,7 @@ function halPaket(t, slugP) {
     <div class="row" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
       <span class="muted" style="font-size:.85rem">${tr('Dokumen ini berdiri sendiri: nilai dan pembahasan muncul di dalam lembar itu sendiri, tidak masuk ke progres jalur belajar.')}</span>
       <a class="btn ghost" href="${esc(p.berkas)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></div>
-    <iframe class="frame frame-penuh" src="${esc(p.berkas)}" title="${esc(p.judul)}"></iframe>
+    <iframe class="frame frame-penuh" src="${esc(currentFile(p.berkas))}" title="${esc(p.judul)}"></iframe>
     <p><a class="btn ghost" href="#topik-${t.slug}">← ${tr('Kembali ke daftar paket')}</a></p></div>`;
 }
 
@@ -667,7 +679,7 @@ function halPembuka(t) {
   const tp1 = t.tp[0];
   return `${kepala}
     <div class="row" style="justify-content:flex-end"><a class="btn ghost" href="${esc(t.pembuka.berkas)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a></div>
-    <iframe class="frame frame-penuh" src="${esc(t.pembuka.berkas)}" title="${tr('Fenomena Dunia Nyata')}"></iframe>
+    <iframe class="frame frame-penuh" src="${esc(currentFile(t.pembuka.berkas))}" title="${tr('Fenomena Dunia Nyata')}"></iframe>
     <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="PEMBUKA"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div>
     <p class="row" style="gap:.5rem;flex-wrap:wrap">
       ${tp1 ? `<a class="btn" href="#tp-${tp1.slug}-p1">${tr('Lanjut ke')} ${esc(tp1.kode)} · S1 →</a>` : ''}
@@ -748,7 +760,7 @@ function navigasiTahapan(tp, aktif, h) {
   }
   const others=t.tp.map(p=>{const lock=kunciTP(p);return lock?`<div><small>${esc(p.kode)} · ${tr('Terkunci')}</small><strong>${esc(p.judul)}</strong></div>`:`<a href="#tp-${p.slug}-p1" class="${p.slug===tp.slug?'current':''}"><small>${esc(p.kode)}</small><strong>${esc(p.judul)}</strong></a>`;}).join('');
   const completed=groups.filter(groupDone).length;
-  return `<aside class="study-rail" data-study-tp="${esc(tp.slug)}" aria-label="Urutan P1 sampai P10"><a class="study-course" href="#topik-${t.slug}">${physicsIcon('atom')}<span><strong>${esc(t.nama)}</strong><small>${esc(tp.kode)}</small></span></a><div class="study-progress"><div class="row"><span id="stage-progress-label">${tr('Tahapan selesai')}</span><b>${completed} / 10</b></div><progress max="10" value="${completed}" aria-labelledby="stage-progress-label"></progress></div><button class="study-rail-toggle" type="button" data-study-toggle aria-expanded="${window.matchMedia('(min-width: 900px)').matches}" aria-controls="study-rail-list">${tr('Urutan tahapan')}${physicsIcon('chevron')}</button><div class="study-rail-scroll" id="study-rail-list"${window.matchMedia('(min-width: 900px)').matches?'':' hidden'}><nav aria-label="P1 sampai P9"><ol class="study-steps">${groups.slice(0,9).map(item).join('')}</ol></nav><div class="study-review"><ol class="study-steps">${item(groups[9])}</ol></div><nav class="study-other" aria-label="Tujuan pembelajaran lain">${others}</nav></div><div class="study-rail-footer" aria-hidden="true">${physicsIcon('wave')}</div></aside>`;
+  return `<aside class="study-rail" id="study-stage-panel" data-study-tp="${esc(tp.slug)}" aria-label="Urutan P1 sampai P10"><a class="study-course" href="#topik-${t.slug}">${physicsIcon('atom')}<span><strong>${esc(t.nama)}</strong><small>${esc(tp.kode)}</small></span></a><div class="study-progress"><div class="row"><span id="stage-progress-label">${tr('Tahapan selesai')}</span><b>${completed} / 10</b></div><progress max="10" value="${completed}" aria-labelledby="stage-progress-label"></progress></div><button class="study-rail-toggle" type="button" data-study-toggle aria-expanded="${window.matchMedia('(min-width: 900px)').matches}" aria-controls="study-rail-list">${tr('Urutan tahapan')}${physicsIcon('chevron')}</button><div class="study-rail-scroll" id="study-rail-list"${window.matchMedia('(min-width: 900px)').matches?'':' hidden'}><nav aria-label="P1 sampai P9"><ol class="study-steps">${groups.slice(0,9).map(item).join('')}</ol></nav><div class="study-review"><ol class="study-steps">${item(groups[9])}</ol></div><nav class="study-other" aria-label="Tujuan pembelajaran lain">${others}</nav></div><div class="study-rail-footer" aria-hidden="true">${physicsIcon('wave')}</div></aside>`;
 }
 
 function bukaDaftarTahapan(rail, open) {
@@ -774,6 +786,7 @@ function segarkanNavigasiTahapan(tp, id, h) {
   rail.outerHTML = navigasiTahapan(tp, id, h);
   const baru = document.querySelector('.study-rail'); bukaDaftarTahapan(baru, open);
   posisikanTahapan(baru, top);
+  FIWA_STUDY.applyPanel();
 }
 
 function pengantarTP(tp) { return viewer(tp,'S1',hitung(tp)); }
@@ -800,6 +813,7 @@ function halTP(tp, aktif) {
   const ladder = STATUS.map((n, i) => `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${tr(n)}</div>`).join('');
   const lengkap = TAHAPAN.filter(s => s.rangka && !tp.tahapan[s.id]).map(s => s.id);
   return `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${esc(tp.kode)}</div>
+    <div class="study-panel-controls"><button type="button" class="study-panel-button" data-study-panel aria-expanded="true" aria-controls="study-stage-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><rect x="3" y="4" width="6" height="16" rx="2"/></svg><span>Sembunyikan tahapan</span></button></div>
     <div class="study-layout">${navigasiTahapan(tp, aktif, h)}<div class="study-main">
     <header class="study-heading"><div class="row"><span class="tp-label">${esc(tp.kode)}${tp.bloom ? ' · Bloom ' + esc(tp.bloom) : ''}</span><span class="row">${chip(h.s, h.stabil)}${tierTag(h.tier)}</span></div>
       <h1>${esc(tp.judul)}</h1>${tp.teks && aktif && aktif!=='S1' ? `<p class="muted">${esc(tp.teks)}</p>` : ''}
@@ -875,6 +889,20 @@ function bagianBawah(tp, id, h, aksi) {
     ${petunjukLanjut(tp, id)}`;
 }
 
+// Membaca kunci yang sama dengan menu. Hanya akun siswa asli; tidak memberi nilai.
+function segarkanTemanBelajar() {
+  const a=window.FIMS&&FIMS.aku, account=a&&a.peran==='siswa'&&!a.guru?a.email:null, entries=[];
+  if(account) for(const tp of semuaTP()) {
+    if(kunciTP(tp))continue;
+    const p=prog(tp.slug),h={...hitungP(p,tp),e:p.ev,p,amb:tp.ambang||75};
+    const stages=FIWA_ALUR.groups.map(g=>[g[2][0],g[0]])
+      .concat([['S5','P4 · Diskusi'],['S6','P4 · Contoh'],['S7','P4 · Praktik']]);
+    for(const [id,label] of stages)if(tp.tahapan[id]&&!kunci(tp,id,h)&&!(id==='S9'&&cabangS9(h)==='skip'))
+      entries.push({key:tp.slug+':'+id,label:tp.kode+' · '+label});
+  }
+  FIWA_STUDY.sync({account,entries});
+}
+
 // Menyegarkan tampilan sesudah skor masuk TANPA memuat ulang lembarnya,
 // supaya jawaban yang sudah diketik siswa tidak hilang saat ia diminta memperbaiki nomor tertentu.
 function segarkanSetelahSkor() {
@@ -889,6 +917,7 @@ function segarkanSetelahSkor() {
   const tangga = document.querySelector('.ladder');
   if (tangga) tangga.innerHTML = STATUS.map((n, i) =>
     `<div class="${i <= h.s && i > 0 ? 'on st' + i : ''}${i === 0 && h.s === 0 ? ' on' : ''}">${tr(n)}</div>`).join('');
+  segarkanTemanBelajar();
 }
 
 function pilihanFokus(tp,chosen=0) { const names=(window.FIWA_TP_HOOKS[(tp||{}).slug]||{}).concepts||[]; return `<label>Fokus tindak lanjut P6<select class="fokus-p6"><option value="0">Campuran konsep utama</option>${names.map((n,i)=>`<option value="${i+1}"${Number(chosen)===i+1?' selected':''}>${esc(n)}</option>`).join('')}</select></label>`; }
@@ -940,7 +969,7 @@ function viewer(tp, id, h) {
         esc(rs.nama || tr('Gurumu')), tgl(rs.pada), rs.alasan ? ' — ' + esc(rs.alasan) : '')}</div>` : '';
   return `<section class="viewer" id="viewer">${awal}${bukaUlang}<div class="row" style="justify-content:space-between"><h2>${FIWA_ALUR.toPublic[id]} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(id==='S8'&&tp.tahapan.S8&&tp.tahapan.S8.versi>=4?'T3/T4 pada setiap gerbang inti':s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
-    <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>
+    <iframe class="frame" src="${esc(currentFile(f.berkas))}" title="${esc(tr(s.nama))}"></iframe>
     <div id="viewer-bawah">${bagianBawah(tp, id, h, aksi)}</div>
     <div id="bahan" class="bahan" data-topik="${esc(topikDariTP(tp).slug)}" data-tp="${esc(tp.kode)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></section>`;
 }
@@ -982,7 +1011,7 @@ function halLapis(t, id, sub) {
 
   if(id==='L3'&&unitLocked&&pilih==='utama')return `${kepala}${tab}<section class="panel" data-unit-status="${t.slug}"><h2>Selesaikan Latihan Unit Test dahulu</h2><p>Unit Test baru terbuka setelah seluruh nomor latihan dikirim. Soal latihan dan ujian berpasangan menurut keterampilan serta langkah solusi.</p><a class="btn" href="#topik-${t.slug}-l3-latihan">Buka Latihan Unit Test</a></section></div>`;
   return `${kepala}${tab}
-    <iframe class="frame" src="${esc(berkas)}" title="${esc(tr(l.nama))}"></iframe>
+    <iframe class="frame" src="${esc(currentFile(berkas))}" title="${esc(tr(l.nama))}"></iframe>
     <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></div>`;
 }
 
@@ -1106,7 +1135,7 @@ function isiPemutar(el, it) {
     return;
   }
   const luar = /^https?:/i.test(alamat);
-  el.innerHTML = `<iframe class="mbingkai ${it.tipe === 'bacaan' ? 'mbaca' : ''}" src="${esc(alamat)}"
+  el.innerHTML = `<iframe class="mbingkai ${it.tipe === 'bacaan' ? 'mbaca' : ''}" src="${esc(currentFile(alamat))}"
       title="${esc(it.judul || '')}" loading="lazy" allowfullscreen></iframe>
     <p class="mkaki"><a href="${esc(alamat)}" target="_blank" rel="noopener">${tr('Buka penuh di tab baru')} ↗</a>${
       luar ? `<br><span class="mluar">${tr('Bahan ini dari situs luar. Bila kotaknya tetap kosong, situs itu menolak ditampilkan di dalam halaman — pakai tautan di atas.')}</span>` : ''}</p>`;
@@ -1434,7 +1463,7 @@ document.addEventListener('fims:progres', ev => {
   }
   try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) {}     // data dari peladen: tidak didorong balik
   // Lembar isian yang sedang terbuka (paket, lapis, pembuka) jangan dimuat ulang: jawaban yang diketik akan hilang.
-  if (/-p-|-l[1-4](-latihan)?$|-pembuka$/.test(location.hash)) return;
+  if (/-p-|-l[1-4](-latihan)?$|-pembuka$/.test(location.hash)) { segarkanTemanBelajar(); return; }
   if (cur && !tahapanIniBerubah) { segarkanSetelahSkor(); return; }       // lembar tahapan tetap hidup
   render();
 });
@@ -1499,6 +1528,7 @@ function render() {
   isiBahan();
   isiPapanKelas();
   window.scrollTo(0, 0);
+  segarkanTemanBelajar();
 }
 
 function tpDariHash() { if(cur)return cur.tp;const m=location.hash.match(/^#tp-(.+)$/);return m?cariTP(m[1]):null; }
