@@ -69,22 +69,24 @@
       s+=text(35,42,p.ref==='y'?'Acuan sudut: sumbu y':'Acuan sudut: sumbu x',ink,23)+text(35,78,'Sudut = '+fmt(v.shownAngle)+'°',ink,23);
       title='Gaya dan dua komponen tegak lurus dengan acuan sudut yang dinyatakan';
     }else if(kind==='incline'){
-      const a=rad(p.theta),cx=325,cy=170,c=Math.cos(a),sin=Math.sin(a),scale=130/Math.max(200,p.W),half=Math.min(240,100/Math.max(.01,Math.abs(sin))),lx=cx-half*c,ly=cy+half*sin;
+      const a=rad(p.theta),cx=325,cy=170,c=Math.cos(a),sin=Math.sin(a),scale=80/Math.max(200,p.W),half=Math.min(240,100/Math.max(.01,Math.abs(sin))),lx=cx-half*c,ly=cy+half*sin;
       s+=line(lx,ly,cx+half*c,cy-half*sin,ink,5)+line(lx,ly,lx+115,ly,grid,2,'5 5')+arc(lx,ly,38,0,-p.theta);
-      s+=`<g transform="translate(${cx},${cy-12}) rotate(${-p.theta})">${rect(-32,-27,64,36)}</g>`;
+      const travel=(options.inclineDistance||0)*25;
+      s+=`<g transform="translate(${cx-travel*c},${cy-12+travel*sin}) rotate(${-p.theta})">${rect(-32,-27,64,36)}</g>`;
+      s+=`<g transform="translate(${-travel*c},${travel*sin})">`;
       s+=arrow(cx,cy,0,p.W*scale,blue)+text(cx-40,cy+p.W*scale+27,!isStatic&&Math.abs(v.parallel)<1e-8?'W = W⊥':!isStatic&&Math.abs(v.normal)<1e-8?'W = W∥':'W',blue);
       if(!isStatic&&Math.abs(v.parallel)>1e-8&&Math.abs(v.normal)>1e-8)s+=arrow(cx,cy,-v.parallel*c*scale,v.parallel*sin*scale,orange)+text(cx-100,cy-24,'W∥',orange)+arrow(cx,cy,v.normal*sin*scale,v.normal*c*scale,green)+text(cx+v.normal*sin*scale+15,cy+v.normal*c*scale-10,'W⊥',green);
-      s+=text(32,42,'θ = '+fmt(p.theta)+'°',ink,24);title='Berat vertikal diuraikan pada sumbu sejajar dan tegak lurus bidang';
+      s+='</g>';s+=text(32,42,'θ = '+fmt(p.theta)+'°',ink,24);title='Berat vertikal diuraikan pada sumbu sejajar dan tegak lurus bidang';
     }else if(kind==='motion'){
       const pos=isStatic?320:320+140*Math.tanh(v.x/70),forceScale=90/Math.max(p.right,p.left,50);
       s+=line(35,265,605,265,ink,4)+rect(pos-42,195,84,54)+circle(pos-25,258,8,ink)+circle(pos+25,258,8,ink);
-      s+=arrow(pos+45,215,p.right*forceScale,0,blue,'F kanan')+arrow(pos-45,232,-p.left*forceScale,0,orange,'F kiri');
+      s+=arrow(pos+45,215,p.right*forceScale,0,blue,'F kanan')+arrow(pos-45,232,-p.left*forceScale,0,orange)+text(Math.max(20,pos-170),195,'F kiri',orange,23);
       s+=arrow(pos,210,0,85,purple,'W')+arrow(pos,195,0,-85,purple,'N');
       if(!isStatic)s+=arrow(pos,75,Math.max(-130,Math.min(130,v.velocity*10)),0,green,'v');
       s+=text(30,42,'t = '+fmt(p.t)+' s',ink,24)+text(30,80,'m = '+fmt(p.m)+' kg',ink,24);
       title='Dua gaya horizontal pada satu benda; arah kecepatan dibedakan dari arah percepatan';
     }else if(kind==='reaction'){
-      const d1=isStatic?0:.5*v.a1*p.t*p.t,d2=isStatic?0:.5*v.a2*p.t*p.t,k=Math.min(3.5,180/Math.max(Math.abs(d1),Math.abs(d2),1)),x1=245+d1*k,x2=395+d2*k;
+      const d1=isStatic?0:.5*v.a1*p.t*p.t,d2=isStatic?0:.5*v.a2*p.t*p.t,k=Math.min(3.5,160/Math.max(.5*Math.abs(v.a1)*(options.base?.t||p.t)**2,.5*Math.abs(v.a2)*(options.base?.t||p.t)**2,1)),x1=245+d1*k,x2=395+d2*k;
       s+=line(30,265,610,265,blue,3);
       for(const [x,m,color] of [[x1,p.m1,blue],[x2,p.m2,orange]])s+=(p.object==='boat'?`<path d="M${x-45} 232h90l-15 24h-60z" fill="${color}"/>`:`<rect x="${x-45}" y="232" width="90" height="12" rx="4" fill="${color}"/>`+circle(x-28,251,7,ink)+circle(x+28,251,7,ink))+circle(x,199,16,'#d2b49b')+line(x,215,x,235,ink,8)+text(x-35,300,fmt(m)+' kg',ink,22);
       s+=arrow(x1,150,-Math.min(100,p.F*.8),0,blue,'F₁')+arrow(x2,150,Math.min(100,p.F*.8),0,orange,'F₂');
@@ -108,12 +110,12 @@
       s+=text(30,42,'θ = '+fmt(p.theta)+'°',ink,24)+text(140,310,'L = '+fmt(p.L)+' m',ink,23);
       title='Batang berengsel dengan beban dan kabel miring; geometri dipertahankan saat gambar menyesuaikan ukuran';
     }else if(kind==='work'){
-      const x=175,y=190,a=rad(p.theta);
+      const x=options.workX||175,y=190,a=rad(p.theta);
       s+=line(40,252,595,252,ink,3)+rect(x-35,y-25,70,54);
       s+=arrow(x,y,Math.min(135,p.F*1.4)*Math.cos(a),-Math.min(135,p.F*1.4)*Math.sin(a),blue,'F')+arrow(x,285,p.s*310/Math.max(10,p.s),0,orange,'s');
       s+=text(30,43,'θ = '+fmt(p.theta)+'°',ink,24)+text(30,80,'F = '+fmt(p.F)+' N',ink,24);title='Gaya dan perpindahan: sudut diukur antara dua arah tersebut';
     }else if(kind==='kinetic'){
-      s+=line(25,265,260,265,ink,3)+circle(105,215,15+Math.sqrt(p.m)*5,blue)+arrow(105,165,p.v*8,0,orange,'v');
+      s+=line(25,265,260,265,ink,3)+circle(options.kineticX||105,215,15+Math.sqrt(p.m)*5,blue)+arrow(options.kineticX||105,165,p.v*8,0,orange,'v');
       s+=arrow(310,280,280,0,ink,'v')+arrow(310,280,0,-240,ink,'Ek');
       const vmax=Math.max(15,p.v),emax=Math.max(600,.5*p.m*vmax*vmax*1.1),points=[];for(let x=0;x<=vmax;x+=vmax/50)points.push([310+x/vmax*255,280-(.5*p.m*x*x)/emax*210]);
       if(!isStatic)s+=poly(points,green,4)+circle(310+p.v/vmax*255,280-v.K/emax*210,6,orange);
@@ -131,16 +133,20 @@
       if(!isStatic)s+=text(30,80,v.reachable?'Gerak pada posisi ini terjangkau':'Benda berhenti sebelum posisi itu',v.reachable?green:orange,23);
       title='Usaha neto mengubah energi kinetik; model memeriksa apakah posisi dapat dicapai';
     }else if(kind==='energy'){
-      const hmax=Math.max(10,p.h0,p.h),floor=270,y0=floor-p.h0/hmax*200,y=floor-p.h/hmax*200;
-      let track=p.shape==='ramp'?`M60 ${y0}L200 ${floor}H400L575 ${y}`:`M60 ${y0}C130 ${y0} 140 ${floor} 200 ${floor}H400Q510 ${floor} 575 ${y}`;
-      if(p.shape==='wave')track=`M60 ${y0}C90 ${Math.min(floor,y0+40)} 130 ${Math.min(floor,y0+70)} 150 ${(floor+y0)/2}S180 ${floor} 200 ${floor}H400C470 ${floor} 520 ${Math.min(floor,y+40)} 575 ${y}`;
-      s+=`<path d="${track}" fill="none" stroke="${ink}" stroke-width="5"/>`+circle(60,y0-16,15,blue)+line(60,y0,60,floor,grid,2,'5 5');
-      s+=circle(575,y-18,15,isStatic?'#d4e7f7':v.reachable?orange:'#fff')+line(575,y,575,floor,grid,2,'5 5');
-      if(!isStatic&&!v.reachable&&v.actualS<p.s&&p.s>0)s+=circle(200+200*v.actualS/p.s,floor-16,14,orange);
-      s+=text(30,40,'Awal '+fmt(p.h0)+' m',ink,24)+text(395,75,'Posisi '+fmt(p.h)+' m',ink,23);
-      if(p.mode==='friction'&&p.s>0)s+=rect(220,floor+2,160,9,'#d6a67d')+text(180,330,'segmen kasar mendatar',ink,21);
-      title='Turun, melewati segmen mendatar, lalu naik menuju titik tujuan. Seluruh puncak berada dalam batas tinggi awal dan tujuan.';
+      const base=options.base||p,hmax=Math.max(10,base.h0,base.h),floor=270,y0=floor-base.h0/hmax*200,y=floor-base.h/hmax*200;
+      const points=typeof global.FIWA_ANIMATION!=='undefined'?global.FIWA_ANIMATION.energyPoints(base).points:[[60,y0],[200,floor],[400,floor],[575,y]];
+      s+=poly(points,ink,5)+circle(60,y0-16,12,'#d4e7f7')+line(60,y0,60,floor,grid,2,'5 5')+circle(575,y-18,12,'#fff')+line(575,y,575,floor,grid,2,'5 5');
+      if(options.body)s+=circle(options.body[0],options.body[1]-16,14,orange);
+      else if(!isStatic)s+=circle(60,y0-16,14,orange);
+      s+=text(25,40,'Awal '+fmt(base.h0)+' m',ink,24)+text(395,75,'Tujuan '+fmt(base.h)+' m',ink,23);
+      if(base.mode==='friction'&&base.s>0)s+=rect(220,floor+2,160,9,'#d6a67d')+text(180,330,'segmen kasar '+fmt(base.s)+' m',ink,21);
+      title='Lintasan turun, kasar mendatar, lalu naik. Gerak dihitung dari energi dan percepatan sepanjang setiap ruas.';
+
     }
+    if(options.turn!=null){const tau=kind==='couple'?v.tau:v.tau,sign=Math.sign(tau),angle=-options.turn*180/Math.PI;
+      s+=`<g transform="translate(490 130) rotate(${angle})">${line(-65,0,65,0,green,7)}${circle(65,0,9,orange)}</g>`+circle(490,130,6,ink)+text(390,35,sign===0?'Momen nol':'Arah putar',ink,23);
+    }
+    if(options.construct!=null){const progress=Math.max(.01,options.construct);s+=`<style>line,path,polyline{stroke-dasharray:900;stroke-dashoffset:${900*(1-progress)};}</style>`;}
     return `<svg class="physics-svg" viewBox="0 0 640 340" role="img" aria-label="${esc(title)}">${s}</svg>`;
   }
   const controlMap={
@@ -180,6 +186,7 @@
     if(!defaults[cfg.kind]){host.textContent='Model visual belum tersedia.';return;}
     const original={...defaults[cfg.kind],...(cfg.params||{})},state={...original},id='lab-'+(++nextId);
     if(cfg.static){host.innerHTML=draw(cfg.kind,state,{static:true})+`<figcaption>Diagram skematis. Arah, label dan data soal menjadi acuan; panjang panah tidak selalu berskala.</figcaption>`;zoom(host,cfg,state,id);return;}
+    if(cfg.readonly){const {v}=calculate(cfg.kind,state);host.innerHTML=draw(cfg.kind,state)+ledger(cfg.kind,v)+'<figcaption>Ilustrasi kondisi pembanding; gerakkan model utama untuk menyelidiki.</figcaption>';return;}
     const controls=controlMap[cfg.kind].map(c=>{
       const [key,label,unit,min,max,step]=c,cid=id+'-'+key;
       if(unit==='select')return `<label for="${cid}">${esc(label)}<select id="${cid}" data-lab-input="${key}">${min.map(v=>`<option value="${v}"${state[key]===v?' selected':''}>${({x:'Sumbu x',y:'Sumbu y',ideal:'Tanpa gesekan',friction:'Dengan segmen kasar',ramp:'Lurus',valley:'Lembah',wave:'Bergelombang'})[v]||v}</option>`).join('')}</select></label>`;
@@ -187,7 +194,7 @@
       return `<label for="${cid}"><span>${esc(label)} <output data-control-value="${key}">${fmt(state[key])} ${unit}</output></span><input type="range" id="${cid}" data-lab-input="${key}" min="${actualMin}" max="${actualMax}" step="any" value="${state[key]}"><input class="lab-number" type="number" min="${actualMin}" max="${actualMax}" step="any" value="${state[key]}" aria-label="Nilai ${esc(label)}" data-lab-number="${key}"></label>`;
     }).join('');
     host.innerHTML=`<div class="lab-stage"></div><div class="lab-controls">${controls}<button type="button" data-lab-reset>Kembalikan kondisi awal</button></div><div class="lab-readouts" aria-live="polite"></div><p class="lab-condition" role="status"></p>`;
-    function update(){const {v}=calculate(cfg.kind,state);host.querySelector('.lab-stage').innerHTML=draw(cfg.kind,state)+ledger(cfg.kind,v);host.querySelector('.lab-readouts').innerHTML=statMap[cfg.kind].map(([key,label,unit])=>`<div><span>${label}</span><output data-result="${key}">${fmt(v[key])} ${unit}</output></div>`).join('');
+    function update(frameParams=null,frameOptions={}){const shown=frameParams||state,{v}=calculate(cfg.kind,shown);host.querySelector('.lab-stage').innerHTML=draw(cfg.kind,shown,frameOptions)+ledger(cfg.kind,v);host.querySelector('.lab-readouts').innerHTML=statMap[cfg.kind].map(([key,label,unit])=>`<div><span>${label}</span><output data-result="${key}">${fmt(v[key])} ${unit}</output></div>`).join('');
       const condition=host.querySelector('.lab-condition');condition.textContent=(cfg.kind==='energy'&&!v.reachable)?'Posisi tujuan belum dapat dicapai. Kekurangan energi '+fmt(v.deficit)+' J. Ubah kondisi awal atau kebutuhan lintasan.':(cfg.kind==='workenergy'&&!v.reachable)?'Benda berhenti pada '+fmt(v.stop)+' m. Posisi yang diminta tidak terjangkau dalam model gaya neto tetap ini.':cfg.kind==='cable'&&v.cableCase==='impossible'?'Sudut nol tidak dapat menopang momen beban melalui kabel dalam model ini.':cfg.kind==='components'?(state.ref==='y'?'Sudut dari +y bertanda positif ke arah +x dan negatif ke sisi kiri sumbu y. Perhatikan busur serta tanda komponen.':'Sudut diukur berlawanan arah jarum jam dari +x. Perhatikan busur dan tanda komponen.'):cfg.kind==='cable'&&v.cableCase==='undetermined'?'Momen beban nol. Persamaan momen tidak menentukan besar tegangan kabel mendatar secara tunggal.':'Model diperbarui. Bandingkan gambar, satuan, dan besaran hasil sebelum menyimpulkan.';
       for(const c of controlMap[cfg.kind]){const control=host.querySelector('[data-lab-input="'+c[0]+'"]');if(control)control.value=state[c[0]];const number=host.querySelector('[data-lab-number="'+c[0]+'"]');if(number&&document.activeElement!==number)number.value=state[c[0]];const out=host.querySelector('[data-control-value="'+c[0]+'"]');if(out)out.textContent=fmt(state[c[0]])+' '+c[2];}
     }
@@ -195,6 +202,7 @@
     host.addEventListener('change',e=>{const key=e.target.dataset.labNumber;if(key&&e.target.value!==''&&Number.isFinite(Number(e.target.value))){state[key]=Math.max(Number(e.target.min),Math.min(Number(e.target.max),Number(e.target.value)));e.target.value=state[key];update();}});
     host.__fiwaRestore=()=>{host.querySelectorAll('[data-lab-input]').forEach(e=>{state[e.dataset.labInput]=e.tagName==='SELECT'?e.value:Number(e.value);});update();};
     host.querySelector('[data-lab-reset]').addEventListener('click',()=>{Object.assign(state,original);host.querySelectorAll('[data-lab-input]').forEach(e=>{e.value=state[e.dataset.labInput];});update();});
+    host.__fiwaState=()=>({kind:cfg.kind,params:{...state}});host.__fiwaRender=(params,options)=>update(params,options);
     update();zoom(host,cfg,state,id);
   }
   const api={calculate,draw,mount,defaults};

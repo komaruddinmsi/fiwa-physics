@@ -1,0 +1,27 @@
+{
+  "tanggal": "2026-11-21",
+  "scope": "Physics TKA lokal",
+  "tp": 6,
+  "konsep": 24,
+  "halaman": 162,
+  "model_checks": 2615,
+  "runtime_scenarios": 8,
+  "flow_scenarios": 27,
+  "syntax_files": 10,
+  "published": false,
+  "browser": [
+    "Terang",
+    "Teduh",
+    "ponsel 390x844",
+    "P7 100% dan 90%, hasil awal tetap",
+    "P5 15 menit",
+    "P6a dua soal fokus konsep kedua",
+    "pembesaran diagram",
+    "bunyi on/off/test"
+  ],
+  "limits": [
+    "D1 dan lintas perangkat belum diuji pada produksi",
+    "Media luar tidak seluruhnya diputar",
+    "Durasi soal perlu kalibrasi kelas"
+  ]
+}

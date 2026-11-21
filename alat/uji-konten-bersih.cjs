@@ -14,6 +14,7 @@ async function redirects(route,expected){const res=await c.test.onRequest({reque
   assert.ok(!fs.existsSync(path.join(root,base.slice(1))),base+' masih ada');
   for(const suffix of ['', '/', '/index.html'])await redirects(base+suffix,'tp-'+t.slug+'-'+now);
  }
+ for(const t of tps)for(const form of [2,3,4])await redirects('/konten/'+t.topic+'/'+t.slug+'/P5/form-'+form+'.html','tp-'+t.slug+'-p5');
  for(const topic of ['f-mek','f-use'])for(const id of ['L1','L2','L3','L4']){
   const base='/konten/'+topic+'/'+id;for(const suffix of ['', '/', '/index.html'])await redirects(base+suffix,'topik-'+topic+'-'+id.toLowerCase());
   if(id==='L3')await redirects(base+'/latihan.html','topik-'+topic+'-l3-latihan');

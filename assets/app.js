@@ -741,7 +741,7 @@ function navigasiTahapan(tp, aktif, h) {
     if(code==='P4'&&active) {
       const names=(window.FIWA_TP_HOOKS[tp.slug]||{}).concepts||[];
       subs=names.map((n,i)=>sub('S4','Konsep '+(i+1)+' · '+n,'-konsep-'+(i+1))+sub('S4','Checkpoint '+(i+1),'-checkpoint-'+(i+1))).join('')+
-        sub('S5','Diskusi prediksi bersama guru')+sub('S6','Contoh terbimbing')+sub('S7','Praktik dan lembar kerja');
+        sub('S4','Rangkuman konsep','-rangkuman')+sub('S5','Diskusi prediksi bersama guru')+sub('S6','Contoh terbimbing')+sub('S7','Praktik dan lembar kerja');
     }
     if(code==='P6'&&active)subs=branch==='skip'?'<span>Tidak perlu latihan tambahan. Lanjutkan P7.</span>':branch?sub('S9',branch==='a'?'P6a · Penguatan · 2 soal':'P6b · Belajar Terbimbing · 3 soal',branch):'<span>Menunggu skor P5.</span>';
     return `<li class="study-step ${active?'active':''} ${done?'done':''} ${lock?'locked':''} ${code==='P4'?'concept':''}"><span class="step-number">${code}</span>${link}${subs?`<div class="study-substeps">${subs}</div>`:''}</li>`;
@@ -893,6 +893,7 @@ function segarkanSetelahSkor() {
 
 function pilihanFokus(tp,chosen=0) { const names=(window.FIWA_TP_HOOKS[(tp||{}).slug]||{}).concepts||[]; return `<label>Fokus tindak lanjut P6<select class="fokus-p6"><option value="0">Campuran konsep utama</option>${names.map((n,i)=>`<option value="${i+1}"${Number(chosen)===i+1?' selected':''}>${esc(n)}</option>`).join('')}</select></label>`; }
 function barisAksi(tp, id, h, s) {
+  if(id==='S8'&&tp.tahapan.S8&&tp.tahapan.S8.versi>=4)return '<p class="muted">Setiap gerbang dinilai guru melalui Papan Guru. Gerbang berikutnya memerlukan T3/T4.</p>';
   if(id==='S8'&&h.p.p5Usulan&&!guru())return `<p class="note">Hasil mandiri terakhir: ${h.p.p5Usulan.skor}%. ${h.p.p5Usulan.menunggu?'Menunggu pengesahan guru.':'Skor pengesahan guru: '+((h.e.S8||{}).skor??'—')+'%.'} Gunakan tombol pada materi untuk pengerjaan.</p>`;
   if (tp.tahapan[id] && (tp.tahapan[id].versi >= 3 || (['S1','S4'].includes(id) && tp.tahapan[id].versi >= 2)) && !guru()) return '<p class="muted">Gunakan tombol penyelesaian pada materi di atas.</p>';
   const tercatat = h.e[id] && h.e[id].skor != null ? h.e[id].skor : null;
@@ -913,7 +914,7 @@ function barisAksi(tp, id, h, s) {
 function siklusP5(h) { return Math.max((h.e.S9&&h.e.S9.skor===100&&h.e.S9.waktu)||0,...(h.p.reset||[]).filter(x=>x.t==='S8').map(x=>x.pada||0)); }
 function viewer(tp, id, h) {
   const s = T(id); let f = tp.tahapan[id];
-  if(id==='S8' && f && f.versi>=3){const cycle=siklusP5(h),old=h.p.p5Usulan,form=old&&old.cycle===cycle?old.form:1+((h.p.p5Riwayat||[]).length%4);f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P5/${form===1?'index.html':'form-'+form+'.html'}?cycle=${cycle}`};}
+  if(id==='S8' && f && f.versi===3){const cycle=siklusP5(h),old=h.p.p5Usulan,form=old&&old.cycle===cycle?old.form:1+((h.p.p5Riwayat||[]).length%4);f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P5/${form===1?'index.html':'form-'+form+'.html'}?cycle=${cycle}`};}
   if(id==='S13' && f && f.versi>=3){const cycle=(h.e.S11&&h.e.S11.waktu)||0,attempt=(h.p.ujian||[]).find(x=>x.cycle===cycle),form=attempt?attempt.form:1+((h.p.ujian||[]).length%4);f={...f,berkas:`konten/${topikDariTP(tp).slug}/${tp.slug}/P9/form-${form}.html?cycle=${cycle}`};}
   if (id === 'S14' && f && f.versi >= 2) {
     const next=jadwalS14(h).find(x=>x.berikut),session=next?next.ke:3;
@@ -937,7 +938,7 @@ function viewer(tp, id, h) {
   const bukaUlang = (rs && id !== 'S14' && !h.e[id])
     ? `<div class="note reset-info">↺ ${trf('%s membuka ulang tahapan ini pada %s%s. Kerjakan lagi dari awal.',
         esc(rs.nama || tr('Gurumu')), tgl(rs.pada), rs.alasan ? ' — ' + esc(rs.alasan) : '')}</div>` : '';
-  return `<section class="viewer" id="viewer">${awal}${bukaUlang}<div class="row" style="justify-content:space-between"><h2>${FIWA_ALUR.toPublic[id]} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(s.lulus)))}</span></div>
+  return `<section class="viewer" id="viewer">${awal}${bukaUlang}<div class="row" style="justify-content:space-between"><h2>${FIWA_ALUR.toPublic[id]} · ${esc(tr(s.nama))}</h2><span class="muted">${trf('Lulus apabila: %s', esc(tr(id==='S8'&&tp.tahapan.S8&&tp.tahapan.S8.versi>=4?'T3/T4 pada setiap gerbang inti':s.lulus)))}</span></div>
     ${k ? `<div class="note">${trf('Mode guru: tahapan ini masih terkunci untuk siswa (%s).', esc(k))}</div>` : ''}
     <iframe class="frame" src="${esc(f.berkas)}" title="${esc(tr(s.nama))}"></iframe>
     <div id="viewer-bawah">${bagianBawah(tp, id, h, aksi)}</div>
@@ -955,6 +956,7 @@ function panelGuruTP(tp, h) {
 }
 
 /* ---------- tampilan: lapis topik ---------- */
+const unitReady={};
 function halLapis(t, id, sub) {
   const l = LAPIS.find(x => x.id === id), f = t.tahapan[id];
   const kepala = `<div class="stack"><div class="crumbs">${remah(t)}<a href="#topik-${t.slug}">${esc(t.kode)}</a> / ${id}</div>
@@ -969,14 +971,16 @@ function halLapis(t, id, sub) {
 
   // Sebagian lapis punya dua konten: latihan dulu, baru soal yang dinilai.
   const punyaLatihan = !!f.latihan;
+  const unitLocked=id==='L3'&&!guru()&&unitReady[t.slug]!==true;
   const pilih = (sub === 'latihan' && punyaLatihan) ? 'latihan' : 'utama';
   const berkas = pilih === 'latihan' ? f.latihan.berkas : f.berkas;
   const tab = punyaLatihan ? `<div class="tab-konten">
       <a class="tabk${pilih === 'latihan' ? ' on' : ''}" href="#topik-${t.slug}-${id.toLowerCase()}-latihan">${tr('Latihan Unit Test')}<small>${tr('berlatih dulu · tidak dinilai')}</small></a>
-      <a class="tabk${pilih === 'utama' ? ' on' : ''}" href="#topik-${t.slug}-${id.toLowerCase()}">${tr('Soal Unit Test')}<small>${tr('sekali jalan · dinilai')}</small></a>
+      <a class="tabk${pilih === 'utama' ? ' on' : ''}" ${unitLocked?'aria-disabled="true"':`href="#topik-${t.slug}-${id.toLowerCase()}"`}>${tr('Soal Unit Test')}<small>${tr('sekali jalan · dinilai')}</small></a>
     </div>
     <p class="note kecilan">${tr('Redaksi soal pada keduanya berbeda, tetapi langkah penyelesaiannya sama. Kerjakan latihannya sampai lancar, baru buka soal yang dinilai. Keduanya tidak memerlukan kalkulator.')}</p>` : '';
 
+  if(id==='L3'&&unitLocked&&pilih==='utama')return `${kepala}${tab}<section class="panel" data-unit-status="${t.slug}"><h2>Selesaikan Latihan Unit Test dahulu</h2><p>Unit Test baru terbuka setelah seluruh nomor latihan dikirim. Soal latihan dan ujian berpasangan menurut keterampilan serta langkah solusi.</p><a class="btn" href="#topik-${t.slug}-l3-latihan">Buka Latihan Unit Test</a></section></div>`;
   return `${kepala}${tab}
     <iframe class="frame" src="${esc(berkas)}" title="${esc(tr(l.nama))}"></iframe>
     <div id="bahan" class="bahan" data-topik="${esc(t.slug)}" data-tahapan="${id}"><p class="muted mkosong">${tr('Memuat bahan pendukung…')}</p></div></div>`;
@@ -1134,15 +1138,10 @@ function isiBahan() {
   muatMedia(slugTopik).then(m => {
     const w = document.getElementById('bahan');
     if (!w || w.dataset.tahapan !== idT) return;             // halaman sudah berpindah
-    if (!m) { w.innerHTML = `<p class="muted mkosong">${tr('Bahan pendukung belum diatur untuk topik ini.')}</p>`; return; }
+    if (!m) {w.hidden=true;return;}
     const daftar = (kunciTP ? ((m.tp || {})[kunciTP] || {})[idT] : (m.topik || {})[idT]) || [];
-    if (!daftar.length) {
-      const gerbang = ['S2', 'S8', 'S13'].indexOf(idT) >= 0;
-      w.innerHTML = `<p class="muted mkosong">${tr(gerbang
-        ? 'Gerbang penilaian — bahan bantu sengaja tidak disediakan.'
-        : 'Belum ada bahan pendukung untuk tahapan ini.')}</p>`;
-      return;
-    }
+    if (!daftar.length) {w.hidden=true;return;}
+    w.hidden=false;
     w.innerHTML = `<h3 class="mtajuk">${tr('Bahan pendukung')} <span class="mcacah">${daftar.length}</span></h3>
       <div class="mdaftar">${daftar.map(kartuBahan).join('')}</div>`;
     w.__daftar = daftar;
@@ -1453,61 +1452,27 @@ function pasangLipat() {
 
 /* Antrean penilaian guru: S12 menunggu tier, S8 menunggu skor gerbang kelas. */
 function muatAntrean() {
-  const w = document.getElementById('antrean-nilai');
-  if (!w || !(window.FIMS && FIMS.aku && FIMS.aku.guru)) return;
-  const judulTP = slug => { const tp = semuaTP().find(x => x.slug === slug); return tp ? tp.kode : slug; };
-  const tgl = d => d ? new Date(d * 1000).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) : '—';
-
-  FIMS.API('guru/antrean').then(r => {
-    const w2 = document.getElementById('antrean-nilai'); if (!w2) return;
-    if (!r.antrean) { w2.innerHTML = `<p class="muted" style="margin:0">${esc(r.galat || tr('Tidak dapat memuat antrean penilaian.'))}</p>`; return; }
-    if (!r.antrean.length) { w2.innerHTML = `<p class="muted" style="margin:0">${tr('Tidak ada yang menunggu penilaianmu.')}</p>`; return; }
-    w2.innerHTML = `<div class="scroll"><table><tr>
-        <th class="l">${tr('Murid')} <span class="mcacah">${r.antrean.length}</span></th>
-        <th class="l">${tr('Tujuan Pembelajaran')}</th><th>${tr('Tahapan')}</th>
-        <th>${tr('Menunggu sejak')}</th><th class="l">${tr('Nilai')}</th></tr>` +
-      r.antrean.map((x, i) => `<tr data-antre="${i}">
-        <td class="l">${esc(x.nama || x.email.split('@')[0])}<br><span class="mono muted" style="font-size:.78em">${esc(x.email)}</span></td>
-        <td class="l mono">${esc(judulTP(x.tp))}</td>
-        <td class="mono">${esc(x.tahapan)}</td>
-        <td>${tgl(x.diubah)}</td>
-        <td class="l nilai-sel">${x.usulan?`<p>Usulan hasil mandiri: ${esc(x.usulan.skor)}% (${esc(x.usulan.benar)}/${esc(x.usulan.total)}). Periksa bukti sebelum mengesahkan.</p>`:''}${x.minta==='skor'?pilihanFokus(cariTP(x.tp),x.usulan&&x.usulan.fokus):""}${x.minta === 'tier'
-          ? `<select class="nilai-isi" aria-label="Tier"><option value="">T?</option><option value="1">T1</option><option value="2">T2</option><option value="3">T3</option><option value="4">T4</option></select>`
-          : `<input class="nilai-isi" type="number" min="0" max="100" step="1" placeholder="${tr('Skor 0–100')}" aria-label="${tr('Skor 0–100')}">`}
-          <button class="btn kecil" data-simpan-nilai="${i}">${tr('Simpan')}</button></td></tr>`).join('') +
-      `</table></div>`;
-
-    w2.addEventListener('click', async ev => {
-      const b = ev.target.closest('[data-simpan-nilai]'); if (!b) return;
-      const x = r.antrean[+b.dataset.simpanNilai]; if (!x) return;
-      const isi = b.closest('.nilai-sel').querySelector('.nilai-isi');
-      const v = String(isi.value || '').trim();
-      if (!v) { isi.focus(); return; }
-      const badan = { murid: x.email, tp: x.tp, tahapan: x.tahapan, fokus:Number((b.closest('.nilai-sel').querySelector('.fokus-p6')||{}).value||0) };
-      if (x.minta === 'tier') badan.tier = Number(v);
-      else {
-        const n = Number(v);
-        if (!isFinite(n) || n < 0 || n > 100) { alert(tr('Skor harus 0–100.')); isi.focus(); return; }
-        badan.skor = n;
-      }
-      b.disabled = true;
-      const r2 = await FIMS.API('guru/nilai', { method: 'POST', body: JSON.stringify(badan) });
-      if (!r2.ok) { b.disabled = false; alert(r2.galat || tr('Gagal menyimpan nilai.')); return; }
-      const tr0 = b.closest('tr');
-      tr0.querySelector('.nilai-sel').innerHTML = `<span class="muted">${tr('Tersimpan.')}</span>`;
-      tr0.classList.add('sudah');
-    }, { once: false });
-  }).catch(() => {});
+ const w=document.getElementById('antrean-nilai');if(!w||!(window.FIMS&&FIMS.aku&&FIMS.aku.guru))return;
+ FIMS.API('guru/antrean').then(r=>{const target=document.getElementById('antrean-nilai');if(!target)return;if(!r.antrean){target.textContent=r.galat||'Antrean belum tersedia.';return;}if(!r.antrean.length){target.textContent='Tidak ada bukti yang menunggu penilaian.';return;}
+ target.innerHTML=r.antrean.map((x,i)=>x.minta==='gating'?`<article class="panel stack gate-teacher" data-antre="${i}"><div class="row"><h3>${esc(x.nama||x.email)} · ${esc((cariTP(x.tp)||{}).kode||x.tp)} · ${esc(x.gate)}</h3></div><h4>${esc(x.title)}</h4><p>${esc(x.prompt)}</p><div class="gate-evidence"><b>Bukti siswa</b><pre>${esc(x.answer)}</pre></div><details><summary>Rubrik dan catatan guru</summary>${Object.entries(x.rubric||{}).map(([k,v])=>`<p><b>${esc(k)}</b> ${esc(v)}</p>`).join('')}<p>${esc(x.teacher_notes)}</p></details><label for="gate-tier-${i}">Tingkat bukti</label><select id="gate-tier-${i}" aria-label="Tingkat bukti" class="nilai-isi"><option value="">Pilih tingkat</option><option value="1">T1 · perlu pendampingan</option><option value="2">T2 · masih dituntun</option><option value="3">T3 · mandiri</option><option value="4">T4 · transfer mandiri</option></select><label for="gate-feedback-${i}">Respon pembelajaran</label><textarea id="gate-feedback-${i}" aria-label="Respon pembelajaran" class="gating-feedback" rows="3" maxlength="1500" placeholder="Sebutkan bukti yang sudah tepat dan langkah perbaikan berikutnya."></textarea><p>T3/T4 membuka gerbang berikutnya. T1/T2 memberi kesempatan memperbaiki soal yang sama.</p><button class="btn" data-simpan-nilai="${i}">Kirim respon guru</button><p class="nilai-status" role="status"></p></article>`:`<article class="panel stack" data-antre="${i}"><h3>${esc(x.nama||x.email)} · ${esc((cariTP(x.tp)||{}).kode||x.tp)} · ${esc(FIWA_ALUR.toPublic[x.tahapan]||x.tahapan)}</h3><label>${x.minta==='tier'?'Tier':'Skor'}<input class="nilai-isi" type="number" min="${x.minta==='tier'?1:0}" max="${x.minta==='tier'?4:100}" step="1"></label><button class="btn" data-simpan-nilai="${i}">Simpan penilaian</button><p class="nilai-status" role="status"></p></article>`).join('');
+ target.onclick=async event=>{const button=event.target.closest('[data-simpan-nilai]');if(!button)return;const x=r.antrean[Number(button.dataset.simpanNilai)],box=button.closest('[data-antre]'),value=box.querySelector('.nilai-isi').value,status=box.querySelector('.nilai-status');if(value===''){status.textContent='Pilih tingkat atau isi nilai dahulu.';return;}let body={murid:x.email,tp:x.tp,tahapan:x.tahapan},route='guru/nilai';
+ if(x.minta==='gating'){const feedback=box.querySelector('.gating-feedback').value.trim();if(feedback.length<5){status.textContent='Tuliskan respon pembelajaran untuk siswa.';return;}route='guru/gating';body={murid:x.email,tp:x.tp,gate:x.gate,revision:x.revision,tier:Number(value),feedback};}
+ else if(x.minta==='tier')body.tier=Number(value);else body.skor=Number(value);
+ button.disabled=true;const response=await FIMS.API(route,{method:'POST',body:JSON.stringify(body)});if(!response.ok){status.textContent=response.galat||'Penilaian belum tersimpan.';button.disabled=false;return;}status.textContent='Respon tersimpan. Siswa akan menerima pembaruan.';box.querySelector('.nilai-isi').disabled=true;setTimeout(muatAntrean,1200);
+ };
+ }).catch(()=>{if(document.getElementById('antrean-nilai'))w.textContent='Antrean belum dapat dimuat. Muat ulang Papan Guru.';});
 }
 
+document.addEventListener('fims:refresh-gating',muatAntrean);
 function render() {
   rangka();
   const priorRail = document.querySelector('.study-rail');
   const prior = priorRail ? { tp: priorRail.dataset.studyTp, top: priorRail.querySelector('.study-rail-scroll').scrollTop, open: !priorRail.querySelector('.study-rail-scroll').hidden } : null;
   let h = decodeURIComponent(location.hash.slice(1));
+  const summaryRoute=/-p4-rangkuman$/i.test(h);if(summaryRoute)h=h.replace(/-rangkuman$/i,'');
   const publicRoute=h.match(/^tp-(.+)-(p(?:10|[1-9])(?:a|b|-diskusi|-contoh|-praktik)?)(?:-(konsep|checkpoint)-(\d+))?$/i);
-  let lessonAnchor=null;
-  if (publicRoute) { const old=FIWA_ALUR.toOld[publicRoute[2].toLowerCase()]; if (old) { h='tp-'+publicRoute[1]+'-'+old.toLowerCase(); lessonAnchor=publicRoute[3]?publicRoute[3]+'-'+publicRoute[4]:null; } }
+  let lessonAnchor=summaryRoute?'rangkuman':null;
+  if (publicRoute) { const old=FIWA_ALUR.toOld[publicRoute[2].toLowerCase()]; if (old) { h='tp-'+publicRoute[1]+'-'+old.toLowerCase(); lessonAnchor=publicRoute[3]?publicRoute[3]+'-'+publicRoute[4]:lessonAnchor; } }
   if (/^tp-.+-s10$/i.test(h)) h=h.replace(/-s10$/i,'-s1');
   let html, m; cur = null;
   $('#nav-guru').classList.toggle('on', h === 'guru');
@@ -1523,6 +1488,7 @@ function render() {
   else if ((m = h.match(/^tp-(.+)$/)) && cariTP(m[1])) { cur={tp:cariTP(m[1]),id:'S1'}; html=halTP(cur.tp,'S1'); }
   else html = beranda();
   $('#app').innerHTML = FIWA_ALUR.html(html);
+  statusUnit();
   $('#app').classList.remove('tp-transition'); void $('#app').offsetWidth; $('#app').classList.add('tp-transition');
   if (lessonAnchor) { const frame=document.querySelector('iframe.frame'); if(frame)frame.addEventListener('load',()=>{try{const node=frame.contentDocument.getElementById(lessonAnchor);if(node)node.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}catch(_){}},{once:true}); }
   const rail = document.querySelector('.study-rail');
@@ -1589,10 +1555,12 @@ window.addEventListener('message', ev => {
   if (d && (d.fims === 'skor' || d.fims === 'selesai') && ev.source) {
     try { if (!(d.versi >= 2) && ev.source.FIMS_LEMBAR) ev.source.FIMS_LEMBAR.lapor(d.fims === 'skor' && typeof d.skor === 'number' ? { selesai: true, skor: d.skor } : { selesai: true }); } catch (e) {}
   }
+  const unitFrame=document.querySelector('iframe.frame');if(d&&d.fims==='unit-selesai'&&d.mode==='practice'&&unitFrame&&ev.source===unitFrame.contentWindow&&ev.origin===location.origin){unitReady[d.topic]=true;document.querySelectorAll('.tabk[aria-disabled]').forEach(a=>{a.removeAttribute('aria-disabled');a.href='#topik-'+d.topic+'-l3';});return;}
   if (!d || !d.fims || !cur) return;
   const frame=document.querySelector('iframe.frame');
   if (!frame || ev.source !== frame.contentWindow || ev.origin !== location.origin) return;
   const s = T(cur.id);
+  if(cur.id==='S8'&&cur.tp.tahapan.S8&&cur.tp.tahapan.S8.versi>=4)return;
   if(!guru() && (kunciTP(cur.tp)||kunci(cur.tp,cur.id,hitung(cur.tp))))return;
   if(cur.id==='S8'&&d.fims==='usulan-cek'&&d.versi>=3&&Number.isFinite(d.skor)){const p=prog(cur.tp.slug),cycle=siklusP5(hitung(cur.tp));if(p.p5Usulan&&p.p5Usulan.cycle===cycle)return;p.p5Usulan={skor:Math.max(0,Math.min(100,d.skor)),fokus:Number(d.fokus||0),diagnosis:d.diagnosis,benar:d.benar,total:d.total,cycle,form:d.form,waktu:now(),menunggu:true};p.p5Riwayat=[...(p.p5Riwayat||[]),{...p.p5Usulan}].slice(-12);simpan();segarkanSetelahSkor();return;}
   if (cur.id === 'S9' && d.versi >= 2) { const current=hitung(cur.tp); if(d.branch!==cabangS9(current) || Number(d.focus||0)!==Number((current.e.S8&&current.e.S8.fokus)||0)) return; }
@@ -1616,6 +1584,8 @@ document.addEventListener('load', ev => {
     d.body.appendChild(s);
   } catch (e) {}
 }, true);
+function statusUnit(){const box=document.querySelector('[data-unit-status]');if(!box||!window.FIMS||!FIMS.aku)return;const topic=box.dataset.unitStatus;if(Object.prototype.hasOwnProperty.call(unitReady,topic))return;unitReady[topic]=false;FIMS.API('unit?topik='+encodeURIComponent(topic)+'&status=1').then(d=>{if(d.practiceComplete){unitReady[topic]=true;render();}});}
+document.addEventListener('fims:unit-status',statusUnit);
 window.addEventListener('hashchange', render);
 document.addEventListener('fims:mode', render);        // guru menukar mode tampilan
 
@@ -1626,3 +1596,5 @@ fetch('katalog.json').then(r => r.json()).then(k => {
   render();
 }).catch(() => { rangka(); $('#app').innerHTML = `<div class="note">${tr('katalog.json belum ada. Jalankan <span class="mono">node build.js</span> (Cloudflare menjalankannya otomatis).')}</div>`; });
 })();
+
+setInterval(()=>{if(location.hash==='#guru'&&!Array.from(document.querySelectorAll('.gate-teacher .gating-feedback,.gate-teacher .nilai-isi')).some(e=>e.value))document.dispatchEvent(new CustomEvent('fims:refresh-gating'));},7000);

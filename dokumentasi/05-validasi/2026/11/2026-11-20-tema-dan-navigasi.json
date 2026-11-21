@@ -1,0 +1,29 @@
+{
+  "passed": 16,
+  "checks": [
+    "Business rules and storage unchanged",
+    "All 16 stages are ordered vertically and numbered",
+    "Current stage has an accessible current-step marker",
+    "Locked student stages have no navigation link",
+    "Teacher may inspect stages without changing student locks",
+    "Failed prerequisite routes to reinforcement without completion mark",
+    "Passing a prerequisite unlocks concept stage",
+    "Both topic overview and stage page use one left rail",
+    "English rail labels are translated",
+    "Missing stage never gains a link",
+    "Theme defaults to light and restores dim on reload",
+    "Theme toggle updates accessible state and independent preference only",
+    "Unavailable local storage does not break either theme",
+    "Mobile icon-only controls retain translated accessible names",
+    "Embedded HTML stylesheet resolves correctly without replacing its source",
+    "External frames and PDFs are left alone"
+  ],
+  "browserQA": "unverified: local socket access and file URL preview were blocked",
+  "original_files": 238,
+  "unchanged_original_files": 236,
+  "changed_original_files": [
+    "assets/app.js",
+    "index.html"
+  ],
+  "missing_original_files": []
+}

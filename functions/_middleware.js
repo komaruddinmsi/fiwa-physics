@@ -63,9 +63,26 @@ const LAMAN_TOLAK = `<!doctype html>
  <a href="/" target="_top">Ke laman masuk</a>
 </div></body></html>`;
 
+// Berkas HTML lama sudah dipindahkan ke cadangan luar proyek. Kunci progres S tetap dipakai.
+const TP_LAMA = new Set(['f-mek/f-mek-1-pra','f-mek/f-mek-2','f-mek/f-mek-1a','f-mek/f-mek-1b','f-use/f-use-1-pra','f-use/f-use-1']);
+const P_LAMA = {S1:'p1',S2:'p2',S2B:'p2a',S2C:'p2b',S3:'p3',S4:'p4',S5:'p4-diskusi',S6:'p4-contoh',S7:'p4-praktik',S8:'p5',S9:'p6',S10:'p1',S11:'p7',S12:'p8',S13:'p9',S14:'p10'};
+export function ruteKontenLama(jalur) {
+  const p5=jalur.match(/^\/konten\/(f-mek|f-use)\/([^/]+)\/P5\/form-[234]\.html$/i);
+  if(p5&&TP_LAMA.has(p5[1].toLowerCase()+'/'+p5[2].toLowerCase()))return 'tp-'+p5[2].toLowerCase()+'-p5';
+  let m=jalur.match(/^\/konten\/(f-mek|f-use)\/([^/]+)\/(S(?:1[0-4]|[1-9]|2b|2c))(?:\/index\.html|\/)?$/i);
+  if(m && TP_LAMA.has(m[1].toLowerCase()+'/'+m[2].toLowerCase())) {
+    const p=P_LAMA[m[3].toUpperCase()];if(p)return 'tp-'+m[2].toLowerCase()+'-'+p;
+  }
+  m=jalur.match(/^\/konten\/(f-mek|f-use)\/(L[1-4])(?:\/(index|latihan)\.html|\/)?$/i);
+  if(m && (!m[3]||m[3].toLowerCase()==='index'||m[2].toUpperCase()==='L3'))return 'topik-'+m[1].toLowerCase()+'-'+m[2].toLowerCase()+(m[3]&&m[3].toLowerCase()==='latihan'?'-latihan':'');
+  return null;
+}
+
 export async function onRequest(ctx) {
   const { request, env, next } = ctx;
   const jalur = new URL(request.url).pathname;
+  const ruteLama=ruteKontenLama(jalur);
+  if(ruteLama)return new Response(null,{status:302,headers:{location:new URL('/#'+ruteLama,request.url).href,'cache-control':'no-store'}});
 
   // Jalur yang tidak dijaga lewat begitu saja, termasuk /api/ yang menjaga dirinya sendiri.
   if (!dijaga(jalur)) return next();

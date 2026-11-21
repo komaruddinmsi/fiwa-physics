@@ -423,6 +423,8 @@ function adopsiDariPeladen(peta) {
   document.dispatchEvent(new CustomEvent('fims:progres', { detail: { tp: peta } }));
 }
 
+FIMS.terapkanProgres = adopsiDariPeladen;
+
 async function segarProgres() {
   if (!FIMS.aku) return;
   const r = await API('progres?epoch=1');

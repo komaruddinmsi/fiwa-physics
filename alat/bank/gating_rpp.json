@@ -1,0 +1,126 @@
+{
+  "f-mek-1a": [
+    {
+      "id": "G9",
+      "title": "Hukum I · mekanisme dan contoh baru",
+      "process": "Menjelaskan dan mencontohkan Hukum Newton",
+      "prompt": "» “Papan siap. Sebuah kereta api yang diam tiba-tiba berangkat; penumpang yang berdiri terdorong ke belakang. Seorang murid berkata: ‘Ada gaya yang mendorong penumpang ke belakang.’ (a) Jelaskan peristiwa ini dengan Hukum I dan nilai pernyataan murid itu. (b) Tulis satu contoh baru Hukum I — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok. Tiga puluh detik.” … » “Angkat.”",
+      "seconds": 180,
+      "optional": false,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Tidak ada gaya ke belakang. Tubuh penumpang cenderung mempertahankan keadaan diamnya (kelembaman, Hukum I) saat kereta mulai maju, sehingga relatif terhadap kereta tubuhnya tampak tertinggal ke belakang. Gaya nyata justru ke depan (dari lantai dan pegangan) yang membuat penumpang ikut dipercepat. (b) Contoh baru yang mekanismenya cocok, mis. saus keluar dari botol terbalik ketika botol dihentakkan ke bawah lalu dihentikan mendadak: saus terus bergerak karena kelembaman.\n(1) membenarkan “gaya ke belakang” (★ ada gerak berarti ada gaya searah gerak); (2) menjelaskan hanya dengan “karena kereta bergerak” tanpa menyebut kelembaman; (3) bagian (b) kosong, contoh dari daftar papan, atau contoh yang sebenarnya Hukum III atau II (salah hukum).\n≥ ambang tertangkap → cabang A 30–34′: » “Dua jawaban berdampingan: ‘ada gaya ke belakang’ dan ‘tubuh bertahan diam’. Siapa pemberi gaya ke belakang itu?” Kelas mengisi kerangka tiga kolom untuk kereta api; lalu satu peristiwa baru dibahas bersama (pengendara sepeda melaju lalu rem depan ditekan mendadak: tubuh terlempar ke depan).\n< ambang → cabang B: varian mandiri — mobil yang diam tiba-tiba melaju: tulis mengapa kepala pengemudi terdorong ke sandaran, dengan kerangka tiga kolom; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid."
+    },
+    {
+      "id": "G10",
+      "title": "Hukum II · sebab, massa dan percepatan",
+      "process": "Menjelaskan dan mencontohkan Hukum Newton",
+      "prompt": "» “Papan siap. Peti 5 kg dan peti 15 kg di lantai yang sangat licin didorong dengan gaya neto yang sama, 30 N. Seorang murid berkata: ‘Peti yang lebih berat bergerak lebih lambat karena gayanya lebih kecil.’ (a) Tulis percepatan tiap peti, lalu nilai pernyataan murid itu dengan satu kalimat sebab–akibat. (b) Tulis satu contoh baru Hukum II — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok. Tiga puluh detik.” … » “Angkat.”",
+      "seconds": 180,
+      "optional": false,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Peti 5 kg: a = 30/5 = 6 m/s²; peti 15 kg: a = 30/15 = 2 m/s². Pernyataan murid keliru: gayanya sama, 30 N; peti yang lebih berat lebih lambat dipercepat karena massanya lebih besar (kelembaman lebih besar): a = ΣF/m. (b) Contoh baru yang mekanismenya cocok, mis. sepeda kosong dan sepeda yang berboncengan didorong dengan dorongan yang sama: yang berboncengan lebih lambat dipercepat karena massanya lebih besar.\n(1) menyebut percepatan kedua peti sama, atau yang lebih berat lebih cepat; (2) menghitung benar tetapi pernyataan murid tidak dinilai, atau alasan hanya “karena rumus”; (3) bagian (b) kosong, contoh dari daftar papan, atau contoh yang tidak memuat gaya–massa–percepatan (salah hukum), mis. contoh kelembaman.\n≥ ambang tertangkap → cabang A 52–56′: » “Dua hasil berdampingan: ‘6 dan 6 m/s²’ dan ‘6 dan 2 m/s²’. Gayanya sama. Siapa yang menahan percepatan?” Kelas menulis a = ΣF/m untuk kedua peti; lalu satu soal baru dihitung bersama (gaya neto 24 N pada 3 kg dan 12 kg: 8 m/s² dan 2 m/s²).\n< ambang → cabang B: varian mandiri — gaya neto 18 N pada balok 2 kg dan 6 kg: 9 m/s² dan 3 m/s²; satu kalimat mengapa berbeda; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid."
+    },
+    {
+      "id": "G11",
+      "title": "Hukum III · pasangan gaya pada dua benda",
+      "process": "Menjelaskan dan mencontohkan Hukum Newton",
+      "prompt": "» “Papan siap. Seorang anak di perahu kecil mendorong dermaga dengan galah; perahu bergerak menjauhi dermaga. Seorang murid berkata: ‘Aksi dan reaksi saling meniadakan, jadi perahu seharusnya diam.’ (a) Sebut pasangan gaya aksi–reaksinya beserta benda tempat tiap gaya bekerja, lalu nilai pernyataan murid itu. (b) Tulis satu contoh baru Hukum III — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok. Tiga puluh detik.” … » “Angkat.”",
+      "seconds": 180,
+      "optional": false,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Aksi: galah mendorong dermaga (gaya pada dermaga). Reaksi: dermaga mendorong galah (gaya pada galah dan perahu) — sama besar, berlawanan arah. Pasangan itu bekerja pada dua benda berbeda sehingga tidak meniadakan; gaya reaksi pada perahu menjadi gaya neto yang mempercepat perahu menjauh (Hukum II). Pernyataan murid keliru. (b) Contoh baru yang mekanismenya cocok, mis. senapan mainan menyentak ke belakang saat melontarkan peluru: senapan mendorong peluru ke depan, peluru mendorong senapan ke belakang (dua benda).\n(1) membenarkan “saling meniadakan” atau menyatakan perahu seharusnya diam (★ aksi–reaksi dikira meniadakan); (2) menyebut pasangan tetapi keduanya pada benda yang sama; (3) bagian (b) kosong, contoh dari daftar papan, atau contoh yang sebenarnya kelembaman (salah hukum).\n≥ ambang tertangkap → cabang A 72–74′: » “Dua benda berbeda: galah mendorong dermaga, dermaga mendorong galah. Gambar perahu sendirian: gaya apa yang bekerja pada perahu?” Kelas menggambar dua benda dengan satu panah pada masing-masing; pemantik di pojok papan dijawab bersama; lalu satu soal baru dihitung bersama (dua murid di kursi beroda, 45 kg dan 60 kg, dorongan 90 N: percepatan 2 m/s² dan 1,5 m/s²).\n< ambang → cabang B: varian mandiri — dua balok 3 kg dan 6 kg dengan pegas tertekan di antaranya, gaya pegas 12 N pada tiap balok: gaya pada tiap balok, percepatan 4 m/s² dan 2 m/s², dan satu kalimat mengapa tidak meniadakan; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid."
+    },
+    {
+      "id": "G12",
+      "title": "Transfer mandiri opsional",
+      "process": "Menjelaskan dan mencontohkan Hukum Newton",
+      "prompt": "2 kartu tingkat 4 tertelungkup di kotak depan: T4-EXP.3 (menjelaskan), T4-EXM.3 (mencontohkan). Teks kartu pada D5.5; kuncinya pada D5.6. » “Kartu boleh diambil siapa saja yang selesai varian. Tidak ada yang mencatat siapa yang tidak mengambil.”",
+      "seconds": 180,
+      "optional": true,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\nGuru membaca tiga hal: dijelaskan tanpa dituntun kerangka tiga kolom; alasan bertumpu pada mekanisme yang benar (kelembaman · gaya neto dan massa · dua benda), bukan mengulang bunyi hukum; contoh baru bertahan ketika ditanya “mengapa cocok?” satu kali.\nTidak ada “tertangkap” — gerbang ini menyortir batas 🟢 T3 → 🔵 T4. Yang belum memenuhi ketiganya tetap T3, tidak turun. Bacaan per meja, bukan per murid.\nMeja yang selesai varian mengambil kartu sendiri; dibaca per meja pada 80–85′ dan dicatat di papan posisi per meja. Jangan ditayangkan kepada murid.\nTabel 41 · Gerbang TP 3. Ambang = 25 % dari yang hadir (4 dari 16). Cabang A dan cabang B bernama sama di seluruh dokumen. Butir bank sumbernya pada D3."
+    }
+  ],
+  "f-mek-1b": [
+    {
+      "id": "G13",
+      "title": "Faktor relevan pada struktur",
+      "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+      "prompt": "» “Papan siap. Untuk menilai apakah sebuah papan loncat di tepi kolam cukup kuat menahan penerjun, seorang murid mendaftar faktor: (1) berat penerjun dan tempat ia berdiri pada papan, (2) warna papan, (3) panjang papan yang menjulur dari tumpuan, (4) kekuatan bahan papan, (5) merek cat papan, (6) kedalaman kolam. (a) Tandai faktor yang relevan bagi analisis gaya dan yang bukan. (b) Tulis satu kalimat alasan fisis untuk faktor (3) dan satu untuk faktor (6). Tiga puluh detik.” … » “Angkat.”",
+      "seconds": 240,
+      "optional": false,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Relevan: (1), (3), (4). Tidak relevan: (2), (5), (6). (b) Faktor (3): makin panjang bagian yang menjulur, makin besar lengan beban terhadap tumpuan sehingga torsi di tumpuan makin besar. Faktor (6): kedalaman kolam tidak memengaruhi gaya atau torsi pada papan.\n(1) menandai warna, merek cat, atau kedalaman kolam sebagai relevan; (2) membuang panjang yang menjulur atau tempat berdiri penerjun (faktor torsi); (3) memilah tanpa alasan fisis pada bagian (b).\n≥ ambang tertangkap → cabang A 30–34′: » “Dua daftar berdampingan: yang membuang ‘panjang yang menjulur’ dan yang menyimpannya. Faktor mana yang mengubah gaya, lengan, atau batas patah?” Kelas mengulang kartu “relevan / pengecoh” untuk papan loncat; lalu satu skenario baru dibahas bersama (jembatan papan di atas parit: relevan — berat dan letak pejalan, panjang bentang, kekuatan kayu; pengecoh — warna papan, merek paku, cuaca cerah).\n< ambang → cabang B: varian mandiri — kanopi di depan warung: faktor beban dan letaknya, panjang yang menjulur, kekuatan bahan, warna atap, merek paku, nama warung; tandai relevan atau pengecoh dengan satu kalimat alasan fisis untuk satu faktor; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid."
+    },
+    {
+      "id": "G14",
+      "title": "Organisasi gaya dan momen",
+      "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+      "prompt": "» “Papan siap. Seorang murid menekan ujung sebuah linggis ringan ke bawah dengan gaya 200 N pada jarak 1,5 m dari titik tumpu untuk mengungkit sebuah batu yang bertumpu pada linggis 0,25 m di sisi lain titik tumpu. (a) Tulis syarat yang kamu pakai, lalu hitung berat batu terbesar yang tepat dapat terangkat. (b) Seorang murid berkata: ‘Batunya pasti 200 N saja, karena gaya tekan diteruskan sama besar.’ Nilai pernyataan itu. Tiga puluh detik.” … » “Angkat.”",
+      "seconds": 240,
+      "optional": false,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Στ = 0 terhadap titik tumpu: 200 × 1,5 = W × 0,25 → W = 300/0,25 = 1200 N. (ΣF = 0: tumpu menahan 200 + 1200 = 1400 N.) (b) Keliru: yang dijaga sama adalah momen gaya, bukan gaya; gaya kecil pada lengan panjang mengimbangi gaya besar pada lengan pendek.\n(1) W = 200 N (★ melewatkan letak beban — lengan torsi diabaikan); (2) memakai jarak yang tertukar atau mengalikan tanpa menyamakan momen, mis. 200 × 0,25 = 50 N; (3) angka 1200 N benar tetapi tanpa syarat Στ = 0 atau tanpa alasan pada (b).\n≥ ambang tertangkap → cabang A 52–56′: » “Dua jawaban berdampingan: ‘200 N’ dan ‘1200 N’. Gambar linggis: dua lengan berbeda panjang. Apa yang sama pada kedua sisi — gayanya atau momen gayanya?” Kelas menulis Στ = 0 dua kali; lalu satu soal baru dihitung bersama (gaya 150 N pada lengan 1,2 m, lengan batu 0,3 m: batu 600 N).\n< ambang → cabang B: varian mandiri — gaya 90 N pada lengan 1,0 m, lengan batu 0,3 m: batu terbesar 300 N; syarat Στ = 0 dan satu kalimat mengapa gayanya tidak sama; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid."
+    },
+    {
+      "id": "G15",
+      "title": "Rancangan, tegangan dan batas model",
+      "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+      "prompt": "» “Papan siap. Sebuah lampu 200 N digantung di ujung batang mendatar berengsel ke dinding; kabel penahan membentuk sudut 53° terhadap batang (sin 53° = 0,8; cos 53° = 0,6). Abaikan berat batang. (a) Tulis tegangan kabel dan komponen mendatar yang ditahan engsel. (b) Seorang murid berkata: ‘Tegangan kabel pasti 200 N karena kabel menahan lampu 200 N.’ Nilai pernyataan itu. Tiga puluh detik.” … » “Angkat.”",
+      "seconds": 240,
+      "optional": false,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Στ = 0 terhadap engsel: T sin 53° × L = 200 × L → T = 200/0,8 = 250 N; komponen mendatar T cos 53° = 250 × 0,6 = 150 N, ditahan engsel. (b) Keliru: hanya komponen tegak tegangan (T sin 53°) yang menahan lampu, sehingga T harus lebih besar dari 200 N.\n(1) T = 200 N (★ tegangan penuh dipakai tanpa diuraikan); (2) menjumlah gaya tanpa arah atau mencampur sin dan cos; (3) angka 250 N benar tetapi (b) kosong atau tanpa kata “komponen tegak”.\n≥ ambang tertangkap → cabang A 72–74′: » “Dua angka berdampingan: ‘200 N’ dan ‘250 N’. Gambar segitiga komponen: sisi mana yang menahan lampu?” Kelas menggambar komponen; pemantik di pojok papan dijawab bersama; lalu satu soal baru dihitung bersama (lampu 90 N, kabel 37° terhadap batang: T = 150 N; komponen mendatar 120 N).\n< ambang → cabang B: varian mandiri — beban 140 N, kabel 53° terhadap batang: T = 175 N; komponen mendatar 105 N; satu kalimat mengapa T lebih besar dari 140 N; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid."
+    },
+    {
+      "id": "G16",
+      "title": "Transfer struktur opsional",
+      "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+      "prompt": "2 kartu tingkat 4 tertelungkup di kotak depan: T4-DIF.4 (membedakan), T4-ORG.4 (mengorganisasi). Teks kartu pada D5.5; kuncinya pada D5.6. » “Kartu boleh diambil siapa saja yang selesai varian. Tidak ada yang mencatat siapa yang tidak mengambil.”",
+      "seconds": 240,
+      "optional": true,
+      "rubric": {
+        "T1": "Belum membangun model yang tepat meskipun dibantu.",
+        "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+        "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+        "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+      },
+      "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\nGuru membaca tiga hal: diselesaikan tanpa dituntun template; alasan bertumpu pada faktor yang benar (gaya · lengan · komponen), bukan kemiripan dengan contoh kelas; jawaban bertahan saat ditanya “kenapa?” satu kali.\nTidak ada “tertangkap” — gerbang ini menyortir batas 🟢 T3 → 🔵 T4. Yang belum memenuhi ketiganya tetap T3, tidak turun. Bacaan per meja, bukan per murid.\nMeja yang selesai varian mengambil kartu sendiri; dibaca per meja pada 80–85′ dan dicatat di papan posisi per meja. Jangan ditayangkan kepada murid.\nTabel 52 · Gerbang TP 4. Ambang = 25 % dari yang hadir (4 dari 16). Cabang A dan cabang B bernama sama di seluruh dokumen. Butir bank sumbernya pada D3."
+    }
+  ]
+}

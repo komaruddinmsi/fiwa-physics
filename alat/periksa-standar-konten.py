@@ -27,7 +27,7 @@ for file in manifest['files']:
  labs+=len(doc.labs)
  cfg=json.loads(re.search(r'window.FIWA_CLASS=(.*?);</script>',text).group(1))
  for q in cfg.get('questions',[])+cfg.get('checks',[]):
-  questions+=1;assert q['seconds']>=120
+  questions+=1;assert q['seconds']>=(30 if q.get('prerequisite') else 120)
   if q.get('hashes'):
    protected+=1;assert 'answer' not in q and 'steps' not in q
    assert len(q['hashes'])>0 and len(set(q['hashes']))==len(q['hashes'])
@@ -43,11 +43,11 @@ for file in manifest['files']:
   n=2 if cfg['branch']=='a' else 3
   assert len(cfg['questions'])==n and all(len(x['questions'])==n for x in cfg['focusSets'])
  if cfg.get('stage')=='P10':assert len(cfg['questions'])==4
- if cfg.get('stage')=='P1':assert text.index('class-hook')<text.index('id="tujuan"')
+ if cfg.get('stage')=='P1':assert text.index('opening-frame')<text.index('id="tujuan"')
 for t in catalog['topik']:
  for tp in t.get('tp',[]):
   assert 'S10' not in tp['tahapan']
-  assert all(x.get('versi')==3 for x in tp['tahapan'].values()),tp['slug']
+  assert all(x.get('versi')==4 for x in tp['tahapan'].values()),tp['slug']
   p7={q['indicator'] for q in providers[tp['slug']](tp['slug'],'P7',1)}
   p9={q['indicator'] for q in providers[tp['slug']](tp['slug'],'P9',1)}
   assert p9<=p7,(tp['slug'],'Indikator belum dilatih',p9-p7)

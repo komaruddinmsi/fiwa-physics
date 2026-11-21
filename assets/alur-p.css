@@ -4,3 +4,5 @@
 @keyframes tp-enter{from{opacity:.4;transform:translateY(7px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.tp-transition{animation:none}.topic-tp-link{transition:none}.topic-tp-link:hover{transform:none}}
 @media(max-width:640px){.sound-trigger span{display:none}.sound-trigger{padding:8px}.sound-panel{position:fixed;right:16px;top:var(--header-height,82px)}.topic-hook{grid-template-columns:1fr}.topic-hook-art{display:none}}
+
+.gate-teacher textarea{width:100%;background:var(--surface);color:var(--fg);padding:13px;border:1px solid var(--line-kuat);border-radius:12px;font:inherit;line-height:1.7}.gate-evidence{background:var(--surface-2);padding:16px;border:1px solid var(--line);border-radius:13px}.gate-evidence pre{font:inherit;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}.gate-teacher label{display:grid;gap:8px}.gate-teacher details{padding:12px;border:1px solid var(--line);border-radius:12px}.gate-teacher h4{font-size:1.1rem;margin:0}.tabk[aria-disabled=true]{opacity:.8;cursor:default;background:var(--surface-2)}

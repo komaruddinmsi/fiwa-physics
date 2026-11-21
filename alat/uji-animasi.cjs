@@ -1,0 +1,9 @@
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..'),A=require(path.join(root,'assets/kelas-animasi.js')),V=require(path.join(root,'assets/kelas-visual.js'));let checks=0;
+const ok=(c,m)=>{assert(c,m);checks++;};
+for(const [kind,p] of Object.entries(V.defaults)){const d=A.duration(kind,p);ok(Number.isFinite(d)&&d>0,kind+' duration');for(let n=0;n<=20;n++){const f=A.frame(kind,p,d*n/20);ok(Number.isFinite(f.time),kind+' time');const {v}=V.calculate(kind,f.params);ok(Object.values(v).every(x=>typeof x!=='number'||Number.isFinite(x)||x===Infinity),kind+' numeric');ok(!/NaN|undefined/.test(V.draw(kind,f.params,f.options)),kind+' SVG');}}
+for(const shape of ['ramp','wave','valley'])for(const mu of [0,.2,.8])for(const h0 of [0,2,10])for(const h of [0,4,10]){
+ const p={...V.defaults.energy,shape,mu,mode:'friction',h0,h,s:3};const m=A.energySegments(p);for(let n=0;n<=20;n++){const f=A.frame('energy',p,m.total*n/20),{v}=V.calculate('energy',f.params);ok(Math.abs(v.total-v.initial)<1e-7,'energy conserved across animation');ok(v.K>=-1e-9,'non-negative kinetic');}}
+for(const F of [-20,0,20])for(const v0 of [0,2,10]){const p={...V.defaults.workenergy,F,v0},f=A.frame('workenergy',p,1e5),{v}=V.calculate('workenergy',f.params);ok(Math.abs(v.K-v.K0-v.W)<1e-7,'work energy');ok(v.actualS<=p.s+1e-6,'distance bound');}
+for(const [kind,patch]of [['torque',{theta:0}],['torque',{theta:180}],['torque',{r:0}],['couple',{F:0}],['couple',{d:0}]])ok(A.frame(kind,{...V.defaults[kind],...patch},2).options.turn===0,'zero torque has no turn');
+console.log(JSON.stringify({checks,result:'PASS'}));

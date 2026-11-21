@@ -52,6 +52,7 @@
   function apply(value, persist) {
     theme = value === 'dim' ? 'dim' : 'light';
     root.dataset.theme = theme;
+    root.dataset.fiwaTheme = theme;
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = theme === 'dim' ? '#192a40' : '#e3f1fe';
     document.querySelectorAll('[data-theme-choice]').forEach(button => {

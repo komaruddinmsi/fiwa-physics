@@ -1,0 +1,326 @@
+{
+  "f-use-1-pra": {
+    "gates": [
+      {
+        "id": "G1",
+        "title": "Arah gaya, usaha, dan rasa lelah",
+        "process": "Classifying",
+        "prompt": "Tas ransel 4 kg digendong sambil berjalan mendatar 20 m, kecepatan tetap, sangat lelah. Tulis: (a) usaha gaya penahan — angka + satuan. (b) satu kata: YA atau TIDAK, apakah lelah menunjukkan usaha secara fisika",
+        "seconds": 60,
+        "rubric": {
+          "T1": "Menggolongkan berdasarkan intuisi \"kerja keras = usaha besar\" meski dibantu, tanpa mengecek arah gaya.",
+          "T2": "Bisa menggolongkan benar bila dipandu (\"perhatikan arah gaya terhadap arah gerak\").",
+          "T3": "Pada kasus baru dengan gaya jelas sejajar atau tegak lurus perpindahan, menggolongkan benar disertai alasan berbasis arah gaya, mandiri.",
+          "T4": "Pada situasi majemuk belum dicontohkan (gaya bersudut, atau beberapa gaya sekaligus dengan sebagian tegak lurus), menggolongkan tepat mana yang melakukan usaha, disertai perhitungan komponen bila perlu, tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C1.6, G1; isi soal dipertahankan, pengantar 'Papan mini, 30 detik' diadaptasi menjadi 120 detik. Kunci: (a) 0 J karena gaya penahan vertikal tegak lurus perpindahan; (b) TIDAK. Jangan menerima 0 J disertai YA. Rubrik dinilai dari alasan mandiri, bukan angka saja; rasa lelah tidak menentukan usaha pada tas.",
+        "optional": false,
+        "source_prompt": "Tas ransel 4 kg digendong sambil berjalan mendatar 20 m, kecepatan tetap, sangat lelah. Tulis: (a) usaha gaya penahan — angka + satuan. (b) satu kata: YA atau TIDAK, apakah lelah menunjukkan usaha secara fisika.",
+        "focus": 1
+      },
+      {
+        "id": "G2",
+        "title": "Usaha total dan perubahan bentuk energi",
+        "process": "Explaining",
+        "prompt": "Balok 2 kg diam didorong gaya mendatar tetap 3 m hingga v=4 m/s di lantai licin, lalu direm gesekan sampai berhenti. Tulis: (a) usaha total 3 m pertama — angka + satuan. (b) satu kata: sebut bentuk energi tujuan Ek yang hilang",
+        "seconds": 120,
+        "rubric": {
+          "T1": "Tak menghubungkan usaha dengan perubahan energi sama sekali, atau meyakini energi benar-benar lenyap.",
+          "T2": "Bisa menyebut W=ΔEk bila rumus diingatkan, tapi belum menjelaskan ke mana energi pergi tanpa dipandu.",
+          "T3": "Menjelaskan bahwa usaha total = perubahan energi kinetik, dan energi yang tampak hilang (mis. akibat gesekan) sesungguhnya berubah bentuk (kalor/bunyi) — bukan lenyap — pada situasi baru, mandiri.",
+          "T4": "Menjelaskan & memprediksi perubahan energi pada skenario \"bagaimana kalau\" belum pernah dibahas (mis. gaya bekerja pada arah miring, atau dua gaya berlawanan sekaligus), tetap menjalankan model usaha→ΔEk dengan benar tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C1.6, G2. Kunci: W_net = ½×2×4² = 16 J; energi berubah menjadi kalor dan sedikit bunyi. Frasa sumber 'gaya mendatar tetap 3 m' berarti gaya bekerja selama perpindahan 3 m, bukan gaya sebesar 3 m; satuan gaya tidak diberikan dan tidak perlu dikarang. Kata 'hilang' dalam pertanyaan mengacu pada berkurangnya Ek, bukan lenyapnya energi total. Waktu sumber 30 detik diadaptasi 180 detik.",
+        "optional": false,
+        "source_prompt": "Balok 2 kg diam didorong gaya mendatar tetap 3 m hingga v=4 m/s di lantai licin, lalu direm gesekan sampai berhenti. Tulis: (a) usaha total 3 m pertama — angka + satuan. (b) satu kata: sebut bentuk energi tujuan Ek yang hilang.",
+        "focus": 4
+      },
+      {
+        "id": "G3",
+        "title": "Normal pada bidang miring dan segmen kasar",
+        "process": "Classifying + Explaining",
+        "prompt": "Kotak N didorong naik bidang miring licin oleh gaya sejajar bidang, lalu melintasi segmen datar kasar. Tulis: (a) usaha gaya normal sepanjang bidang miring — nol/tak-nol + satu kata alasan. (b) satu kata: sebut bentuk energi yang berkurang di segmen kasar",
+        "seconds": 120,
+        "rubric": {
+          "T1": "Classifying: Menggolongkan berdasarkan intuisi \"kerja keras = usaha besar\" meski dibantu, tanpa mengecek arah gaya. | Explaining: Tak menghubungkan usaha dengan perubahan energi sama sekali, atau meyakini energi benar-benar lenyap.",
+          "T2": "Classifying: Bisa menggolongkan benar bila dipandu (\"perhatikan arah gaya terhadap arah gerak\"). | Explaining: Bisa menyebut W=ΔEk bila rumus diingatkan, tapi belum menjelaskan ke mana energi pergi tanpa dipandu.",
+          "T3": "Classifying: Pada kasus baru dengan gaya jelas sejajar atau tegak lurus perpindahan, menggolongkan benar disertai alasan berbasis arah gaya, mandiri. | Explaining: Menjelaskan bahwa usaha total = perubahan energi kinetik, dan energi yang tampak hilang (mis. akibat gesekan) sesungguhnya berubah bentuk (kalor/bunyi) — bukan lenyap — pada situasi baru, mandiri.",
+          "T4": "Classifying: Pada situasi majemuk belum dicontohkan (gaya bersudut, atau beberapa gaya sekaligus dengan sebagian tegak lurus), menggolongkan tepat mana yang melakukan usaha, disertai perhitungan komponen bila perlu, tanpa dituntun. | Explaining: Menjelaskan & memprediksi perubahan energi pada skenario \"bagaimana kalau\" belum pernah dibahas (mis. gaya bekerja pada arah miring, atau dua gaya berlawanan sekaligus), tetap menjalankan model usaha→ΔEk dengan benar tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C1.6, G3 BARU. Kunci sumber: (a) nol — tegak lurus; (b) kalor. Redaksi (b) sumber tidak presisi: yang berkurang ialah energi mekanik, sedangkan bentuk TUJUAN perubahan ialah energi internal/kalor. Jelaskan kekaburan redaksi kepada penilai dan terima uraian fisika yang membedakan keduanya; jangan menilai 'kalor berkurang' sebagai pernyataan konsep yang benar. Dua proses dicatat terpisah, tidak dirata-ratakan. Waktu 30 detik sumber diadaptasi 180 detik.",
+        "optional": false,
+        "source_prompt": "Kotak N didorong naik bidang miring licin oleh gaya sejajar bidang, lalu melintasi segmen datar kasar. Tulis: (a) usaha gaya normal sepanjang bidang miring — nol/tak-nol + satu kata alasan. (b) satu kata: sebut bentuk energi yang berkurang di segmen kasar.",
+        "focus": 3
+      }
+    ]
+  },
+  "f-use-1": {
+    "gates": [
+      {
+        "id": "G5",
+        "title": "Rencana sebelum hitungan",
+        "process": "Planning",
+        "prompt": "Kelereng 0,2kg dilepas diam di puncak A (h_A=5m, licin), acuan Ep=0 di B; BC datar kasar 4m μ_k=0,25; CD licin ke D. Tulis: (a) acuan Ep yang dipakai. (b) segmen mana yang persamaannya BUKAN kekal penuh, dan mengapa",
+        "seconds": 180,
+        "rubric": {
+          "T1": "Tak membedakan segmen licin dari kasar dalam menyusun rencana, meski dibantu.",
+          "T2": "Bisa menyusun rencana benar bila segmen \"mana licin/mana kasar\" sudah ditandai eksplisit di soal.",
+          "T3": "Untuk lintasan tiga-segmen baru (licin-kasar-licin), menetapkan titik acuan Ep konsisten, menuliskan persamaan HKEM tepat per segmen (kekal penuh pada segmen licin; dikurangi usaha gesekan pada segmen kasar) sebelum menghitung, mandiri.",
+          "T4": "Merancang pendekatan pada lintasan majemuk belum dicontohkan (>2 segmen bergantian licin-kasar, atau target berada di tengah segmen kasar), tanpa dituntun, tetap menetapkan acuan & persamaan per segmen secara konsisten & benar."
+        },
+        "teacher_notes": "Sumber C2.6/G5 dan D5.2. Kunci: B sebagai acuan yang diberikan; BC memerlukan W_f=−μmgd karena sebagian Em berubah menjadi internal/kalor. Untuk diagnosis T3, minta persamaan per segmen SEBELUM menghitung; dua isian ringkas G5 saja belum membuktikan seluruh deskriptor Planning T3. Acuan lain yang dijelaskan konsisten secara fisika sah, meskipun soal ini sudah menetapkan B. Gunakan model partikel meluncur tanpa rotasi; RPP menyebut kelereng tetapi tidak mencantumkan energi rotasi. Waktu sumber30 detik diadaptasi180 detik.",
+        "optional": false,
+        "source_prompt": "Kelereng 0,2kg dilepas diam di puncak A (h_A=5m, licin), acuan Ep=0 di B; BC datar kasar 4m μ_k=0,25; CD licin ke D. Tulis: (a) acuan Ep yang dipakai. (b) segmen mana yang persamaannya BUKAN kekal penuh, dan mengapa.",
+        "focus": 1
+      },
+      {
+        "id": "G6",
+        "title": "Jangan tertipu angka yang tampak wajar",
+        "process": "Producing",
+        "prompt": "Untuk lintasan G5 dengan h_D=4m: v_B=10 m/s (diberikan). Setelah BC (kalor 2J), berapa v_D di D, dan apakah syarat v_D≥2 m/s terpenuhi?",
+        "seconds": 120,
+        "rubric": {
+          "T1": "Salah konsep dasar (mis. mgh_awal = mgh_akhir langsung) meski dituntun langkah demi langkah.",
+          "T2": "Bisa menghitung tiap langkah bila dituntun urutan/kerangka tabelnya, tapi belum menyusun kesimpulan koheren tanpa diminta eksplisit.",
+          "T3": "Menghitung tuntas seluruh rangkaian (kecepatan/energi awal → energi hilang ke kalor pada segmen kasar → kecepatan/energi di titik target) dengan benar, dan menyusun kesimpulan koheren yang menjawab pertanyaan nyata disertai penjelasan energi berubah bentuk (bukan hilang), mandiri.",
+          "T4": "Menghasilkan solusi lengkap & koheren pada rancangan majemuk belum dicontohkan (multi-kendala sekaligus), termasuk mendiagnosis sendiri titik gagal & mengusulkan revisi kuantitatif tepat, tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C2.6/G6; sertakan data G5 saat menampilkan agar mandiri: m0,2 kg, BC4 m, μ0,25, Ep=0 di B, g10. Kunci: Ek_B10 J; BC mengubah2 J menjadi internal; Ek_C8 J; Ep_D8 J; Ek_D0 dan v_D0 m/s, GAGAL syarat≥2. Mengabaikan gesekan memberi√20≈4,47 m/s dan verdikt terbalik. D5.2 menyebut h_D maks3,8 m: ini batas untuk target v_D≥2, bukan tinggi sekadar terjangkau. Tinggi maksimum pada v=0 adalah4 m. Waktu sumber30 detik diadaptasi240 detik.",
+        "optional": false,
+        "source_prompt": "Untuk lintasan G5 dengan h_D=4m: v_B=10 m/s (diberikan). Setelah BC (kalor 2J), berapa v_D di D, dan apakah syarat v_D≥2 m/s terpenuhi?",
+        "focus": 2
+      },
+      {
+        "id": "G7",
+        "title": "Integrasi rencana dan hasil",
+        "process": "Planning + Producing",
+        "prompt": "Bola 0,5kg dilepas h_A=3,2m licin, lorong kasar 2m μ_k=0,3, naik ke h_D=1m. Tulis: (a) satu kata: segmen mana yang membutuhkan persamaan berbeda. (b) angka: v_D (boleh menulis langkah singkat)",
+        "seconds": 180,
+        "rubric": {
+          "T1": "Planning: Tak membedakan segmen licin dari kasar dalam menyusun rencana, meski dibantu. | Producing: Salah konsep dasar (mis. mgh_awal = mgh_akhir langsung) meski dituntun langkah demi langkah.",
+          "T2": "Planning: Bisa menyusun rencana benar bila segmen \"mana licin/mana kasar\" sudah ditandai eksplisit di soal. | Producing: Bisa menghitung tiap langkah bila dituntun urutan/kerangka tabelnya, tapi belum menyusun kesimpulan koheren tanpa diminta eksplisit.",
+          "T3": "Planning: Untuk lintasan tiga-segmen baru (licin-kasar-licin), menetapkan titik acuan Ep konsisten, menuliskan persamaan HKEM tepat per segmen (kekal penuh pada segmen licin; dikurangi usaha gesekan pada segmen kasar) sebelum menghitung, mandiri. | Producing: Menghitung tuntas seluruh rangkaian (kecepatan/energi awal → energi hilang ke kalor pada segmen kasar → kecepatan/energi di titik target) dengan benar, dan menyusun kesimpulan koheren yang menjawab pertanyaan nyata disertai penjelasan energi berubah bentuk (bukan hilang), mandiri.",
+          "T4": "Planning: Merancang pendekatan pada lintasan majemuk belum dicontohkan (>2 segmen bergantian licin-kasar, atau target berada di tengah segmen kasar), tanpa dituntun, tetap menetapkan acuan & persamaan per segmen secara konsisten & benar. | Producing: Menghasilkan solusi lengkap & koheren pada rancangan majemuk belum dicontohkan (multi-kendala sekaligus), termasuk mendiagnosis sendiri titik gagal & mengusulkan revisi kuantitatif tepat, tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C2.6/G7 BARU; gunakan g10 dan model translasi. Kunci: lorong kasar/tengah; Ek_B16 J, internal3 J, Ek_C13 J, Ep_D5 J, Ek_D8 J, v_D=√32≈5,66 m/s. D5.2 menambahkan syarat≥3 m/s sehingga lolos; syarat itu tidak tercetak pada stem G7 C2.6 dan tidak boleh dituntut diam-diam. Model tanpa gesekan memberi√44≈6,63 m/s; metode tetap salah walau dua angka sama-sama lolos≥3. Dua proses dinilai terpisah. Waktu sumber30 detik diadaptasi240 detik.",
+        "optional": false,
+        "source_prompt": "Bola 0,5kg dilepas h_A=3,2m licin, lorong kasar 2m μ_k=0,3, naik ke h_D=1m. Tulis: (a) satu kata: segmen mana yang membutuhkan persamaan berbeda. (b) angka: v_D (boleh menulis langkah singkat).",
+        "focus": 3
+      }
+    ]
+  },
+  "f-mek-1a": {
+    "gates": [
+      {
+        "id": "G9",
+        "title": "Hukum I · mekanisme dan contoh baru",
+        "process": "Menjelaskan dan mencontohkan Hukum Newton",
+        "prompt": "Sebuah kereta api yang diam tiba-tiba berangkat; penumpang yang berdiri terdorong ke belakang. Seorang murid berkata: ‘Ada gaya yang mendorong penumpang ke belakang.’ (a) Jelaskan peristiwa ini dengan Hukum I dan nilai pernyataan murid itu. (b) Tulis satu contoh baru Hukum I — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok",
+        "seconds": 180,
+        "optional": false,
+        "rubric": {
+          "T1": "Belum membangun model yang tepat meskipun dibantu.",
+          "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+          "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+          "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+        },
+        "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Tidak ada gaya ke belakang. Tubuh penumpang cenderung mempertahankan keadaan diamnya (kelembaman, Hukum I) saat kereta mulai maju, sehingga relatif terhadap kereta tubuhnya tampak tertinggal ke belakang. Gaya nyata justru ke depan (dari lantai dan pegangan) yang membuat penumpang ikut dipercepat. (b) Contoh baru yang mekanismenya cocok, mis. saus keluar dari botol terbalik ketika botol dihentakkan ke bawah lalu dihentikan mendadak: saus terus bergerak karena kelembaman.\n(1) membenarkan “gaya ke belakang” (★ ada gerak berarti ada gaya searah gerak); (2) menjelaskan hanya dengan “karena kereta bergerak” tanpa menyebut kelembaman; (3) bagian (b) kosong, contoh dari daftar papan, atau contoh yang sebenarnya Hukum III atau II (salah hukum).\n≥ ambang tertangkap → cabang A 30–34′: » “Dua jawaban berdampingan: ‘ada gaya ke belakang’ dan ‘tubuh bertahan diam’. Siapa pemberi gaya ke belakang itu?” Kelas mengisi kerangka tiga kolom untuk kereta api; lalu satu peristiwa baru dibahas bersama (pengendara sepeda melaju lalu rem depan ditekan mendadak: tubuh terlempar ke depan).\n< ambang → cabang B: varian mandiri — mobil yang diam tiba-tiba melaju: tulis mengapa kepala pengemudi terdorong ke sandaran, dengan kerangka tiga kolom; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid.",
+        "source_prompt": "» “Papan siap. Sebuah kereta api yang diam tiba-tiba berangkat; penumpang yang berdiri terdorong ke belakang. Seorang murid berkata: ‘Ada gaya yang mendorong penumpang ke belakang.’ (a) Jelaskan peristiwa ini dengan Hukum I dan nilai pernyataan murid itu. (b) Tulis satu contoh baru Hukum I — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 1
+      },
+      {
+        "id": "G10",
+        "title": "Hukum II · sebab, massa dan percepatan",
+        "process": "Menjelaskan dan mencontohkan Hukum Newton",
+        "prompt": "Peti 5 kg dan peti 15 kg di lantai yang sangat licin didorong dengan gaya neto yang sama, 30 N. Seorang murid berkata: ‘Peti yang lebih berat bergerak lebih lambat karena gayanya lebih kecil.’ (a) Tulis percepatan tiap peti, lalu nilai pernyataan murid itu dengan satu kalimat sebab–akibat. (b) Tulis satu contoh baru Hukum II — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok",
+        "seconds": 180,
+        "optional": false,
+        "rubric": {
+          "T1": "Belum membangun model yang tepat meskipun dibantu.",
+          "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+          "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+          "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+        },
+        "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Peti 5 kg: a = 30/5 = 6 m/s²; peti 15 kg: a = 30/15 = 2 m/s². Pernyataan murid keliru: gayanya sama, 30 N; peti yang lebih berat lebih lambat dipercepat karena massanya lebih besar (kelembaman lebih besar): a = ΣF/m. (b) Contoh baru yang mekanismenya cocok, mis. sepeda kosong dan sepeda yang berboncengan didorong dengan dorongan yang sama: yang berboncengan lebih lambat dipercepat karena massanya lebih besar.\n(1) menyebut percepatan kedua peti sama, atau yang lebih berat lebih cepat; (2) menghitung benar tetapi pernyataan murid tidak dinilai, atau alasan hanya “karena rumus”; (3) bagian (b) kosong, contoh dari daftar papan, atau contoh yang tidak memuat gaya–massa–percepatan (salah hukum), mis. contoh kelembaman.\n≥ ambang tertangkap → cabang A 52–56′: » “Dua hasil berdampingan: ‘6 dan 6 m/s²’ dan ‘6 dan 2 m/s²’. Gayanya sama. Siapa yang menahan percepatan?” Kelas menulis a = ΣF/m untuk kedua peti; lalu satu soal baru dihitung bersama (gaya neto 24 N pada 3 kg dan 12 kg: 8 m/s² dan 2 m/s²).\n< ambang → cabang B: varian mandiri — gaya neto 18 N pada balok 2 kg dan 6 kg: 9 m/s² dan 3 m/s²; satu kalimat mengapa berbeda; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid.",
+        "source_prompt": "» “Papan siap. Peti 5 kg dan peti 15 kg di lantai yang sangat licin didorong dengan gaya neto yang sama, 30 N. Seorang murid berkata: ‘Peti yang lebih berat bergerak lebih lambat karena gayanya lebih kecil.’ (a) Tulis percepatan tiap peti, lalu nilai pernyataan murid itu dengan satu kalimat sebab–akibat. (b) Tulis satu contoh baru Hukum II — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 2
+      },
+      {
+        "id": "G11",
+        "title": "Hukum III · pasangan gaya pada dua benda",
+        "process": "Menjelaskan dan mencontohkan Hukum Newton",
+        "prompt": "Seorang anak di perahu kecil mendorong dermaga dengan galah; perahu bergerak menjauhi dermaga. Seorang murid berkata: ‘Aksi dan reaksi saling meniadakan, jadi perahu seharusnya diam.’ (a) Sebut pasangan gaya aksi–reaksinya beserta benda tempat tiap gaya bekerja, lalu nilai pernyataan murid itu. (b) Tulis satu contoh baru Hukum III — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok",
+        "seconds": 180,
+        "optional": false,
+        "rubric": {
+          "T1": "Belum membangun model yang tepat meskipun dibantu.",
+          "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+          "T3": "Menjelaskan mekanisme sebab–akibat dengan benar serta memberi contoh baru yang sesuai, mandiri tanpa dituntun.",
+          "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+        },
+        "teacher_notes": "Naskah sumber C3.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Aksi: galah mendorong dermaga (gaya pada dermaga). Reaksi: dermaga mendorong galah (gaya pada galah dan perahu) — sama besar, berlawanan arah. Pasangan itu bekerja pada dua benda berbeda sehingga tidak meniadakan; gaya reaksi pada perahu menjadi gaya neto yang mempercepat perahu menjauh (Hukum II). Pernyataan murid keliru. (b) Contoh baru yang mekanismenya cocok, mis. senapan mainan menyentak ke belakang saat melontarkan peluru: senapan mendorong peluru ke depan, peluru mendorong senapan ke belakang (dua benda).\n(1) membenarkan “saling meniadakan” atau menyatakan perahu seharusnya diam (★ aksi–reaksi dikira meniadakan); (2) menyebut pasangan tetapi keduanya pada benda yang sama; (3) bagian (b) kosong, contoh dari daftar papan, atau contoh yang sebenarnya kelembaman (salah hukum).\n≥ ambang tertangkap → cabang A 72–74′: » “Dua benda berbeda: galah mendorong dermaga, dermaga mendorong galah. Gambar perahu sendirian: gaya apa yang bekerja pada perahu?” Kelas menggambar dua benda dengan satu panah pada masing-masing; pemantik di pojok papan dijawab bersama; lalu satu soal baru dihitung bersama (dua murid di kursi beroda, 45 kg dan 60 kg, dorongan 90 N: percepatan 2 m/s² dan 1,5 m/s²).\n< ambang → cabang B: varian mandiri — dua balok 3 kg dan 6 kg dengan pegas tertekan di antaranya, gaya pegas 12 N pada tiap balok: gaya pada tiap balok, percepatan 4 m/s² dan 2 m/s², dan satu kalimat mengapa tidak meniadakan; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid.",
+        "source_prompt": "» “Papan siap. Seorang anak di perahu kecil mendorong dermaga dengan galah; perahu bergerak menjauhi dermaga. Seorang murid berkata: ‘Aksi dan reaksi saling meniadakan, jadi perahu seharusnya diam.’ (a) Sebut pasangan gaya aksi–reaksinya beserta benda tempat tiap gaya bekerja, lalu nilai pernyataan murid itu. (b) Tulis satu contoh baru Hukum III — bukan yang tertulis di pojok papan — dan satu kalimat mengapa cocok. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 3
+      }
+    ]
+  },
+  "f-mek-1b": {
+    "gates": [
+      {
+        "id": "G13",
+        "title": "Faktor relevan pada struktur",
+        "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+        "prompt": "Untuk menilai apakah sebuah papan loncat di tepi kolam cukup kuat menahan penerjun, seorang murid mendaftar faktor: (1) berat penerjun dan tempat ia berdiri pada papan, (2) warna papan, (3) panjang papan yang menjulur dari tumpuan, (4) kekuatan bahan papan, (5) merek cat papan, (6) kedalaman kolam. (a) Tandai faktor yang relevan bagi analisis gaya dan yang bukan. (b) Tulis satu kalimat alasan fisis untuk faktor (3) dan satu untuk faktor (6)",
+        "seconds": 180,
+        "optional": false,
+        "rubric": {
+          "T1": "Belum membangun model yang tepat meskipun dibantu.",
+          "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+          "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+          "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+        },
+        "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Relevan: (1), (3), (4). Tidak relevan: (2), (5), (6). (b) Faktor (3): makin panjang bagian yang menjulur, makin besar lengan beban terhadap tumpuan sehingga torsi di tumpuan makin besar. Faktor (6): kedalaman kolam tidak memengaruhi gaya atau torsi pada papan.\n(1) menandai warna, merek cat, atau kedalaman kolam sebagai relevan; (2) membuang panjang yang menjulur atau tempat berdiri penerjun (faktor torsi); (3) memilah tanpa alasan fisis pada bagian (b).\n≥ ambang tertangkap → cabang A 30–34′: » “Dua daftar berdampingan: yang membuang ‘panjang yang menjulur’ dan yang menyimpannya. Faktor mana yang mengubah gaya, lengan, atau batas patah?” Kelas mengulang kartu “relevan / pengecoh” untuk papan loncat; lalu satu skenario baru dibahas bersama (jembatan papan di atas parit: relevan — berat dan letak pejalan, panjang bentang, kekuatan kayu; pengecoh — warna papan, merek paku, cuaca cerah).\n< ambang → cabang B: varian mandiri — kanopi di depan warung: faktor beban dan letaknya, panjang yang menjulur, kekuatan bahan, warna atap, merek paku, nama warung; tandai relevan atau pengecoh dengan satu kalimat alasan fisis untuk satu faktor; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid.",
+        "source_prompt": "» “Papan siap. Untuk menilai apakah sebuah papan loncat di tepi kolam cukup kuat menahan penerjun, seorang murid mendaftar faktor: (1) berat penerjun dan tempat ia berdiri pada papan, (2) warna papan, (3) panjang papan yang menjulur dari tumpuan, (4) kekuatan bahan papan, (5) merek cat papan, (6) kedalaman kolam. (a) Tandai faktor yang relevan bagi analisis gaya dan yang bukan. (b) Tulis satu kalimat alasan fisis untuk faktor (3) dan satu untuk faktor (6). Tiga puluh detik.” … » “Angkat.”",
+        "focus": 1
+      },
+      {
+        "id": "G14",
+        "title": "Organisasi gaya dan momen",
+        "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+        "prompt": "Seorang murid menekan ujung sebuah linggis ringan ke bawah dengan gaya 200 N pada jarak 1,5 m dari titik tumpu untuk mengungkit sebuah batu yang bertumpu pada linggis 0,25 m di sisi lain titik tumpu. (a) Tulis syarat yang kamu pakai, lalu hitung berat batu terbesar yang tepat dapat terangkat. (b) Seorang murid berkata: ‘Batunya pasti 200 N saja, karena gaya tekan diteruskan sama besar.’ Nilai pernyataan itu",
+        "seconds": 180,
+        "optional": false,
+        "rubric": {
+          "T1": "Belum membangun model yang tepat meskipun dibantu.",
+          "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+          "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+          "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+        },
+        "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Στ = 0 terhadap titik tumpu: 200 × 1,5 = W × 0,25 → W = 300/0,25 = 1200 N. (ΣF = 0: tumpu menahan 200 + 1200 = 1400 N.) (b) Keliru: yang dijaga sama adalah momen gaya, bukan gaya; gaya kecil pada lengan panjang mengimbangi gaya besar pada lengan pendek.\n(1) W = 200 N (★ melewatkan letak beban — lengan torsi diabaikan); (2) memakai jarak yang tertukar atau mengalikan tanpa menyamakan momen, mis. 200 × 0,25 = 50 N; (3) angka 1200 N benar tetapi tanpa syarat Στ = 0 atau tanpa alasan pada (b).\n≥ ambang tertangkap → cabang A 52–56′: » “Dua jawaban berdampingan: ‘200 N’ dan ‘1200 N’. Gambar linggis: dua lengan berbeda panjang. Apa yang sama pada kedua sisi — gayanya atau momen gayanya?” Kelas menulis Στ = 0 dua kali; lalu satu soal baru dihitung bersama (gaya 150 N pada lengan 1,2 m, lengan batu 0,3 m: batu 600 N).\n< ambang → cabang B: varian mandiri — gaya 90 N pada lengan 1,0 m, lengan batu 0,3 m: batu terbesar 300 N; syarat Στ = 0 dan satu kalimat mengapa gayanya tidak sama; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid.",
+        "source_prompt": "» “Papan siap. Seorang murid menekan ujung sebuah linggis ringan ke bawah dengan gaya 200 N pada jarak 1,5 m dari titik tumpu untuk mengungkit sebuah batu yang bertumpu pada linggis 0,25 m di sisi lain titik tumpu. (a) Tulis syarat yang kamu pakai, lalu hitung berat batu terbesar yang tepat dapat terangkat. (b) Seorang murid berkata: ‘Batunya pasti 200 N saja, karena gaya tekan diteruskan sama besar.’ Nilai pernyataan itu. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 2
+      },
+      {
+        "id": "G15",
+        "title": "Rancangan, tegangan dan batas model",
+        "process": "Membedakan faktor relevan dan mengorganisasi model struktur",
+        "prompt": "Sebuah lampu 200 N digantung di ujung batang mendatar berengsel ke dinding; kabel penahan membentuk sudut 53° terhadap batang (sin 53° = 0,8; cos 53° = 0,6). Abaikan berat batang. (a) Tulis tegangan kabel dan komponen mendatar yang ditahan engsel. (b) Seorang murid berkata: ‘Tegangan kabel pasti 200 N karena kabel menahan lampu 200 N.’ Nilai pernyataan itu",
+        "seconds": 180,
+        "optional": false,
+        "rubric": {
+          "T1": "Belum membangun model yang tepat meskipun dibantu.",
+          "T2": "Sebagian model dan jawaban tepat tetapi masih membutuhkan petunjuk guru.",
+          "T3": "Memilih faktor relevan, menggambar gaya dan momen, menggunakan kedua syarat kesetimbangan dan menilai hasil sesuai batas data, mandiri.",
+          "T4": "Bukti T3 bertahan pada variasi konteks atau pertanyaan mengapa, disertai batas model yang tepat tanpa dituntun."
+        },
+        "teacher_notes": "Naskah sumber C4.6. Rubrik ringkas merupakan adaptasi platform; gunakan kriteria proses RPP dan bukti kemandirian.\n(a) Στ = 0 terhadap engsel: T sin 53° × L = 200 × L → T = 200/0,8 = 250 N; komponen mendatar T cos 53° = 250 × 0,6 = 150 N, ditahan engsel. (b) Keliru: hanya komponen tegak tegangan (T sin 53°) yang menahan lampu, sehingga T harus lebih besar dari 200 N.\n(1) T = 200 N (★ tegangan penuh dipakai tanpa diuraikan); (2) menjumlah gaya tanpa arah atau mencampur sin dan cos; (3) angka 250 N benar tetapi (b) kosong atau tanpa kata “komponen tegak”.\n≥ ambang tertangkap → cabang A 72–74′: » “Dua angka berdampingan: ‘200 N’ dan ‘250 N’. Gambar segitiga komponen: sisi mana yang menahan lampu?” Kelas menggambar komponen; pemantik di pojok papan dijawab bersama; lalu satu soal baru dihitung bersama (lampu 90 N, kabel 37° terhadap batang: T = 150 N; komponen mendatar 120 N).\n< ambang → cabang B: varian mandiri — beban 140 N, kabel 53° terhadap batang: T = 175 N; komponen mendatar 105 N; satu kalimat mengapa T lebih besar dari 140 N; nama yang tertangkap pergi ke meja tuntun.\nJangan ditayangkan kepada murid.",
+        "source_prompt": "» “Papan siap. Sebuah lampu 200 N digantung di ujung batang mendatar berengsel ke dinding; kabel penahan membentuk sudut 53° terhadap batang (sin 53° = 0,8; cos 53° = 0,6). Abaikan berat batang. (a) Tulis tegangan kabel dan komponen mendatar yang ditahan engsel. (b) Seorang murid berkata: ‘Tegangan kabel pasti 200 N karena kabel menahan lampu 200 N.’ Nilai pernyataan itu. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 3
+      }
+    ]
+  },
+  "f-mek-1-pra": {
+    "gates": [
+      {
+        "id": "G1",
+        "title": "Acuan sudut menentukan komponen",
+        "process": "Menjalankan (executing)",
+        "seconds": 120,
+        "prompt": "Sebuah gaya F = 20 N bekerja membentuk sudut 53° di atas mendatar (cos 53° = 0,6; sin 53° = 0,8). Tulis Fx dan Fy dengan satuan, plus satu kalimat: mengapa Fx memakai cos",
+        "rubric": {
+          "T1": "Belum bisa menguraikan vektor ke komponen atau belum bisa menjumlahkan dua vektor meski dibantu.",
+          "T2": "Bisa bila diberi kerangka (\"gambar segitiga komponen dulu; sisi mana sejajar sumbu-x?\") atau contoh sejenis di sampingnya.",
+          "T3": "Menguraikan vektor ke Fx = F cos θ, Fy = F sin θ dan menghitung resultan R = √(Rx²+Ry²) beserta arah, benar & tanpa dituntun pada bentuk baku.",
+          "T4": "Menjalankan penguraian & penjumlahan vektor pada bentuk yang belum dilatih persis (sudut bukan 37°/53°, tiga vektor sekaligus, satuan campur) tanpa tersendat."
+        },
+        "teacher_notes": "Sumber C1.6, paragraf 0943–0948. Harapan: Fx=12 N, Fy=16 N, sisi mendatar menempel sudut dari mendatar; cek √(12²+16²)=20 N. Alasan kosong/tanpa acuan belum memenuhi bukti. Jangan menyamakan angka benar dengan kemandirian. Ucapan 30 detik dipertahankan verbatim; alokasi digital 180 detik. Catat proses, bantuan yang diberikan, dan mode gagal secara terpisah; jangan agregasikan profil proses menjadi satu angka.",
+        "source_prompt": "» “Papan siap. Sebuah gaya F = 20 N bekerja membentuk sudut 53° di atas mendatar (cos 53° = 0,6; sin 53° = 0,8). Tulis Fx dan Fy dengan satuan, plus satu kalimat: mengapa Fx memakai cos. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 2
+      },
+      {
+        "id": "G2",
+        "title": "Resultan mempunyai besar dan arah",
+        "process": "Menjalankan (executing)",
+        "seconds": 120,
+        "prompt": "Seorang murid berjalan 6 m ke timur lalu 8 m ke utara. Temannya berkata: ‘Perpindahannya 14 m.’ Tulis besar dan arah perpindahan (tan 53° ≈ 1,33; arah dari timur), plus satu kalimat tanggapan untuk temannya",
+        "rubric": {
+          "T1": "Belum bisa menguraikan vektor ke komponen atau belum bisa menjumlahkan dua vektor meski dibantu.",
+          "T2": "Bisa bila diberi kerangka (\"gambar segitiga komponen dulu; sisi mana sejajar sumbu-x?\") atau contoh sejenis di sampingnya.",
+          "T3": "Menguraikan vektor ke Fx = F cos θ, Fy = F sin θ dan menghitung resultan R = √(Rx²+Ry²) beserta arah, benar & tanpa dituntun pada bentuk baku.",
+          "T4": "Menjalankan penguraian & penjumlahan vektor pada bentuk yang belum dilatih persis (sudut bukan 37°/53°, tiga vektor sekaligus, satuan campur) tanpa tersendat."
+        },
+        "teacher_notes": "Sumber C1.6, paragraf 0950–0955. Harapan 10 m, sekitar 53° dari timur menuju utara; 14 m adalah jarak rute, bukan besar perpindahan rute ini. Jangan menerima 10 m tanpa arah atau tanpa tanggapan. Nilai kemandirian menjalankan prosedur dan letak salahnya; 240 detik digital menggantikan alokasi ucapan 30 detik tanpa mengubah teks kutipan.",
+        "source_prompt": "» “Papan siap. Seorang murid berjalan 6 m ke timur lalu 8 m ke utara. Temannya berkata: ‘Perpindahannya 14 m.’ Tulis besar dan arah perpindahan (tan 53° ≈ 1,33; arah dari timur), plus satu kalimat tanggapan untuk temannya. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 1
+      },
+      {
+        "id": "G3",
+        "title": "Pilih sumbu menurut bidang",
+        "process": "Mengimplementasikan (implementing)",
+        "seconds": 120,
+        "prompt": "Balok berat W = 100 N diam pada bidang miring 37° (cos 37° = 0,8; sin 37° = 0,6). Tulis komponen sejajar bidang dan komponen tegak lurus bidang dengan satuan, plus satu kalimat: komponen mana yang menarik balok meluncur",
+        "rubric": {
+          "T1": "Belum menyadari penjumlahan vektor berbeda dari penjumlahan bilangan biasa.",
+          "T2": "Perlu dipancing (\"ini vektornya tegak lurus atau bersudut? sumbu mana yang sejajar bidang?\") baru memilih metode tepat.",
+          "T3": "Pada satu tugas baru (mis. menguraikan berat pada bidang miring), memilih sumbu & metode yang tepat sendiri lalu menjalankannya benar.",
+          "T4": "Pada konfigurasi yang belum dicontohkan (mis. kesetimbangan tiga gaya, bidang miring bersudut baru), memilih & memadukan metode komponen sendiri disertai alasan pemilihan sumbu."
+        },
+        "teacher_notes": "Sumber C1.6, paragraf 0957–0962. Harapan besar komponen 60 N menuruni bidang dan 80 N menuju bidang, sumbu sejajar/normal dipilih dengan alasan. Komponen 60 N menyatakan kecenderungan gravitasi; karena balok dinyatakan diam, jangan menyebutnya gaya neto atau memastikan balok benar-benar meluncur. Gaya penahan/gesek tidak diberikan, sehingga nilai normal tidak digeneralisasi pada setiap konfigurasi. Alokasi digital 240 detik; ucapan sumber tetap verbatim.",
+        "source_prompt": "» “Papan siap. Balok berat W = 100 N diam pada bidang miring 37° (cos 37° = 0,8; sin 37° = 0,6). Tulis komponen sejajar bidang dan komponen tegak lurus bidang dengan satuan, plus satu kalimat: komponen mana yang menarik balok meluncur. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 4
+      }
+    ]
+  },
+  "f-mek-2": {
+    "gates": [
+      {
+        "id": "G5",
+        "title": "Tolak panah yang tidak mempunyai pemberi",
+        "process": "Membedakan (differentiating)",
+        "seconds": 120,
+        "prompt": "Sebuah bola kasti dilempar lurus ke atas. Di titik tertinggi bola sesaat diam (abaikan hambatan udara). Tulis gaya apa saja yang bekerja pada bola saat naik, plus satu kalimat tanggapan untuk temanmu yang berkata: ‘Bola naik karena masih ada gaya ke atas dari lemparan.’",
+        "rubric": {
+          "T1": "Belum bisa membedakan gaya dari kecepatan/energi meski dibantu.",
+          "T2": "Bisa memilah bila diberi daftar kandidat gaya untuk dicoret/dipertahankan atau diagram gaya setengah jadi.",
+          "T3": "Untuk peristiwa yang sudah dibahas, menyebut hanya gaya yang benar-benar bekerja (berat, normal, gesek, tegangan, dorong) dan menolak \"gaya gerak ke depan\", mandiri.",
+          "T4": "Pada peristiwa yang belum dibahas (mis. satelit melingkar, penumpang di tikungan), memisahkan gaya nyata dari efek kelembaman/khayalan tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C2.6 1574–1579. Hanya berat dari Bumi, ke bawah setelah tangan lepas, termasuk saat v sesaat nol. a tetap g ke bawah. Pertanyaan sumber menyebut puncak tetapi meminta gaya saat naik; periksa konsistensi kedua fase tanpa menambah gaya rekaan. Alasan harus menyebut interaksi tangan sudah berakhir dan kecepatan bukan gaya. Alokasi digital 180 detik; jangan membaca 30 detik pada kutipan sebagai batas otomatis aplikasi.",
+        "source_prompt": "» “Papan siap. Sebuah bola kasti dilempar lurus ke atas. Di titik tertinggi bola sesaat diam (abaikan hambatan udara). Tulis gaya apa saja yang bekerja pada bola saat naik, plus satu kalimat tanggapan untuk temanmu yang berkata: ‘Bola naik karena masih ada gaya ke atas dari lemparan.’ Tiga puluh detik.” … » “Angkat.”",
+        "focus": 1
+      },
+      {
+        "id": "G6",
+        "title": "Kesetimbangan dan pasangan dua benda",
+        "process": "Mengorganisasi (organizing)",
+        "seconds": 120,
+        "prompt": "Sebuah lampu bermassa 2 kg tergantung diam pada seutas tali (g = 10 m/s²). (a) Tulis gaya-gaya pada lampu beserta besarnya. (b) Seorang murid berkata: ‘Berat lampu dan tegangan tali adalah pasangan aksi–reaksi.’ Benarkah? Tulis satu kalimat alasan",
+        "rubric": {
+          "T1": "Belum bisa menghubungkan gaya neto dengan keadaan gerak meski dibantu.",
+          "T2": "Bisa memetakan bila diberi kerangka diagram gaya berlabel dan rumus ΣF = m·a untuk diisi.",
+          "T3": "Menjumlah gaya dengan arah (resultan), menyimpulkan a = ΣF/m, dan mengaitkan keadaan gerak (diam/GLB bila ΣF=0; berubah bila ΣF≠0) pada peristiwa yang dibahas, mandiri.",
+          "T4": "Menyusun diagram gaya & hubungan ΣF = m·a untuk sistem baru (mis. dua balok tersambung, lift dipercepat) tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C2.6 1581–1586. Berat Bumi pada lampu 20 N ke bawah dan tegangan tali pada lampu 20 N ke atas. Keduanya seimbang pada penerima sama, bukan pasangan Hukum III. Pasangan berat: lampu pada Bumi; pasangan tegangan: lampu pada tali. Baca alasan dua penerima sebagai bukti, bukan sekadar angka 20. Catat bantuan terpisah. Alokasi digital 240 detik.",
+        "source_prompt": "» “Papan siap. Sebuah lampu bermassa 2 kg tergantung diam pada seutas tali (g = 10 m/s²). (a) Tulis gaya-gaya pada lampu beserta besarnya. (b) Seorang murid berkata: ‘Berat lampu dan tegangan tali adalah pasangan aksi–reaksi.’ Benarkah? Tulis satu kalimat alasan. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 2
+      },
+      {
+        "id": "G7",
+        "title": "Dorongan hilang, gesekan masih ada",
+        "process": "Mengorganisasi (organizing)",
+        "seconds": 120,
+        "prompt": "Sebuah peti 5 kg didorong mendatar dengan gaya 40 N ke kanan; gesekan 15 N ke kiri. (a) Tulis ΣF dan percepatan peti. (b) Dorongan dilepas, gesekan tetap 15 N; seorang murid berkata: ‘Peti langsung berhenti.’ Nilai pernyataan itu dan tulis percepatan sesudah dilepas",
+        "rubric": {
+          "T1": "Belum bisa menghubungkan gaya neto dengan keadaan gerak meski dibantu.",
+          "T2": "Bisa memetakan bila diberi kerangka diagram gaya berlabel dan rumus ΣF = m·a untuk diisi.",
+          "T3": "Menjumlah gaya dengan arah (resultan), menyimpulkan a = ΣF/m, dan mengaitkan keadaan gerak (diam/GLB bila ΣF=0; berubah bila ΣF≠0) pada peristiwa yang dibahas, mandiri.",
+          "T4": "Menyusun diagram gaya & hubungan ΣF = m·a untuk sistem baru (mis. dua balok tersambung, lift dipercepat) tanpa dituntun."
+        },
+        "teacher_notes": "Sumber C2.6 1588–1593. Dengan kanan positif: sebelum lepas ΣF=+25 N, a=+5 m/s²; sesudah lepas ΣF=−15 N, a=−3 m/s² selama peti masih meluncur ke kanan. Peti melambat bertahap. Jangan memperpanjang model gesekan kiri sampai memaksa gerak balik setelah berhenti: model kontak harus diperiksa lagi saat v=0. Alokasi digital 240 detik menggantikan alokasi ucapan sumber 30 detik.",
+        "source_prompt": "» “Papan siap. Sebuah peti 5 kg didorong mendatar dengan gaya 40 N ke kanan; gesekan 15 N ke kiri. (a) Tulis ΣF dan percepatan peti. (b) Dorongan dilepas, gesekan tetap 15 N; seorang murid berkata: ‘Peti langsung berhenti.’ Nilai pernyataan itu dan tulis percepatan sesudah dilepas. Tiga puluh detik.” … » “Angkat.”",
+        "focus": 3
+      }
+    ]
+  }
+}

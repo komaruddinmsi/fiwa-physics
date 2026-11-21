@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="id" data-fiwa-theme="dim" data-fiwa-reading="paper">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uji keterbacaan isian Teduh FIWA</title>
+<style>
+body{margin:0;padding:24px;font:16px/1.6 system-ui;color:#12333a;background:#f6fafb}
+main{max-width:760px;margin:auto}.kartu{padding:20px;margin:18px 0;background:#fff;border:1px solid #d7e6e8;border-radius:12px}
+label{display:block;margin:12px 0 4px;color:#6a7f84}input,select,textarea{box-sizing:border-box;width:100%;font:inherit;padding:10px;border:1px solid #c9dadc;border-radius:8px;background:#fff;color:#eee}
+input:disabled{opacity:.4}textarea{min-height:80px}.kepala{padding:20px;color:#fff;background:#17a2af;border-radius:12px}
+.opsi input{width:auto}.opsi label{padding:10px;border:1px solid #c9dadc;background:#fff;border-radius:8px}
+small{color:#6a7f84}
+</style>
+<link rel="stylesheet" href="../../../../../assets/tema-konten.css">
+</head>
+<body><main>
+<header class="kepala"><h1>Uji keterbacaan isian Teduh</h1><p>Data contoh untuk pemeriksaan tampilan. Halaman ini tidak menyimpan jawaban atau mengirim nilai.</p></header>
+<section class="kartu">
+<label for="normal">Jawaban biasa</label><input id="normal" value="Usaha = gaya × perpindahan">
+<label for="placeholder">Isian kosong dengan petunjuk</label><input id="placeholder" placeholder="Tulis jawabanmu di sini">
+<label for="readonly">Jawaban hanya baca</label><input id="readonly" value="24 N · hanya baca" readonly>
+<label for="disabled">Jawaban terkunci</label><input id="disabled" value="0 J · terkunci" disabled>
+<label for="date">Tanggal</label><input id="date" type="date" value="2026-11-20">
+<label for="select">Pilihan jawaban</label><select id="select"><option>Energi kinetik</option><option>Energi potensial</option></select>
+<label for="textarea">Uraian</label><textarea id="textarea">Energi berpindah melalui usaha.</textarea>
+<div class="kosong"><label for="invalid">Perlu diperbaiki</label><input id="invalid" aria-invalid="true" value="Jawaban contoh belum lengkap"></div>
+<div class="benar"><label for="correct">Sudah terisi</label><input id="correct" value="12 m"></div>
+<div class="opsi"><label><input type="checkbox" checked> Pilihan yang sudah dipilih tetap jelas.</label></div>
+<p class="bantu" style="color:#6a7f84">Petunjuk sekunder tetap terbaca pada warna redup.</p>
+</section></main></body></html>

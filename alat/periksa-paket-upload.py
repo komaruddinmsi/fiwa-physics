@@ -36,10 +36,10 @@ for p in ROOT.rglob('*.css'):
  for url in re.findall(r'url\(\s*[\'\"]?([^\)\'\"]+)',p.read_text(encoding='utf8')):
   if not url.startswith('var('):exists(url,p.parent)
 for i in range(1,5):assert (ROOT/f'aset-ebook/fundamentals-of-physics-halliday-{i}.pdf').is_file()
-assert not (ROOT/'aset-f-use').exists()
+assert (ROOT/'aset-f-use/GURU_RPP-F.USE.docx').is_file()
 assert not (ROOT/'alat/sumber').exists()
 assert (ROOT/'aset-f-mek/GURU_RPP-F.MEK.docx').is_file()
 assert all(not p.name.startswith('S') for p in ROOT.glob('konten/*/*') if p.is_dir())
-assert len(list((ROOT/'konten').rglob('*.html')))==171
+assert len(list((ROOT/'konten').rglob('*.html')))==153
 assert len(list((ROOT/'konten').rglob('*.json')))==14
-print(json.dumps({'result':'PASS','html_checked':html_count,'local_references_checked':checks,'content_html':171,'metadata':14,'halliday_parts':4},ensure_ascii=False))
+print(json.dumps({'result':'PASS','html_checked':html_count,'local_references_checked':checks,'content_html':153,'metadata':14,'halliday_parts':4},ensure_ascii=False))

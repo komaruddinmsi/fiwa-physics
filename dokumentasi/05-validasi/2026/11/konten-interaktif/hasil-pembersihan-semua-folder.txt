@@ -1,0 +1,67 @@
+build.js
+5 topik, 6 TP, 15 paket ditemukan
+
+-B -X utf8 alat/periksa-standar-konten.py
+{"tp": 6, "concepts": 24, "pages": 162, "visuals": 426, "question_occurrences": 672, "protected_questions": 210, "result": "PASS"}
+
+alat/uji-model-fisika.cjs
+{"checks":2615,"result":"PASS"}
+
+alat/uji-kelas-konten.cjs
+{"checks":8,"result":"PASS"}
+
+alat/uji-alur-p.cjs
+PASS P5 null routes to null
+PASS P5 0 routes to b
+PASS P5 59 routes to b
+PASS P5 60 routes to a
+PASS P5 79 routes to a
+PASS P5 80 routes to skip
+PASS P5 100 routes to skip
+PASS No-score P6 cannot open for students
+PASS Failed P5 cannot open P7
+PASS P5 pass opens P7 and skips P6
+PASS P6 does not forge a P5 pass; queues a recheck
+PASS Wrong completed branch is not reused after score changes
+PASS Changing the diagnosed concept requires the corresponding followup
+PASS Teacher regrade clears pending flag
+PASS Seven of ten new questions does not qualify
+PASS Eight of ten new questions qualifies
+PASS Legacy 75-percent result remains valid
+PASS P8 T2 blocks P9 despite perfect practice
+PASS P9 waits two days
+PASS New mastery requires P7, P8 and P9
+PASS Old mastery is preserved
+PASS Past review passes before a restart do not imply stable mastery
+PASS Ten public groups with P10 separate and no S10
+PASS Public labels preserve data keys in attributes
+PASS Canonical new route mapping
+PASS Manual grade of a new practice also uses the 80-percent criterion
+PASS Failed spaced review restarts with the first interval
+{"passed":27}
+
+alat/uji-konten-bersih.cjs
+{"checks":439,"result":"PASS"}
+
+-B -X utf8 alat/periksa-media.py f-mek
+  F.MEK.1-pra    audio 1  video 2  simulasi 6  bacaan 2   (sendiri: simulasi 3, bacaan 1)
+  F.MEK.2        audio 1  video 2  simulasi 6  bacaan 2   (sendiri: simulasi 3, bacaan 1)
+  F.MEK.1a       audio 1  video 2  simulasi 4  bacaan 2   (sendiri: simulasi 3, bacaan 1)
+  F.MEK.1b       audio 1  video 2  simulasi 6  bacaan 2   (sendiri: simulasi 3, bacaan 1)
+  PEMBUKA        audio 1  video 1  simulasi 1  bacaan 1   (halaman: ada)
+
+✓ lengkap: halaman pembuka ada dengan bahannya; tiap TP punya audio, video, simulasi, dan bacaan; simulasi dan bacaan ada yang milik sendiri; gerbang tetap bersih
+
+-B -X utf8 alat/periksa-media.py f-use
+  F.USE.1-pra    audio 4  video 7  simulasi 11  bacaan 5   (sendiri: simulasi 10, bacaan 5)
+  F.USE.1        audio 4  video 7  simulasi 13  bacaan 5   (sendiri: simulasi 12, bacaan 5)
+  PEMBUKA        audio 1  video 1  simulasi 1  bacaan 1   (halaman: ada)
+
+✓ lengkap: halaman pembuka ada dengan bahannya; tiap TP punya audio, video, simulasi, dan bacaan; simulasi dan bacaan ada yang milik sendiri; gerbang tetap bersih
+
+-B -X utf8 alat/periksa-paket-upload.py
+{"result": "PASS", "html_checked": 189, "local_references_checked": 873, "content_html": 171, "metadata": 14, "halliday_parts": 4}
+
+--check assets/fims-simpan.js
+
+162 keluaran materi, seluruh paket, simulasi, peta media, layanan akun dan RPP tidak berubah. Empat PDF Halliday identik setelah dipindah.

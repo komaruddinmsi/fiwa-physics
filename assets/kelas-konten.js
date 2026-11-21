@@ -1,7 +1,7 @@
 /* Interaksi materi v3, penilaian per butir, waktu rekomendasi, dan pemulihan jawaban. */
 (function () {
  'use strict';
- const config=window.FIWA_CLASS||{},stage=config.stage||'',version=3;
+ const config=window.FIWA_CLASS||{},stage=config.stage||'',version=Number(config.version||3);
  const cycle=new URL(location.href).searchParams.get('cycle')||'0',focus=Number(new URL(location.href).searchParams.get('fokus')||0);
  const focused=stage==='P6'&&(config.focusSets||[])[focus-1];
  if(focused){document.querySelector('.class-question-list').innerHTML=focused.html;document.getElementById('focus-note').textContent=focused.note;config.questions=focused.questions;}
@@ -16,7 +16,7 @@
   if(q.kind==='choice')return String(q.answer)===e.value;
   const n=numeric(e.value);return n!==null&&Math.abs(n-Number(q.answer))<=Number(q.tol||.05);
  }
- function feedback(q,ok){const box=document.querySelector('[data-feedback="'+q.id+'"]');if(box){box.hidden=false;box.classList.toggle('wrong',!ok);box.querySelector('strong').textContent=ok?'Tepat. Periksa alasan dan satuannya.':'Bagian ini perlu ditinjau kembali.';const detail=box.querySelector('p');if(detail)detail.textContent=q.explain||'Periksa model, diagram, tanda dan satuan.';}const e=answerElement(q);if(e){e.setAttribute('aria-invalid',String(!ok));e.closest('.class-question').classList.toggle('needs-review',!ok);}}
+ function feedback(q,ok){const box=document.querySelector('[data-feedback="'+q.id+'"]');if(box){box.hidden=false;box.classList.toggle('wrong',!ok);box.querySelector('strong').textContent=ok?'Tepat. Periksa alasan dan satuannya.':'Bagian ini perlu ditinjau kembali.';const detail=box.querySelector('p');if(detail){detail.textContent=q.explain||'Periksa model, diagram, tanda dan satuan.';if(Array.isArray(q.steps)&&q.steps.length===7){detail.textContent='';const list=document.createElement('ol');list.className='solution-seven-list';q.steps.forEach(step=>{const li=document.createElement('li'),at=step.indexOf(':'),label=document.createElement('strong');label.textContent=at>=0?step.slice(0,at+1):'';li.append(label,document.createTextNode(' '+(at>=0?step.slice(at+1):step)));list.appendChild(li);});detail.appendChild(list);}}}const e=answerElement(q);if(e){e.setAttribute('aria-invalid',String(!ok));e.closest('.class-question').classList.toggle('needs-review',!ok);}}
  function focusQuestion(q){const e=answerElement(q),visible=e&&e.type==='hidden'?document.querySelector('[data-choice-for="'+q.id+'"]'):e;if(visible)visible.focus();}
  function lock(){if(!finish)return;finish.disabled=true;questions.forEach(q=>{const e=answerElement(q);if(e)e.disabled=true;document.querySelectorAll('[data-choice-for="'+q.id+'"]').forEach(r=>r.disabled=true);});}
  function readAnswers(){return Object.fromEntries(questions.map(q=>[q.id,answerElement(q).value]));}
@@ -81,3 +81,5 @@
  });
  window.addEventListener('pagehide',()=>{if(timer)clearInterval(timer);});
 })();
+
+document.querySelectorAll('.hook-option').forEach(button=>button.addEventListener('click',()=>{button.closest('.hook-try').querySelectorAll('.hook-option').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));}));

@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-20",
+  "environment": "pratinjau lokal dengan data uji, bukan produksi",
+  "checks": [
+    {
+      "document": "F.USE S7",
+      "checked": 371,
+      "failures": [],
+      "min": 5.08
+    },
+    {
+      "document": "F.MEK S7",
+      "checked": 150,
+      "failures": [],
+      "min": 5.5
+    },
+    {
+      "document": "F.USE S13",
+      "checked": 123,
+      "failures": [],
+      "min": 5.09
+    },
+    {
+      "document": "PRI SMP penyisihan",
+      "checked": 32,
+      "failures": [],
+      "min": 5.5
+    },
+    {
+      "document": "F.USE S11",
+      "checked": 273,
+      "failures": [],
+      "min": 5.09
+    },
+    {
+      "document": "PRI SMP saat pengerjaan",
+      "checked": 580,
+      "failures": [],
+      "min": 5.5
+    },
+    {
+      "document": "PRI SMP opsi terpilih setelah koreksi",
+      "checked": 580,
+      "failures": [],
+      "min": 5.5
+    },
+    {
+      "document": "PRI SMP ditandai ragu",
+      "checked": 580,
+      "failures": [],
+      "min": 5.48
+    },
+    {
+      "document": "PRI SMP hasil dan lembar terkunci",
+      "checked": 1309,
+      "failures": [],
+      "min": 5.09
+    },
+    {
+      "document": "Kontrol normal, readonly, disabled, placeholder dan invalid",
+      "checked": 22,
+      "failures": [],
+      "min": 5.5
+    },
+    {
+      "document": "F.USE S7 final",
+      "checked": 371,
+      "failures": [],
+      "min": 5.08
+    },
+    {
+      "document": "F.MEK S7 final",
+      "checked": 150,
+      "failures": [],
+      "min": 5.5
+    },
+    {
+      "document": "F.USE S13 final",
+      "checked": 123,
+      "failures": [],
+      "min": 5.09
+    },
+    {
+      "document": "F.USE S11 final",
+      "checked": 273,
+      "failures": [],
+      "min": 5.09
+    }
+  ],
+  "placeholder": {
+    "ratio": 4.99
+  },
+  "themeToggle": {
+    "light": {
+      "color": "rgb(0, 0, 0)",
+      "theme": "light",
+      "value": "Uji keterbacaan"
+    },
+    "dim": {
+      "background": "rgb(240, 243, 246)",
+      "color": "rgb(36, 54, 75)",
+      "fill": "",
+      "theme": "dim",
+      "value": "Uji keterbacaan"
+    }
+  }
+}

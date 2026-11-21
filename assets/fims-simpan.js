@@ -9,7 +9,7 @@
 
    Cara memasang pada dokumen:
      <script src="../../../assets/fims-simpan.js"></script>       (di akhir <body>; sesuaikan jalurnya)
-   Dokumen yang memuat fims-shim.js sudah otomatis. Dokumen yang tampil di dalam situs (bingkai) dipasangi
+   Dokumen yang tampil di dalam situs (bingkai) dipasangi
    otomatis oleh halaman induk, jadi dokumen baru pun tetap tersimpan walau lupa menambahkan tag di atas.
 
    Syarat satu-satunya: tiap kotak isian punya id atau name yang tetap. Kotak tanpa keduanya tetap disimpan
