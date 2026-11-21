@@ -1,47 +1,55 @@
-# Fisika FIWA — `fiwa-physics.pages.dev`
+# Physics FIWA
 
-Situs alur belajar tuntas Fisika, Fitrah Islamic World Academy.
-Mesin alurnya CMS FIMS: 18 tahapan per TP (S1–S14) ditambah empat lapis topik (L1–L4).
+Situs pembelajaran tuntas fisika untuk Fitrah Islamic World Academy. Alur siswa memakai P1–P10, dengan L1–L4 sebagai kegiatan lintas-TP. Physics TKA saat ini mencakup F.MEK (empat TP) dan F.USE (dua TP).
 
-## Isi
+## Sebelum mengubah materi
 
-| Jalur | Isi |
-|---|---|
-| `index.html` · `assets/` | kerangka situs dan mesin alur |
-| `konten/f-use/` | unit **F.USE · Usaha & Energi** — dua TP, 16 tahapan masing-masing, 4 lapis topik |
-| `aset-f-use/` | PDF modul, lembar bekal, dek kelas, serta latihan TKA dan CBT |
-| `katalog.json` | daftar unit, **dihasilkan `build.js`** |
-| `build.js` | memindai `konten/` lalu menulis `katalog.json` |
+Baca [AGENTS.md](AGENTS.md), [STANDAR-KONTEN-FISIKA.md](STANDAR-KONTEN-FISIKA.md), dan [PANDUAN-TOPIK-BARU.md](PANDUAN-TOPIK-BARU.md). Aturan berlaku untuk seluruh materi sekarang dan topik baru, termasuk jika dikerjakan AI lain. Setiap konsep esensial memerlukan visual interaktif, penjelasan model, contoh bertahap, miskonsepsi dan checkpoint.
 
-## Menambah unit baru
+## Berkas utama
 
-1. Buat `konten/<topik>/<tp>/<TAHAPAN>/index.html`, tahapan `S1`–`S14`.
-   Lapis topik di `konten/<topik>/L1`–`L4`.
-2. Beri `konten/<topik>/topik.json` dan `konten/<topik>/<tp>/tp.json`.
-3. Jalankan `node build.js`, atau biarkan Cloudflare menjalankannya saat terbit.
+| Lokasi | Fungsi |
+| --- | --- |
+| `index.html`, `assets/app.js` | Kerangka, panel kiri dan progres. |
+| `assets/kelas-visual.js` | Tiga belas model fisika, SVG, kontrol dan batang energi. |
+| `assets/kelas-konten.js`, `kelas-konten.css` | Materi interaktif, penilaian, waktu dan pemulihan isian. |
+| `alat/bank/lesson_*.py` | Sumber isi enam TP dan bank soal. |
+| `alat/konten_interaktif.py` | Membuat halaman P, bacaan, pembuka topik dan L1–L4. |
+| `konten/<topik>/<tp>/P*` | Halaman aktif edisi 4. |
+| `media-<topik>/media.json` | Video, narasi, simulasi dan bacaan pendukung. |
+| `functions/` | Layanan akun, isian, progres dan penilaian guru. |
+| `dokumentasi/` | Inventaris, keputusan, riwayat, validasi dan panduan unggah. |
 
-Setiap subfolder di dalam topik yang bukan `L1`–`L4` dibaca sebagai TP. Berkas
-bersama seperti PDF karena itu diletakkan **di luar** `konten/`.
+## Membangun dan memeriksa
 
-## Halaman tahapan melapor ke mesin
+Jalankan dari akar proyek, menggunakan Python 3 dan Node 24+ (pengujian server memakai SQLite sementara di memori):
 
-```js
-parent.postMessage({fims:'skor', skor:85}, '*')   // berskor
-parent.postMessage({fims:'selesai'}, '*')          // tanpa skor
+```text
+node build.js
+python alat/konten_interaktif.py
+node build.js
+python alat/periksa-standar-konten.py
+node alat/uji-model-fisika.cjs
+node alat/uji-animasi.cjs
+node alat/uji-gating-unit.cjs
+node alat/uji-kelas-konten.cjs
+node alat/uji-alur-p.cjs
+node alat/uji-konten-bersih.cjs
+python alat/periksa-paket-upload.py
 ```
 
-Tanpa laporan itu status tidak pernah naik. Progres murid tersimpan di
-`localStorage` perangkat masing-masing, kunci `va-fims-v1`.
+`alat/alur_p.py` tetap tersedia sebagai pintu masuk kompatibel ke generator edisi 4. HTML S dan L lama yang sudah digantikan telah dikeluarkan dari konten. Tautan lama dialihkan ke halaman aktif melalui functions/_middleware.js. Kunci S pada progres/API tetap dipakai. Jangan menghapus progres lama atau mengembalikan S10 sebagai tahap wajib.
 
-## Identitas
+## Penilaian dan penyimpanan
 
-Lambang di `assets/logo.svg`, `logo-dark.svg`, dan `logo-mark.svg` adalah lambang
-sementara. Ganti ketiganya dengan lambang resmi sekolah bila sudah ada; ukuran
-dan nama berkasnya biarkan sama. Warna situs diatur pada `:root` di
-`assets/app.css`.
+Isian disimpan per akun melalui layanan lembar. Progres lokal memakai kunci `va-fims-v1` dan diselaraskan ke akun. P5 memuat tiga gerbang inti RPP per TP, muncul satu per satu. Guru pembimbing memberi respon T1–T4 di Papan Guru; T3/T4 membuka soal selanjutnya. Nilai dan urutan dimiliki server. Latihan Unit Test dan Unit Test masing-masing 25 nomor per topik; seluruh latihan harus dikirim sebelum Unit Test dapat diambil dari server. P7 tepat sepuluh soal. P9 memiliki empat bentuk dan memakai jeda serta syarat P8. P10 memakai tiga sesi berjarak. Bentuk yang berputar bukan bank soal tanpa batas.
 
-## Yang tidak boleh masuk ke sini
+Pemeriksaan jawaban P9 di peramban menyimpan hash, tetapi pembatasan alur dan hash bukan pengamanan ujian berisiko tinggi. Sumber generator berisi kunci dan rumus; repositori publik tidak dapat dijadikan tempat rahasia guru. Data pribadi, kredensial dan kunci rahasia ujian tidak boleh ditambahkan ke repositori.
 
-Cloudflare Pages menyajikan seluruh berkas repo kepada siapa pun yang menebak
-alamatnya. Kunci jawaban, rubrik, dan log tinjauan **tidak pernah** diletakkan di
-repo ini; semuanya disimpan di komputer sekolah.
+## Pembaruan lokal
+
+Simpan setiap hasil langsung di kategori proyek yang sesuai. Catatan terbaru dan daftar jalur unggah tersedia di `dokumentasi/06-operasional/2026/11/`. Penyimpanan lokal tidak berarti commit, push atau penerbitan. Versi 21 November 2026 ini belum diterbitkan.
+
+Untuk unggah ulang lengkap per folder, gunakan panduan dokumentasi/06-operasional/2026/11/2026-11-21-BERKAS-UPDATE-GITHUB.md dan MANIFEST-UPLOAD-PER-FOLDER.csv. PDF Halliday berada di aset-ebook/, RPP sumber berada di aset-f-mek/ dan aset-f-use/, dan bahan versi lama yang tidak dirujuk sudah dikeluarkan.
+
+Standar terbaru dan asal adaptasi: `STANDAR-KONTEN-FISIKA.md` dan `dokumentasi/07-konten-media/SUMBER-DAN-ADAPTASI-V4.json`. Bank Unit Test versi 4 mengubah konteks/redaksi pasangan dengan data numerik tetap. Pembahasan CBT lama tidak disalin ketika datanya berbeda.

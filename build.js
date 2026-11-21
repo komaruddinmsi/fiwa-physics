@@ -27,10 +27,10 @@ function cariTahapan(dir, daftar) {
     if (!nama) continue;
     const p = path.join(dir, nama);
     const f = isDir(p) ? path.join(p, 'index.html') : p;
-    if (!fs.existsSync(f)) continue;
     const interaktif=path.join(dir,nama,'interaktif.html');
     const aktif=fs.existsSync(interaktif)?interaktif:f;
-    hasil[id] = { berkas: aktif.split(path.sep).join('/'), judul: judulDari(aktif),...(aktif===interaktif?{versi:3}:{}) };
+    if (!fs.existsSync(aktif)) continue;
+    hasil[id] = { berkas: aktif.split(path.sep).join('/'), judul: judulDari(aktif),...(aktif===interaktif?{versi:4}:{}) };
     // Konten kedua untuk satu tahapan: <ID>/latihan.html (dipakai L3: latihan unit test)
     if (isDir(p)) {
       const baruLat=path.join(p,'latihan-interaktif.html');
@@ -100,10 +100,10 @@ if (isDir(ROOT)) {
       const tahapan = cariTahapan(dirP, TAHAPAN_TP);
       for (const [lama,baru] of [['S1','P1'],['S2','P2'],['S2b','P2a'],['S2c','P2b'],['S3','P3'],['S4','P4'],['S5','P4/diskusi.html'],['S6','P4/contoh.html'],['S7','P4/praktik.html'],['S8','P5'],['S9','P6a'],['S11','P7'],['S12','P8'],['S13','P9/form-1.html']]) {
         const f=path.join(dirP,...(baru.endsWith('.html')?[baru]:[baru,'index.html']));
-        if(fs.existsSync(f)) tahapan[lama]={berkas:f.split(path.sep).join('/'),judul:judulDari(f),versi:3};
+        if(fs.existsSync(f)) tahapan[lama]={berkas:f.split(path.sep).join('/'),judul:judulDari(f),versi:4};
       }
       const review=path.join(dirP,'P10','sesi-1.html');
-      if(fs.existsSync(review))tahapan.S14={berkas:review.split(path.sep).join('/'),judul:'Ulangi Materi',versi:3};
+      if(fs.existsSync(review))tahapan.S14={berkas:review.split(path.sep).join('/'),judul:'Ulangi Materi',versi:4};
       daftarTP.push({
         slug: slug(p),
         kode: metaP.kode || p,

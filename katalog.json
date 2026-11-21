@@ -1,5 +1,5 @@
 {
-  "dibuat": "2026-11-20T22:42:29.547Z",
+  "dibuat": "2026-11-21T07:31:04.279Z",
   "topik": [
     {
       "slug": "pri-uin-smp",
@@ -116,17 +116,17 @@
         "L1": {
           "berkas": "konten/f-use/L1/interaktif.html",
           "judul": "Penilaian Lintas-TP · F.USE",
-          "versi": 3
+          "versi": 4
         },
         "L2": {
           "berkas": "konten/f-use/L2/interaktif.html",
           "judul": "Penyelidikan Lintas-TP · F.USE",
-          "versi": 3
+          "versi": 4
         },
         "L3": {
           "berkas": "konten/f-use/L3/interaktif.html",
-          "judul": "Penilaian Lintas-TP · F.USE",
-          "versi": 3,
+          "judul": "Unit Test · F.USE",
+          "versi": 4,
           "latihan": {
             "berkas": "konten/f-use/L3/latihan-interaktif.html",
             "judul": "Latihan Unit Test · F.USE"
@@ -135,7 +135,7 @@
         "L4": {
           "berkas": "konten/f-use/L4/interaktif.html",
           "judul": "Penyelidikan Lintas-TP · F.USE",
-          "versi": 3
+          "versi": 4
         }
       },
       "tp": [
@@ -152,77 +152,77 @@
             "S1": {
               "berkas": "konten/f-use/f-use-1-pra/P1/index.html",
               "judul": "Pembuka dan Tujuan · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S2": {
               "berkas": "konten/f-use/f-use-1-pra/P2/index.html",
               "judul": "Cek Prasyarat · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S2b": {
               "berkas": "konten/f-use/f-use-1-pra/P2a/index.html",
               "judul": "Penguatan Prasyarat · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S2c": {
               "berkas": "konten/f-use/f-use-1-pra/P2b/index.html",
               "judul": "Belajar Terbimbing Prasyarat · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S3": {
               "berkas": "konten/f-use/f-use-1-pra/P3/index.html",
               "judul": "Prediksi Awal · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S4": {
               "berkas": "konten/f-use/f-use-1-pra/P4/index.html",
               "judul": "Konsep dan Praktik · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S5": {
               "berkas": "konten/f-use/f-use-1-pra/P4/diskusi.html",
               "judul": "Diskusi Prediksi · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S6": {
               "berkas": "konten/f-use/f-use-1-pra/P4/contoh.html",
               "judul": "Contoh Terbimbing · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S7": {
               "berkas": "konten/f-use/f-use-1-pra/P4/praktik.html",
               "judul": "Praktik dan Penyelidikan · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S8": {
               "berkas": "konten/f-use/f-use-1-pra/P5/index.html",
-              "judul": "Cek Pemahaman · F.USE.1-pra",
-              "versi": 3
+              "judul": "Cek Pemahaman · Gating TP · F.USE.1-pra",
+              "versi": 4
             },
             "S9": {
               "berkas": "konten/f-use/f-use-1-pra/P6a/index.html",
               "judul": "Tindak Lanjut · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S11": {
               "berkas": "konten/f-use/f-use-1-pra/P7/index.html",
               "judul": "Latihan Persiapan · 10 soal · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S12": {
               "berkas": "konten/f-use/f-use-1-pra/P8/index.html",
               "judul": "Tugas Penerapan · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S13": {
               "berkas": "konten/f-use/f-use-1-pra/P9/form-1.html",
               "judul": "Uji Ketuntasan TP · F.USE.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S14": {
               "berkas": "konten/f-use/f-use-1-pra/P10/sesi-1.html",
               "judul": "Ulangi Materi",
-              "versi": 3
+              "versi": 4
             }
           }
         },
@@ -241,77 +241,77 @@
             "S1": {
               "berkas": "konten/f-use/f-use-1/P1/index.html",
               "judul": "Pembuka dan Tujuan · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S2": {
               "berkas": "konten/f-use/f-use-1/P2/index.html",
               "judul": "Cek Prasyarat · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S2b": {
               "berkas": "konten/f-use/f-use-1/P2a/index.html",
               "judul": "Penguatan Prasyarat · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S2c": {
               "berkas": "konten/f-use/f-use-1/P2b/index.html",
               "judul": "Belajar Terbimbing Prasyarat · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S3": {
               "berkas": "konten/f-use/f-use-1/P3/index.html",
               "judul": "Prediksi Awal · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S4": {
               "berkas": "konten/f-use/f-use-1/P4/index.html",
               "judul": "Konsep dan Praktik · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S5": {
               "berkas": "konten/f-use/f-use-1/P4/diskusi.html",
               "judul": "Diskusi Prediksi · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S6": {
               "berkas": "konten/f-use/f-use-1/P4/contoh.html",
               "judul": "Contoh Terbimbing · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S7": {
               "berkas": "konten/f-use/f-use-1/P4/praktik.html",
               "judul": "Praktik dan Penyelidikan · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S8": {
               "berkas": "konten/f-use/f-use-1/P5/index.html",
-              "judul": "Cek Pemahaman · F.USE.1",
-              "versi": 3
+              "judul": "Cek Pemahaman · Gating TP · F.USE.1",
+              "versi": 4
             },
             "S9": {
               "berkas": "konten/f-use/f-use-1/P6a/index.html",
               "judul": "Tindak Lanjut · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S11": {
               "berkas": "konten/f-use/f-use-1/P7/index.html",
               "judul": "Latihan Persiapan · 10 soal · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S12": {
               "berkas": "konten/f-use/f-use-1/P8/index.html",
               "judul": "Tugas Penerapan · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S13": {
               "berkas": "konten/f-use/f-use-1/P9/form-1.html",
               "judul": "Uji Ketuntasan TP · F.USE.1",
-              "versi": 3
+              "versi": 4
             },
             "S14": {
               "berkas": "konten/f-use/f-use-1/P10/sesi-1.html",
               "judul": "Ulangi Materi",
-              "versi": 3
+              "versi": 4
             }
           }
         }
@@ -492,17 +492,17 @@
         "L1": {
           "berkas": "konten/f-mek/L1/interaktif.html",
           "judul": "Penilaian Lintas-TP · F.MEK",
-          "versi": 3
+          "versi": 4
         },
         "L2": {
           "berkas": "konten/f-mek/L2/interaktif.html",
           "judul": "Penyelidikan Lintas-TP · F.MEK",
-          "versi": 3
+          "versi": 4
         },
         "L3": {
           "berkas": "konten/f-mek/L3/interaktif.html",
-          "judul": "Penilaian Lintas-TP · F.MEK",
-          "versi": 3,
+          "judul": "Unit Test · F.MEK",
+          "versi": 4,
           "latihan": {
             "berkas": "konten/f-mek/L3/latihan-interaktif.html",
             "judul": "Latihan Unit Test · F.MEK"
@@ -511,7 +511,7 @@
         "L4": {
           "berkas": "konten/f-mek/L4/interaktif.html",
           "judul": "Penyelidikan Lintas-TP · F.MEK",
-          "versi": 3
+          "versi": 4
         }
       },
       "tp": [
@@ -528,77 +528,77 @@
             "S1": {
               "berkas": "konten/f-mek/f-mek-1-pra/P1/index.html",
               "judul": "Pembuka dan Tujuan · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-1-pra/P2/index.html",
               "judul": "Cek Prasyarat · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S2b": {
               "berkas": "konten/f-mek/f-mek-1-pra/P2a/index.html",
               "judul": "Penguatan Prasyarat · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S2c": {
               "berkas": "konten/f-mek/f-mek-1-pra/P2b/index.html",
               "judul": "Belajar Terbimbing Prasyarat · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S3": {
               "berkas": "konten/f-mek/f-mek-1-pra/P3/index.html",
               "judul": "Prediksi Awal · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S4": {
               "berkas": "konten/f-mek/f-mek-1-pra/P4/index.html",
               "judul": "Konsep dan Praktik · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S5": {
               "berkas": "konten/f-mek/f-mek-1-pra/P4/diskusi.html",
               "judul": "Diskusi Prediksi · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S6": {
               "berkas": "konten/f-mek/f-mek-1-pra/P4/contoh.html",
               "judul": "Contoh Terbimbing · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S7": {
               "berkas": "konten/f-mek/f-mek-1-pra/P4/praktik.html",
               "judul": "Praktik dan Penyelidikan · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S8": {
               "berkas": "konten/f-mek/f-mek-1-pra/P5/index.html",
-              "judul": "Cek Pemahaman · F.MEK.1-pra",
-              "versi": 3
+              "judul": "Cek Pemahaman · Gating TP · F.MEK.1-pra",
+              "versi": 4
             },
             "S9": {
               "berkas": "konten/f-mek/f-mek-1-pra/P6a/index.html",
               "judul": "Tindak Lanjut · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S11": {
               "berkas": "konten/f-mek/f-mek-1-pra/P7/index.html",
               "judul": "Latihan Persiapan · 10 soal · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S12": {
               "berkas": "konten/f-mek/f-mek-1-pra/P8/index.html",
               "judul": "Tugas Penerapan · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S13": {
               "berkas": "konten/f-mek/f-mek-1-pra/P9/form-1.html",
               "judul": "Uji Ketuntasan TP · F.MEK.1-pra",
-              "versi": 3
+              "versi": 4
             },
             "S14": {
               "berkas": "konten/f-mek/f-mek-1-pra/P10/sesi-1.html",
               "judul": "Ulangi Materi",
-              "versi": 3
+              "versi": 4
             }
           }
         },
@@ -617,77 +617,77 @@
             "S1": {
               "berkas": "konten/f-mek/f-mek-2/P1/index.html",
               "judul": "Pembuka dan Tujuan · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-2/P2/index.html",
               "judul": "Cek Prasyarat · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S2b": {
               "berkas": "konten/f-mek/f-mek-2/P2a/index.html",
               "judul": "Penguatan Prasyarat · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S2c": {
               "berkas": "konten/f-mek/f-mek-2/P2b/index.html",
               "judul": "Belajar Terbimbing Prasyarat · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S3": {
               "berkas": "konten/f-mek/f-mek-2/P3/index.html",
               "judul": "Prediksi Awal · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S4": {
               "berkas": "konten/f-mek/f-mek-2/P4/index.html",
               "judul": "Konsep dan Praktik · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S5": {
               "berkas": "konten/f-mek/f-mek-2/P4/diskusi.html",
               "judul": "Diskusi Prediksi · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S6": {
               "berkas": "konten/f-mek/f-mek-2/P4/contoh.html",
               "judul": "Contoh Terbimbing · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S7": {
               "berkas": "konten/f-mek/f-mek-2/P4/praktik.html",
               "judul": "Praktik dan Penyelidikan · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S8": {
               "berkas": "konten/f-mek/f-mek-2/P5/index.html",
-              "judul": "Cek Pemahaman · F.MEK.2",
-              "versi": 3
+              "judul": "Cek Pemahaman · Gating TP · F.MEK.2",
+              "versi": 4
             },
             "S9": {
               "berkas": "konten/f-mek/f-mek-2/P6a/index.html",
               "judul": "Tindak Lanjut · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S11": {
               "berkas": "konten/f-mek/f-mek-2/P7/index.html",
               "judul": "Latihan Persiapan · 10 soal · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S12": {
               "berkas": "konten/f-mek/f-mek-2/P8/index.html",
               "judul": "Tugas Penerapan · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S13": {
               "berkas": "konten/f-mek/f-mek-2/P9/form-1.html",
               "judul": "Uji Ketuntasan TP · F.MEK.2",
-              "versi": 3
+              "versi": 4
             },
             "S14": {
               "berkas": "konten/f-mek/f-mek-2/P10/sesi-1.html",
               "judul": "Ulangi Materi",
-              "versi": 3
+              "versi": 4
             }
           }
         },
@@ -706,77 +706,77 @@
             "S1": {
               "berkas": "konten/f-mek/f-mek-1a/P1/index.html",
               "judul": "Pembuka dan Tujuan · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-1a/P2/index.html",
               "judul": "Cek Prasyarat · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S2b": {
               "berkas": "konten/f-mek/f-mek-1a/P2a/index.html",
               "judul": "Penguatan Prasyarat · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S2c": {
               "berkas": "konten/f-mek/f-mek-1a/P2b/index.html",
               "judul": "Belajar Terbimbing Prasyarat · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S3": {
               "berkas": "konten/f-mek/f-mek-1a/P3/index.html",
               "judul": "Prediksi Awal · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S4": {
               "berkas": "konten/f-mek/f-mek-1a/P4/index.html",
               "judul": "Konsep dan Praktik · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S5": {
               "berkas": "konten/f-mek/f-mek-1a/P4/diskusi.html",
               "judul": "Diskusi Prediksi · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S6": {
               "berkas": "konten/f-mek/f-mek-1a/P4/contoh.html",
               "judul": "Contoh Terbimbing · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S7": {
               "berkas": "konten/f-mek/f-mek-1a/P4/praktik.html",
               "judul": "Praktik dan Penyelidikan · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S8": {
               "berkas": "konten/f-mek/f-mek-1a/P5/index.html",
-              "judul": "Cek Pemahaman · F.MEK.1a",
-              "versi": 3
+              "judul": "Cek Pemahaman · Gating TP · F.MEK.1a",
+              "versi": 4
             },
             "S9": {
               "berkas": "konten/f-mek/f-mek-1a/P6a/index.html",
               "judul": "Tindak Lanjut · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S11": {
               "berkas": "konten/f-mek/f-mek-1a/P7/index.html",
               "judul": "Latihan Persiapan · 10 soal · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S12": {
               "berkas": "konten/f-mek/f-mek-1a/P8/index.html",
               "judul": "Tugas Penerapan · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S13": {
               "berkas": "konten/f-mek/f-mek-1a/P9/form-1.html",
               "judul": "Uji Ketuntasan TP · F.MEK.1a",
-              "versi": 3
+              "versi": 4
             },
             "S14": {
               "berkas": "konten/f-mek/f-mek-1a/P10/sesi-1.html",
               "judul": "Ulangi Materi",
-              "versi": 3
+              "versi": 4
             }
           }
         },
@@ -795,77 +795,77 @@
             "S1": {
               "berkas": "konten/f-mek/f-mek-1b/P1/index.html",
               "judul": "Pembuka dan Tujuan · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S2": {
               "berkas": "konten/f-mek/f-mek-1b/P2/index.html",
               "judul": "Cek Prasyarat · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S2b": {
               "berkas": "konten/f-mek/f-mek-1b/P2a/index.html",
               "judul": "Penguatan Prasyarat · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S2c": {
               "berkas": "konten/f-mek/f-mek-1b/P2b/index.html",
               "judul": "Belajar Terbimbing Prasyarat · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S3": {
               "berkas": "konten/f-mek/f-mek-1b/P3/index.html",
               "judul": "Prediksi Awal · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S4": {
               "berkas": "konten/f-mek/f-mek-1b/P4/index.html",
               "judul": "Konsep dan Praktik · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S5": {
               "berkas": "konten/f-mek/f-mek-1b/P4/diskusi.html",
               "judul": "Diskusi Prediksi · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S6": {
               "berkas": "konten/f-mek/f-mek-1b/P4/contoh.html",
               "judul": "Contoh Terbimbing · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S7": {
               "berkas": "konten/f-mek/f-mek-1b/P4/praktik.html",
               "judul": "Praktik dan Penyelidikan · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S8": {
               "berkas": "konten/f-mek/f-mek-1b/P5/index.html",
-              "judul": "Cek Pemahaman · F.MEK.1b",
-              "versi": 3
+              "judul": "Cek Pemahaman · Gating TP · F.MEK.1b",
+              "versi": 4
             },
             "S9": {
               "berkas": "konten/f-mek/f-mek-1b/P6a/index.html",
               "judul": "Tindak Lanjut · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S11": {
               "berkas": "konten/f-mek/f-mek-1b/P7/index.html",
               "judul": "Latihan Persiapan · 10 soal · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S12": {
               "berkas": "konten/f-mek/f-mek-1b/P8/index.html",
               "judul": "Tugas Penerapan · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S13": {
               "berkas": "konten/f-mek/f-mek-1b/P9/form-1.html",
               "judul": "Uji Ketuntasan TP · F.MEK.1b",
-              "versi": 3
+              "versi": 4
             },
             "S14": {
               "berkas": "konten/f-mek/f-mek-1b/P10/sesi-1.html",
               "judul": "Ulangi Materi",
-              "versi": 3
+              "versi": 4
             }
           }
         }
