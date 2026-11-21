@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Ke mana energi baterai motor listrik pergi?</h1>
-<p class="sub">Mulai 2027 ojol dan kurir diarahkan beralih ke motor listrik. Baterainya menyimpan energi dalam
+<p class="sub">Dalam model motor listrik ini, baterai menyimpan energi dalam
 jumlah tertentu — sekali habis, motor berhenti. Naikkan tanjakan, tambah beban, lalu lihat berapa persen
 baterai terpakai dan berapa yang kembali saat menuruni jalan.</p>
 
@@ -16,8 +16,8 @@ baterai terpakai dan berapa yang kembali saat menuruni jalan.</p>
   <div class="kotak">
     <canvas id="kanvas" width="760" height="300" aria-label="Animasi motor listrik menanjak dan menurun"></canvas>
     <div class="tombol" style="margin-top:12px">
-      <button type="button" id="jalan">Jalankan</button>
-      <button type="button" class="ghost" id="ulang">Ulangi</button>
+      <button type="button" id="jalan">Play</button><button id="jeda" class="ghost">Pause</button><button id="stop" class="ghost">Stop</button>
+      <button type="button" class="ghost" id="ulang">Reset</button>
       <label class="sakelar"><input type="checkbox" id="regen" checked> Pengereman regeneratif menyala</label>
     </div>
   </div>
@@ -150,7 +150,7 @@ baterai terpakai dan berapa yang kembali saat menuruni jalan.</p>
   [mtot, h, bat].forEach(function(i){ i.addEventListener('input', ulangi); });
   regen.addEventListener('change', ulangi);
   el('jalan').addEventListener('click', function(){ if (fase==='selesai'||fase==='habis') ulangi(); berjalan = true; lalu = 0; });
-  el('ulang').addEventListener('click', ulangi);
+  el('jeda').addEventListener('click',()=>{berjalan=false;});el('stop').addEventListener('click',ulangi);document.addEventListener('visibilitychange',()=>{if(document.hidden)berjalan=false;});const defaults=[mtot.value,h.value,bat.value,regen.checked];el('ulang').addEventListener('click',()=>{[mtot.value,h.value,bat.value,regen.checked]=defaults;ulangi();});
   ulangi(); requestAnimationFrame(bingkai);
 })();
 </script>

@@ -15,8 +15,8 @@
   <div class="kotak">
     <canvas id="pentas" width="760" height="400" aria-label="Bandul berayun dengan batang energi"></canvas>
     <div class="tombol" style="margin-top:12px">
-      <button id="jalan">Lepaskan</button>
-      <button id="ulang" class="ghost">Kembalikan</button>
+      <button id="jalan">Play</button><button id="jeda" class="ghost">Pause</button><button id="stop" class="ghost">Stop</button>
+      <button id="ulang" class="ghost">Reset</button>
     </div>
   </div>
 
@@ -72,7 +72,7 @@
 
   function pasangAwal() {
     th = +$('sudut').value * Math.PI / 180; w = 0; lari = false; lintas = [];
-    $('jalan').textContent = 'Lepaskan';
+    $('jalan').textContent = 'Play';
   }
 
   function langkah(dt) {
@@ -184,8 +184,8 @@
   }
 
   ['sudut', 'L', 'm', 'redam'].forEach(id => $(id).addEventListener('input', pasangAwal));
-  $('jalan').addEventListener('click', () => { lari = !lari; $('jalan').textContent = lari ? 'Jeda' : 'Lanjutkan'; });
-  $('ulang').addEventListener('click', pasangAwal);
+  $('jalan').addEventListener('click', () => { lari=true; tLalu=0; }); $('jeda').addEventListener('click',()=>{lari=false;}); $('stop').addEventListener('click',pasangAwal);document.addEventListener('visibilitychange',()=>{if(document.hidden)lari=false;});
+  const defaults=Object.fromEntries(['sudut','L','m','redam'].map(id=>[id,$(id).value])); $('ulang').addEventListener('click',()=>{for(const id in defaults)$(id).value=defaults[id];pasangAwal();});
 
   pasangAwal();
   requestAnimationFrame(bingkai);

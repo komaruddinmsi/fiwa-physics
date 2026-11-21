@@ -58,7 +58,7 @@
 
 <p class="kaki">Simulasi F.USE · Fisika FIWA. Sumbu mendatar perpindahan 0–10 m, sumbu tegak gaya −60 N sampai +60 N.</p>
 
-<script>
+<div class="sel"><button id="scan-play">Play</button><button id="scan-pause">Pause</button><button id="scan-stop">Stop</button><button id="scan-reset">Reset</button><p id="scan-note" role="status">Animasi pemindaian grafik terhadap perpindahan; bukan gerak benda terhadap waktu.</p></div><script>
 (function () {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -74,7 +74,7 @@
     bolak: [40, 40, 0, -30, -30]
   };
   let F = pola.tetap.slice();
-  let seret = -1;
+  let seret = -1,scan=0,scanning=false,lastScan=0;
 
   const fmt = (x, n) => x.toFixed(n).replace('.', ',');
   const px = i => kiri + i / (N - 1) * (kanan - kiri);
@@ -154,6 +154,7 @@
     for (let i = 0; i < N; i++) i ? c.lineTo(px(i), py(F[i])) : c.moveTo(px(i), py(F[i]));
     c.stroke();
 
+    const scanX=kiri+scan*(kanan-kiri);c.strokeStyle='#ffffff';c.setLineDash([7,5]);c.beginPath();c.moveTo(scanX,atas);c.lineTo(scanX,bawah);c.stroke();c.setLineDash([]);
     // titik kendali
     for (let i = 0; i < N; i++) {
       c.fillStyle = seret === i ? '#ffffff' : '#ffc247';
@@ -204,6 +205,9 @@
   document.querySelectorAll('[data-pola]').forEach(b =>
     b.addEventListener('click', () => { F = pola[b.dataset.pola].slice(); segar(); }));
 
+  $('scan-play').onclick=()=>{if(scan>=1)scan=0;scanning=true;lastScan=0;};$('scan-pause').onclick=()=>{scanning=false;};$('scan-stop').onclick=()=>{scanning=false;scan=0;segar();$('scan-note').textContent='Pemindaian kembali ke s = 0 m; bukan gerak benda terhadap waktu.';};$('scan-reset').onclick=()=>{scanning=false;scan=0;F=pola.tetap.slice();segar();$('scan-note').textContent='Grafik dan pemindaian dikembalikan ke kondisi awal.';};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)scanning=false;});
+  function scanFrame(t){if(scanning){if(lastScan)scan=Math.min(1,scan+Math.min(.1,(t-lastScan)/1000)/6);lastScan=t;segar();$('scan-note').textContent='Pemindaian grafik pada s = '+fmt(scan*S_MAKS,2)+' m; bukan simulasi gerak terhadap waktu.';if(scan>=1)scanning=false;}requestAnimationFrame(scanFrame);}requestAnimationFrame(scanFrame);
   segar();
 })();
 </script>
