@@ -1,6 +1,6 @@
 # Standar wajib konten Physics FIWA
 
-Versi 4, 21 November 2026. Sumber aturan kanonis untuk seluruh Physics TKA yang ada dan topik berikutnya, termasuk ketika proyek diteruskan AI lain. Instruksi pengguna terbaru mengutamakan aturan ini atas rancangan versi 1–3. Catatan pada dokumentasi riwayat adalah rekaman keputusan terdahulu.
+Versi 4.2, 21 November 2026. Sumber aturan kanonis untuk seluruh Physics TKA yang ada dan topik berikutnya, termasuk ketika proyek diteruskan AI lain. Instruksi pengguna terbaru mengutamakan aturan ini atas rancangan versi 1–3. Catatan pada dokumentasi riwayat adalah rekaman keputusan terdahulu.
 
 ## Peran dan referensi
 
@@ -92,3 +92,19 @@ Simpan semua hasil langsung ke kategori asli di fiwa-physics. Aset di assets, ha
 Ikuti README untuk build, validasi fisika, animasi, kontrak gating/unit, alur P dan tautan. Uji browser dengan siswa/guru fiktif tanpa data produksi. Periksa ketepatan redaksi, angka/kunci, satuan, tujuh langkah, rangkuman, Play/Pause/Stop/Reset, T1/T2/T3/T4, penguncian Unit Test, Terang/Teduh dan layar kecil. Catat hasil aktual, batas sumber dan status penerbitan. Pemeriksaan otomatis tidak menggantikan tinjauan pendidik.
 
 Untuk topik baru, lengkapi lesson_*.py, data alignment dan provider soal, kontrak gating dari RPP, bank Unit Test berpasangan serta pendaftaran pada revisi_rpp.py. Generator harus berhenti bila data belum lengkap. Jangan mengarang isi RPP yang tidak tersedia. Bawa standar, bank, generator, sumber dan dokumentasi bersama HTML saat pindah AI. Prompt portabel ada di dokumentasi/08-template/PROMPT-PORTABEL-KONTEN-FISIKA.md.
+
+## Tambahan wajib versi 4.1: opening, pengulangan, bunyi
+
+Opening harus diuji pada dua topik dan enam TP: bandingkan geometri/posisi sebelum dan sesudah Play, bukan hanya angka waktu. Pause menahan keadaan; Stop mengembalikan waktu; Reset mengembalikan parameter. Pada koordinat layar y bertambah ke bawah: penurunan ketinggian sepanjang ruas adalah (yakhir−yawal)×skala, sehingga benda yang dilepas dari diam mendapat percepatan menuruni lintasan. Uji pelepasan dari diam, lintasan ideal/kasar, tujuan terjangkau/tidak, serta energi total. Kontrol harus terlihat di atas diagram. Konstruksi vektor bertahap tidak boleh menggunakan gaya CSS global yang mengganggu diagram lain. Nilai saat ini, gambar, keadaan setelah input/reset, dan pembesaran diagram harus konsisten.
+
+Jangan menyalin kasus, pertanyaan, pembahasan utuh atau paragraf materi yang sama persis ke tahap lain. Setiap tahap mempunyai fungsi dan kasus sendiri: konsep memberi contoh model, contoh terbimbing menggunakan kasus baru, diskusi menguji klaim, praktik menguji variabel, penguatan menargetkan kesulitan dengan kasus baru, dan penilaian lintas TP memakai tugas baru. Cabang P6a/P6b juga memakai angka/kasus berbeda. Jalur bacaan lama mengarah ke materi kanonis, bukan salinan konsep/checkpoint. Rumus, istilah fisika, tujuh judul solusi, kontrol dan petunjuk umum antarmuka boleh sama. Gunakan audit otomatis untuk kasus/pertanyaan dan blok panjang; tinjau kesamaan makna secara pedagogis. Audit exact-match bukan jaminan semua kalimat berbeda atau seluruh konsep baru.
+
+Efek bunyi mengikuti pola Chemistry 8.7 yang diberikan pengguna: click 880 Hz triangle; pilihan 420 Hz triangle; navigasi 520/780 Hz; jawaban tepat 660/990 Hz; perbaikan 300/260 Hz triangle; selesai 523/659/784 Hz. Pola tambahan untuk mulai/reset/rekam/drop tersedia di assets/suara.js. Default nonaktif, volume bisa diatur, baru berbunyi setelah tindakan pengguna, tidak menumpuk hasil dengan klik tombol penilaian, dan setiap hasil tetap terlihat. Jangan membuat bunyi otomatis ketika polling guru, membuka halaman, atau memulihkan isian.
+
+Pemuatan aplikasi memeriksa dependensi alur dan bunyi agar halaman utama lama tidak berhenti pada Memuat katalog. Tetap unggah index.html, assets, konten, sumber dan kontrak dari versi yang sama. Penanda versi pada URL aset membantu menghindari berkas lama dari cache. Tambahkan uji bootstrap halaman lama, uji gerak delapan opening, uji suara dan audit pengulangan pada pemeriksaan topik berikutnya.
+
+## Tambahan wajib versi 4.2: maskot dan ruang baca
+
+Saat akses tahap benar-benar berubah dari terkunci menjadi terbuka, tampilkan satu burung hantu kecil di sekitar panel tahapan. Sayap mengepak dan terbang bolak-balik tanpa membalik logo; kedua kaki menggenggam palang bendera berlogo asli assets/logo.png. Masa tampil maksimum 15 detik sejak awal, dapat ditutup dengan klik atau papan ketik. Beberapa akses yang terbuka bersamaan digabung dalam satu perayaan, tidak memperpanjang waktu. Jangan mengubah nilai, syarat gerbang atau progres untuk memicu maskot. Kunjungan awal, muat ulang dan navigasi biasa tidak memutar ulang perayaan. Akun guru yang meninjau mode siswa tidak mendapat perayaan. Tab tersembunyi, pergantian halaman dan keluar akun menghentikannya. Preferensi pengurangan gerak menampilkan maskot diam. Tidak menambahkan bunyi otomatis saat guru menilai lewat polling.
+
+Panel tahapan P1–P10 tetap tersedia, tetapi dapat disembunyikan sepenuhnya dengan tombol Sembunyikan tahapan dan dikembalikan dengan Tampilkan tahapan. Tombol tetap terjangkau ketika membaca. Menyembunyikan panel memperluas bacaan tanpa memuat ulang iframe, mengubah rute, menghapus isian atau mengubah status belajar. Simpan preferensi panel terpisah dari progres. Uji papan ketik, layar lebar, ponsel, Terang/Teduh, penghentian 15 detik/klik, serta tidak ada perayaan palsu. Jalankan node alat/uji-teman-belajar.cjs bersama regresi alur dan gerbang.

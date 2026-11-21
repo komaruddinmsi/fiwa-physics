@@ -31,9 +31,13 @@ node build.js
 python alat/periksa-standar-konten.py
 node alat/uji-model-fisika.cjs
 node alat/uji-animasi.cjs
+node alat/uji-suara.cjs
+node alat/uji-kasus-unik.cjs
+python alat/periksa-pengulangan.py
 node alat/uji-gating-unit.cjs
 node alat/uji-kelas-konten.cjs
 node alat/uji-alur-p.cjs
+node alat/uji-teman-belajar.cjs
 node alat/uji-konten-bersih.cjs
 python alat/periksa-paket-upload.py
 ```
@@ -53,3 +57,7 @@ Simpan setiap hasil langsung di kategori proyek yang sesuai. Catatan terbaru dan
 Untuk unggah ulang lengkap per folder, gunakan panduan dokumentasi/06-operasional/2026/11/2026-11-21-BERKAS-UPDATE-GITHUB.md dan MANIFEST-UPLOAD-PER-FOLDER.csv. PDF Halliday berada di aset-ebook/, RPP sumber berada di aset-f-mek/ dan aset-f-use/, dan bahan versi lama yang tidak dirujuk sudah dikeluarkan.
 
 Standar terbaru dan asal adaptasi: `STANDAR-KONTEN-FISIKA.md` dan `dokumentasi/07-konten-media/SUMBER-DAN-ADAPTASI-V4.json`. Bank Unit Test versi 4 mengubah konteks/redaksi pasangan dengan data numerik tetap. Pembahasan CBT lama tidak disalin ketika datanya berbeda.
+
+Versi 4.1 memperbaiki tanda lereng pada gerak energi, menempatkan kontrol sebelum diagram, memulihkan dependensi pada halaman utama lama, membedakan kegiatan antartahap dan menyesuaikan bunyi referensi Chemistry. Sumber kasus baru: alat/bank/kegiatan_unik.py. Uji kasus memerlukan Python pada PATH; FIWA_PYTHON dapat menunjuk executable Python bila diperlukan. Daftar unggah khusus: dokumentasi/06-operasional/2026/11/2026-11-21-OPENING-SUARA-BERKAS.csv.
+
+Versi 4.2 menambahkan maskot pembuka tahap dengan bendera logo asli dan tombol menyembunyikan seluruh panel tahapan. Pilihan panel tersimpan di peramban; isian aktif tetap hidup saat panel dilipat. Jalankan `node alat/uji-teman-belajar.cjs`. Gunakan daftar unggah gabungan terbaru di `dokumentasi/06-operasional/2026/11/2026-11-21-BERKAS-UPDATE-GITHUB.md`; daftar khusus 4.1 adalah riwayat dan belum mencakup fitur 4.2.
