@@ -6,15 +6,15 @@
 'use strict';
 try{
  const base=new URL('.',document.currentScript.src);
- async function requireScript(file,ready){if(ready())return;await new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=new URL(file+'?v=20261121c',base);el.onload=resolve;el.onerror=()=>reject(Error('Berkas pendukung belum lengkap: '+file));document.head.appendChild(el);});if(!ready())throw Error('Berkas pendukung tidak cocok: '+file);}
+ async function requireScript(file,ready){if(ready())return;await new Promise((resolve,reject)=>{const el=document.createElement('script');el.src=new URL(file+'?v=20261121d',base);el.onload=resolve;el.onerror=()=>reject(Error('Berkas pendukung belum lengkap: '+file));document.head.appendChild(el);});if(!ready())throw Error('Berkas pendukung tidak cocok: '+file);}
  await requireScript('alur-p.js',()=>!!window.FIWA_ALUR);
  await requireScript('alur-p-data.js',()=>!!window.FIWA_TP_HOOKS);
  await requireScript('suara.js',()=>!!window.FIWA_SOUND);
  await requireScript('teman-belajar.js',()=>!!window.FIWA_STUDY);
- for(const file of ['alur-p.css','tema.css','teman-belajar.css'])if(![...document.styleSheets].some(s=>s.href&&new URL(s.href).pathname.endsWith('/'+file))){const el=document.createElement('link');el.rel='stylesheet';el.href=new URL(file+'?v=20261121c',base);document.head.appendChild(el);}
+ for(const file of ['alur-p.css','tema.css','teman-belajar.css'])if(![...document.styleSheets].some(s=>s.href&&new URL(s.href).pathname.endsWith('/'+file))){const el=document.createElement('link');el.rel='stylesheet';el.href=new URL(file+'?v=20261121d',base);document.head.appendChild(el);}
  window.FIWA_ALUR.decorate(document);
 }catch(e){const app=document.getElementById('app');if(app){app.textContent=e.message+' — unggah assets dan index.html dari versi yang sama, lalu muat ulang.';app.setAttribute('role','alert');}return;}
-function currentFile(file){const url=new URL(file,location.href);if(url.origin===location.origin&&/\.html?$/i.test(url.pathname))url.searchParams.set('v','20261121c');return url.href;}
+function currentFile(file){const url=new URL(file,location.href);if(url.origin===location.origin&&/\.html?$/i.test(url.pathname))url.searchParams.set('v','20261121d');return url.href;}
 
 
 /* ---------- dwibahasa: teks antarmuka Indonesia (asal) dan Inggris ---------- */
@@ -525,8 +525,8 @@ const topikLepas = () => K.topik.filter(t => !jalurTopik(t));
 
 /* TP ditempuh berurutan: TP ke-n baru terbuka setelah seluruh TP sebelumnya Tuntas.
    Contoh: F.USE.1 hanya terbuka bila F.USE.1-pra sudah Tuntas. */
-function kunciTP(tp) {
-  if (guru()) return null;
+function kunciTP(tp, berdasarkanProgres = false) {
+  if (guru() && !berdasarkanProgres) return null;
   const t = topikDariTP(tp);
   if (!t || !t.tp) return null;
   const i = t.tp.findIndex(x => x.slug === tp.slug);
@@ -889,11 +889,11 @@ function bagianBawah(tp, id, h, aksi) {
     ${petunjukLanjut(tp, id)}`;
 }
 
-// Membaca kunci yang sama dengan menu. Hanya akun siswa asli; tidak memberi nilai.
+// Perayaan mengikuti kemajuan akun, termasuk guru; akses pratinjau tidak dianggap kelulusan.
 function segarkanTemanBelajar() {
-  const a=window.FIMS&&FIMS.aku, account=a&&a.peran==='siswa'&&!a.guru?a.email:null, entries=[];
+  const a=window.FIMS&&FIMS.aku, account=a&&a.email?a.email:null, entries=[];
   if(account) for(const tp of semuaTP()) {
-    if(kunciTP(tp))continue;
+    if(kunciTP(tp,true))continue;
     const p=prog(tp.slug),h={...hitungP(p,tp),e:p.ev,p,amb:tp.ambang||75};
     const stages=FIWA_ALUR.groups.map(g=>[g[2][0],g[0]])
       .concat([['S5','P4 · Diskusi'],['S6','P4 · Contoh'],['S7','P4 · Praktik']]);

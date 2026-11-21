@@ -859,7 +859,7 @@ function segarMode() {
 /* ---------- jalankan ---------- */
 function muatApp() {
   const s = document.createElement('script');
-  s.src = 'assets/app.js?v=20261121c'; s.defer = true;
+  s.src = 'assets/app.js?v=20261121d'; s.defer = true;
   document.body.appendChild(s);
 }
 
